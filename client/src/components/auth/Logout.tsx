@@ -5,7 +5,7 @@ import {MenuItem,Menu} from "@material-ui/core";
 import {useDispatch} from "react-redux";
 // import {logOutUser} from "../../action/authActions";
 
-//TODO make a gravatar instead of the icon if it is found
+
 const Logout:React.FC = () => {
     const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

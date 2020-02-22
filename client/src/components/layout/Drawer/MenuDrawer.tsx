@@ -11,12 +11,12 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import { withRouter } from "react-router-dom";
 import { useStyles } from "./style";
 import NestedMenuList from "./NestedMenuList";
+import {IMenuDrawer} from "../../../interfaces/layout/Drawer";
 
 
-const MenuDrawer: React.FC = () => {
+const MenuDrawer: React.FC <IMenuDrawer> = ({children}) => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState<boolean>(false);
@@ -75,10 +75,10 @@ const MenuDrawer: React.FC = () => {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        {/*{props.children}*/}
+        {children}
       </main>
     </div>
   );
 };
 
-export default withRouter(MenuDrawer);
+export default MenuDrawer;

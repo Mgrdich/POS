@@ -7,7 +7,6 @@ const Register: React.FC<RouteComponentProps>= (props) => {
     return (
         <>
             <h1>Register</h1>
-
         </>
     );
 };

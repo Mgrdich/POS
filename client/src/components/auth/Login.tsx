@@ -7,9 +7,6 @@ const Login: React.FC<RouteComponentProps> = (props) => {
     return (
         <>
             <h1>Login</h1>
-
-
-
         </>
     );
 };
