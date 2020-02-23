@@ -1,12 +1,8 @@
 import React from 'react';
-import {Button, ButtonProps} from "@material-ui/core";
+import {Button} from "@material-ui/core";
 import {Link} from "react-router-dom";
+import {IButtonLink} from "../../interfaces/Reusable";
 
-
-interface IButtonLink extends ButtonProps {
-    to: string;
-    children:string;
-}
 
 const ButtonLink: React.FC<IButtonLink> = (props) => {
     const {to, children,...ButtonProps} = props;

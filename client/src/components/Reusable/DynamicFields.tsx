@@ -2,14 +2,8 @@ import React from 'react';
 import {InputField} from "../../interfaces/General";
 import DropDown from "./DropDown";
 import {TextField} from "@material-ui/core";
+import {IDynamicFields} from "../../interfaces/Reusable";
 
-interface IDynamicFields {
-    InputFields: Array<InputField>
-    register: Function;
-    serverError: any;
-    errors: any;
-    control: any;
-}
 
 const DynamicFields: React.FC<IDynamicFields> = (props) => {
     const {errors, register, serverError, control} = props;

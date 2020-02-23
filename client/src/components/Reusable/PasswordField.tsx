@@ -1,16 +1,8 @@
 import React, {useState} from 'react';
 import {Visibility, VisibilityOff} from "@material-ui/icons";
 import {FormControl, FormHelperText, IconButton, InputAdornment, InputLabel, OutlinedInput} from "@material-ui/core";
+import {IPasswordField} from "../../interfaces/Reusable";
 
-interface IPasswordField {
-    id?:string
-    label: string; //TODO id ref like dropdown
-    error?: boolean;
-    name: string;
-    inputRef?: any;
-    helperText?: string | boolean;
-    labelWidth?:number; //TODO do it with offset width
-}
 
 const PasswordField: React.FC<IPasswordField> = (props) => {
     const [showPassword, changeShowPassword] = useState<boolean>(false);

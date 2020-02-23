@@ -2,18 +2,8 @@ import React from 'react';
 import {KeyboardDatePicker, MuiPickersUtilsProvider,} from '@material-ui/pickers';
 import {Controller} from "react-hook-form";
 import DateFnsUtils from '@date-io/date-fns';
+import {IDatePicker} from "../../interfaces/Reusable";
 
-interface IDatePicker {
-    format?: string;
-    id: string;
-    label: string;
-    defaultDate: Date | null;
-    control: any;
-    name: string;
-    disabled?: boolean;
-    helperText?: string;
-    error?:boolean;
-}
 
 const DatePicker: React.FC<IDatePicker> = (props) => { //TODO Replace with real date Picker
     const [selectedDate, setSelectedDate] = React.useState<Date | null>(
