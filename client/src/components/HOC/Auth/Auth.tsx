@@ -1,10 +1,8 @@
 import React from 'react';
 import {useSelector} from "react-redux";
+import {IIsAuth} from "../../../interfaces/HOC/Auth";
 
-interface IIsAuth {
-    ElementWithAuth?: React.ReactNode;
-    ElementNoAuth?: any;
-}
+
 
 //Technically not an HOC
 const Auth: React.FC<IIsAuth> = (props) => {

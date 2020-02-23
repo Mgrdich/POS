@@ -1,11 +1,9 @@
 import React from 'react';
 import {useSelector} from "react-redux";
-import {Redirect, Route, RouteComponentProps, RouteProps} from "react-router";
+import {Redirect, Route, RouteComponentProps} from "react-router";
+import {IPrivateRoute} from "../../../interfaces/HOC/Auth";
 
-interface IPrivateRoute extends RouteProps {
-    component: React.ComponentType<any>;
-    allowedRoles?: Array<string>;
-}
+
 //TODO add component props
 
 

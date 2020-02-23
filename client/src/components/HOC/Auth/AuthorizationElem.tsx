@@ -1,10 +1,8 @@
 import React from 'react';
 import {useSelector} from "react-redux";
+import {IAuthorizationElem} from "../../../interfaces/HOC/Auth";
 
-interface IAuthorizationElem {
-    allowedRoles?: Array<string>;
-    children?: React.ReactNode;
-}
+
 
 const AuthorizationElem: React.FC<IAuthorizationElem> = (props) => {
     const isAuth = useSelector<any>(state => state.auth.isAuthenticated);

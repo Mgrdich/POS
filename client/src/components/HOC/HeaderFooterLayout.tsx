@@ -1,10 +1,8 @@
 import React from 'react';
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
+import {IHeaderFooterLayout} from "../../interfaces/HOC";
 
-interface IHeaderFooterLayout {
-    children: React.ReactNode;
-}
 
 const HeaderFooterLayout: React.FC<IHeaderFooterLayout> = (props) => {
     return (

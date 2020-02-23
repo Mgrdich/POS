@@ -1,10 +1,9 @@
 import React from 'react';
-import {Redirect, Route, RouteProps} from "react-router";
+import {Redirect, Route} from "react-router";
 import {useSelector} from "react-redux";
+import {IPublicRoute} from "../../../interfaces/HOC/Auth";
 
-interface IPublicRoute extends RouteProps {
-    component: React.ComponentType<any>;
-}
+
 
 
 //Route is Accessible only when your not Authenticated Eg -> Login Page
