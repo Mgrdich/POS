@@ -1,9 +1,7 @@
 import React from 'react';
+import {IError} from "../../interfaces/Views/Errors";
 
-interface IError {
-    errorNumber: number;
-    errorText: string;
-}
+
 
 const Error: React.FC<IError> = (props) => {
     return (
