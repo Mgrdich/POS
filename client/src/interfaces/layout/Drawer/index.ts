@@ -5,5 +5,5 @@ export interface INestedMenuList {
 }
 
 export interface IMenuDrawer {
-    children?:ElementType;
+    children?:any; //TODO Change type
 }
