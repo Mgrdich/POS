@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 // import {loginUser} from "../../action/authActions";
 import {RouteComponentProps} from "react-router";
+import {errorChecker, errorText} from "../../util/views";
 
 type FormData = {
     email: string;
@@ -53,11 +54,11 @@ const Login: React.FC = (props) => {
                     label="Email"
                     variant="outlined"
                     color="primary"
-                    error={!!errors.email || "email" in serverError}
+                    error={errorChecker('email',errors,serverError)}
                     inputRef={register({
                         required: "This Field is Required"
                     })}
-                    helperText={(!!errors.email && errors.email.message) || ("email" in serverError && serverError.email) }
+                    helperText={errorText('email',errors,serverError)}
                 />
                 <PasswordField
                     label="Password"
@@ -66,8 +67,8 @@ const Login: React.FC = (props) => {
                     inputRef={register({
                         required: "This Field is Required",
                     })}
-                    error={!!errors.password}
-                    helperText={!!errors.password && errors.password.message}
+                    error={errorChecker('password',errors,serverError)}
+                    helperText={errorText('password',errors,serverError)}
                 />
                 <Button color="primary" variant="contained" size="large" className="submitBtn"
                         type="submit">Login</Button>
