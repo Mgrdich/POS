@@ -9,13 +9,13 @@ import {errorCatcher, errorFormatter, errorThrower} from "../utilities/error";
 
 
 async function register(req: Request, res: Response, next: NextFunction):Promise<any> {
-    const {email, name, password} = req.body;
     try {
         const errors:any = validationResult(req).formatWith(errorFormatter);
 
         if (!errors.isEmpty()) {
             errorThrower("Validation Failed", 422, errors.mapped());
         }
+        const {email, name, password} = req.body;
         const newUser: IDocUser = new Users({email, name, password});
 
         const salt = await bcrypt.genSalt(10);
@@ -40,7 +40,7 @@ async function login(req: Request, res: Response, next: NextFunction):Promise<an
 
         if (!isMatch) {
             return res.status(400).json({email: 'Wrong Auth'})
-        }   
+        }
         const payload: any = {
             id: user.id,
             name: user.name,
