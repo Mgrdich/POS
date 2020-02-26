@@ -8,8 +8,9 @@ import Collapse from "@material-ui/core/Collapse";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import StarBorder from "@material-ui/icons/StarBorder";
-import {drawerRoutes, IDrawerRoute, nestedRoutes} from "./config";
+import {drawerRoutes, nestedRoutes} from "./config";
 import {INestedMenuList} from "../../../interfaces/layout/Drawer";
+import {IDrawerRoute} from "../../../interfaces/layout/Drawer";
 import {useHistory} from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
