@@ -37,8 +37,8 @@ type FormData = {
 const Login: React.FC = (props) => {
     const {handleSubmit, register, errors} = useForm<FormData>();
     const [serverError, setterError] = useServerErrorHandle();
-    // const isAuth  = useSelector<any>(state => state.auth.isAuthenticated);
-    // const dispatch = useDispatch();
+    const isAuth  = useSelector<any>(state => state.auth.isAuthenticated);
+    const dispatch = useDispatch();
 
     const onSubmit = function (values: any) {
         console.log(values);

@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, TextField} from "@material-ui/core";
 import PasswordField from "../Reusable/PasswordField";
 import {useForm} from "react-hook-form";
-import axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
 import {useServerErrorHandle} from "../Hooks/useServerErrorHandle";
 import {RouteComponentProps} from "react-router";
 import {errorChecker, errorText} from "../../util/views";
@@ -14,28 +14,21 @@ type FormData = {
     current_password: string;
 }
 
-
-
-
 const Register: React.FC<RouteComponentProps>= (props) => {
     const {handleSubmit, register, errors} = useForm<FormData>();
     const [serverError, setterError] = useServerErrorHandle();
 
-
-
-
     const onSubmit = function (values: any) {
-        console.log(values);
 
-        // axios.put(`${URL}/users/register`, values)
-        //     .then(function (res) {
-        //         props.history.push('/login');
-        //     }).catch(function (e: any) {
-        //     if (!e.response.data) {
-        //         console.error("No Response is found");
-        //     }
-        //     setterError(e.response.data.data);
-        // })
+        axios.put('/users/register', values)
+            .then(function (res:AxiosResponse) {
+                props.history.push('/login');
+            }).catch(function (e: any) {
+            if (!e.response.data) {
+                console.error("No Response is found");
+            }
+            setterError(e.response.data.data);
+        })
     };
 
 
