@@ -1,7 +1,5 @@
 import React from "react";
 
-
-export
-interface IHeaderFooterLayout {
+export interface IHeaderFooterLayout {
     children: React.ReactNode;
 }

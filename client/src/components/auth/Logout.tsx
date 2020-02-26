@@ -1,9 +1,9 @@
 import React from 'react';
 import IconButton from "@material-ui/core/IconButton";
 import {AccountCircle} from "@material-ui/icons";
-import {MenuItem,Menu} from "@material-ui/core";
+import {Menu, MenuItem} from "@material-ui/core";
 import {useDispatch} from "react-redux";
-// import {logOutUser} from "../../action/authActions";
+import {logOutUser} from "../../actions/authActions";
 
 
 const Logout:React.FC = () => {
@@ -12,11 +12,11 @@ const Logout:React.FC = () => {
     const open = Boolean(anchorEl);
 
 
-    const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    const handleMenu = function (event: React.MouseEvent<HTMLElement>): void {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = () => {
+    const handleClose = function (): void {
         setAnchorEl(null);
     };
 
@@ -47,7 +47,7 @@ const Logout:React.FC = () => {
                 onClose={handleClose}
             >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
-                {/*<MenuItem onClick={()=>dispatch(logOutUser())}>Logout</MenuItem>*/}
+                <MenuItem onClick={()=>dispatch(logOutUser())}>Logout</MenuItem>
             </Menu>
         </>
 

@@ -18,7 +18,7 @@ const Register: React.FC<RouteComponentProps>= (props) => {
     const {handleSubmit, register, errors} = useForm<FormData>();
     const [serverError, setterError] = useServerErrorHandle();
 
-    const onSubmit = function (values: any) {
+    const onSubmit = function (values: any):void {
 
         axios.put('/users/register', values)
             .then(function (res:AxiosResponse) {

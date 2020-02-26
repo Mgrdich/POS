@@ -1,8 +1,6 @@
 import React from 'react';
 import {IError} from "../../interfaces/Views/Errors";
 
-
-
 const Error: React.FC<IError> = (props) => {
     return (
         <div className={`errorPage errorPage${props.errorNumber}`}>
