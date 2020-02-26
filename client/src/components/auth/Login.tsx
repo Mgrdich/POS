@@ -5,43 +5,37 @@ import {useForm} from "react-hook-form";
 import {useServerErrorHandle} from "../Hooks/useServerErrorHandle";
 import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
-// import {loginUser} from "../../action/authActions";
 import {RouteComponentProps} from "react-router";
 import {errorChecker, errorText} from "../../util/views";
+import {loginUser} from "../../actions/authActions";
 
 type FormData = {
     email: string;
     password: string;
 }
 
-        // axios.post(`${URL}/users/login`, values)
-        //     .then(function (res: any) {
-        //         dispatch(loginUser(res));
-        //     }).catch(function (e: any) {
-        //     if (!e.response.data) {
-        //         console.error("No Response is found");
-        //     }
-        //     setterError(e.response.data);
-        // });
-
-    // };
-    //
-    // useEffect(function () {
-    //     if(isAuth) {
-    //         props.history.push('/dashboard');
-    //     }
-    // },[isAuth,props.history]);
-
-
-
-const Login: React.FC = (props) => {
+const Login: React.FC<RouteComponentProps> = (props) => {
     const {handleSubmit, register, errors} = useForm<FormData>();
     const [serverError, setterError] = useServerErrorHandle();
     const isAuth  = useSelector<any>(state => state.auth.isAuthenticated);
     const dispatch = useDispatch();
 
+    useEffect(function () {
+        if (isAuth) {
+            props.history.push('/dashboard');
+        }
+    }, [isAuth, props.history]);
+
     const onSubmit = function (values: any) {
-        console.log(values);
+        axios.post('/users/login', values)
+            .then(function (res: any) {
+                dispatch(loginUser(res));
+            }).catch(function (e: any) {
+            if (!e.response.data) {
+                console.error("No Response is found");
+            }
+            setterError(e.response.data);
+        });
     };
 
     return (
