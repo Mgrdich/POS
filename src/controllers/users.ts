@@ -27,7 +27,6 @@ async function register(req: Request, res: Response, next: NextFunction):Promise
     }
 }
 
-
 async function login(req: Request, res: Response, next: NextFunction):Promise<any> {
     const {email, password} = req.body;
     try {
@@ -56,10 +55,28 @@ async function login(req: Request, res: Response, next: NextFunction):Promise<an
 
 }
 
+async function registerUser(req: Request, res: Response, next: NextFunction):Promise<any> {
+    try {
+        const errors:any = validationResult(req).formatWith(errorFormatter);
+
+        if (!errors.isEmpty()) {
+            errorThrower("Validation Failed", 422, errors.mapped());
+        }
+        const {email, name, password,role} = req.body;
+        const newUser: IDocUser = new Users({email, name, password,role});
+
+        const salt = await bcrypt.genSalt(10);
+        newUser.password = await bcrypt.hash(newUser.password, salt);
+        let savedUser: any = await newUser.save();
+        res.status(200).json({...savedUser._doc});
+    } catch (err) {
+        errorCatcher(next, err);
+    }
+}
 
 async function currentUser(req: Request, res: Response, next: NextFunction):Promise<any> {
     res.status(200).json(req["user"]);
 }
 
 
-export {register, login, currentUser}
+export {register, login, currentUser,registerUser};
