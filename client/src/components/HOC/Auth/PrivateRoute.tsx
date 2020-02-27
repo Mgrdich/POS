@@ -3,10 +3,6 @@ import {useSelector} from "react-redux";
 import {Redirect, Route, RouteComponentProps} from "react-router";
 import {IPrivateRoute} from "../../../interfaces/HOC/Auth";
 
-
-//TODO add component props
-
-
 //Route is Accessible only when your Authenticated and have the permissions
 const PrivateRoute: React.FC<IPrivateRoute> = ({component: Component, allowedRoles, ...rest}) => {
     const isAuth:unknown = useSelector<any>(state => state.auth.isAuthenticated);
