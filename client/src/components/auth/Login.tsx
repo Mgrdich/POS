@@ -8,6 +8,8 @@ import axios from "axios";
 import {RouteComponentProps} from "react-router";
 import {errorChecker, errorText} from "../../util/views";
 import {loginUser} from "../../actions/authActions";
+import Box from '@material-ui/core/Box';
+
 
 type FormData = {
     email: string;
@@ -32,42 +34,47 @@ const Login: React.FC<RouteComponentProps> = (props) => {
                 dispatch(loginUser(res));
             }).catch(function (e: any) {
             if (!e.response.data) {
-                console.error("No Response is found");
+                   console.error("No Response is found");
             }
             setterError(e.response.data);
         });
     };
 
     return (
-        <>
+        <div className='loginRegister'>
             <h1>Login</h1>
-            <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-                <TextField
-                    id="email"
-                    name="email"
-                    label="Email"
-                    variant="outlined"
-                    color="primary"
-                    error={errorChecker('email',errors,serverError)}
-                    inputRef={register({
-                        required: "This Field is Required"
-                    })}
-                    helperText={errorText('email',errors,serverError)}
-                />
-                <PasswordField
-                    label="Password"
-                    id="password"
-                    name="password"
-                    inputRef={register({
-                        required: "This Field is Required",
-                    })}
-                    error={errorChecker('password',errors,serverError)}
-                    helperText={errorText('password',errors,serverError)}
-                />
-                <Button color="primary" variant="contained" size="large" className="submitBtn"
-                        type="submit">Login</Button>
-            </form>
-        </>
+            <Box display='flex' justifyContent='center' flexDirection='column'>
+                <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+                    <Box width={400} display='flex' justifyContent='center' flexDirection='column'>
+                        <TextField
+                            id="email"
+                            name="email"
+                            label="Email"
+                            variant="outlined"
+                            color="primary"
+                            error={errorChecker('email', errors, serverError)}
+                            inputRef={register({
+                                required: "This Field is Required"
+                            })}
+                            helperText={errorText('email', errors, serverError)}
+                        />
+                        <PasswordField
+                            label="Password"
+                            id="password"
+                            name="password"
+                            inputRef={register({
+                                required: "This Field is Required",
+                            })}
+                            error={errorChecker('password', errors, serverError)}
+                            helperText={errorText('password', errors, serverError)}
+                        />
+                        <Button color="primary" variant="contained" size="large" className="submitBtn"
+                                type="submit">Login</Button>
+
+                    </Box>
+                </form>
+            </Box>
+        </div>
     );
 };
 

@@ -6,6 +6,7 @@ import axios, {AxiosResponse} from 'axios';
 import {useServerErrorHandle} from "../Hooks/useServerErrorHandle";
 import {RouteComponentProps} from "react-router";
 import {errorChecker, errorText} from "../../util/views";
+import Box from "@material-ui/core/Box";
 
 type FormData = {
     email: string;
@@ -33,57 +34,59 @@ const Register: React.FC<RouteComponentProps>= (props) => {
 
 
     return (
-        <>
+        <div className='loginRegister'>
             <h1>Register</h1>
-            <div className="form">
+            <Box display='flex' justifyContent='center' flexDirection='column'>
                 <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-                    <TextField
-                        id="name"
-                        label="Name"
-                        name="name"
-                        variant="outlined"
-                        error={errorChecker('name',errors,serverError)}
-                        inputRef={register({
-                            required: "This Field is Required"
-                        })}
-                        helperText={errorText('name',errors,serverError)}
-                    />
-                    <TextField
-                        label="Email"
-                        name="email"
-                        variant="outlined"
-                        error={errorChecker('email',errors,serverError)}
-                        inputRef={register({
-                            required: "This Field is Required"
-                        })}
-                        helperText={errorText('email',errors,serverError)}
+                    <Box width={400} display='flex' justifyContent='center' flexDirection='column'>
+                        <TextField
+                            id="name"
+                            label="Name"
+                            name="name"
+                            variant="outlined"
+                            error={errorChecker('name', errors, serverError)}
+                            inputRef={register({
+                                required: "This Field is Required"
+                            })}
+                            helperText={errorText('name', errors, serverError)}
+                        />
+                        <TextField
+                            label="Email"
+                            name="email"
+                            variant="outlined"
+                            error={errorChecker('email', errors, serverError)}
+                            inputRef={register({
+                                required: "This Field is Required"
+                            })}
+                            helperText={errorText('email', errors, serverError)}
 
-                    />
-                    <PasswordField
-                        label="Password"
-                        name="password"
-                        inputRef={register({
-                            required: "This Field is Required",
-                        })}
-                        error={errorChecker('password',errors,serverError)}
-                        helperText={errorText('password',errors,serverError)}
-                    />
-                    <PasswordField
-                        label="Current Password"
-                        labelWidth={130}
-                        name="current_password"
-                        inputRef={register({
-                            required: "This Field is Required",
-                        })}
-                        error={errorChecker('current_password',errors,serverError)}
-                        helperText={errorText('current_password',errors,serverError)}
-                    />
-                    <Button color="primary" variant="contained" size="large" className="submitBtn"
-                            type="submit">Register</Button>
+                        />
+                        <PasswordField
+                            label="Password"
+                            name="password"
+                            inputRef={register({
+                                required: "This Field is Required",
+                            })}
+                            error={errorChecker('password', errors, serverError)}
+                            helperText={errorText('password', errors, serverError)}
+                        />
+                        <PasswordField
+                            label="Current Password"
+                            labelWidth={130}
+                            name="current_password"
+                            inputRef={register({
+                                required: "This Field is Required",
+                            })}
+                            error={errorChecker('current_password', errors, serverError)}
+                            helperText={errorText('current_password', errors, serverError)}
+                        />
+                        <Button color="primary" variant="contained" size="large" className="submitBtn"
+                                type="submit">Register</Button>
+                    </Box>
                 </form>
-            </div>
+            </Box>
+        </div>
 
-        </>
     );
 };
 
