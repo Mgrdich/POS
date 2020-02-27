@@ -7,6 +7,9 @@ import {store} from "./store";
 import jwt_decode from 'jwt-decode';
 import {setAuthToken} from "./util/redux";
 import {logOutUser, setCurrentUser} from "./actions/authActions";
+import {theme} from "./theme";
+import { ThemeProvider} from '@material-ui/styles';
+import {CssBaseline} from "@material-ui/core";
 
 if (localStorage.token) {
     // Set auth token header auth
@@ -29,11 +32,14 @@ if (localStorage.token) {
 const App: React.FC = () => {
     return (
         <>
-            <Provider store={store}>
-                <Router history={history}>
-                    <Routes/>
-                </Router>
-            </Provider>
+            <ThemeProvider theme={theme}>
+                <CssBaseline/>
+                <Provider store={store}>
+                    <Router history={history}>
+                        <Routes/>
+                    </Router>
+                </Provider>
+            </ThemeProvider>
         </>
     );
 };
