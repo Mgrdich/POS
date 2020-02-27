@@ -3,10 +3,11 @@ import {body} from "express-validator";
 import {register, login, currentUser, registerUser} from "../controllers/users";
 import {Users} from "../models/Users";
 import {isAuth} from "../utilities/authentication";
+import {ROLES} from "../utilities/constants";
 
 const router = express.Router();
 
-router.put("/register", [ //TODO checking password validation
+router.put("/register", [
     body("email")
         .isEmail()
         .bail()
@@ -47,6 +48,10 @@ router.post('/register-user',[
     body("password")
         .trim()
         .isLength({min: 5}),
+    body("roles")
+        .custom(function(value)  {
+            return ROLES.includes(value);
+        }),
     body("current_password")
         .custom(function(value, {req})  {
             return value === req.body.password

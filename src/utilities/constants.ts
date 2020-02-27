@@ -1,0 +1,1 @@
+export const ROLES:Array<string> = ['superAdmin','admin','manager','employee','kitchen'];
