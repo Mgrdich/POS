@@ -43,9 +43,8 @@ const Login: React.FC<RouteComponentProps> = (props) => {
     return (
         <div className='loginRegister'>
             <h1>Login</h1>
-            <Box display='flex' justifyContent='center' flexDirection='column'>
                 <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-                    <Box width={400} display='flex' justifyContent='center' flexDirection='column'>
+                    <Box display='flex' alignItems="center" flexDirection='column'>
                         <TextField
                             id="email"
                             name="email"
@@ -70,10 +69,8 @@ const Login: React.FC<RouteComponentProps> = (props) => {
                         />
                         <Button color="primary" variant="contained" size="large" className="submitBtn"
                                 type="submit">Login</Button>
-
                     </Box>
                 </form>
-            </Box>
         </div>
     );
 };

@@ -36,9 +36,8 @@ const Register: React.FC<RouteComponentProps>= (props) => {
     return (
         <div className='loginRegister'>
             <h1>Register</h1>
-            <Box display='flex' justifyContent='center' flexDirection='column'>
                 <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-                    <Box width={400} display='flex' justifyContent='center' flexDirection='column'>
+                    <Box display='flex' alignItems="center" flexDirection='column'>
                         <TextField
                             id="name"
                             label="Name"
@@ -84,7 +83,7 @@ const Register: React.FC<RouteComponentProps>= (props) => {
                                 type="submit">Register</Button>
                     </Box>
                 </form>
-            </Box>
+
         </div>
 
     );
