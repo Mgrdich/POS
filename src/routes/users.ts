@@ -33,7 +33,7 @@ router.put("/register", [
 
 router.post("/login", login);
 
-router.post('/register-user',[
+router.put('/register-user',[
     body("email")
         .isEmail()
         .bail()
