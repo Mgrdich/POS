@@ -7,7 +7,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Collapse from "@material-ui/core/Collapse";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
-import StarBorder from "@material-ui/icons/StarBorder";
 import {drawerRoutes, nestedRoutes} from "./config";
 import {INestedMenuList} from "../../../interfaces/layout/Drawer";
 import {IDrawerRoute} from "../../../interfaces/layout/Drawer";
@@ -95,9 +94,9 @@ const NestedMenuList: React.FC<INestedMenuList> = ({menuOpen}) => {
                   <List component="div" disablePadding>
                     {route.nested ? route.nested.map((nestedRoute: nestedRoutes, index: number) => {
                       return (
-                          <ListItem key={index} button className={classes.nested} onClick={() => route.location ? history.push(route.location) : null}>
+                          <ListItem key={index} button className={classes.nested} onClick={() => history.push(`${nestedRoute.location}`)}>
                             <ListItemIcon>
-                              <StarBorder/>
+                              <nestedRoute.icon/>
                             </ListItemIcon>
                             <ListItemText primary={nestedRoute.translation}/>
                           </ListItem>

@@ -8,4 +8,5 @@ export interface InputField {
     required?: boolean;
     data?: Array<IDropDownData>;
     default?:any;
+    url?:string;
 }

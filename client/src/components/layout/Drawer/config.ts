@@ -1,5 +1,5 @@
-import MenuBookIcon from "@material-ui/icons/MenuBook";
-import InfoIcon from "@material-ui/icons/Info";
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import {ComponentType} from "react";
 import {IDrawerRoute} from "../../../interfaces/layout/Drawer";
 
@@ -11,29 +11,10 @@ export type nestedRoutes = {
 
 export const drawerRoutes: Array<IDrawerRoute> = [
     {
-        icon: MenuBookIcon,
-        location: "/menu",
-        translation: "Menu"
-    },
-    {
-        icon: InfoIcon,
-        location: "/about",
-        translation: "About"
-    },
-    {
-        icon: InfoIcon,
-        translation: "Other",
+        icon: PersonAddIcon,
+        translation: "Add Users",
         nested: [
-            {icon: InfoIcon, location: "/home", translation: "Home"},
-            {icon: InfoIcon, location: "/about", translation: "About"}
+            {icon: FiberManualRecordIcon, location: "/create-user", translation: "Create User"},
         ]
     },
-    {
-        icon: InfoIcon,
-        translation: "Other1",
-        nested: [
-            {icon: InfoIcon, location: "/home", translation: "Home"},
-            {icon: InfoIcon, location: "/contact", translation: "Contact"}
-        ]
-    }
 ];

@@ -18,28 +18,29 @@ const DynamicFields: React.FC<IDynamicFields> = (props) => {
                         return (
                             <DropDown
                                 defaultValue={item.default}
-                                id={(item.id)?item.id:item.name}
+                                id={(item.id) ? item.id : item.name}
                                 label={item.placeholder}
+                                url={(item.url) ? item.url : ''}
                                 name={item.name}
                                 key={index}
-                                data={item.data}
+                                data={(item.data) ? item.data : []}
                                 control={control}
-                                error={errorChecker(item.name,errors,serverError)}
-                                helperText={errorText(item.name,errors,serverError)}
+                                error={errorChecker(item.name, errors, serverError)}
+                                helperText={errorText(item.name, errors, serverError)}
                             />
                         )
-                    } else if(item.type === 'password'){
+                    } else if (item.type === 'password') {
                         return (
                             <PasswordField
                                 label={item.placeholder}
-                                id={(item.id)?item.id:item.name}
+                                id={(item.id) ? item.id : item.name}
                                 name={item.name}
                                 key={index}
                                 inputRef={(!item.required) ? register : register({
                                     required: "This Field is Required"
                                 })}
-                                error={errorChecker(item.name,errors,serverError)}
-                                helperText={errorText(item.name,errors,serverError)}
+                                error={errorChecker(item.name, errors, serverError)}
+                                helperText={errorText(item.name, errors, serverError)}
                             />
                         );
                     } else {
@@ -56,8 +57,8 @@ const DynamicFields: React.FC<IDynamicFields> = (props) => {
                                     required: "This Field is Required"
                                 })}
                                 rows={(item.type === 'textArea') ? 4 : 1}
-                                error={errorChecker(item.name,errors,serverError)}
-                                helperText={errorText(item.name,errors,serverError)}
+                                error={errorChecker(item.name, errors, serverError)}
+                                helperText={errorText(item.name, errors, serverError)}
                             />
                         )
                     }
