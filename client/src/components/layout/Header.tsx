@@ -17,7 +17,7 @@ const guestLinks: JSX.Element = (
     </>
 );
 
-const authLinks: JSX.Element = (
+const authLinks: JSX.Element = ( //TODO check for usages
     <>
         <ButtonLink color="secondary" to="/dashboard">Dashboard</ButtonLink>
         <Logout/>

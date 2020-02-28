@@ -14,6 +14,8 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { useStyles } from "./style";
 import NestedMenuList from "./NestedMenuList";
 import {IMenuDrawer} from "../../../interfaces/layout/Drawer";
+import Logout from "../../auth/Logout";
+import Grid from "@material-ui/core/Grid";
 
 
 const MenuDrawer: React.FC <IMenuDrawer> = ({children}) => {
@@ -42,9 +44,17 @@ const MenuDrawer: React.FC <IMenuDrawer> = ({children}) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            POS
-          </Typography>
+            <Grid
+                container
+                direction="row"
+                justify="space-between"
+                alignItems="center"
+            >
+                <Typography variant="h6" noWrap>
+                    POS
+                </Typography>
+                <Logout/>
+            </Grid>
         </Toolbar>
       </AppBar>
       <Drawer
