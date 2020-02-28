@@ -77,15 +77,15 @@ async function registerUser(req: Request, res: Response, next: NextFunction):Pro
 function getRoles(req: Request, res: Response,nextFunction) {
     const RolesArray:Array<any> = [
         {
-            value:1,
+            value:"admin",
             placeholder:"admin"
         },
         {
-            value:2,
+            value:"manger",
             placeholder:"manager"
         },
         {
-            value:3,
+            value:"employee",
             placeholder:"employee"
         }
     ];
