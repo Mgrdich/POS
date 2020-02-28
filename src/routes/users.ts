@@ -1,6 +1,6 @@
 import * as express from "express";
 import {body} from "express-validator";
-import {register, login, currentUser, registerUser} from "../controllers/users";
+import {register, login, currentUser, registerUser, getRoles} from "../controllers/users";
 import {Users} from "../models/Users";
 import {isAuth} from "../utilities/authentication";
 import {ROLES} from "../utilities/constants";
@@ -60,6 +60,8 @@ router.post('/register-user',[
         .trim()
         .notEmpty()
 ],registerUser);
+
+router.get('/roles',getRoles);
 
 router.get("/current", isAuth(), currentUser);
 

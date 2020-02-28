@@ -74,9 +74,27 @@ async function registerUser(req: Request, res: Response, next: NextFunction):Pro
     }
 }
 
+function getRoles(req: Request, res: Response,nextFunction) {
+    const RolesArray:Array<any> = [
+        {
+            value:1,
+            placeholder:"admin"
+        },
+        {
+            value:2,
+            placeholder:"manager"
+        },
+        {
+            value:3,
+            placeholder:"employee"
+        }
+    ];
+    res.status(200).json(RolesArray);
+}
+
 async function currentUser(req: Request, res: Response, next: NextFunction):Promise<any> {
     res.status(200).json(req["user"]);
 }
 
 
-export {register, login, currentUser,registerUser};
+export {register, login, currentUser,registerUser,getRoles};
