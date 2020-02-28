@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {Button, TextField} from "@material-ui/core";
 import PasswordField from "../Reusable/PasswordField";
 import {useForm} from "react-hook-form";
@@ -16,8 +16,10 @@ type FormData = {
 }
 
 const Register: React.FC<RouteComponentProps>= (props) => {
-    const {handleSubmit, register, errors} = useForm<FormData>();
+    const {handleSubmit, register, errors, watch} = useForm<FormData>();
     const [serverError, setterError] = useServerErrorHandle();
+    const password = useRef<any>();
+    password.current = watch('password','');
 
     const onSubmit = function (values: any):void {
 
@@ -65,6 +67,10 @@ const Register: React.FC<RouteComponentProps>= (props) => {
                             name="password"
                             inputRef={register({
                                 required: "This Field is Required",
+                                minLength:{
+                                    value:5,
+                                    message:'Password must have at least 5 characters'
+                                },
                             })}
                             error={errorChecker('password', errors, serverError)}
                             helperText={errorText('password', errors, serverError)}
@@ -75,6 +81,8 @@ const Register: React.FC<RouteComponentProps>= (props) => {
                             name="current_password"
                             inputRef={register({
                                 required: "This Field is Required",
+                                validate:value =>
+                                    value === password.current || 'The password do not much'
                             })}
                             error={errorChecker('current_password', errors, serverError)}
                             helperText={errorText('current_password', errors, serverError)}
