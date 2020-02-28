@@ -1,7 +1,8 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FormControl, FormHelperText, InputLabel, MenuItem, Select} from "@material-ui/core";
 import {Controller} from "react-hook-form";
 import {IDropDownData} from "../../interfaces/Reusable";
+import axios, {AxiosResponse} from "axios";
 
 
 interface IDropDown {
@@ -11,21 +12,30 @@ interface IDropDown {
     error?: boolean;
     helperText?: string;
     data?: Array<IDropDownData>;
+    url?: string;
     control: any;
     defaultValue?: string | number;
 }
 
-//TODO add an AJAX OPTION
 
 const Dropdown: React.FC<IDropDown> = (props) => {
     const inputLabel = React.useRef<HTMLLabelElement>(null);
-    const [labelWidth, setLabelWidth] = React.useState(0);
+    const [labelWidth, setLabelWidth] = useState(0);
+    const [data,setData]= useState<Array<IDropDownData>>((props.data) ? props.data : []);
+
 
     useEffect(() => {
         setLabelWidth(inputLabel.current!.offsetWidth);
     }, []);
 
-    let dropDownArray = (props.data) ? props.data : [];
+    useEffect(() => {
+        if (props.url) {
+            axios.get(props.url)
+                .then(function (res: AxiosResponse) {
+                    setData([...res.data]);
+                })
+        }
+    }, [props.url]);
 
     return (
         <FormControl variant="outlined" error={props.error}>
@@ -33,7 +43,8 @@ const Dropdown: React.FC<IDropDown> = (props) => {
                 {props.label}
             </InputLabel>
             <Controller
-                control={props.control} name={props.name} defaultValue={(!!props.defaultValue) ? props.defaultValue : ''}
+                control={props.control} name={props.name}
+                defaultValue={(!!props.defaultValue) ? props.defaultValue : ''}
                 as={
                     <Select
                         labelId={props.id}
@@ -44,7 +55,7 @@ const Dropdown: React.FC<IDropDown> = (props) => {
                             <em>None</em>
                         </MenuItem>
                         {
-                            dropDownArray.map((item: IDropDownData, index) => {
+                            data.map((item: IDropDownData, index) => {
                                 return (
                                     <MenuItem value={item.value} key={index}>{item.placeholder}</MenuItem>
                                 )
