@@ -6,7 +6,7 @@ import axios, {AxiosResponse} from 'axios';
 import {useServerErrorHandle} from "../Hooks/useServerErrorHandle";
 import {RouteComponentProps} from "react-router";
 import {errorChecker, errorText} from "../../util/views";
-import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
 
 type FormData = {
     email: string;
@@ -39,7 +39,7 @@ const Register: React.FC<RouteComponentProps>= (props) => {
         <div className='loginRegister'>
             <h1>Register</h1>
                 <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-                    <Box display='flex' alignItems="center" flexDirection='column'>
+                    <Grid container direction='column' alignItems="center" justify='center'>
                         <TextField
                             id="name"
                             label="Name"
@@ -88,7 +88,7 @@ const Register: React.FC<RouteComponentProps>= (props) => {
                         />
                         <Button color="primary" variant="contained" size="large" className="submitBtn"
                                 type="submit">Register</Button>
-                    </Box>
+                    </Grid>
                 </form>
 
         </div>

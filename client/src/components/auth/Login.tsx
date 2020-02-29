@@ -8,7 +8,7 @@ import axios from "axios";
 import {RouteComponentProps} from "react-router";
 import {errorChecker, errorText} from "../../util/views";
 import {loginUser} from "../../actions/authActions";
-import Box from '@material-ui/core/Box';
+import Grid from "@material-ui/core/Grid";
 
 
 type FormData = {
@@ -44,7 +44,7 @@ const Login: React.FC<RouteComponentProps> = (props) => {
         <div className='loginRegister'>
             <h1>Login</h1>
                 <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-                    <Box display='flex' alignItems="center" flexDirection='column'>
+                   <Grid container direction='column' alignItems="center" justify='center'>
                         <TextField
                             id="email"
                             name="email"
@@ -69,7 +69,7 @@ const Login: React.FC<RouteComponentProps> = (props) => {
                         />
                         <Button color="primary" variant="contained" size="large" className="submitBtn"
                                 type="submit">Login</Button>
-                    </Box>
+                   </Grid>
                 </form>
         </div>
     );
