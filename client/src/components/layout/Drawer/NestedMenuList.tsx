@@ -94,7 +94,7 @@ const NestedMenuList: React.FC<INestedMenuList> = ({menuOpen}) => {
                   <List component="div" disablePadding>
                     {route.nested ? route.nested.map((nestedRoute: nestedRoutes, index: number) => {
                       return (
-                          <ListItem key={index} button className={classes.nested} onClick={() => history.push(`${nestedRoute.location}`)}>
+                          <ListItem key={index} button className={classes.nested} onClick={() => nestedRoute.location ? history.push(`${nestedRoute.location}`) : null}>
                             <ListItemIcon>
                               <nestedRoute.icon/>
                             </ListItemIcon>

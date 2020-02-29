@@ -43,5 +43,4 @@ export interface IPasswordField {
     name: string;
     inputRef?: any;
     helperText?: string | boolean;
-    labelWidth?:number; //TODO do it with offset width
 }

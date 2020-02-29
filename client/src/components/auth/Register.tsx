@@ -77,7 +77,6 @@ const Register: React.FC<RouteComponentProps>= (props) => {
                         />
                         <PasswordField
                             label="Current Password"
-                            labelWidth={130}
                             name="current_password"
                             inputRef={register({
                                 required: "This Field is Required",
