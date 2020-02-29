@@ -1,17 +1,18 @@
-// import {InputField} from "../../interfaces/General";
+import {InputField} from "../../interfaces/General";
 import {useEffect} from "react";
 
 //registering Custom Register for the Controlled Components
-export function useDynamicFields(arrayFields: Array<any>, register: Function, unregister: Function) { //TODO change the type
-    useEffect(function () { //TODO covert it to a custom hook
+export function useDynamicFields(arrayFields: Array<InputField>, register: Function, unregister: Function) { //TODO change the type
+    useEffect(function () {
         for (let i = 0; i < arrayFields.length; i++) {
-            if (arrayFields[i].type === 'select') {
-                register(arrayFields[i].name, {required: "This Field is Required"});
+            if (arrayFields[i].type === 'select' && arrayFields[i].validation) {
+                console.log({...arrayFields[i].validation});
+                register(arrayFields[i].name, {...arrayFields[i].validation});
             }
         }
         return () => { //cleanup //TODO check out if it is the best way
             for (let i = 0; i < arrayFields.length; i++) {
-                if (arrayFields[i].type === 'select') {
+                if (arrayFields[i].type === 'select' &&  arrayFields[i].validation) {
                     unregister(arrayFields[i].name);
                 }
             }

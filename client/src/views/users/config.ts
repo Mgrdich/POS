@@ -1,28 +1,47 @@
+import {InputField} from "../../interfaces/General";
 
-
-export const createUsers : Array<any> = [
+export const createUsers : Array<InputField> = [
     {
         name: 'name',
         placeholder: 'name',
-        required: true,
-    }, {
+        validation: {
+            required: "This Field is Required"
+        }
+    },
+    {
         name: 'email',
         placeholder: 'email',
-        required: true,
-    }, {
+        validation: {
+            required: "This Field is Required"
+        }
+    },
+    {
         name: 'password',
         placeholder: 'password',
-        required: true,
-        type:'password'
-    }, {
+        type:'password',
+        validation: {
+            required: "This Field is Required",
+            minLength: {
+                value: 5,
+                message: 'Password must have at least 5 characters'
+            },
+        }
+    },
+    {
         name: 'current_password',
         placeholder: 'current password',
         required: true,
         type:'password',
-    }, {
+        validation: {
+            required: "This Field is Required",
+        }
+    },
+    {
         name: 'roles',
         placeholder: 'role',
-        required: true,
+        validation: {
+            required: "This Field is Required",
+        },
         type:'select',
         url:'/users/roles',
     }

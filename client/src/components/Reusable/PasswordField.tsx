@@ -7,7 +7,7 @@ import {IPasswordField} from "../../interfaces/Reusable";
 const PasswordField: React.FC<IPasswordField> = (props) => {
     const [showPassword, changeShowPassword] = useState<boolean>(false);
 
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleMouseDownPassword = function(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
     };
     return (

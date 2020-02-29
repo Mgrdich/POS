@@ -9,4 +9,5 @@ export interface InputField {
     data?: Array<IDropDownData>;
     default?:any;
     url?:string;
+    validation:any; //TODO React hook Form interface
 }

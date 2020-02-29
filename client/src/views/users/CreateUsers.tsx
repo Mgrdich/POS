@@ -23,7 +23,6 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
             if (!e.response.data) {
                 console.error("No Response is found");
             }
-            console.log(e.response.data)
             setterError(e.response.data.data);
         })
     };
@@ -32,10 +31,19 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
         <>
             <h1>Create User</h1>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <DynamicFields InputFields={createUsers} register={register} errors={errors} control={control}
-                               serverError={serverError}/>
-                <Button color="primary" variant="contained" size="large" className="submitBtn"
-                        type="submit">Submit</Button>
+                <DynamicFields
+                    InputFields={createUsers}
+                    register={register}
+                    errors={errors}
+                    control={control}
+                    serverError={serverError}/>
+                <Button
+                    color="primary"
+                    variant="contained"
+                    size="large"
+                    className="submitBtn"
+                    type="submit"
+                >Submit</Button>
             </form>
         </>
     );

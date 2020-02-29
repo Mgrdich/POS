@@ -13,7 +13,6 @@ const DynamicFields: React.FC<IDynamicFields> = (props) => {
         <>
             {
                 props.InputFields.map((item: InputField, index: number) => {
-                    //TODO register equality should be all over here for more custom checking
                     if (item.type === 'select') {
                         return (
                             <DropDown
@@ -36,9 +35,7 @@ const DynamicFields: React.FC<IDynamicFields> = (props) => {
                                 id={(item.id) ? item.id : item.name}
                                 name={item.name}
                                 key={index}
-                                inputRef={(!item.required) ? register : register({
-                                    required: "This Field is Required"
-                                })}
+                                inputRef={item.validation ? register(item.validation) : register}
                                 error={errorChecker(item.name, errors, serverError)}
                                 helperText={errorText(item.name, errors, serverError)}
                             />
@@ -53,9 +50,7 @@ const DynamicFields: React.FC<IDynamicFields> = (props) => {
                                 label={item.placeholder}
                                 variant="outlined"
                                 color="primary"
-                                inputRef={(!item.required) ? register : register({
-                                    required: "This Field is Required"
-                                })}
+                                inputRef={item.validation ? register(item.validation) : register}
                                 rows={(item.type === 'textArea') ? 4 : 1}
                                 error={errorChecker(item.name, errors, serverError)}
                                 helperText={errorText(item.name, errors, serverError)}
