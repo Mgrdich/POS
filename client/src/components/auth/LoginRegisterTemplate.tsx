@@ -1,14 +1,7 @@
 import React from 'react';
-import {IDynamicFields} from "../../interfaces/Reusable";
 import DynamicFields from "../Reusable/DynamicFields";
 import {Button} from "@material-ui/core";
-
-interface ILoginRegisterTemplate {
-    templateName: string;
-    dynamicInputFields: IDynamicFields;
-    handleSubmit: Function;
-    onSubmit: Function;
-}
+import {ILoginRegisterTemplate} from "../../interfaces/Views/auth";
 
 const LoginRegisterTemplate: React.FC<ILoginRegisterTemplate> = (props) => {
     const {dynamicInputFields, templateName, handleSubmit, onSubmit} = props;
@@ -17,8 +10,13 @@ const LoginRegisterTemplate: React.FC<ILoginRegisterTemplate> = (props) => {
             <h1>{templateName}</h1>
             <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
                 <DynamicFields {...dynamicInputFields}  />
-                <Button color="primary" variant="contained" size="large" className="submitBtn"
-                        type="submit">{templateName}</Button>
+                <Button
+                    color="primary"
+                    variant="contained"
+                    size="large"
+                    className="submitBtn"
+                    type="submit"
+                >{templateName}</Button>
             </form>
         </div>
     );
