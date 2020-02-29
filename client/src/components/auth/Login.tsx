@@ -41,7 +41,7 @@ const Login: React.FC<RouteComponentProps> = (props) => {
         });
     };
         // TODO FE: Change to grid
-    const LoginFields = [{name:'email', placeholder:'email'},{name:'password', placeholder:'password'}];
+    const LoginFields = [{name:'email', placeholder:'email'},{name:'password', placeholder:'password', type:'password'}];
     return (
         <LoginRegisterTemplate
             templateName='Login'
