@@ -5,9 +5,12 @@ import Footer from "../layout/Footer";
 export function HeaderFooterLayout<P extends object>(WrappedComponent: React.ComponentType<P>):React.FC<P> {
     return function (props:P) {
            return (
+
                <MenuDrawer>
-                   <WrappedComponent {...props as P}/>
-                   <Footer/>
+                   <section className="content">
+                       <WrappedComponent {...props as P}/>
+                       <Footer/>
+                   </section>
                </MenuDrawer>
            )
     }
