@@ -3,7 +3,7 @@ import {InputField} from "../../interfaces/General";
 
 //Login.tsx
 export const LoginValSchema = yup.object().shape({
-    email: yup.string().required(),
+    email: yup.string().required().email(),
     password: yup.string().required().min(5)
 });
 

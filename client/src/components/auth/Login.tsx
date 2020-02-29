@@ -11,7 +11,9 @@ import {LoginFormDataType} from "../../interfaces/Views/auth";
 
 
 const Login: React.FC<RouteComponentProps> = (props) => {
-    const {handleSubmit, register, errors, control} = useForm<FormData>();
+    const {handleSubmit, register, errors, control} = useForm<LoginFormDataType>({
+        validationSchema:LoginValSchema
+    });
     const [serverError, setterError] = useServerErrorHandle();
     const isAuth  = useSelector<any>(state => state.auth.isAuthenticated);
     const dispatch = useDispatch();

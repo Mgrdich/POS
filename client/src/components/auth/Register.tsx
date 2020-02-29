@@ -12,7 +12,7 @@ const Register: React.FC<RouteComponentProps>= (props) => {
         validationSchema:RegisterValSchema
     });
     const [serverError, setterError] = useServerErrorHandle();
-    
+
     const onSubmit = function (values: any):void {
 
         axios.put('/users/register', values)
