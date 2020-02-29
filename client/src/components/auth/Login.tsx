@@ -9,6 +9,7 @@ import {RouteComponentProps} from "react-router";
 import {errorChecker, errorText} from "../../util/views";
 import {loginUser} from "../../actions/authActions";
 import Grid from "@material-ui/core/Grid";
+import LoginRegisterTemplate from "./LoginRegisterTemplate";
 
 
 type FormData = {
@@ -17,7 +18,7 @@ type FormData = {
 }
 
 const Login: React.FC<RouteComponentProps> = (props) => {
-    const {handleSubmit, register, errors} = useForm<FormData>();
+    const {handleSubmit, register, errors, control} = useForm<FormData>();
     const [serverError, setterError] = useServerErrorHandle();
     const isAuth  = useSelector<any>(state => state.auth.isAuthenticated);
     const dispatch = useDispatch();
@@ -40,38 +41,13 @@ const Login: React.FC<RouteComponentProps> = (props) => {
         });
     };
         // TODO FE: Change to grid
+    const LoginFields = [{name:'email', placeholder:'email'},{name:'password', placeholder:'password'}];
     return (
-        <div className='loginRegister'>
-            <h1>Login</h1>
-                <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-                   <Grid container direction='column' alignItems="center" justify='center'>
-                        <TextField
-                            id="email"
-                            name="email"
-                            label="Email"
-                            variant="outlined"
-                            color="primary"
-                            error={errorChecker('email', errors, serverError)}
-                            inputRef={register({
-                                required: "This Field is Required"
-                            })}
-                            helperText={errorText('email', errors, serverError)}
-                        />
-                        <PasswordField
-                            label="Password"
-                            id="password"
-                            name="password"
-                            inputRef={register({
-                                required: "This Field is Required",
-                            })}
-                            error={errorChecker('password', errors, serverError)}
-                            helperText={errorText('password', errors, serverError)}
-                        />
-                        <Button color="primary" variant="contained" size="large" className="submitBtn"
-                                type="submit">Login</Button>
-                   </Grid>
-                </form>
-        </div>
+        <LoginRegisterTemplate
+            templateName='Login'
+            dynamicInputFields={{InputFields: LoginFields, register, control, errors, serverError}}
+            handleSubmit={handleSubmit}
+            onSubmit={onSubmit}/>
     );
 };
 
