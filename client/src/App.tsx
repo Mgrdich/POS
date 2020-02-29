@@ -10,6 +10,7 @@ import {logOutUser, setCurrentUser} from "./actions/authActions";
 import {theme} from "./theme";
 import { ThemeProvider} from '@material-ui/styles';
 import {CssBaseline} from "@material-ui/core";
+import "../src/Styles/style.scss";
 
 if (localStorage.token) {
     // Set auth token header auth

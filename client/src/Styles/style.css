@@ -9,3 +9,18 @@
 
 .loginRegister form .MuiButtonBase-root {
   width: 30%; }
+
+.footer {
+  position: absolute !important;
+  bottom: 0 !important;
+  height: 60px;
+  display: block;
+  text-align: center;
+  border-top: 1px solid #66fcf1;
+  width: 100%;
+  padding-top: 30px; }
+
+#root {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 40px; }
