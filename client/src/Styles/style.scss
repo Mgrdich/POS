@@ -1,5 +1,6 @@
 @import "variables";
 @import "components";
+
 // Footer
 
 .footer {
@@ -10,16 +11,12 @@
   text-align: center;
   border-top: 1px solid $primary;
   width: 100%;
-  padding-top: 30px;
-  left:0;
+  padding-top: 22px;
 }
 
 #root{
   position: relative;
   min-height: 100vh;
-}
-
-.makeStyles-root-1 {
   .header {
     padding-bottom: 64px;
     min-height: 100vh;
