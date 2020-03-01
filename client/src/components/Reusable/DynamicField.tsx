@@ -6,7 +6,7 @@ import {TextField} from "@material-ui/core";
 import {IDynamicField} from "../../interfaces/Reusable";
 
 const DynamicField: React.FC<IDynamicField> = (props) => {
-    const {errors, register, serverError, control,index,item} = props;
+    const {errors, register, serverError, control, item} = props;
     const {id, placeholder, type, name, url, data} = item;
 
     switch (type) {

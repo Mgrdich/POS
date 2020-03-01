@@ -1,6 +1,7 @@
 import {ButtonProps, CircularProgressProps} from "@material-ui/core";
 import {InputField} from "../General";
 import * as React from "react";
+import {ReactNode} from "react";
 
 export interface IDropDownData {
     value: number | string;
@@ -31,6 +32,9 @@ export interface IDynamicFields {
     serverError: any;
     errors: any;
     control: any;
+    render?:any;
+    Component?:any; //Todo check out the right Type
+    ComponentProps?:any;
 }
 
 export interface ILoader extends CircularProgressProps {
