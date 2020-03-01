@@ -15,8 +15,7 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
     });
     const [serverError, setterError] = useServerErrorHandle();
     useDynamicFields(createUsersInputFields, register, unregister);
-
-    console.log(errors);
+    
     const onSubmit = function (values: any):void {
 
         axios.put('/users/register-user', values)

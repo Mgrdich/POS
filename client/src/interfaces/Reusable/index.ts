@@ -1,5 +1,6 @@
 import {ButtonProps, CircularProgressProps} from "@material-ui/core";
 import {InputField} from "../General";
+import * as React from "react";
 
 export interface IDropDownData {
     value: number | string;
@@ -26,7 +27,7 @@ export interface IDatePicker {
 
 export interface IDynamicFields {
     InputFields: Array<InputField>
-    register: Function;
+    register: React.Ref<any> | any;
     serverError: any;
     errors: any;
     control: any;
@@ -43,4 +44,13 @@ export interface IPasswordField {
     name: string;
     inputRef?: any;
     helperText?: string | boolean;
+}
+
+export interface IDynamicField {
+    item: InputField;
+    errors: object;
+    register: React.Ref<any>;
+    serverError: object;
+    control: object;
+    index: number;
 }

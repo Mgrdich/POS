@@ -10,8 +10,15 @@ const DynamicFields: React.FC<IDynamicFields> = (props) => {
         <>
             {
                 props.InputFields.map((item: InputField, index: number) => (
-                <DynamicField key={index} item={item} index={index} errors={errors} register={register} serverError={serverError} control={control}/>
-
+                    <DynamicField
+                        key={index}
+                        item={item}
+                        index={index}
+                        errors={errors}
+                        register={register}
+                        serverError={serverError}
+                        control={control}
+                    />
                 ))
             }
         </>
