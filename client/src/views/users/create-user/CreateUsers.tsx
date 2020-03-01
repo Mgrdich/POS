@@ -15,7 +15,7 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
     });
     const [serverError, setterError] = useServerErrorHandle();
     useDynamicFields(createUsersInputFields, register, unregister);
-    
+
     const onSubmit = function (values: any):void {
 
         axios.put('/users/register-user', values)
@@ -26,7 +26,7 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
                 console.error("No Response is found");
             }
             setterError(e.response.data.data);
-        })
+        });
     };
 
     return (
@@ -38,7 +38,8 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
                     register={register}
                     errors={errors}
                     control={control}
-                    serverError={serverError}/>
+                    serverError={serverError}
+                />
                 <Button
                     color="primary"
                     variant="contained"

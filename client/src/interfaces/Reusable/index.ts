@@ -27,7 +27,7 @@ export interface IDatePicker {
 
 export interface IDynamicFields {
     InputFields: Array<InputField>
-    register: React.Ref<any> | any;
+    register: React.Ref<any>;
     serverError: any;
     errors: any;
     control: any;

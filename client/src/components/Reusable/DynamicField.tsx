@@ -7,7 +7,7 @@ import {IDynamicField} from "../../interfaces/Reusable";
 
 const DynamicField: React.FC<IDynamicField> = (props) => {
     const {errors, register, serverError, control,index,item} = props;
-    const {id, placeholder, type, name, url, data, validation} = item;
+    const {id, placeholder, type, name, url, data} = item;
 
     switch (type) {
         case 'select':
