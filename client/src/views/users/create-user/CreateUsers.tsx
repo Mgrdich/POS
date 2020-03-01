@@ -1,19 +1,22 @@
 import React from 'react';
-import DynamicFields from "../../components/Reusable/DynamicFields";
-import {createUsers} from './config';
+import DynamicFields from "../../../components/Reusable/DynamicFields";
+import {createUsersInputFields, createUsersValSchema} from './config';
 import {useForm} from "react-hook-form";
-import {useServerErrorHandle} from "../../components/Hooks/useServerErrorHandle";
+import {useServerErrorHandle} from "../../../components/Hooks/useServerErrorHandle";
 import {Button} from "@material-ui/core";
 import axios, {AxiosResponse} from "axios";
 import {RouteComponentProps} from "react-router";
-import {useDynamicFields} from "../../components/Hooks/useDynamicFields";
+import {useDynamicFields} from "../../../components/Hooks/useDynamicFields";
+import {createUserFormDataType} from "../../../interfaces/Views/users";
 
 const CreateUsers : React.FC<RouteComponentProps> = (props) => {
-    const {handleSubmit, register, errors, control,unregister} = useForm<FormData>();
+    const {handleSubmit, register, errors, control,unregister} = useForm<createUserFormDataType>({
+        validationSchema:createUsersValSchema
+    });
     const [serverError, setterError] = useServerErrorHandle();
-    useDynamicFields(createUsers, register, unregister);
+    useDynamicFields(createUsersInputFields, register, unregister);
 
-
+    console.log(errors);
     const onSubmit = function (values: any):void {
 
         axios.put('/users/register-user', values)
@@ -32,7 +35,7 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
             <h1>Create User</h1>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <DynamicFields
-                    InputFields={createUsers}
+                    InputFields={createUsersInputFields}
                     register={register}
                     errors={errors}
                     control={control}

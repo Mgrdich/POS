@@ -47,5 +47,5 @@ export const RegisterValSchema = yup.object().shape({
     name: yup.string().required().min(4),
     email: yup.string().required().email(),
     password:yup.string().required().min(5),
-    current_password:yup.string().oneOf([yup.ref('password'), null], 'Passwords must match')
+    current_password:yup.string().required().oneOf([yup.ref('password'), null], 'Passwords must match')
 });

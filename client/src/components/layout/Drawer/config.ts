@@ -14,7 +14,7 @@ export const drawerRoutes: Array<IDrawerRoute> = [
         icon: PersonAddIcon,
         translation: "Add Users",
         nested: [
-            {icon: FiberManualRecordIcon, location: "/create-user", translation: "Create User"},
+            {icon: FiberManualRecordIcon, location: "/users/create-user", translation: "Create User"},
         ]
     },
 ];

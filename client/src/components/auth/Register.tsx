@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import {useForm} from "react-hook-form";
 import axios, {AxiosResponse} from 'axios';
 import {useServerErrorHandle} from "../Hooks/useServerErrorHandle";
@@ -8,7 +8,7 @@ import {RegisterFormDataType} from "../../interfaces/Views/auth";
 import {RegisterInputFields,RegisterValSchema} from "./config";
 
 const Register: React.FC<RouteComponentProps>= (props) => {
-    const {handleSubmit, register, errors, watch,control} = useForm<RegisterFormDataType>({
+    const {handleSubmit, register, errors,control} = useForm<RegisterFormDataType>({
         validationSchema:RegisterValSchema
     });
     const [serverError, setterError] = useServerErrorHandle();
