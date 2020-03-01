@@ -56,5 +56,4 @@ export interface IDynamicField {
     register: React.Ref<any>;
     serverError: object;
     control: object;
-    index: number;
 }

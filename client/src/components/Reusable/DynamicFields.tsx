@@ -5,6 +5,8 @@ import DynamicField from "./DynamicField";
 
 const DynamicFields: React.FC<IDynamicFields> = (props) => {
     const {errors, register, serverError, control,Component,ComponentProps} = props;
+
+    //TODO a lot of code repetition
     if (Component) {
         return (
             <>
@@ -12,9 +14,7 @@ const DynamicFields: React.FC<IDynamicFields> = (props) => {
                     props.InputFields.map((item: InputField, index: number) => (
                         <Component{...ComponentProps} key={index}>
                             <DynamicField
-                                key={index}
                                 item={item}
-                                index={index}
                                 errors={errors}
                                 register={register}
                                 serverError={serverError}
@@ -26,7 +26,6 @@ const DynamicFields: React.FC<IDynamicFields> = (props) => {
             </>
         );
     }
-    //TODO check whether the Component Exist or no then return
     return (
         <>
             {
@@ -34,7 +33,6 @@ const DynamicFields: React.FC<IDynamicFields> = (props) => {
                         <DynamicField
                             key={index}
                             item={item}
-                            index={index}
                             errors={errors}
                             register={register}
                             serverError={serverError}
