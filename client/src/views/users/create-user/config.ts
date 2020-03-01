@@ -28,10 +28,10 @@ export const createUsersInputFields : Array<InputField> = [
     }
 ];
 
-export const createUsersValSchema = {
+export const createUsersValSchema = yup.object().shape({
     name:yup.string().required(),
-    email:yup.string().email(),
-    password:yup.string().min(5),
-    current_password:yup.string().oneOf([yup.ref('password'), null], 'Passwords must match'),
+    email:yup.string().required().email(),
+    password:yup.string().required().min(5),
+    current_password:yup.string().required().oneOf([yup.ref('password'), null], 'Passwords must match'),
     roles:yup.string().required(),
-};
+});
