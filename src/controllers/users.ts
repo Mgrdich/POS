@@ -90,7 +90,7 @@ function getRoles(req: Request, res: Response,next:NextFunction) {
             placeholder:"Employee"
         }
     ];
-    res.status(200).json(RolesArray);
+    return res.status(200).json(RolesArray);
 }
 
 async function currentUser(req: Request, res: Response, next: NextFunction):Promise<any> {

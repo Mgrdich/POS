@@ -34,7 +34,7 @@ router.put("/register", [
 
 router.post("/login", login);
 
-router.put('/register-user',isAuth,[
+router.put('/register-user',isAuth(),[
     body("email")
         .isEmail()
         .bail()
@@ -49,7 +49,7 @@ router.put('/register-user',isAuth,[
     body("password")
         .trim()
         .isLength({min: 5}),
-    body("roles")
+    body("role")
         .custom(function(value)  {
             return ROLES_ALL.includes(value);
         }),

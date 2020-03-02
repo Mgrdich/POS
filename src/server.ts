@@ -35,8 +35,6 @@ passportConfig(passport);
 
 // Routes
 app.use('/users', users);
-//app.use('/posts', posts);
-//app.use('/profile', profile);
 
 //errors
 app.use(function (err: ImyError, req: Request, res: Response, next: NextFunction) {
