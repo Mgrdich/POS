@@ -1,5 +1,6 @@
 import React from 'react';
 import {RouteProps} from "react-router";
+import {RoleType} from "../../../roles";
 
 export interface IIsAuth {
     ElementWithAuth?: React.ReactNode;
@@ -7,14 +8,14 @@ export interface IIsAuth {
 }
 
 export interface IAuthorizationElem {
-    allowedRoles?: Array<string>;
+    allowedRoles?: Array<RoleType>;
     children?: React.ReactNode;
 }
 
 
 export interface IPrivateRoute extends RouteProps {
     component: React.ComponentType<any>;
-    allowedRoles?: Array<string>;
+    allowedRoles?: Array<RoleType>;
 }
 
 export interface IPublicRoute extends RouteProps {
