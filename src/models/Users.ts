@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 import {Schema} from "mongoose";
 import {IDocUser} from "../interfaces/models/Users";
-import {ROLES} from "../utilities/constants";
+import {Roles, ROLES_ALL} from "../utilities/roles";
 
 const userSchema: Schema = new Schema({
     name: {
@@ -18,8 +18,8 @@ const userSchema: Schema = new Schema({
     },
     role: {
         type: String,
-        default: "admin",
-        enum: [...ROLES]
+        default: Roles.Admin,
+        enum: [...ROLES_ALL]
     },
     date: {
         type: Date,

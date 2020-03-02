@@ -1,10 +1,11 @@
 import {Document} from 'mongoose';
+import {RoleType} from "../../utilities/roles";
 
 export interface IUser {
     name: string;
     email: string;
     password: string;
-    role?: 'superAdmin'|'admin'|'manager'|'employee'|'kitchen';
+    role?: RoleType;
     date?: Date;
 }
 

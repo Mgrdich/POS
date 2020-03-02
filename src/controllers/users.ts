@@ -1,4 +1,4 @@
-import {Request, Response, NextFunction} from 'express';
+import {NextFunction, Request, Response} from 'express';
 import {Users} from "../models/Users";
 import {IDocUser} from "../interfaces/models/Users";
 import {validationResult} from "express-validator";
@@ -6,6 +6,7 @@ import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 import {SECRET_KEY} from "../config/keys";
 import {errorCatcher, errorFormatter, errorThrower} from "../utilities/error";
+import {Roles} from "../utilities/roles";
 
 
 async function register(req: Request, res: Response, next: NextFunction):Promise<any> {
@@ -74,19 +75,19 @@ async function registerUser(req: Request, res: Response, next: NextFunction):Pro
     }
 }
 
-function getRoles(req: Request, res: Response,nextFunction) {
-    const RolesArray:Array<any> = [
+function getRoles(req: Request, res: Response,next:NextFunction) {
+    const RolesArray:Array<any> = [ //TODO to be replaced with get Roles with permission
         {
-            value:"admin",
-            placeholder:"admin"
+            value:Roles.Admin,
+            placeholder:"Admin"
         },
         {
-            value:"manger",
-            placeholder:"manager"
+            value:Roles.Manager,
+            placeholder:"Manager"
         },
         {
-            value:"employee",
-            placeholder:"employee"
+            value:Roles.Employee,
+            placeholder:"Employee"
         }
     ];
     res.status(200).json(RolesArray);

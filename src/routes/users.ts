@@ -2,8 +2,9 @@ import * as express from "express";
 import {body} from "express-validator";
 import {register, login, currentUser, registerUser, getRoles} from "../controllers/users";
 import {Users} from "../models/Users";
-import {isAuth} from "../utilities/authentication";
-import {ROLES} from "../utilities/constants";
+import {isAuth,isAuthorized} from "../middlewares/authorisation";
+import {ROLES_ALL} from "../utilities/roles";
+import {Roles} from "../utilities/roles";
 
 const router = express.Router();
 
@@ -33,7 +34,7 @@ router.put("/register", [
 
 router.post("/login", login);
 
-router.put('/register-user',[
+router.put('/register-user',isAuth,[
     body("email")
         .isEmail()
         .bail()
@@ -50,7 +51,7 @@ router.put('/register-user',[
         .isLength({min: 5}),
     body("roles")
         .custom(function(value)  {
-            return ROLES.includes(value);
+            return ROLES_ALL.includes(value);
         }),
     body("current_password")
         .custom(function(value, {req})  {
@@ -59,10 +60,10 @@ router.put('/register-user',[
     body('name')
         .trim()
         .notEmpty()
-],registerUser);
+],[isAuthorized([Roles.Admin,Roles.Manager]),registerUser]);
 
-router.get('/roles',getRoles);
+router.get('/roles',isAuth(),[isAuthorized([Roles.Admin,Roles.Manager]),getRoles]);
 
-router.get("/current", isAuth(), currentUser);
+router.get("/current", isAuth, currentUser);
 
 export default router;
