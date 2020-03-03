@@ -8,17 +8,20 @@ import Dashboard from "./views/dashboard";
 import Error from "./views/errors/Error";
 import HeaderFooterLayout from "./components/HOC/HeaderFooterLayout";
 import CreateUsers from "./views/users/create-user/CreateUsers";
-import {Roles} from "./roles";
+import Users from "./views/users";
+import {Roles, RoleType} from "./roles";
 
 const HL_Dashboard = HeaderFooterLayout(Dashboard);
 const HL_CreateUser = HeaderFooterLayout(CreateUsers);
-
+const HL_Users  = HeaderFooterLayout(Users);
+const superAdminMangerRoles :Array<RoleType> = [Roles.SuperAdmin,Roles.Admin,Roles.Manager];
 const Routes:React.FC = () => {
     return (
         <>
             <Switch>
                 <PrivateRoute exact path={['/','/dashboard']} component={HL_Dashboard}/>
-                <PrivateRoute exact path='/users/create-user' allowedRoles={[Roles.SuperAdmin,Roles.Admin,Roles.Manager]} component={HL_CreateUser}/>
+                <PrivateRoute exact path='/users/create-user' allowedRoles={superAdminMangerRoles} component={HL_CreateUser}/>
+                <PrivateRoute exact path='/users/index' allowedRoles={superAdminMangerRoles} component={HL_Users}/>
                 <PublicRoute exact path='/login' component={Login}/>
                 <PublicRoute exact path='/register' component={Register}/>
                 <Route exact path="/404" render={(() =><Error errorNumber={404} errorText="Page Not Found"/> )}/>

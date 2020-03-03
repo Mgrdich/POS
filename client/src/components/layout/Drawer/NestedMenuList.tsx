@@ -11,6 +11,7 @@ import {drawerRoutes, nestedRoutes} from "./config";
 import {INestedMenuList} from "../../../interfaces/layout/Drawer";
 import {IDrawerRoute} from "../../../interfaces/layout/Drawer";
 import {useHistory} from "react-router-dom";
+import AuthorizationElem from "../../HOC/Auth/AuthorizationElem";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -67,14 +68,17 @@ const NestedMenuList: React.FC<INestedMenuList> = ({menuOpen}) => {
       >
         {drawerRoutes.map((route: IDrawerRoute, index: number) => {
           return route.location ? (
+              <AuthorizationElem allowedRoles={route.role}>
               <ListItem key={index} button onClick={() => route.location ? history.push(route.location) : null}>
                 <ListItemIcon>
                   <route.icon/>
                 </ListItemIcon>
                 <ListItemText primary={route.translation}/>
               </ListItem>
+              </AuthorizationElem>
           ) : (
               <React.Fragment key={index}>
+                  <AuthorizationElem allowedRoles={route.role}>
                 <ListItem button onClick={() => handleClick(index)}>
                   <ListItemIcon>
                     <route.icon/>
@@ -86,6 +90,7 @@ const NestedMenuList: React.FC<INestedMenuList> = ({menuOpen}) => {
                       <ExpandMore/>
                   )}
                 </ListItem>
+                  </AuthorizationElem>
                 <Collapse
                     in={open.open && open.index === index}
                     timeout="auto"
@@ -94,12 +99,14 @@ const NestedMenuList: React.FC<INestedMenuList> = ({menuOpen}) => {
                   <List component="div" disablePadding>
                     {route.nested ? route.nested.map((nestedRoute: nestedRoutes, index: number) => {
                       return (
+                          <AuthorizationElem allowedRoles={nestedRoute.role}>
                           <ListItem key={index} button className={classes.nested} onClick={() => nestedRoute.location ? history.push(`${nestedRoute.location}`) : null}>
                             <ListItemIcon>
                               <nestedRoute.icon/>
                             </ListItemIcon>
                             <ListItemText primary={nestedRoute.translation}/>
                           </ListItem>
+                          </AuthorizationElem>
                       );
                     }) : null}
                   </List>
