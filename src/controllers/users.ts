@@ -6,8 +6,10 @@ import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 import {SECRET_KEY} from "../config/keys";
 import {errorCatcher, errorFormatter, errorThrower} from "../utilities/error";
-import {getSmallerRoles, normalizeRolesForm, ROLES_PRIORITY, RoleType} from "../utilities/roles";
+import {getSmallerRoles, normalizeRolesForm} from "../utilities/roles";
 import {IDropDowns} from "../interfaces/General";
+import {ROLES_PRIORITY} from "../roles";    
+import {RoleType} from "../interfaces/roles";
 
 
 async function register(req: Request, res: Response, next: NextFunction):Promise<any> {

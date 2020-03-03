@@ -3,7 +3,7 @@ import {body} from "express-validator";
 import {register, login, currentUser, registerUser, getRoles} from "../controllers/users";
 import {Users} from "../models/Users";
 import {isAuth,isAuthorized} from "../middlewares/authorisation";
-import {ROLES_ALL, ROLES_SUPER_ADMIN_MANAGER} from "../utilities/roles";
+import {ROLES_ALL, ROLES_SUPER_ADMIN_MANAGER} from "../roles";
 
 const router = express.Router();
 
