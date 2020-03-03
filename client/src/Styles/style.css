@@ -10,6 +10,12 @@
 .loginRegister form .MuiButtonBase-root {
   width: 30%; }
 
+.MuiFormControl-root {
+  width: 100%; }
+
+.FloatRight {
+  float: right; }
+
 .footer {
   position: absolute !important;
   bottom: 0 !important;
@@ -31,3 +37,9 @@
 section.content {
   position: relative;
   min-height: 100%; }
+
+section.content h1 {
+  text-align: left;
+  font-size: 25px;
+  color: #66fcf1;
+  margin-top: 0; }

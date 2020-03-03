@@ -10,12 +10,12 @@ export const LoginValSchema = yup.object().shape({
 export const LoginInputFields:Array<InputField> = [
     {
         name: 'email',
-        placeholder: 'email'
+        placeholder: 'Email'
     }
     ,
     {
         name: 'password',
-        placeholder: 'password',
+        placeholder: 'Password',
         type: 'password'
     }
 ];
@@ -25,20 +25,20 @@ export const LoginInputFields:Array<InputField> = [
 export const RegisterInputFields:Array<InputField> = [
     {
         name: 'name',
-        placeholder: 'name'
+        placeholder: 'Name'
     },
     {
         name: 'email',
-        placeholder: 'email'
+        placeholder: 'Email'
     },
     {
         name: 'password',
-        placeholder: 'password',
+        placeholder: 'Password',
         type: 'password'
     },
     {
         name: 'current_password',
-        placeholder: 'current password',
+        placeholder: 'Current Password',
         type: 'password'
     }
 ];

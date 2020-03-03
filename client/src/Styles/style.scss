@@ -1,6 +1,6 @@
 @import "variables";
 @import "components";
-
+@import "elements";
 // Footer
 
 .footer {
@@ -27,5 +27,13 @@ section {
   &.content {
     position: relative;
     min-height: 100%;
+    h1 {
+        text-align: left;
+        font-size: 25px;
+        color: $primary;
+        margin-top: 0;
+    }
   }
 }
+
+
