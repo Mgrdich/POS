@@ -1,5 +1,4 @@
 import GroupIcon from '@material-ui/icons/Group';
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import ViewAgendaIcon from '@material-ui/icons/ViewAgenda';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import {ComponentType} from "react";

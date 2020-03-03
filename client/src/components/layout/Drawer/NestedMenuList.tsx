@@ -68,7 +68,7 @@ const NestedMenuList: React.FC<INestedMenuList> = ({menuOpen}) => {
       >
         {drawerRoutes.map((route: IDrawerRoute, index: number) => {
           return route.location ? (
-              <AuthorizationElem allowedRoles={route.role}>
+              <AuthorizationElem  allowedRoles={route.role}>
               <ListItem key={index} button onClick={() => route.location ? history.push(route.location) : null}>
                 <ListItemIcon>
                   <route.icon/>
@@ -78,7 +78,7 @@ const NestedMenuList: React.FC<INestedMenuList> = ({menuOpen}) => {
               </AuthorizationElem>
           ) : (
               <React.Fragment key={index}>
-                  <AuthorizationElem allowedRoles={route.role}>
+                  <AuthorizationElem  allowedRoles={route.role}>
                 <ListItem button onClick={() => handleClick(index)}>
                   <ListItemIcon>
                     <route.icon/>
@@ -99,8 +99,8 @@ const NestedMenuList: React.FC<INestedMenuList> = ({menuOpen}) => {
                   <List component="div" disablePadding>
                     {route.nested ? route.nested.map((nestedRoute: nestedRoutes, index: number) => {
                       return (
-                          <AuthorizationElem allowedRoles={nestedRoute.role}>
-                          <ListItem key={index} button className={classes.nested} onClick={() => nestedRoute.location ? history.push(`${nestedRoute.location}`) : null}>
+                          <AuthorizationElem key={index} allowedRoles={nestedRoute.role}>
+                          <ListItem  button className={classes.nested} onClick={() => nestedRoute.location ? history.push(`${nestedRoute.location}`) : null}>
                             <ListItemIcon>
                               <nestedRoute.icon/>
                             </ListItemIcon>
