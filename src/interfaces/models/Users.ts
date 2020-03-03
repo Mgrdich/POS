@@ -1,5 +1,5 @@
 import {Document} from 'mongoose';
-import {RoleType} from "../../utilities/roles";
+import {RoleType} from "../roles";
 
 export interface IUser {
     name: string;
