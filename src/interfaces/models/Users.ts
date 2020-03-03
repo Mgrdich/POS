@@ -6,6 +6,7 @@ export interface IUser {
     email: string;
     password: string;
     role?: RoleType;
+    rolePriority?: number;
     date?: Date;
 }
 

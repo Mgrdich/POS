@@ -21,6 +21,10 @@ const userSchema: Schema = new Schema({
         default: Roles.Admin,
         enum: [...ROLES_ALL]
     },
+    rolePriority: {
+      type:Number,
+      default:1,
+    },
     date: {
         type: Date,
         default: Date.now()

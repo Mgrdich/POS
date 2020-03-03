@@ -6,7 +6,7 @@ import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 import {SECRET_KEY} from "../config/keys";
 import {errorCatcher, errorFormatter, errorThrower} from "../utilities/error";
-import {getSmallerRoles, normalizeRolesForm, RoleType} from "../utilities/roles";
+import {getSmallerRoles, normalizeRolesForm, ROLES_PRIORITY, RoleType} from "../utilities/roles";
 import {IDropDowns} from "../interfaces/General";
 
 
@@ -67,6 +67,8 @@ async function registerUser(req: Request, res: Response, next: NextFunction):Pro
         const {email, name, password,role} = req.body;
         const newUser: IDocUser = new Users({email, name, password,role});
 
+        newUser.rolePriority = ROLES_PRIORITY[role];
+
         const salt = await bcrypt.genSalt(10);
         newUser.password = await bcrypt.hash(newUser.password, salt);
         let savedUser: any = await newUser.save();
@@ -79,7 +81,7 @@ async function registerUser(req: Request, res: Response, next: NextFunction):Pro
 function getRoles(req: Request, res: Response,next:NextFunction):Response  {
     const RolesArray:Array<RoleType> = getSmallerRoles(req.user["role"]);
     const DropDownRoles:Array<IDropDowns> = normalizeRolesForm(RolesArray);
-    return res.status(200).json(DropDownRoles   );
+    return res.status(200).json(DropDownRoles);
 }
 
 async function currentUser(req: Request, res: Response, next: NextFunction):Promise<any> {

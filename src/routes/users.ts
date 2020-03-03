@@ -3,8 +3,7 @@ import {body} from "express-validator";
 import {register, login, currentUser, registerUser, getRoles} from "../controllers/users";
 import {Users} from "../models/Users";
 import {isAuth,isAuthorized} from "../middlewares/authorisation";
-import {ROLES_ALL} from "../utilities/roles";
-import {Roles} from "../utilities/roles";
+import {ROLES_ALL, ROLES_SUPER_ADMIN_MANAGER} from "../utilities/roles";
 
 const router = express.Router();
 
@@ -60,10 +59,10 @@ router.put('/register-user',isAuth(),[
     body('name')
         .trim()
         .notEmpty()
-],[isAuthorized([Roles.Admin,Roles.Manager]),registerUser]);
+],[isAuthorized(ROLES_SUPER_ADMIN_MANAGER),registerUser]);
 
-router.get('/roles',isAuth(),[isAuthorized([Roles.Admin,Roles.Manager]),getRoles]);
+router.get('/roles',isAuth(),[isAuthorized(ROLES_SUPER_ADMIN_MANAGER),getRoles]);
 
-router.get("/current", isAuth, currentUser);
+router.get("/current", isAuth(), currentUser);
 
 export default router;
