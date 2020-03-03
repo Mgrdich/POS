@@ -8,7 +8,7 @@ import {SECRET_KEY} from "../config/keys";
 import {errorCatcher, errorFormatter, errorThrower} from "../utilities/error";
 import {getSmallerRoles, normalizeRolesForm} from "../utilities/roles";
 import {IDropDowns} from "../interfaces/General";
-import {ROLES_PRIORITY} from "../roles";    
+import {ROLES_PRIORITY} from "../roles";
 import {RoleType} from "../interfaces/roles";
 
 

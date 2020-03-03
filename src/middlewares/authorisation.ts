@@ -1,6 +1,6 @@
 import * as passport from "passport";
 import {NextFunction,Request,Response} from "express";
-import {RoleType} from "../utilities/roles";
+import {RoleType} from "../interfaces/roles";
 
 export function isAuth() {
       return passport.authenticate("jwt", {

@@ -1,7 +1,8 @@
 import * as mongoose from 'mongoose';
 import {Schema} from "mongoose";
 import {IDocUser} from "../interfaces/models/Users";
-import {Roles, ROLES_ALL} from "../utilities/roles";
+import {Roles, ROLES_ALL} from "../roles";
+
 
 const userSchema: Schema = new Schema({
     name: {
