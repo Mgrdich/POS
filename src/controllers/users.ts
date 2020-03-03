@@ -6,7 +6,8 @@ import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 import {SECRET_KEY} from "../config/keys";
 import {errorCatcher, errorFormatter, errorThrower} from "../utilities/error";
-import {Roles} from "../utilities/roles";
+import {getSmallerRoles, normalizeRolesForm, RoleType} from "../utilities/roles";
+import {IDropDowns} from "../interfaces/General";
 
 
 async function register(req: Request, res: Response, next: NextFunction):Promise<any> {
@@ -75,22 +76,10 @@ async function registerUser(req: Request, res: Response, next: NextFunction):Pro
     }
 }
 
-function getRoles(req: Request, res: Response,next:NextFunction) {
-    const RolesArray:Array<any> = [ //TODO to be replaced with get Roles with permission
-        {
-            value:Roles.Admin,
-            placeholder:"Admin"
-        },
-        {
-            value:Roles.Manager,
-            placeholder:"Manager"
-        },
-        {
-            value:Roles.Employee,
-            placeholder:"Employee"
-        }
-    ];
-    return res.status(200).json(RolesArray);
+function getRoles(req: Request, res: Response,next:NextFunction):Response  {
+    const RolesArray:Array<RoleType> = getSmallerRoles(req.user["role"]);
+    const DropDownRoles:Array<IDropDowns> = normalizeRolesForm(RolesArray);
+    return res.status(200).json(DropDownRoles   );
 }
 
 async function currentUser(req: Request, res: Response, next: NextFunction):Promise<any> {

@@ -11,3 +11,9 @@ export interface ImyError extends Error {
     message: string;
     data: any;
 }
+
+export interface IDropDowns {
+    value: number | string;
+    placeholder: string;
+    id?: string;
+}
