@@ -9,12 +9,14 @@ import {RouteComponentProps} from "react-router";
 import {useDynamicFields} from "../../../components/Hooks/useDynamicFields";
 import {createUserFormDataType} from "../../../interfaces/Views/users";
 import Grid from "@material-ui/core/Grid";
+import {useMessage} from "../../../components/Hooks/useMessage";
 
 
 const CreateUsers : React.FC<RouteComponentProps> = (props) => {
     const {handleSubmit, register, errors, control,unregister,reset} = useForm<createUserFormDataType>({
         validationSchema:createUsersValSchema,
     });
+    const [message,messageSetter] = useMessage();
     const [serverError, setterError] = useServerErrorHandle();
     useDynamicFields(createUsersInputFields, register, unregister);
 
@@ -22,7 +24,8 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
         axios.put('/users/register-user', values)
             .then(function (res: AxiosResponse) {
                 reset({...values, role: undefined, name: '', email: '', password: '', current_password: ''});
-                console.log('successfully created');
+                messageSetter('successfully created');
+
             }).catch(function (e: any) {
             if (!e.response.data) {
                 console.error("No Response is found");
@@ -63,6 +66,8 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
                     type="submit"
                 >Submit</Button>
             </form>
+
+            <h1>{message}</h1>
         </>
     );
 };
