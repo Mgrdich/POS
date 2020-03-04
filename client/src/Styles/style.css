@@ -7,6 +7,16 @@
   width: 30%;
   margin-bottom: 20px; }
 
+@media (max-width: 960px) {
+  .loginRegister form .MuiFormControl-root {
+    width: 50%;
+    margin-bottom: 20px; } }
+
+@media (max-width: 600px) {
+  .loginRegister form .MuiFormControl-root {
+    width: 75%;
+    margin-bottom: 20px; } }
+
 .loginRegister form .MuiButtonBase-root {
   width: 30%; }
 

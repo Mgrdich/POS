@@ -43,12 +43,16 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
                         control={control}
                         serverError={serverError}
                         Component={Grid}
-                        ComponentProps={{
-                            item: true,
-                            xs: 3,
+                        ComponentProps={
+                            {
+                                item: true,
+                                xs: 12,
+                                sm: 6,
+                                md: 4,
+                                lg: 3,
 
-
-                        }}
+                            }
+                        }
                     />
 
                 </Grid>
