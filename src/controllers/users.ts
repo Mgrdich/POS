@@ -85,10 +85,23 @@ function getRoles(req: Request, res: Response,next:NextFunction):Response  {
     const DropDownRoles:Array<IDropDowns> = normalizeRolesForm(RolesArray);
     return res.status(200).json(DropDownRoles);
 }
+//TODO make a route for general api
 
 async function currentUser(req: Request, res: Response, next: NextFunction):Promise<any> {
     res.status(200).json(req["user"]);
 }
 
+async function getUsers(req: Request, res: Response, next: NextFunction):Promise<any> {
+    try {
+        let users:any = await Users.find({});
 
-export {register, login, currentUser,registerUser,getRoles};
+        if(!users) {
+            users = {};
+        }
+        res.status(200).json(users);
+    } catch (err) {
+        errorCatcher(next,err);
+    }
+}
+
+export {register, login, currentUser,registerUser,getRoles,getUsers};
