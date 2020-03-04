@@ -12,16 +12,16 @@ import Grid from "@material-ui/core/Grid";
 
 
 const CreateUsers : React.FC<RouteComponentProps> = (props) => {
-    const {handleSubmit, register, errors, control,unregister} = useForm<createUserFormDataType>({
-        validationSchema:createUsersValSchema
+    const {handleSubmit, register, errors, control,unregister,reset} = useForm<createUserFormDataType>({
+        validationSchema:createUsersValSchema,
     });
     const [serverError, setterError] = useServerErrorHandle();
     useDynamicFields(createUsersInputFields, register, unregister);
 
-    const onSubmit = function (values: any):void {
-        console.log(values);
+    const onSubmit = function (values: any): void {
         axios.put('/users/register-user', values)
-            .then(function (res:AxiosResponse) {
+            .then(function (res: AxiosResponse) {
+                reset({...values, role: undefined, name: '', email: '', password: '', current_password: ''});
                 console.log('successfully created');
             }).catch(function (e: any) {
             if (!e.response.data) {
@@ -30,7 +30,6 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
             setterError(e.response.data.data);
         });
     };
-    console.log(errors);
     return (
         <>
             <h1>Create User</h1>
