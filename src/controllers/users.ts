@@ -1,13 +1,13 @@
 import {NextFunction, Request, Response} from 'express';
 import {Users} from "../models/Users";
-import {IDocUser} from "../interfaces/models/Users";
+import {IDocUser, IUser} from "../interfaces/models/Users";
 import {validationResult} from "express-validator";
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 import {SECRET_KEY} from "../config/keys";
 import {errorCatcher, errorFormatter, errorThrower} from "../utilities/error";
 import {getSmallerRoles, normalizeRolesForm} from "../utilities/roles";
-import {IDropDowns} from "../interfaces/General";
+import {IDropDowns, myRequest} from "../interfaces/General";
 import {ROLES_PRIORITY} from "../roles";
 import {RoleType} from "../interfaces/roles";
 
@@ -87,13 +87,14 @@ function getRoles(req: Request, res: Response,next:NextFunction):Response  {
 }
 //TODO make a route for general api
 
-async function currentUser(req: Request, res: Response, next: NextFunction):Promise<any> {
-    res.status(200).json(req["user"]);
+async function currentUser(req: myRequest, res: Response, next: NextFunction):Promise<any> {
+    res.status(200).json(req.user);
 }
 
-async function getUsers(req: Request, res: Response, next: NextFunction):Promise<any> {
+async function getUsers(req: myRequest, res: Response, next: NextFunction):Promise<any> {
+    const rolePriority = req.user.rolePriority;
     try {
-        let users:any = await Users.find({});
+        let users:any = await Users.find({"rolePriority":{$lt:rolePriority}});
 
         if(!users) {
             users = {};

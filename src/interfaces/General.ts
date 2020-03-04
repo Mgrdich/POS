@@ -1,3 +1,6 @@
+import {Request} from "express";
+import {IUser} from "./models/Users";
+
 export interface IError {
     value: string | number;
     msg: string;
@@ -16,4 +19,8 @@ export interface IDropDowns {
     value: number | string;
     placeholder: string;
     id?: string;
+}
+
+export interface myRequest extends Request {
+    user :IUser;
 }
