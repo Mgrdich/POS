@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import DynamicFields from "../../../components/Reusable/DynamicFields";
 import {createUsersInputFields, createUsersValSchema} from './config';
 import {useForm} from "react-hook-form";
@@ -10,13 +10,14 @@ import {useDynamicFields} from "../../../components/Hooks/useDynamicFields";
 import {createUserFormDataType} from "../../../interfaces/Views/users";
 import Grid from "@material-ui/core/Grid";
 import {useAlert} from "../../../components/Hooks/useAlert";
-
+import Alerts from "../../../components/Reusable/Alerts";
 
 const CreateUsers : React.FC<RouteComponentProps> = (props) => {
     const {handleSubmit, register, errors, control,unregister,reset} = useForm<createUserFormDataType>({
         validationSchema:createUsersValSchema,
     });
-    const [message,messageSetter] = useAlert("");
+    const [open,setOpen]= useState({success:false,error:false});
+    const [message,messageSetter] = useAlert();
     const [serverError, setterError,resetServerError] = useServerErrorHandle();
     useDynamicFields(createUsersInputFields, register, unregister);
 
@@ -26,11 +27,14 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
                 reset();
                 resetServerError();
                 messageSetter('successfully created');
+                setOpen({...open,success:true});
             }).catch(function (e: any) {
             if (!e.response.data) {
                 console.error("No Response is found");
             }
             setterError(e.response.data.data);
+                setOpen({...open,error:true});
+                messageSetter(e.response.data.data.email)
         });
     };
     return (
@@ -49,7 +53,6 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
                             {
                                 item: true,
                                 xs: 12,
-                                sm: 6,
                                 md: 4,
                                 lg: 3,
                             }
@@ -66,7 +69,13 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
                 >Submit</Button>
             </form>
 
-            <h1>{message}</h1>
+            <Alerts open={open.success} close={setOpen} severity="success">
+                {message}
+            </Alerts>
+
+            <Alerts open={open.error} close={setOpen} severity="error">
+                {message}
+            </Alerts>
         </>
     );
 };

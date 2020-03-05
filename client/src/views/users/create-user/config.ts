@@ -4,20 +4,20 @@ import * as yup from "yup";
 export const createUsersInputFields : Array<InputField> = [
     {
         name: 'name',
-        placeholder: 'name',
+        placeholder: 'Name',
     },
     {
         name: 'email',
-        placeholder: 'email',
+        placeholder: 'Email',
     },
     {
         name: 'password',
-        placeholder: 'password',
+        placeholder: 'Password',
         type:'password',
     },
     {
         name: 'current_password',
-        placeholder: 'current password',
+        placeholder: 'Confirm password',
         type:'password',
     },
     {
