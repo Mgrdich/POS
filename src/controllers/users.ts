@@ -94,8 +94,7 @@ async function currentUser(req: myRequest, res: Response, next: NextFunction):Pr
 async function getUsers(req: myRequest, res: Response, next: NextFunction):Promise<any> {
     const rolePriority = req.user.rolePriority;
     try {
-        let users:any = await Users.find({"rolePriority":{$lt:rolePriority}});
-
+        let users:IUser | object =  await Users.find({"rolePriority":{$lt:rolePriority}});
         if(!users) {
             users = {};
         }
