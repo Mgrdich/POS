@@ -83,8 +83,7 @@ const MenuDrawer: React.FC <IMenuDrawer> = ({children}) => {
         <NestedMenuList menuOpen={open}/>
         <Divider />
       </Drawer>
-      <main className={classes.content+ " header"}>
-        <div className={classes.toolbar} />
+      <main className="header">
         {children}
       </main>
     </Grid>

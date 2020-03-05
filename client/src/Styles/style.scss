@@ -3,6 +3,7 @@
 @import "elements";
 // Footer
 
+$header_height: 74px; //64px + 10px
 .footer {
   position: absolute !important;
   bottom: 0 !important;
@@ -14,12 +15,14 @@
   padding-top: 22px;
 }
 
-#root{
+#root {
   position: relative;
   min-height: 100vh;
+
   .header {
-    padding-bottom: 64px;
+    padding: $header_height 10px 0;
     min-height: 100vh;
+    flex-grow: 1;
   }
 }
 
@@ -27,11 +30,12 @@ section {
   &.content {
     position: relative;
     min-height: 100%;
+
     h1 {
-        text-align: left;
-        font-size: 25px;
-        color: $primary;
-        margin-top: 0;
+      text-align: left;
+      font-size: 25px;
+      color: $primary;
+      margin-top: 0;
     }
   }
 }
