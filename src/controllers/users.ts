@@ -6,11 +6,8 @@ import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 import {SECRET_KEY} from "../config/keys";
 import {errorCatcher, errorFormatter, errorThrower} from "../utilities/error";
-import {getSmallerRoles, normalizeRolesForm} from "../utilities/roles";
-import {IDropDowns, myRequest} from "../interfaces/General";
+import {myRequest} from "../interfaces/General";
 import {ROLES_PRIORITY} from "../roles";
-import {RoleType} from "../interfaces/roles";
-
 
 async function register(req: Request, res: Response, next: NextFunction):Promise<any> {
     try {
@@ -80,13 +77,6 @@ async function registerUser(req: Request, res: Response, next: NextFunction):Pro
     }
 }
 
-function getRoles(req: Request, res: Response,next:NextFunction):Response  {
-    const RolesArray:Array<RoleType> = getSmallerRoles(req.user["role"]);
-    const DropDownRoles:Array<IDropDowns> = normalizeRolesForm(RolesArray);
-    return res.status(200).json(DropDownRoles);
-}
-//TODO make a route for general api
-
 async function currentUser(req: myRequest, res: Response, next: NextFunction):Promise<any> {
     res.status(200).json(req.user);
 }
@@ -104,4 +94,4 @@ async function getUsers(req: myRequest, res: Response, next: NextFunction):Promi
     }
 }
 
-export {register, login, currentUser,registerUser,getRoles,getUsers};
+export {register, login, currentUser,registerUser,getUsers};
