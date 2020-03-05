@@ -24,7 +24,7 @@ const MenuDrawer: React.FC <IMenuDrawer> = ({children}) => {
   const [open, setOpen] = React.useState<boolean>(false);
 
   return (
-    <div className={classes.root}>
+    <Grid container>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -87,7 +87,7 @@ const MenuDrawer: React.FC <IMenuDrawer> = ({children}) => {
         <div className={classes.toolbar} />
         {children}
       </main>
-    </div>
+    </Grid>
   );
 };
 
