@@ -1,12 +1,16 @@
-import {useState} from "react";
+import {useCallback, useState} from "react";
 
-export function useAlert(initialValue: string = ''):Array<any> {
+export function useAlert(Message: string = '',alertOpen:boolean = false,type:string=''):any {
 
-    const [message, setMessage] = useState<string>(initialValue);
+    const [alertMessage, setAlertMessage] = useState<string>(Message);
+    const [openAlert, setOpenAlert] = useState<boolean>(alertOpen);
+    const [alertType, setAlertType] = useState<string>(type);
 
-     function messageSetter(myMessage: string)  {
-       return setMessage(myMessage);
-    }
+    const setAlert = useCallback(function (alertMessage:string,openAlert:boolean,alertType:string){
+        setAlertMessage(alertMessage);
+        setOpenAlert(openAlert);
+        setAlertType(alertType);
+    },[]);
 
-    return [message, messageSetter];
+    return {alertMessage, openAlert,  alertType, setOpenAlert, setAlert};
 }

@@ -16,8 +16,7 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
     const {handleSubmit, register, errors, control,unregister,reset} = useForm<createUserFormDataType>({
         validationSchema:createUsersValSchema,
     });
-    const [open,setOpen]= useState({success:false,error:false});
-    const [message,messageSetter] = useAlert();
+    const {alertMessage,openAlert,alertType,setAlert,setOpenAlert} = useAlert();
     const [serverError, setterError,resetServerError] = useServerErrorHandle();
     useDynamicFields(createUsersInputFields, register, unregister);
 
@@ -26,15 +25,13 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
             .then(function (res: AxiosResponse) {
                 reset();
                 resetServerError();
-                messageSetter('successfully created');
-                setOpen({...open,success:true});
+                setAlert('successfully created',true,'success');
+
             }).catch(function (e: any) {
             if (!e.response.data) {
                 console.error("No Response is found");
             }
             setterError(e.response.data.data);
-                setOpen({...open,error:true});
-                messageSetter(e.response.data.data.email)
         });
     };
     return (
@@ -69,13 +66,10 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
                 >Submit</Button>
             </form>
 
-            <Alerts open={open.success} close={setOpen} severity="success">
-                {message}
+            <Alerts open={openAlert} close={setOpenAlert} severity={alertType}>
+                {alertMessage}
             </Alerts>
 
-            <Alerts open={open.error} close={setOpen} severity="error">
-                {message}
-            </Alerts>
         </>
     );
 };
