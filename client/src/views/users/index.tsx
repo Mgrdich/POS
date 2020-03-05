@@ -4,6 +4,8 @@ import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import {useTab} from "../../components/Hooks/useTab";
+import TabPanelOne from "./create-user/TabPanelOne";
+import TabPanelTwo from "./create-user/TabPanelTwo";
 
 const Users = () => {
 
@@ -20,10 +22,10 @@ const Users = () => {
                 </Tabs>
             </AppBar>
             <TabPanel value={tabValue} index={0} >
-                   Item one
+                   <TabPanelOne/>
                 </TabPanel>
             <TabPanel value={tabValue} index={1}>
-                Item Two
+                <TabPanelTwo/>
             </TabPanel>
             <TabPanel value={tabValue} index={2}>
                 Item Three

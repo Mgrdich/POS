@@ -30,6 +30,9 @@ theme = createMuiTheme({
             default: "#0b0c10",
 
         },
+        success:{
+            main:'#66fcf1'
+        }
     },
     overrides: {
         MuiInput: {
