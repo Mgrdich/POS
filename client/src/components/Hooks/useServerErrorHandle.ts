@@ -1,6 +1,6 @@
 import {useCallback, useState} from "react";
 
-export function useServerErrorHandle() {
+export function useServerErrorHandle():Array<any>{
     let [errors, setError] = useState<any>({});
 
     const errorSetter = useCallback<any>(function (error: any) {
