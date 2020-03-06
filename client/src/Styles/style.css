@@ -43,7 +43,8 @@
 #root .header {
   padding: 74px 10px 0;
   min-height: 100vh;
-  flex-grow: 1; }
+  flex-grow: 1;
+  width: min-content; }
 
 section.content {
   position: relative;
