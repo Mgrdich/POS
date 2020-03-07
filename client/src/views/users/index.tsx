@@ -6,7 +6,6 @@ import Tab from "@material-ui/core/Tab";
 import {useTab} from "../../components/Hooks/useTab";
 import TabPanelOne from "./TabPanelOne";
 import TabPanelTwo from "./TabPanelTwo";
-import {Grid} from "@material-ui/core";
 
 const Users:React.FC = () => {
 
