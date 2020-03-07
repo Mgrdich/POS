@@ -27,12 +27,13 @@ $drawer_width_close:70px; //60px + 10px
     padding-right: 10px;
     min-height: 100vh;
     flex-grow: 1;
-    //width: min-content;
     &.drawer-open {
       padding-left: $drawer_width_open;
+      transition: padding-left 225ms;
     }
     &.drawer-close {
       padding-left: $drawer_width_close;
+      transition: padding-left 225ms;
     }
   }
 }

@@ -4,6 +4,7 @@ import {AccountCircle} from "@material-ui/icons";
 import {Menu, MenuItem} from "@material-ui/core";
 import {useDispatch} from "react-redux";
 import {logOutUser} from "../../actions/authActions";
+import history from "../../util/history";
 
 
 const Logout:React.FC = () => {
@@ -46,7 +47,7 @@ const Logout:React.FC = () => {
                 open={open}
                 onClose={handleClose}
             >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={()=>history.push('/profile')}>Profile</MenuItem>
                 <MenuItem onClick={()=>dispatch(logOutUser())}>Logout</MenuItem>
             </Menu>
         </>
