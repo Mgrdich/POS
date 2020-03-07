@@ -3,9 +3,11 @@ import {Schema} from "mongoose";
 import {IDocUser} from "../interfaces/models/Users";
 import {Roles, ROLES_ALL} from "../roles";
 
+//TODO Reigon creation + telephone number
+//TODO citezenship
 
 const userSchema: Schema = new Schema({
-    name: {
+    name: {  //TODO could the name and email be removed
         type: String,
         required: true
     },
