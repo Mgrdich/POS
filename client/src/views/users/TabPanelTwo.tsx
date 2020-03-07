@@ -1,11 +1,11 @@
 import React from 'react';
-import EnhancedTable from "../../components/Reusable/Table";
+// import EnhancedTable from "../../components/Reusable/Table";
 
-const TabPanelTwo = () => {
+const TabPanelTwo:React.FC = () => {
     return (
-        <div>
-            <EnhancedTable/>
-        </div>
+        <>
+
+        </>
     );
 };
 

@@ -18,7 +18,7 @@ export const drawerRoutes: Array<IDrawerRoute> = [
         translation: "Users",
         role:[Roles.SuperAdmin,Roles.Admin],
         nested: [
-            {icon: ViewAgendaIcon, location: "/users/index", translation: "View users",role:[Roles.SuperAdmin,Roles.Admin],},
+            {icon: ViewAgendaIcon, location: "/users", translation: "View users",role:[Roles.SuperAdmin,Roles.Admin],},
             {icon: PersonAddIcon, location: "/users/create-user", translation: "Create User",role:[Roles.SuperAdmin,Roles.Admin],},
         ]
     },
