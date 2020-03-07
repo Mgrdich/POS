@@ -13,8 +13,9 @@ const Users:React.FC = () => {
 
     return (
         <>
-            <AppBar position="static">
-                <Tabs value={tabValue} onChange={handleChange}>
+            <AppBar position="static" color='secondary'>
+                <Tabs indicatorColor='primary'  textColor='primary' value={tabValue} onChange={handleChange} >
+
                     <Tab label='Item One' tabIndex={0} />
                     <Tab label="Item Two" tabIndex={1} />
                     <Tab label="Item Three" tabIndex={2} />

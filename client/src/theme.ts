@@ -20,19 +20,26 @@ theme = createMuiTheme({
             light: "#ffb74d",
             main: "#ff9800",
             dark: "#f57c00",
-            contrastText: "rgba(0, 0, 0, 0.87)"
+            contrastText: "#66fcf1"
         },
         text: {
             primary: "#c5c6c7",
 
-        },
-        background: {
-            default: "#0b0c10",
 
         },
-        success:{
-            main:'#66fcf1'
-        }
+
+        background: {
+            default: "#0b0c10",
+            paper:"#1f2833",
+
+        },
+        success: {
+            light: "#81c784",
+            main: "#4caf50",
+            dark: "#388e3c",
+            contrastText: "rgba(0, 0, 0, 0.87)"
+
+        },
     },
     overrides: {
         MuiInput: {
@@ -40,7 +47,6 @@ theme = createMuiTheme({
                 color: '#fff'
             },
         },
-
     }
 });
 

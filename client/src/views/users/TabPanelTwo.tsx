@@ -1,9 +1,10 @@
 import React from 'react';
+import EnhancedTable from "../../components/Reusable/Table";
 
 const TabPanelTwo = () => {
     return (
         <div>
-            Tab Panel Two
+            <EnhancedTable/>
         </div>
     );
 };
