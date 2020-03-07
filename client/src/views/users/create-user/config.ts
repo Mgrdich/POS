@@ -24,7 +24,7 @@ export const createUsersInputFields : Array<InputField> = [
         name: 'role',
         placeholder: 'Role',
         type:'select',
-        url:'/users/roles',
+        url:'/api/roles',
     }
 ];
 
