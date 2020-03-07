@@ -11,5 +11,5 @@ export interface IUser {
 }
 
 //Mongoose modal
-export interface IDocUser extends Document, IUser {
+export interface IDocUsers extends Document, IUser {
 }

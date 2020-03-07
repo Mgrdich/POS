@@ -1,6 +1,6 @@
 import {NextFunction, Request, Response} from 'express';
 import {Users} from "../models/Users";
-import {IDocUser, IUser} from "../interfaces/models/Users";
+import {IDocUsers, IUser} from "../interfaces/models/Users";
 import {validationResult} from "express-validator";
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
@@ -17,7 +17,7 @@ async function register(req: Request, res: Response, next: NextFunction):Promise
             errorThrower("Validation Failed", 422, errors.mapped());
         }
         const {email, name, password} = req.body;
-        const newUser: IDocUser = new Users({email, name, password});
+        const newUser: IDocUsers = new Users({email, name, password});
 
         const salt = await bcrypt.genSalt(10);
         newUser.password = await bcrypt.hash(newUser.password, salt);
@@ -64,7 +64,7 @@ async function registerUser(req: Request, res: Response, next: NextFunction):Pro
             errorThrower("Validation Failed", 422, errors.mapped());
         }
         const {email, name, password,role} = req.body;
-        const newUser: IDocUser = new Users({email, name, password,role});
+        const newUser: IDocUsers = new Users({email, name, password,role});
 
         newUser.rolePriority = ROLES_PRIORITY[role];
 

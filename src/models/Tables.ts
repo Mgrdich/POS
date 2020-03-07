@@ -1,5 +1,6 @@
 import * as mongoose from 'mongoose';
 import {Schema} from "mongoose";
+import {IDocTables} from "../interfaces/models/Tables";
 
 const tableSchema: Schema = new Schema({
     name: {
@@ -19,6 +20,6 @@ const tableSchema: Schema = new Schema({
     }
 });
 
-const Tables = mongoose.model('Tables',tableSchema);
+const Tables = mongoose.model<IDocTables>('Tables',tableSchema);
 
 export {Tables};

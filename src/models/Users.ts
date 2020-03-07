@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 import {Schema} from "mongoose";
-import {IDocUser} from "../interfaces/models/Users";
+import {IDocUsers} from "../interfaces/models/Users";
 import {Roles, ROLES_ALL} from "../roles";
 
 //TODO Reigon creation + telephone number
@@ -34,6 +34,6 @@ const userSchema: Schema = new Schema({
     }
 });
 
-const Users = mongoose.model<IDocUser>('Users', userSchema);
+const Users = mongoose.model<IDocUsers>('Users', userSchema);
 
 export {Users};
