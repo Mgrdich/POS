@@ -41,10 +41,16 @@
   min-height: 100vh; }
 
 #root .header {
-  padding: 74px 10px 0;
+  padding-top: 74px;
+  padding-right: 10px;
   min-height: 100vh;
-  flex-grow: 1;
-  width: min-content; }
+  flex-grow: 1; }
+
+#root .header.drawer-open {
+  padding-left: 250px; }
+
+#root .header.drawer-close {
+  padding-left: 70px; }
 
 section.content {
   position: relative;

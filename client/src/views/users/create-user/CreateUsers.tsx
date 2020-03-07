@@ -38,7 +38,7 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
         <>
             <h1>Create User</h1>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Grid container direction="row" alignContent='space-between' spacing={1}>
+                <Grid container direction="row" spacing={1}>
                     <DynamicFields
                         InputFields={createUsersInputFields}
                         register={register}

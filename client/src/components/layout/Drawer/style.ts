@@ -1,6 +1,7 @@
 import {makeStyles} from "@material-ui/core/styles";
 
 const drawerWidth = 240;
+const drawerClosed = 60;
 
 export const useStyles = makeStyles(theme => ({
     appBar: {
@@ -42,10 +43,7 @@ export const useStyles = makeStyles(theme => ({
             duration: theme.transitions.duration.leavingScreen,
         }),
         overflowX: 'hidden',
-        width: theme.spacing(7) + 1,
-        [theme.breakpoints.up('sm')]: {
-            width: theme.spacing(9) + 1,
-        },
+        width: drawerClosed,
     },
     toolbar: {
         display: 'flex',

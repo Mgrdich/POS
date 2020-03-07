@@ -4,6 +4,9 @@
 // Footer
 
 $header_height: 74px; //64px + 10px
+$drawer_width_open:250px; //240px + 10px
+$drawer_width_close:70px; //60px + 10px
+
 .footer {
   position: absolute !important;
   bottom: 0 !important;
@@ -20,10 +23,17 @@ $header_height: 74px; //64px + 10px
   min-height: 100vh;
 
   .header {
-    padding: $header_height 10px 0;
+    padding-top: $header_height;
+    padding-right: 10px;
     min-height: 100vh;
     flex-grow: 1;
-    width: min-content;
+    //width: min-content;
+    &.drawer-open {
+      padding-left: $drawer_width_open;
+    }
+    &.drawer-close {
+      padding-left: $drawer_width_close;
+    }
   }
 }
 

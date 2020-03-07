@@ -1,6 +1,6 @@
 import React from "react";
 import clsx from "clsx";
-import { useTheme } from "@material-ui/core/styles";
+import {useTheme} from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -11,7 +11,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import { useStyles } from "./style";
+import {useStyles} from "./style";
 import NestedMenuList from "./NestedMenuList";
 import {IMenuDrawer} from "../../../interfaces/layout/Drawer";
 import Logout from "../../auth/Logout";
@@ -83,9 +83,11 @@ const MenuDrawer: React.FC <IMenuDrawer> = ({children}) => {
         <NestedMenuList menuOpen={open}/>
         <Divider />
       </Drawer>
-      <main className="header">
-        {children}
-      </main>
+        <Grid container alignContent="space-between">
+            <main className={(open ? "drawer-open" : "drawer-close") + " header"}>
+                {children}
+            </main>
+        </Grid>
     </Grid>
   );
 };
