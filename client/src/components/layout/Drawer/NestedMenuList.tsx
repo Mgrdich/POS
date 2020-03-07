@@ -29,10 +29,9 @@ const NestedMenuList: React.FC<INestedMenuList> = ({menuOpen}) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState<{ open: boolean, index: number }>({open: false, index: -1});
   const history = useHistory();
-
   const handleClick = useCallback(function (index: number) {
     let obj: any = {};
-
+    if(menuOpen){
     if (open.open) {
       //open case
       if (index === open.index) {
@@ -48,7 +47,9 @@ const NestedMenuList: React.FC<INestedMenuList> = ({menuOpen}) => {
     obj.open = true;
     obj.index = index;
     setOpen(obj);
-  }, [open]);
+    }
+
+  }, [open,menuOpen]);
 
 
   useEffect(() => {
