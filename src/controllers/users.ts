@@ -8,6 +8,8 @@ import {SECRET_KEY} from "../config/keys";
 import {errorCatcher, errorFormatter, errorThrower} from "../utilities/error";
 import {myRequest} from "../interfaces/General";
 import {ROLES_PRIORITY} from "../roles";
+import {messageAlert} from "../interfaces/util";
+import {alert} from "../utilities/messages";
 
 async function register(req: Request, res: Response, next: NextFunction):Promise<any> {
     try {
@@ -71,9 +73,27 @@ async function registerUser(req: Request, res: Response, next: NextFunction):Pro
         const salt = await bcrypt.genSalt(10);
         newUser.password = await bcrypt.hash(newUser.password, salt);
         let savedUser: any = await newUser.save();
-        res.status(200).json({...savedUser._doc});
+        res.status(200).json({...savedUser._doc }); //TODO to be changed by success Alert
     } catch (err) {
         errorCatcher(next, err);
+    }
+}
+
+async function changePassword(req: myRequest, res: Response, next: NextFunction): Promise<any> {
+    try {
+        const errors: any = validationResult(req).formatWith(errorFormatter);
+
+        if (!errors.isEmpty()) {
+            errorThrower("Validation Failed", 422, errors.mapped());
+        }
+        const {new_password} = req.body;
+        const currentUser:IDocUsers = await Users.findById(req.user._id);
+        const salt = await bcrypt.genSalt(10);
+        currentUser.password = await bcrypt.hash(new_password, salt);
+        await currentUser.save();
+        alert(res,200,messageAlert.success,'Password is Changed');
+    } catch (err) {
+        errorCatcher(next,err);
     }
 }
 
@@ -94,4 +114,4 @@ async function getUsers(req: myRequest, res: Response, next: NextFunction):Promi
     }
 }
 
-export {register, login, currentUser,registerUser,getUsers};
+export {register, login, currentUser,registerUser,getUsers,changePassword};

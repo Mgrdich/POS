@@ -1,5 +1,5 @@
 import {Request} from "express";
-import {IUser} from "./models/Users";
+import {IDocUsers, IUser} from "./models/Users";
 
 export interface IError {
     value: string | number;
@@ -22,5 +22,5 @@ export interface IDropDowns {
 }
 
 export interface myRequest extends Request {
-    user :IUser;
+    user :IDocUsers;
 }
