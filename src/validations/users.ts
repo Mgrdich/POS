@@ -20,7 +20,7 @@ export const registerValidation:Array<any> = [
     body("password")
         .trim()
         .isLength({min: 5}),
-    body("current_password")
+    body("confirm_password")
         .custom(function(value, {req})  {
             return value === req.body.password
         }),
@@ -48,7 +48,7 @@ export const registerUserValidation:Array<any> = [
         .custom(function(value)  {
             return ROLES_ALL.includes(value);
         }),
-    body("current_password")
+    body("confirm_password")
         .custom(function(value, {req})  {
             return value === req.body.password
         }),

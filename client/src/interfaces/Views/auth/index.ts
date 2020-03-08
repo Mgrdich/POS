@@ -19,7 +19,7 @@ export type RegisterFormDataType = {
     email: string;
     password: string;
     name: string;
-    current_password: string;
+    confirm_password: string;
 }
 
 

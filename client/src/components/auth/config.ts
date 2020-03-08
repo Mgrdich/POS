@@ -37,8 +37,8 @@ export const RegisterInputFields:Array<InputField> = [
         type: 'password'
     },
     {
-        name: 'current_password',
-        placeholder: 'Current Password',
+        name: 'confirm_password',
+        placeholder: 'Confirm Password',
         type: 'password'
     }
 ];
@@ -47,5 +47,5 @@ export const RegisterValSchema = yup.object().shape({
     name: yup.string().required().min(4),
     email: yup.string().required().email(),
     password:yup.string().required().min(5),
-    current_password:yup.string().required().oneOf([yup.ref('password'), null], 'Passwords must match')
+    confirm_password:yup.string().required().oneOf([yup.ref('password'), null], 'Passwords must match')
 });

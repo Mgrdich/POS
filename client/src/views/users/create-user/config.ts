@@ -16,7 +16,7 @@ export const createUsersInputFields : Array<InputField> = [
         type:'password',
     },
     {
-        name: 'current_password',
+        name: 'confirm_password',
         placeholder: 'Confirm password',
         type:'password',
     },
@@ -32,6 +32,6 @@ export const createUsersValSchema = yup.object().shape({
     name:yup.string().required(),
     email:yup.string().required().email(),
     password:yup.string().required().min(5),
-    current_password:yup.string().required().oneOf([yup.ref('password'), null], 'Passwords must match'),
+    confirm_password:yup.string().required().oneOf([yup.ref('password'), null], 'Passwords must match'),
     role:yup.string().required(),
 });
