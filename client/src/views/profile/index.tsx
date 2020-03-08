@@ -5,6 +5,7 @@ import Tab from "@material-ui/core/Tab";
 import AppBar from "@material-ui/core/AppBar";
 import TabPanel from "../../components/Reusable/TabPanel";
 import AccountDetails from "./AccountDetails";
+import ChangePassword from "./ChangePassword";
 
 const Profile = () => {
     const [tabValue, handleChange] = useTab(0);
@@ -18,6 +19,9 @@ const Profile = () => {
             </AppBar>
             <TabPanel value={tabValue} index={0}>
                 <AccountDetails/>
+            </TabPanel>
+            <TabPanel value={tabValue} index={1}>
+                <ChangePassword/>
             </TabPanel>
         </>
     );
