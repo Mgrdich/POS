@@ -16,6 +16,6 @@ router.put('/register-user',isAuth(),registerUserValidation,[isAuthorized(ROLES_
 
 router.patch('/change-password',isAuth(),changePasswordValidation,changePassword);
 
-router.get("/current", isAuth(), currentUser);
+router.get("/current", isAuth(), [isAuthorized(ROLES_SUPER_ADMIN_MANAGER),currentUser]);
 
 export default router;

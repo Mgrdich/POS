@@ -10,6 +10,7 @@ import {myRequest} from "../interfaces/General";
 import {ROLES_PRIORITY} from "../roles";
 import {messageAlert} from "../interfaces/util";
 import {alert} from "../utilities/messages";
+import {blackListFilterObj} from "../utilities/reformaters";
 
 async function register(req: Request, res: Response, next: NextFunction):Promise<any> {
     try {
@@ -23,8 +24,8 @@ async function register(req: Request, res: Response, next: NextFunction):Promise
 
         const salt = await bcrypt.genSalt(10);
         newUser.password = await bcrypt.hash(newUser.password, salt);
-        let savedUser: any = await newUser.save();
-        res.status(200).json({...savedUser._doc});
+        await newUser.save();
+        alert(res,200,messageAlert.success,'Registered Successfully');
     } catch (err) {
         errorCatcher(next, err);
     }
@@ -72,8 +73,8 @@ async function registerUser(req: Request, res: Response, next: NextFunction):Pro
 
         const salt = await bcrypt.genSalt(10);
         newUser.password = await bcrypt.hash(newUser.password, salt);
-        let savedUser: any = await newUser.save();
-        res.status(200).json({...savedUser._doc }); //TODO to be changed by success Alert
+        await newUser.save();
+        alert(res,200,messageAlert.success,'New user is registered');
     } catch (err) {
         errorCatcher(next, err);
     }
@@ -98,7 +99,8 @@ async function changePassword(req: myRequest, res: Response, next: NextFunction)
 }
 
 async function currentUser(req: myRequest, res: Response, next: NextFunction):Promise<any> {
-    res.status(200).json(req.user);
+    let obj:object = blackListFilterObj(req.user["_doc"],['password','rolePriority']);
+    res.status(200).json(obj);
 }
 
 async function getUsers(req: myRequest, res: Response, next: NextFunction):Promise<any> {
