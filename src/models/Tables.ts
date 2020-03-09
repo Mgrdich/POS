@@ -1,6 +1,7 @@
 import * as mongoose from 'mongoose';
 import {Schema} from "mongoose";
 import {IDocTables} from "../interfaces/models/Tables";
+import {TABLE_STATUS} from "../utilities/contants/arrays";
 
 const tableSchema: Schema = new Schema({
     name: {
@@ -9,6 +10,10 @@ const tableSchema: Schema = new Schema({
     number: {
         type:Number,
         required: true,
+    },
+    status: {
+        type:String,
+        enum:TABLE_STATUS
     },
     registeredBy:{
         type: Schema.Types.ObjectId,

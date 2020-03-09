@@ -9,7 +9,7 @@ export enum Roles {
     Kitchen = 'Kitchen',
 }
 
-export const ROLES_ALL:Array<RoleType> = ['SuperAdmin','Admin','Manager','Cashier','Employee','Kitchen'];
+export const ROLES_ALL:Array<RoleType> = [Roles.SuperAdmin,Roles.Admin,Roles.Manager,Roles.Cashier,Roles.Employee,Roles.Kitchen];
 
 export const ROLES_PRIORITY:roleProperties =  {
     SuperAdmin : 0,

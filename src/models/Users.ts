@@ -22,7 +22,7 @@ const userSchema: Schema = new Schema({
     role: {
         type: String,
         default: Roles.Admin,
-        enum: [...ROLES_ALL]
+        enum: ROLES_ALL
     },
     rolePriority: {
       type:Number,
