@@ -6,7 +6,7 @@ import {ChangePasswordFormData} from "../../interfaces/Views/Profile/index";
 import {ChangePasswordInputField, ChangePasswordValSchema} from "./config";
 import {Button} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-import axios, {AxiosResponse} from "axios";
+import axios from "axios";
 import {useAlert} from "../../components/Hooks/useAlert";
 import Alerts from "../../components/Reusable/Alerts";
 import {IAlertAxiosResponse} from "../../interfaces/General";
