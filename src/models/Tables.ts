@@ -2,6 +2,7 @@ import * as mongoose from 'mongoose';
 import {Schema} from "mongoose";
 import {IDocTables} from "../interfaces/models/Tables";
 import {TABLE_STATUS} from "../utilities/contants/arrays";
+import {TableStatus} from "../utilities/contants/enums";
 
 const tableSchema: Schema = new Schema({
     name: {
@@ -11,9 +12,14 @@ const tableSchema: Schema = new Schema({
         type:Number,
         required: true,
     },
+    orders: {
+        type: Schema.Types.ObjectId,
+        ref: 'Orders'
+    },
     status: {
         type:String,
-        enum:TABLE_STATUS
+        enum:TABLE_STATUS,
+        default:TableStatus.closed
     },
     registeredBy:{
         type: Schema.Types.ObjectId,
@@ -26,5 +32,7 @@ const tableSchema: Schema = new Schema({
 });
 
 const Tables = mongoose.model<IDocTables>('Tables',tableSchema);
+
+//TODO functions to write reseting orders status registeredBy and cashier
 
 export {Tables};

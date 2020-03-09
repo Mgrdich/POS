@@ -6,5 +6,5 @@ export interface IOrders {
 }
 
 //Mongoose modal
-export interface IDocSkins extends Document, IOrders {
+export interface IDocOrders extends Document, IOrders {
 }
