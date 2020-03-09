@@ -1,8 +1,13 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 import Alert from '@material-ui/lab/Alert';
 import Snackbar from "@material-ui/core/Snackbar";
+import {IAlerts} from "../../interfaces/Reusable";
 
-const Alerts : React.FC<any> = (props) => { //TODO add interface
+
+
+
+
+const Alerts : React.FC<IAlerts> = (props) => {
 
    function handleClose(event?: React.SyntheticEvent, reason?: string){
        if (reason === 'clickaway') {

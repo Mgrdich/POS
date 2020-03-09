@@ -2,6 +2,7 @@ import {ButtonProps, CircularProgressProps} from "@material-ui/core";
 import {InputField} from "../General";
 import * as React from "react";
 import {ReactNode} from "react";
+import {Color} from "@material-ui/lab/Alert";
 
 export interface IDropDownData {
     value: number | string;
@@ -33,7 +34,7 @@ export interface IDynamicFields {
     errors: any;
     control: any;
     render?:any;
-    Component?:any; //Todo check out the right Type
+    Component?:React.FC;
     ComponentProps?:any;
 }
 
@@ -56,4 +57,12 @@ export interface IDynamicField {
     register: React.Ref<any>;
     serverError: object;
     control: object;
+}
+
+export interface IAlerts {
+    open:boolean;
+    close:Function;
+    severity:Color;
+    children:ReactNode;
+
 }

@@ -1,4 +1,4 @@
-import {ComponentType, ElementType} from "react";
+import {ComponentType, ElementType, ReactNode} from "react";
 import {nestedRoutes} from "../../../components/layout/Drawer/config";
 import {RoleType} from "../../../roles";
 
@@ -7,7 +7,7 @@ export interface INestedMenuList {
 }
 
 export interface IMenuDrawer {
-    children?:any; //TODO Change type
+    children?:ReactNode;
 }
 
 export interface IDrawerRoute {

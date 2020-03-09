@@ -7,7 +7,7 @@ import {IPasswordField} from "../../interfaces/Reusable";
 const PasswordField: React.FC<IPasswordField> = (props) => {
     const [showPassword, changeShowPassword] = useState<boolean>(false);
     const [labelWidth,setLabelWidth] = useState<number>(70);
-    const ref = useRef <any>({offsetWidth:70}); // TODO check the type
+    const ref = useRef <HTMLLabelElement>(null);
 
     useEffect(() => {
         const width = ref.current ? ref.current.offsetWidth : 70;
