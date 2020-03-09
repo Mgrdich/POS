@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback, useContext, useEffect} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -60,6 +60,10 @@ const NestedMenuList: React.FC<INestedMenuList> = ({menuOpen}) => {
   }, [menuOpen]);
 
   //TODO convert the  Click route  to a function cached
+  const handleRoutes = useCallback((location:string) =>{
+    console.log('working...');
+   return history.push(location)
+  },[]);
 
   return (
       <List
@@ -70,7 +74,7 @@ const NestedMenuList: React.FC<INestedMenuList> = ({menuOpen}) => {
         {drawerRoutes.map((route: IDrawerRoute, index: number) => {
           return route.location ? (
               <AuthorizationElem  allowedRoles={route.role}>
-              <ListItem key={index} button onClick={() => route.location ? history.push(route.location) : null}>
+              <ListItem key={index} button onClick={() => route.location ? handleRoutes(route.location) : null}>
                 <ListItemIcon>
                   <route.icon/>
                 </ListItemIcon>
