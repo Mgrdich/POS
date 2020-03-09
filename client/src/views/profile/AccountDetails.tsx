@@ -1,26 +1,16 @@
-import React, {useEffect, useState} from 'react';
-import axios, {AxiosResponse} from 'axios';
+import React from 'react';
 import Loader from "../../components/Reusable/Loader";
 import {Button, Card, CardActions, CardContent, Typography} from '@material-ui/core';
+import {useFetch} from "../../components/Hooks/useFetch";
+import {dateFormat} from "../../util/functions";
 
 const AccountDetails:React.FC = () => {
-    const [detail, setDetail]= useState<any>({});
-    const [loading, setLoading] = useState(true);
 
-    useEffect(function () { //TODO useFetch hook use
-        axios.get('/users/current')
-            .then(function (res: AxiosResponse) {
-                setDetail({...res.data});
-                setLoading(false);
-            }).catch(function (e) {
-            console.log(e);
-        })
-    }, []);
+    const {isLoading, data} = useFetch('/users/current');
 
-    //TODO write a date format function in Util
     return (
         <>
-            {loading ? (<Loader/>) :
+            {isLoading ? (<Loader/>) :
                 (
                     <Card  variant="outlined" style={{width:'30%'}}>
                         <CardContent>
@@ -28,16 +18,15 @@ const AccountDetails:React.FC = () => {
                                 Details
                             </Typography>
                             <Typography>
-                                 Name: {detail.name}
+                                 Name: {data.name}
                             </Typography>
                             <Typography >
-                                Email: {detail.email}
+                                Email: {data.email}
                                 <br />
-                                Role: {detail.role}
+                                Role: {data.role}
                             </Typography>
                             <Typography  variant="caption" component="p">
-                                Created at: {new Date(detail.date).toLocaleString()}
-
+                                Created at: {dateFormat(data.date)}
                             </Typography>
                         </CardContent>
                         <CardActions>

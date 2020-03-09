@@ -5,3 +5,9 @@ export function isEmpty(value: any):boolean {
         (typeof value === 'string' && value.trim().length === 0)
     );
 }
+
+export function dateFormat(date:string) :string {
+
+    return new Date(date).toLocaleString();
+
+}

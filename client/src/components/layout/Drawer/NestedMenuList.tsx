@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect} from "react";
+import React, {useCallback, useEffect} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -62,7 +62,7 @@ const NestedMenuList: React.FC<INestedMenuList> = ({menuOpen}) => {
   //TODO convert the  Click route  to a function cached
   const handleRoutes = useCallback((location:string) =>{
    return history.push(location)
-  },[]);
+  },[history]);
 
   return (
       <List
