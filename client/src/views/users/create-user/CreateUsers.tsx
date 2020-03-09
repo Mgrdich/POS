@@ -27,7 +27,6 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
                 reset();
                 resetServerError();
                 setAlert(res.data);
-
             }).catch(function (e: any) {
             if (!e.response.data) {
                 console.error("No Response is found");

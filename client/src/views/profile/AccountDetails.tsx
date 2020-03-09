@@ -1,22 +1,23 @@
 import React, {useEffect, useState} from 'react';
-import axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
 import Loader from "../../components/Reusable/Loader";
 import {Button, Card, CardActions, CardContent, Typography} from '@material-ui/core';
 
 const AccountDetails:React.FC = () => {
     const [detail, setDetail]= useState<any>({});
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true);
 
-    useEffect(()=>{
-        axios.get('/users/current').then(function(res){
-            const data = res.data;
-            setDetail({...detail,...data});
-             setLoading(false);
-        }).catch(function(e){
+    useEffect(function () { //TODO useFetch hook use
+        axios.get('/users/current')
+            .then(function (res: AxiosResponse) {
+                setDetail({...res.data});
+                setLoading(false);
+            }).catch(function (e) {
             console.log(e);
         })
-    },[]);
+    }, []);
 
+    //TODO write a date format function in Util
     return (
         <>
             {loading ? (<Loader/>) :
