@@ -4,13 +4,14 @@ import {createUsersInputFields, createUsersValSchema} from './config';
 import {useForm} from "react-hook-form";
 import {useServerErrorHandle} from "../../../components/Hooks/useServerErrorHandle";
 import {Button} from "@material-ui/core";
-import axios, {AxiosResponse} from "axios";
+import axios from "axios";
 import {RouteComponentProps} from "react-router";
 import {useDynamicFields} from "../../../components/Hooks/useDynamicFields";
 import {createUserFormDataType} from "../../../interfaces/Views/users";
 import Grid from "@material-ui/core/Grid";
 import {useAlert} from "../../../components/Hooks/useAlert";
 import Alerts from "../../../components/Reusable/Alerts";
+import {IAlertAxiosResponse} from "../../../interfaces/General";
 
 const CreateUsers : React.FC<RouteComponentProps> = (props) => {
     const {handleSubmit, register, errors, control,unregister,reset} = useForm<createUserFormDataType>({
@@ -22,10 +23,10 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
 
     const onSubmit = function (values: any): void {
         axios.put('/users/register-user', values)
-            .then(function (res: AxiosResponse) {
+            .then(function (res: IAlertAxiosResponse) {
                 reset();
                 resetServerError();
-                setAlert('successfully created',true,'success');
+                setAlert(res.data);
 
             }).catch(function (e: any) {
             if (!e.response.data) {

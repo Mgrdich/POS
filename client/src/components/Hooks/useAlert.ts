@@ -1,17 +1,17 @@
 import {useCallback, useState} from "react";
 import {Color} from "@material-ui/lab";
 
-export function useAlert(Message: string = '',alertOpen:boolean = false,type:Color='info'):any {
+export function useAlert(message: string = '', alertOpen: boolean = false, alert: Color = 'info'): any {
 
-    const [alertMessage, setAlertMessage] = useState<string>(Message);
+    const [alertMessage, setAlertMessage] = useState<string>(message);
     const [openAlert, setOpenAlert] = useState<boolean>(alertOpen);
-    const [alertType, setAlertType] = useState<Color>(type);
+    const [alertType, setAlertType] = useState<Color>(alert);
 
-    const setAlert = useCallback(function (alertMessage:string,openAlert:boolean,alertType:Color){
-        setAlertMessage(alertMessage);
-        setOpenAlert(openAlert);
-        setAlertType(alertType);
-    },[]);
+    const setAlert = useCallback(function ({message, alert}:{message:string,alert:Color}) {
+        setAlertMessage(message);
+        setAlertType(alert);
+        setOpenAlert(true);
+    }, []);
 
-    return {alertMessage, openAlert,  alertType, setOpenAlert, setAlert};
+    return {alertMessage, openAlert, alertType, setOpenAlert, setAlert};
 }

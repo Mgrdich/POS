@@ -1,4 +1,6 @@
 import {IDropDownData} from "../Reusable";
+import {AxiosResponse} from "axios";
+import {Color} from "@material-ui/lab";
 
 export interface InputField {
     name: string;
@@ -9,4 +11,12 @@ export interface InputField {
     data?: Array<IDropDownData>;
     default?:any;
     url?:string;
+}
+
+export interface IAlertAxiosResponse extends AxiosResponse {
+    data: {
+        message: string;
+        alertOpen: boolean;
+        alert: Color;
+    }
 }

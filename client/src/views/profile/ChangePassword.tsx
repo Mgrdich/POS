@@ -9,8 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import axios, {AxiosResponse} from "axios";
 import {useAlert} from "../../components/Hooks/useAlert";
 import Alerts from "../../components/Reusable/Alerts";
-
-
+import {IAlertAxiosResponse} from "../../interfaces/General";
 
 
 const ChangePassword: React.FC = () => {
@@ -23,11 +22,10 @@ const ChangePassword: React.FC = () => {
 
     const onSubmit = function (values: any): void {
         axios.patch('/users/change-password', values)
-            .then(function (res: AxiosResponse) {
+            .then(function (res: IAlertAxiosResponse) {
                 reset();
                 resetServerError();
-                setAlert('Password successfully changed ',true,'success');
-
+                setAlert(res.data);
             }).catch(function (e: any) {
             if (!e.response.data) {
                 console.error("No Response is found");
@@ -41,11 +39,12 @@ const ChangePassword: React.FC = () => {
             <h1>Change Password</h1>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container direction="column" justify="center" alignItems="center">
-                    <DynamicFields InputFields={ChangePasswordInputField}
-                                   errors={errors}
-                                   control={control}
-                                   register={register}
-                                   serverError={serverError}
+                    <DynamicFields
+                        InputFields={ChangePasswordInputField}
+                        errors={errors}
+                        control={control}
+                        register={register}
+                        serverError={serverError}
                     />
 
                     <Button
