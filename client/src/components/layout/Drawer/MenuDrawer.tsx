@@ -1,5 +1,4 @@
 import React from "react";
-import clsx from "clsx";
 import {useTheme} from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
@@ -11,14 +10,12 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import {useStyles} from "./style";
 import NestedMenuList from "./NestedMenuList";
 import {IMenuDrawer} from "../../../interfaces/layout/Drawer";
 import Logout from "../../auth/Logout";
 import Grid from "@material-ui/core/Grid";
 
 const MenuDrawer: React.FC <IMenuDrawer> = ({children}) => {
-  const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState<boolean>(false);
 
@@ -27,9 +24,7 @@ const MenuDrawer: React.FC <IMenuDrawer> = ({children}) => {
       <CssBaseline />
       <AppBar
         position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open
-        })}
+        className={' appBar ' + (open ? 'appBarShift' : ' ')}
       >
         <Toolbar>
           <IconButton
@@ -37,9 +32,7 @@ const MenuDrawer: React.FC <IMenuDrawer> = ({children}) => {
             aria-label="open drawer"
             onClick={() => setOpen(true)}
             edge="start"
-            className={clsx(classes.menuButton, {
-              [classes.hide]: open
-            })}
+            className={' menuButton '+(open ? '  ' : ' ')}
           >
             <MenuIcon />
           </IconButton>
@@ -60,7 +53,7 @@ const MenuDrawer: React.FC <IMenuDrawer> = ({children}) => {
         variant="permanent"
         className={ (open? ' drawerOpen' : ' drawerClose ')}
       >
-        <div className={classes.toolbar}>
+        <div className='toolBar'>
           <IconButton onClick={() => setOpen(false)}>
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />
