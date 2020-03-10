@@ -6,6 +6,7 @@ import {noResult} from "../utilities/controllers/helpers";
 import {IDelete} from "../interfaces/General";
 import {alert} from "../utilities/controllers/messages";
 import {messageAlert} from "../interfaces/util";
+import {ITEM_DELETED, NO_SUCH_DATA_EXISTS} from "../utilities/contants/messages";
 
 async function getTables(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
@@ -24,7 +25,7 @@ async function getTable(req: Request, res: Response, next: NextFunction): Promis
     try {
         let table: IDocTables = await Tables.findById(req.params.Id);
         if (!table) {
-            errorThrower("No such Table exist", 422);
+            errorThrower(NO_SUCH_DATA_EXISTS, 422);
         }
         return res.status(200).json(table);
     } catch (err) {
@@ -41,7 +42,7 @@ async function deleteTable(req: Request, res: Response, next: NextFunction): Pro
     try {
         let deletedResult:IDelete  = await Tables.deleteOne({_id:req.params.Id});
         if (deletedResult.ok) {
-            alert(res,200,messageAlert.success,"Table has been deleted");
+            alert(res,200,messageAlert.success,ITEM_DELETED);
         }
         noResult(res);
     } catch (err) {
