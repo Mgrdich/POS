@@ -1,5 +1,4 @@
 import {NextFunction} from "express";
-// import {IError, IValidation} from "../interfaces/General";
 
 const errorThrower = function (errMessage: string, statusCode: number, data?: any) {
     const error = new Error(errMessage);
