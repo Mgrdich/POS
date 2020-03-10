@@ -17,7 +17,6 @@ import {IMenuDrawer} from "../../../interfaces/layout/Drawer";
 import Logout from "../../auth/Logout";
 import Grid from "@material-ui/core/Grid";
 
-
 const MenuDrawer: React.FC <IMenuDrawer> = ({children}) => {
   const classes = useStyles();
   const theme = useTheme();
@@ -59,16 +58,7 @@ const MenuDrawer: React.FC <IMenuDrawer> = ({children}) => {
       </AppBar>
       <Drawer
         variant="permanent"
-        className={clsx(classes.drawer, {
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open
-        })}
-        classes={{
-          paper: clsx({
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open
-          })
-        }}
+        className={ (open? ' drawerOpen' : ' drawerClose ')}
       >
         <div className={classes.toolbar}>
           <IconButton onClick={() => setOpen(false)}>
