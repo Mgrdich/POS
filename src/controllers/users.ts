@@ -5,11 +5,11 @@ import {validationResult} from "express-validator";
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 import {SECRET_KEY} from "../config/keys";
-import {errorCatcher, errorFormatter, errorThrower} from "../utilities/error";
+import {errorCatcher, errorFormatter, errorThrower} from "../utilities/controllers/error";
 import {myRequest} from "../interfaces/General";
 import {ROLES_PRIORITY} from "../roles";
 import {messageAlert} from "../interfaces/util";
-import {alert} from "../utilities/messages";
+import {alert} from "../utilities/controllers/messages";
 import {blackListFilterObj} from "../utilities/reformaters";
 
 async function register(req: Request, res: Response, next: NextFunction):Promise<any> {

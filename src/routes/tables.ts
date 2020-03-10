@@ -3,15 +3,15 @@ import {addTable, deleteTable, editTable, getTable, getTables} from "../controll
 const router = express.Router();
 
 
-router.get('/tables',getTables);
+router.get('/',getTables);
 
-router.get('/tables/:Id',getTable);
+router.get('/:Id',getTable);
 
-router.put('/tables',addTable);
+router.put('/',addTable);
 
-router.put('tables/:Id',editTable);
+router.put('/:Id',editTable);
 
-router.delete('/tables/:Id',deleteTable);
+router.delete('/:Id',deleteTable);
 
 
 export default router;

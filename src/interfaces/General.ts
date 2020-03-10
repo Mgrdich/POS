@@ -1,5 +1,11 @@
 import {Request} from "express";
-import {IDocUsers, IUser} from "./models/Users";
+import {IDocUsers} from "./models/Users";
+
+export interface IDelete { //TODO remove to a general mongoose based
+    n?:number;
+    ok?:number;
+    deletedCount?:number;
+}
 
 export interface IError {
     value: string | number;

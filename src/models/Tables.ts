@@ -33,6 +33,6 @@ const tableSchema: Schema = new Schema({
 
 const Tables = mongoose.model<IDocTables>('Tables',tableSchema);
 
-//TODO functions to write reseting orders status registeredBy and cashier
+//TODO functions to write resetting orders status registeredBy and cashier
 
 export {Tables};

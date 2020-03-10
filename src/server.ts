@@ -7,6 +7,7 @@ import {MONGODB_URI, MONGOOSE_OPTIONS} from "./config/keys";
 import {NextFunction, Request, Response} from "express";
 import users from "./routes/users";
 import api from "./routes/api";
+import tables from "./routes/tables";
 import {ImyError} from "./interfaces/General";
 
 const app = express();
@@ -39,6 +40,7 @@ app.use('/users', users);
 
 app.use('/api',api);
 
+app.use('/tables',tables);
 
 //errors
 app.use(function (err: ImyError, req: Request, res: Response, next: NextFunction) {
