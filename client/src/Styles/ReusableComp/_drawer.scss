@@ -7,10 +7,11 @@
 
 .menuButton {
   margin-right: 36px !important;
+  &.hide {
+    display: none;
+  }
 }
-.hide {
-  display: none;
-}
+
 
 
 .MuiAppBar-root.MuiAppBar-positionFixed {

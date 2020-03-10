@@ -32,7 +32,7 @@ const MenuDrawer: React.FC <IMenuDrawer> = ({children}) => {
             aria-label="open drawer"
             onClick={() => setOpen(true)}
             edge="start"
-            className={' menuButton '+(open ? '  ' : ' ')}
+            className={' menuButton '+(open ? 'hide' : ' ')}
           >
             <MenuIcon />
           </IconButton>
