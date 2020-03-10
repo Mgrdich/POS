@@ -6,9 +6,11 @@ import AppBar from "@material-ui/core/AppBar";
 import TabPanel from "../../components/Reusable/TabPanel";
 import AccountDetails from "./AccountDetails";
 import ChangePassword from "./ChangePassword";
+import {useFetch} from "../../components/Hooks/useFetch";
 
 const Profile = () => {
     const [tabValue, handleChange] = useTab(0);
+    const {isLoading, data} = useFetch('/users/current');
     return (
         <>
             <AppBar position="static" color='secondary'>
@@ -18,7 +20,7 @@ const Profile = () => {
                 </Tabs>
             </AppBar>
             <TabPanel value={tabValue} index={0}>
-                <AccountDetails/>
+                <AccountDetails isLoading={isLoading} data={data} />
             </TabPanel>
             <TabPanel value={tabValue} index={1}>
                 <ChangePassword/>

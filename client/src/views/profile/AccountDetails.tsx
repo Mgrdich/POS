@@ -1,12 +1,11 @@
 import React from 'react';
 import Loader from "../../components/Reusable/Loader";
 import {Button, Card, CardActions, CardContent, Typography} from '@material-ui/core';
-import {useFetch} from "../../components/Hooks/useFetch";
 import {dateFormat} from "../../util/functions";
+import {IAccountDetails} from "../../interfaces/Views/Profile";
 
-const AccountDetails:React.FC = () => {
-
-    const {isLoading, data} = useFetch('/users/current');
+const AccountDetails:React.FC<IAccountDetails> = (props) => {
+const {isLoading, data} = props;
 
     return (
         <>
