@@ -15,14 +15,15 @@ const MyTable: React.FC<IMyTable> = (props) => {
 
 
     return (
-        <div>
+        <>
             <Table>
                 <MyTableHead data={headCellData}/>
                 <MyTableBody
                     thead={thead}
                     data={data}
                     page={page}
-                    rowsPerPage={rowsPerPage}/>
+                    rowsPerPage={rowsPerPage}
+                />
             </Table>
             {pagination && <TablePagination
                 rowsPerPageOptions={paginationRowsCount}
@@ -33,7 +34,7 @@ const MyTable: React.FC<IMyTable> = (props) => {
                 onChangePage={handleChangePage}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
             />}
-        </div>
+        </>
     );
 };
 
