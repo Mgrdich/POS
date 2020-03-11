@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {useFetch} from "./useFetch";
 
-function normalizeTableData(data:Array<any>) {
+function normalizeTableData(data:Array<any>) { //TODO to be applied in BE
     const headerData:Array<string> = Object.keys(data[0]); //since headers should stay the same
     return {headerData};
 }

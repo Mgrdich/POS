@@ -66,3 +66,24 @@ export interface IAlerts {
     children:ReactNode;
 
 }
+
+export interface IMyTable {
+    headCellData: Array<string>
+    thead: Array<string>;
+    data: Array<object>;
+    pagination?: boolean;
+    paginationRowsCount?: Array<number>;
+
+}
+
+
+export interface IMyTableBody {
+    data: Array<object>
+    thead: Array<string>;
+    page?:any; // TODO CHECK THE TYPE
+    rowsPerPage?:any;
+}
+
+export interface IMyTableHead {
+    data: Array<string>;
+}
