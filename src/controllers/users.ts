@@ -10,7 +10,8 @@ import {myRequest} from "../interfaces/General";
 import {ROLES_PRIORITY} from "../roles";
 import {messageAlert} from "../interfaces/util";
 import {alert} from "../utilities/controllers/messages";
-import {blackListFilterObj} from "../utilities/reformaters";
+import {blackListFilterObj, tableDataNormalize} from "../utilities/reformaters";
+import {GET_USERS_TABLE} from "../utilities/tables/constants";
 
 async function register(req: Request, res: Response, next: NextFunction):Promise<any> {
     try {
@@ -106,11 +107,14 @@ async function currentUser(req: myRequest, res: Response, next: NextFunction):Pr
 async function getUsers(req: myRequest, res: Response, next: NextFunction):Promise<any> {
     const rolePriority = req.user.rolePriority;
     try {
-        let users:IUser | object =  await Users.find({"rolePriority":{$lt:rolePriority}});
+        let users:IUser | any =  await Users.find({"rolePriority":{$lt:rolePriority}}); //TODO deep search whether more efficient method exist
+        let tableUsers;
         if(!users) {
-            users = {};
+            tableUsers = {};
+        } else {
+            tableUsers = tableDataNormalize(users,GET_USERS_TABLE);
         }
-        res.status(200).json(users);
+        res.status(200).json(tableUsers);
     } catch (err) {
         errorCatcher(next,err);
     }
