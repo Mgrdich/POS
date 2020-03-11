@@ -21,7 +21,8 @@ const TabPanelTwo: React.FC = () => {
                 headCellData={headCell}
                 thead={thead}
                 pagination={true}
-                paginationRowsCount={[1, 5, 6]}/>
+                paginationRowsCount={[1, 5, 6]}
+            />
         </>
     );
 };

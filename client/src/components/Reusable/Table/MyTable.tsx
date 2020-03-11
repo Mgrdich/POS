@@ -6,7 +6,7 @@ import {usePagination} from "../../Hooks/usePagination";
 import {IMyTable} from "../../../interfaces/Reusable";
 
 
-
+//TODO make the use Pagination hook more reusable
 
 const MyTable: React.FC<IMyTable> = (props) => {
 
