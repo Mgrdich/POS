@@ -5,7 +5,7 @@ import {IMyTableHead} from "../../../interfaces/Reusable";
 
 const MyTableHead: React.FC<IMyTableHead> = (props) => {
 
-    const {data} = props;
+    const {data,keys} = props;
 
     const [thead, setThead] = useState<Array<string>>(data);
     return (
@@ -13,8 +13,8 @@ const MyTableHead: React.FC<IMyTableHead> = (props) => {
             <TableHead>
                 <TableRow>
                     {
-                        thead.map(item => (
-                            <TableCell key={item}>{item}</TableCell>
+                        keys.map(item => (
+                            <TableCell key={item}>{data[item]}</TableCell>
                         ))
                     }
                 </TableRow>

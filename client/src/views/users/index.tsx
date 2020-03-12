@@ -6,10 +6,13 @@ import Tab from "@material-ui/core/Tab";
 import {useTab} from "../../components/Hooks/useTab";
 import TabPanelOne from "./TabPanelOne";
 import TabPanelTwo from "./TabPanelTwo";
+import {useTable} from "../../components/Hooks/useTable";
 
 const Users:React.FC = () => {
 
     const [tabValue, handleChange] = useTab(0);
+    const {tbody, thead, keys,isLoading,isError} = useTable('/users');
+    console.log({tbody, thead, keys,isLoading,isError});
 
     return (
         <>
@@ -21,7 +24,7 @@ const Users:React.FC = () => {
                 </Tabs>
             </AppBar>
             <TabPanel value={tabValue} index={0} >
-                <TabPanelOne/>
+                <TabPanelOne data={tbody} keys={keys} thead={thead} loading={isLoading}/>
             </TabPanel>
             <TabPanel value={tabValue} index={1}>
                 <TabPanelTwo/>

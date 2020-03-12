@@ -68,9 +68,10 @@ export interface IAlerts {
 }
 
 export interface IMyTable {
-    headCellData: Array<string>
+    keys: Array<string>
     thead: Array<string>;
     data: Array<object>;
+    loading:boolean;
     pagination?: boolean;
     paginationRowsCount?: Array<number>;
 
@@ -79,11 +80,12 @@ export interface IMyTable {
 
 export interface IMyTableBody {
     data: Array<object>
-    thead: Array<string>;
+    keys:Array<string>;
     page?:any; // TODO CHECK THE TYPE
     rowsPerPage?:any;
 }
 
 export interface IMyTableHead {
-    data: Array<string>;
+    data: any; //object
+    keys:Array<string>;
 }

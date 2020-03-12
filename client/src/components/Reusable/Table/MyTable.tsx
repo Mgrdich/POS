@@ -10,30 +10,20 @@ import {IMyTable} from "../../../interfaces/Reusable";
 
 const MyTable: React.FC<IMyTable> = (props) => {
 
-    const {headCellData, thead, data, pagination, paginationRowsCount} = props;
+    const {thead, data, pagination, paginationRowsCount,keys,loading} = props;
     const {page, rowsPerPage, handleChangePage, handleChangeRowsPerPage} = usePagination();
-
 
     return (
         <>
             <Table>
-                <MyTableHead data={headCellData}/>
+                <MyTableHead data={thead} keys={keys}/>
                 <MyTableBody
-                    thead={thead}
+                    keys={keys}
                     data={data}
                     page={page}
                     rowsPerPage={rowsPerPage}
                 />
             </Table>
-            {pagination && <TablePagination
-                rowsPerPageOptions={paginationRowsCount}
-                component="div"
-                count={data.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-            />}
         </>
     );
 };

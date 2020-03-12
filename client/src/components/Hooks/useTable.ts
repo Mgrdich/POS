@@ -1,23 +1,23 @@
 import {useEffect, useState} from "react";
 import {useFetch} from "./useFetch";
 
-function normalizeTableData(data:Array<any>) { //TODO to be applied in BE
-    const headerData:Array<string> = Object.keys(data[0]); //since headers should stay the same
-    return {headerData};
-}
 
 //TODO rendering one time
 export function useTable(url: string) {
-    const {isLoading,isError,data} = useFetch(url);
-    const [header, setHeader] = useState<Array<any>>();
-    const [body, setBody] = useState<Array<any>>();
+    const {isError, data , isLoading} = useFetch(url);
+    const [thead, setThead] = useState<Array<any>>();
+    const [loading, setLoading] = useState<boolean>(true);
+    const [tbody, setBody] = useState<Array<any>>();
+    const [keys, setKeys] = useState<Array<any>>();
 
     useEffect(function () {
-        if(data.length) {
-            const {headerData} = normalizeTableData(data);
-            setHeader(headerData);
+        if (Object.keys(data).length && !isLoading) {
+            setThead(data.thead);
+            setBody(data.tbody);
+            setKeys(data.keys);
+            setLoading(false);
         }
-    },[data.length]);
+    },[data]);
 
-    return {tbody: body, header: header};
+    return {tbody, thead, keys,isError,isLoading:loading};
 } 
