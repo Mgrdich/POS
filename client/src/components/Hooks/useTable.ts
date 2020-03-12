@@ -17,7 +17,7 @@ export function useTable(url: string) {
             setKeys(data.keys);
             setLoading(false);
         }
-    },[data]);
+    },[data,isLoading]);
 
     return {tbody, thead, keys,isError,isLoading:loading};
 } 

@@ -70,8 +70,7 @@ export interface IAlerts {
 export interface IMyTable {
     keys: Array<string>
     thead: Array<string>;
-    data: Array<object>;
-    loading:boolean;
+    tbody: Array<object>;
     pagination?: boolean;
     paginationRowsCount?: Array<number>;
 

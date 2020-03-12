@@ -5,7 +5,7 @@ import {IMyTableBody} from "../../../interfaces/Reusable";
 const MyTableBody: React.FC<IMyTableBody> = (props) => {
     const {page, data, rowsPerPage,keys} = props;
     const [rows, setRows] = useState<any>(data);
-    console.log("rows",rows);
+
     return (
         <>
             <TableBody>

@@ -11,9 +11,7 @@ import {useTable} from "../../components/Hooks/useTable";
 const Users:React.FC = () => {
 
     const [tabValue, handleChange] = useTab(0);
-    const {tbody, thead, keys,isLoading,isError} = useTable('/users');
-    console.log({tbody, thead, keys,isLoading,isError});
-
+    const {tbody, thead, keys,isLoading} = useTable('/users');
     return (
         <>
             <AppBar position="static" color='secondary'>
