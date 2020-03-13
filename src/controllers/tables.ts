@@ -1,12 +1,13 @@
 import {Tables} from "../models/Tables";
 import {IDocTables} from "../interfaces/models/Tables";
 import {NextFunction, Request, Response} from "express";
-import {errorCatcher, errorThrower} from "../utilities/controllers/error";
+import {errorCatcher, errorFormatter, errorThrower} from "../utilities/controllers/error";
 import {noResult} from "../utilities/controllers/helpers";
 import {IDelete} from "../interfaces/General";
 import {alert} from "../utilities/controllers/messages";
 import {messageAlert} from "../interfaces/util";
 import {ITEM_DELETED, NO_SUCH_DATA_EXISTS} from "../utilities/contants/messages";
+import {validationResult} from "express-validator";
 
 async function getTables(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
@@ -36,7 +37,12 @@ async function getTable(req: Request, res: Response, next: NextFunction): Promis
 
 async function addTable(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
+        const errors:any = validationResult(req).formatWith(errorFormatter);
 
+        if (!errors.isEmpty()) {
+            errorThrower("Validation Failed", 422, errors.mapped());
+        }
+        const {number} = req.body;
     } catch (err) {
 
     }

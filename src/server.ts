@@ -9,6 +9,7 @@ import users from "./routes/users";
 import api from "./routes/api";
 import tables from "./routes/tables";
 import {ImyError} from "./interfaces/General";
+import {isAuth} from "./middlewares/authorisation";
 
 const app = express();
 
@@ -37,6 +38,8 @@ passportConfig(passport);
 
 // Routes
 app.use('/users', users);
+
+app.use(isAuth()); //all the routes should require an Authorization
 
 app.use('/api',api);
 

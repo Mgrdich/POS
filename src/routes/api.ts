@@ -5,6 +5,6 @@ import {getRoles} from "../controllers/api";
 
 const router = express.Router();
 
-router.get('/roles',isAuth(),[isAuthorized(ROLES_SUPER_ADMIN_MANAGER),getRoles]);
+router.get('/roles',[isAuthorized(ROLES_SUPER_ADMIN_MANAGER),getRoles]);
 
 export default router;
