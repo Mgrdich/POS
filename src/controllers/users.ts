@@ -1,17 +1,17 @@
-import {NextFunction, Request, Response} from 'express';
 import {Users} from "../models/Users";
-import {IDocUsers, IUser} from "../interfaces/models/Users";
 import {validationResult} from "express-validator";
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
-import {SECRET_KEY} from "../config/keys";
 import {errorCatcher, errorFormatter, errorThrower} from "../utilities/controllers/error";
-import {myRequest} from "../interfaces/General";
-import {ROLES_PRIORITY} from "../roles";
-import {messageAlert} from "../interfaces/util";
 import {alert} from "../utilities/controllers/messages";
 import {blackListFilterObj, tableDataNormalize} from "../utilities/reformaters";
+import {NextFunction, Request, Response} from 'express';
+import {IDocUsers, IUser} from "../interfaces/models/Users";
+import {myRequest} from "../interfaces/General";
+import {messageAlert} from "../interfaces/util";
 import {GET_USERS_TABLE} from "../utilities/tables/constants";
+import {SECRET_KEY} from "../config/keys";
+import {ROLES_PRIORITY} from "../roles";
 
 async function register(req: Request, res: Response, next: NextFunction):Promise<any> {
     try {

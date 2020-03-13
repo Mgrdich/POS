@@ -35,6 +35,11 @@ async function getTable(req: Request, res: Response, next: NextFunction): Promis
 }
 
 async function addTable(req: Request, res: Response, next: NextFunction): Promise<any> {
+    try {
+
+    } catch (err) {
+
+    }
 
 }
 
@@ -51,7 +56,11 @@ async function deleteTable(req: Request, res: Response, next: NextFunction): Pro
 }
 
 async function editTable(req: Request, res: Response, next: NextFunction): Promise<any> {
+    try {
 
+    } catch (err) {
+
+    }
 }
 
 
