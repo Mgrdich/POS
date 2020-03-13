@@ -9,4 +9,4 @@ const TabPanelTwo: React.FC<any> = (props) => {
     );
 };
 
-export default TabPanelTwo;
+export default React.memo(TabPanelTwo);

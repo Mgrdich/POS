@@ -1,18 +1,20 @@
 import React from 'react';
 import MyTable from "../../components/Reusable/Table/MyTable";
 
-const TabPanelOne:React.FC<any> = (props) => {
+const TabPanelOne: React.FC<any> = (props) => { //TODO check the interfaces
+
+    //TODO add Loading element
     return (
         <>
             {!props.loading && <MyTable
-                tbody={(props.data && props.data.length)?props.data:undefined}
-                keys={(props.keys)?props.keys:undefined}
-                thead={(props.thead)?props.thead:undefined}
+                tbody={props.data }
+                keys={props.keys}
+                thead={props.thead}
                 pagination={true}
-                paginationRowsCount={[1, 5, 6]}
+                paginationRowsCount={[5, 10, 20]}
             />}
         </>
     );
 };
 
-export default TabPanelOne;
+export default React.memo(TabPanelOne);
