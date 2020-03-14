@@ -43,7 +43,7 @@ const AccountDetails: React.FC<IAccountDetails> = (props) => {
 
     if (editMode) {
         return (
-            <div className='accountDetails'>
+            <>
                 <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
                     <Grid container direction="column" justify="center" align-Items="left">
                         <DynamicFields
@@ -72,7 +72,7 @@ const AccountDetails: React.FC<IAccountDetails> = (props) => {
                 <Alerts open={openAlert} close={setOpenAlert} severity={alertType}>
                     {alertMessage}
                 </Alerts>
-            </div>
+            </>
 
         )
     } else {
