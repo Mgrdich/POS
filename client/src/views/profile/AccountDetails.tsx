@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Loader from "../../components/Reusable/Loader";
 import {Button, Card, CardActions, CardContent, Typography} from '@material-ui/core';
 import {dateFormat} from "../../util/functions";
-import {IAccountDetails} from "../../interfaces/Views/Profile";
+import {EditAcountDetails, IAccountDetails} from "../../interfaces/Views/Profile";
 import DynamicFields from "../../components/Reusable/DynamicFields";
 import {useForm} from "react-hook-form";
 import {useServerErrorHandle} from "../../components/Hooks/useServerErrorHandle";
@@ -12,7 +12,7 @@ import {useDefaultValue} from "../../components/Hooks/useDefaultValue";
 const AccountDetails: React.FC<IAccountDetails> = (props) => {
     const {isLoading, data} = props;
     const [editMode, changeEditMode] = useState<boolean>(false);
-    const {handleSubmit, register, errors, control, reset} = useForm<any>({
+    const {handleSubmit, register, errors, control, reset} = useForm<EditAcountDetails>({
         validationSchema: AccontDetailsValSchema
     });
     const [serverError, setterError, resetServerError] = useServerErrorHandle();

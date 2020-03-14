@@ -9,3 +9,10 @@ export interface IAccountDetails {
     isLoading:boolean;
     data:Array<any> | any;
 }
+
+
+
+export type EditAcountDetails = {
+    email:string;
+    name:string;
+}
