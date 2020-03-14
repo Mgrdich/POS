@@ -8,6 +8,10 @@ import {useForm} from "react-hook-form";
 import {useServerErrorHandle} from "../../components/Hooks/useServerErrorHandle";
 import {AccountDetailsEditInputFields, AccontDetailsValSchema} from "./config";
 import {useDefaultValue} from "../../components/Hooks/useDefaultValue";
+import axios from "axios";
+import {IAlertAxiosResponse} from "../../interfaces/General";
+import {useAlert} from "../../components/Hooks/useAlert";
+import Alerts from "../../components/Reusable/Alerts";
 
 const AccountDetails: React.FC<IAccountDetails> = (props) => {
     const {isLoading, data} = props;
@@ -15,12 +19,22 @@ const AccountDetails: React.FC<IAccountDetails> = (props) => {
     const {handleSubmit, register, errors, control, reset} = useForm<EditAcountDetails>({
         validationSchema: AccontDetailsValSchema
     });
+    const {alertMessage,openAlert,alertType,setAlert,setOpenAlert} = useAlert(); //TODO set alert message on error 
     const [serverError, setterError, resetServerError] = useServerErrorHandle();
-    const modifiedInputFields = useDefaultValue(AccountDetailsEditInputFields,data);
+    const modifiedInputFields = useDefaultValue(AccountDetailsEditInputFields, data);
 
 
     const onSubmit = function (values: any): void {
-        changeEditMode(false);
+        axios.put('/users/edit-user', values)
+            .then(function (res: IAlertAxiosResponse) {
+                changeEditMode(false);
+
+            }).catch(function (e: any) {
+            if (!e.response.data) {
+                console.error("No Response is found");
+            }
+            setterError(e.response.data.data);
+        });
     };
 
     //tODO make the loading with reusable like a wrapper
@@ -44,9 +58,19 @@ const AccountDetails: React.FC<IAccountDetails> = (props) => {
                         variant="contained"
                         size="large"
                         className="submitBtn"
+                        onClick={()=> changeEditMode(false)}
+                    >Cancel</Button>
+                    <Button
+                        color="primary"
+                        variant="contained"
+                        size="large"
+                        className="submitBtn"
                         type="submit"
                     >Submit</Button>
                 </form>
+                <Alerts open={openAlert} close={setOpenAlert} severity={alertType}>
+                    {alertMessage}
+                </Alerts>
             </>
 
         )
