@@ -12,8 +12,10 @@ export interface ITables {
     cashier: IDocUsers["_id"];
     orders:IDocOrders["_id"];
     createdDate:Date;
-    modifiedDate:Date;
-    modifiedBy:Array<IDocUsers["_id"]>;
+    modifiedBy:Array<{
+        _id:IDocUsers["_id"],
+        modifiedDate:Date,
+    }>;
 }
 
 //Mongoose modal

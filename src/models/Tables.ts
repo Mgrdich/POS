@@ -30,12 +30,12 @@ const tableSchema: Schema = new Schema({
             user: {
                 type: Schema.Types.ObjectId,
                 ref: 'Users',
+            },
+            modifiedDate: {
+                type:Date,
             }
         }
     ],
-    modifiedDate: {
-        type:Date,
-    },
     createdDate:{
       type:Date,
       default:Date.now

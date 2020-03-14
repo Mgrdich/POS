@@ -57,8 +57,8 @@ async function addTable(req: myRequest, res: Response, next: NextFunction): Prom
 
 async function deleteTable(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-        let deletedResult:IDelete  = await Tables.deleteOne({_id:req.params.Id});
-        if (deletedResult.ok) {
+        let deletedResult:IDelete  = await Tables.deleteOne({_id:req.params.id});
+        if (deletedResult.ok && deletedResult.deletedCount) { //TODO check the validity of this code
             alert(res,200,messageAlert.success,ITEM_DELETED);
         }
         noResult(res);
@@ -79,8 +79,7 @@ async function editTable(req: myRequest, res: Response, next: NextFunction): Pro
         if(name) {
             table.name = name;
         }
-        table.modifiedBy.push(req.user._id);
-        table.modifiedDate = new Date();
+        table.modifiedBy.push({"_id": req.user._id, modifiedDate: new Date()});
         await table.save();
         alert(res,200,messageAlert.success,'Table element has been edited');
     } catch (err) {
