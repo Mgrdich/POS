@@ -1,6 +1,8 @@
 import GroupIcon from '@material-ui/icons/Group';
 import ViewAgendaIcon from '@material-ui/icons/ViewAgenda';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import TableChartIcon from '@material-ui/icons/TableChart';
+import CreateIcon from '@material-ui/icons/Create';
 import {ComponentType} from "react";
 import {IDrawerRoute} from "../../../interfaces/layout/Drawer";
 import {Roles, RoleType} from "../../../roles";
@@ -16,10 +18,38 @@ export const drawerRoutes: Array<IDrawerRoute> = [
     {
         icon: GroupIcon,
         translation: "Users",
-        role:[Roles.SuperAdmin,Roles.Admin],
+        role: [Roles.SuperAdmin, Roles.Admin],
         nested: [
-            {icon: ViewAgendaIcon, location: "/users", translation: "View users",role:[Roles.SuperAdmin,Roles.Admin],},
-            {icon: PersonAddIcon, location: "/users/create-user", translation: "Create User",role:[Roles.SuperAdmin,Roles.Admin],},
+            {
+                icon: ViewAgendaIcon,
+                location: "/users",
+                translation: "View users",
+                role: [Roles.SuperAdmin, Roles.Admin],
+            },
+            {
+                icon: PersonAddIcon,
+                location: "/users/create-user",
+                translation: "Create User",
+                role: [Roles.SuperAdmin, Roles.Admin],
+            },
+        ]
+    }, {
+        icon: TableChartIcon,
+        translation: "Tables",
+        role: [Roles.SuperAdmin, Roles.Admin, Roles.Manager],
+        nested: [
+            {
+                icon: CreateIcon,
+                location: "/tables",
+                translation: "Create tables",
+                role: [Roles.SuperAdmin, Roles.Admin, Roles.Manager],
+            },
+            {
+                icon: ViewAgendaIcon,
+                location: "/tables/view-tables",
+                translation: "Tables dashboard",
+                role: [Roles.SuperAdmin, Roles.Admin, Roles.Manager],
+            },
         ]
     },
 
