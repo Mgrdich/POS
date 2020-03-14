@@ -12,6 +12,7 @@ import axios from "axios";
 import {IAlertAxiosResponse} from "../../interfaces/General";
 import {useAlert} from "../../components/Hooks/useAlert";
 import Alerts from "../../components/Reusable/Alerts";
+import ComponentLoader from "../../components/Reusable/ComponentLoader";
 
 const AccountDetails: React.FC<IAccountDetails> = (props) => {
     const {isLoading, data} = props;
@@ -19,7 +20,7 @@ const AccountDetails: React.FC<IAccountDetails> = (props) => {
     const {handleSubmit, register, errors, control, reset} = useForm<EditAcountDetails>({
         validationSchema: AccontDetailsValSchema
     });
-    const {alertMessage,openAlert,alertType,setAlert,setOpenAlert} = useAlert(); //TODO set alert message on error 
+    const {alertMessage, openAlert, alertType, setAlert, setOpenAlert} = useAlert(); //TODO set alert message on error
     const [serverError, setterError, resetServerError] = useServerErrorHandle();
     const modifiedInputFields = useDefaultValue(AccountDetailsEditInputFields, data);
 
@@ -38,11 +39,8 @@ const AccountDetails: React.FC<IAccountDetails> = (props) => {
     };
 
     //tODO make the loading with reusable like a wrapper
-    if (isLoading) {
-        return (
-            <Loader/>
-        )
-    } else if (editMode) {
+
+    if (editMode) {
         return (
             <>
                 <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
@@ -58,7 +56,7 @@ const AccountDetails: React.FC<IAccountDetails> = (props) => {
                         variant="contained"
                         size="large"
                         className="submitBtn"
-                        onClick={()=> changeEditMode(false)}
+                        onClick={() => changeEditMode(false)}
                     >Cancel</Button>
                     <Button
                         color="primary"
@@ -76,27 +74,29 @@ const AccountDetails: React.FC<IAccountDetails> = (props) => {
         )
     } else {
         return (
-            <Card variant="outlined" style={{width: '30%'}}>
-                <CardContent>
-                    <Typography color="primary" component='h1' gutterBottom>
-                        Details
-                    </Typography>
-                    <Typography>
-                        Name: {data.name}
-                    </Typography>
-                    <Typography>
-                        Email: {data.email}
-                        <br/>
-                        Role: {data.role}
-                    </Typography>
-                    <Typography variant="caption" component="p">
-                        Created at: {dateFormat(data.date)}
-                    </Typography>
-                </CardContent>
-                <CardActions>
-                    <Button size="small" color='primary' onClick={() => changeEditMode(true)}>Edit</Button>
-                </CardActions>
-            </Card>
+            <ComponentLoader isLoading={isLoading}>
+                <Card variant="outlined" style={{width: '30%'}}>
+                    <CardContent>
+                        <Typography color="primary" component='h1' gutterBottom>
+                            Details
+                        </Typography>
+                        <Typography>
+                            Name: {data.name}
+                        </Typography>
+                        <Typography>
+                            Email: {data.email}
+                            <br/>
+                            Role: {data.role}
+                        </Typography>
+                        <Typography variant="caption" component="p">
+                            Created at: {dateFormat(data.date)}
+                        </Typography>
+                    </CardContent>
+                    <CardActions>
+                        <Button size="small" color='primary' onClick={() => changeEditMode(true)}>Edit</Button>
+                    </CardActions>
+                </Card>
+            </ComponentLoader>
         )
     }
 

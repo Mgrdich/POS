@@ -20,7 +20,7 @@ const dataFetchReducer = function (state: any, action: any) {
         case 'FETCH_FAILURE':
             return {
                 ...state,
-                isLoading: false,
+                isLoading: true,
                 isError: true,
             };
         default:
