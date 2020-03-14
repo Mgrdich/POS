@@ -19,6 +19,22 @@ export const ChangePasswordInputField: Array<InputField> = [
     },
 ];
 
+export const AccountDetailsEditInputFields: Array<InputField> = [
+    {
+        name: 'name',
+        placeholder: 'Name'
+    },
+    {
+        name: 'email',
+        placeholder: 'Email'
+    },
+];
+
+export const AccontDetailsValSchema = yup.object().shape({
+    name: yup.string().required().min(4),
+    email: yup.string().required().email(),
+});
+
 export const ChangePasswordValSchema = yup.object().shape({
     current_password: yup.string().required().min(5),
     new_password: yup.string().required().min(5),
