@@ -66,6 +66,9 @@ export const editUserValidation:Array<any> = [
         .bail()
         .withMessage("Enter a valid Email")
         .custom(function(value, {req})  {
+            if(value === req.user.email) { //leaving the same email
+                return  true;
+            }
             return Users.findOne({email: value}).then(function(userDoc) {
                 if (userDoc) {
                     return Promise.reject("Email already registered");
