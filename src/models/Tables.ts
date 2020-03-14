@@ -24,7 +24,17 @@ const tableSchema: Schema = new Schema({
     createdBy:{
         type: Schema.Types.ObjectId,
         ref: 'Users',
-        required:true
+    },
+    modifiedBy:[
+        {
+            user: {
+                type: Schema.Types.ObjectId,
+                ref: 'Users',
+            }
+        }
+    ],
+    modifiedDate: {
+        type:Date,
     },
     createdDate:{
       type:Date,

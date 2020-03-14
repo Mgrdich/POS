@@ -67,9 +67,22 @@ async function deleteTable(req: Request, res: Response, next: NextFunction): Pro
     }
 }
 
-async function editTable(req: Request, res: Response, next: NextFunction): Promise<any> {
+async function editTable(req: myRequest, res: Response, next: NextFunction): Promise<any> {
     try {
+        const errors:any = validationResult(req).formatWith(errorFormatter);
 
+        if (!errors.isEmpty()) {
+            errorThrower("Validation Failed", 422, errors.mapped());
+        }
+        const {number,name} = req.body;
+        const table:IDocTables = await Tables.findById(req.params.id);
+        if(name) {
+            table.name = name;
+        }
+        table.modifiedBy.push(req.user._id);
+        table.modifiedDate = new Date();
+        await table.save();
+        alert(res,200,messageAlert.success,'Table element has been edited');
     } catch (err) {
         errorCatcher(next,err);
     }
