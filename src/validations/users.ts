@@ -57,6 +57,23 @@ export const registerUserValidation:Array<any> = [
         .notEmpty()
 ];
 
+export const editUserValidation:Array<any> = [
+    body('name')
+        .trim()
+        .notEmpty(),
+    body("email")
+        .isEmail()
+        .bail()
+        .withMessage("Enter a valid Email")
+        .custom(function(value, {req})  {
+            return Users.findOne({email: value}).then(function(userDoc) {
+                if (userDoc) {
+                    return Promise.reject("Email already registered");
+                }
+            });
+        }).normalizeEmail()
+];
+
 export const changePasswordValidation: Array<any> = [
     body("current_password").notEmpty().custom( function (value, {req}){
         return bcrypt.compare(value, req.user.password).then(function (match:boolean){

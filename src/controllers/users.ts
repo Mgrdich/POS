@@ -80,6 +80,23 @@ async function registerUser(req: Request, res: Response, next: NextFunction):Pro
         errorCatcher(next, err);
     }
 }
+async function editUser(req: myRequest, res: Response, next: NextFunction):Promise<any> {
+    try {
+        const errors:any = validationResult(req).formatWith(errorFormatter);
+
+        if (!errors.isEmpty()) {
+            errorThrower("Validation Failed", 422, errors.mapped());
+        }
+        const {email, name} = req.body;
+        const currentUser: IDocUsers = await Users.findById(req.user._id);
+        currentUser.email = email;
+        currentUser.name = name;
+        await currentUser.save();
+        alert(res,200,messageAlert.success,'user Data is edited');
+    } catch (err) {
+        errorCatcher(next, err);
+    }
+}
 
 async function changePassword(req: myRequest, res: Response, next: NextFunction): Promise<any> {
     try {
@@ -121,4 +138,4 @@ async function getUsers(req: myRequest, res: Response, next: NextFunction):Promi
     }
 }
 
-export {register, login, currentUser,registerUser,getUsers,changePassword};
+export {register, login, currentUser,registerUser,editUser,getUsers,changePassword};
