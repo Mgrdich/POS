@@ -9,6 +9,8 @@ import Error from "./views/errors/Error";
 import HeaderFooterLayout from "./components/HOC/HeaderFooterLayout";
 import CreateUsers from "./views/users/create-user/CreateUsers";
 import Users from "./views/users";
+import TablesDashboard from "./views/tables/viewTables";
+import CreateEditTables from "./views/tables";
 import {Roles, RoleType} from "./roles";
 import Profile from "./views/profile";
 
@@ -16,6 +18,8 @@ const HL_Dashboard = HeaderFooterLayout(Dashboard);
 const HL_CreateUser = HeaderFooterLayout(CreateUsers);
 const HL_Users  = HeaderFooterLayout(Users);
 const HL_Profile = HeaderFooterLayout(Profile);
+const HL_TablesDashboard = HeaderFooterLayout(TablesDashboard);
+const HL_CreateEditTables = HeaderFooterLayout(CreateEditTables);
 
 const superAdminMangerRoles :Array<RoleType> = [Roles.SuperAdmin,Roles.Admin,Roles.Manager];
 const Routes:React.FC = () => {
@@ -23,6 +27,8 @@ const Routes:React.FC = () => {
         <>
             <Switch>
                 <PrivateRoute exact path={['/','/dashboard']} component={HL_Dashboard}/>
+                <PrivateRoute exact path={'/tables/view-tables'} component={HL_TablesDashboard}/>
+                <PrivateRoute exact path={['/tables','/tables/index']} component={HL_CreateEditTables}/>
                 <PrivateRoute exact path='/users/create-user' allowedRoles={superAdminMangerRoles} component={HL_CreateUser}/>
                 <PrivateRoute exact path='/users' allowedRoles={superAdminMangerRoles} component={HL_Users}/>
                 <PrivateRoute exact path='/profile' component={HL_Profile}/>
