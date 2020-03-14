@@ -43,7 +43,7 @@ const AccountDetails: React.FC<IAccountDetails> = (props) => {
 
     if (editMode) {
         return (
-            <div className='loginRegister'>
+            <div className='accountDetails'>
                 <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
                     <Grid container direction="column" justify="center" align-Items="left">
                         <DynamicFields
