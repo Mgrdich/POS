@@ -35,8 +35,7 @@ const ChangePassword: React.FC = () => {
     };
 
     return (
-        <div className='loginRegister'>
-            <h1>Change Password</h1>
+        <>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container direction="column" justify="center" align-Items="left">
                     <DynamicFields
@@ -60,7 +59,7 @@ const ChangePassword: React.FC = () => {
                 {alertMessage}
             </Alerts>
 
-        </div>
+        </>
     );
 };
 
