@@ -13,6 +13,7 @@ import {IAlertAxiosResponse} from "../../interfaces/General";
 import {useAlert} from "../../components/Hooks/useAlert";
 import Alerts from "../../components/Reusable/Alerts";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
+import Grid from "@material-ui/core/Grid";
 
 const AccountDetails: React.FC<IAccountDetails> = (props) => {
     const {isLoading, data} = props;
@@ -42,34 +43,36 @@ const AccountDetails: React.FC<IAccountDetails> = (props) => {
 
     if (editMode) {
         return (
-            <>
+            <div className='loginRegister'>
                 <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-                    <DynamicFields
-                        InputFields={modifiedInputFields}
-                        register={register}
-                        errors={errors}
-                        control={control}
-                        serverError={serverError}
-                    />
-                    <Button
-                        color="primary"
-                        variant="contained"
-                        size="large"
-                        className="submitBtn"
-                        onClick={() => changeEditMode(false)}
-                    >Cancel</Button>
-                    <Button
-                        color="primary"
-                        variant="contained"
-                        size="large"
-                        className="submitBtn"
-                        type="submit"
-                    >Submit</Button>
+                    <Grid container direction="column" justify="center" align-Items="left">
+                        <DynamicFields
+                            InputFields={modifiedInputFields}
+                            register={register}
+                            errors={errors}
+                            control={control}
+                            serverError={serverError}
+                        />
+                        <Button
+                            color="primary"
+                            variant="contained"
+                            size="large"
+                            className="submitBtn"
+                            type="submit"
+                        >Submit</Button>
+                        <Button
+                            color="primary"
+                            variant="contained"
+                            size="large"
+                            className="submitBtn"
+                            onClick={() => changeEditMode(false)}
+                        >Cancel</Button>
+                    </Grid>
                 </form>
                 <Alerts open={openAlert} close={setOpenAlert} severity={alertType}>
                     {alertMessage}
                 </Alerts>
-            </>
+            </div>
 
         )
     } else {

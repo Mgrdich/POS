@@ -25,7 +25,18 @@
 
     .MuiButtonBase-root {
       width: 30%;
+      margin-bottom: 20px;
+
+      @include tablet {
+        width: 50%;
+        margin-bottom: 20px;
+      }
+      @include mobile {
+        width: 75%;
+        margin-bottom: 20px;
+      }
     }
+    
   }
 
 }
