@@ -1,6 +1,6 @@
 export enum TableStatus {
     open = 'open',
-    closed = 'reserved',
+    closed = 'closed',
     suspended = 'suspended',
     reserved = 'reserved'
 }

@@ -5,12 +5,13 @@ import {IDocOrders} from "./Orders";
 
 
 export interface ITables {
-    name?: string,
-    number: number,
-    status:tableStatusType,
-    registeredBy:IDocUsers["_id"],
-    cashier: IDocUsers["_id"],
-    orders:IDocOrders["_id"],
+    name?: string;
+    number: number;
+    status:tableStatusType;
+    createdBy:IDocUsers["_id"];
+    cashier: IDocUsers["_id"];
+    orders:IDocOrders["_id"];
+    createdDate:Date;
 }
 
 //Mongoose modal

@@ -3,7 +3,7 @@ import {IDocTables} from "../interfaces/models/Tables";
 import {NextFunction, Request, Response} from "express";
 import {errorCatcher, errorFormatter, errorThrower} from "../utilities/controllers/error";
 import {noResult} from "../utilities/controllers/helpers";
-import {IDelete} from "../interfaces/General";
+import {IDelete, myRequest} from "../interfaces/General";
 import {alert} from "../utilities/controllers/messages";
 import {messageAlert} from "../interfaces/util";
 import {ITEM_DELETED, NO_SUCH_DATA_EXISTS} from "../utilities/contants/messages";
@@ -32,19 +32,25 @@ async function getTable(req: Request, res: Response, next: NextFunction): Promis
     } catch (err) {
         errorCatcher(next,err);
     }
-
 }
 
-async function addTable(req: Request, res: Response, next: NextFunction): Promise<any> {
+async function addTable(req: myRequest, res: Response, next: NextFunction): Promise<any> {
     try {
         const errors:any = validationResult(req).formatWith(errorFormatter);
 
         if (!errors.isEmpty()) {
             errorThrower("Validation Failed", 422, errors.mapped());
         }
-        const {number} = req.body;
+        const {number,name} = req.body;
+        const table:IDocTables = new Tables({number});
+        table.createdBy = req.user._id;
+        if(name) {
+            table.name = name;
+        }
+        await table.save();
+        alert(res,200,messageAlert.success,'New Table is registered');
     } catch (err) {
-
+        errorCatcher(next,err);
     }
 
 }
@@ -65,7 +71,7 @@ async function editTable(req: Request, res: Response, next: NextFunction): Promi
     try {
 
     } catch (err) {
-
+        errorCatcher(next,err);
     }
 }
 

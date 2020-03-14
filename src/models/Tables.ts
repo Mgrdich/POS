@@ -21,9 +21,14 @@ const tableSchema: Schema = new Schema({
         enum:TABLE_STATUS,
         default:TableStatus.closed
     },
-    registeredBy:{
+    createdBy:{
         type: Schema.Types.ObjectId,
-        ref: 'Users'
+        ref: 'Users',
+        required:true
+    },
+    createdDate:{
+      type:Date,
+      default:Date.now
     },
     cashier: {
         type: Schema.Types.ObjectId,
