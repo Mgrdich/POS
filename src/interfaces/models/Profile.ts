@@ -6,5 +6,5 @@ export interface IProfile {
 }
 
 //Mongoose modal
-export interface IDocIProfile extends Document, IProfile {
+export interface IDocProfile extends Document, IProfile {
 }
