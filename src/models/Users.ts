@@ -25,8 +25,8 @@ const userSchema: Schema = new Schema({
         enum: ROLES_ALL
     },
     rolePriority: {
-      type:Number,
-      default:1,
+        type: Number,
+        default: 1,
     },
     date: {
         type: Date,

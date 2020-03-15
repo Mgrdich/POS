@@ -15,24 +15,24 @@ const productSchema: Schema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'ProductsGroup'
     },
-    createdBy:{ //TODO created edit properties should be refactored
+    createdBy: { //TODO created edit properties should be refactored
         type: Schema.Types.ObjectId,
         ref: 'Users',
     },
-    modifiedBy:[
+    modifiedBy: [
         {
             user: {
                 type: Schema.Types.ObjectId,
                 ref: 'Users',
             },
             modifiedDate: {
-                type:Date,
+                type: Date,
             }
         }
     ],
-    createdDate:{
-        type:Date,
-        default:Date.now
+    createdDate: {
+        type: Date,
+        default: Date.now
     },
 });
 
