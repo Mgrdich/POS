@@ -3,11 +3,11 @@ import {IDocProducts} from "./Products";
 import {ICreatedEditData} from "./General";
 
 
-export interface IProductsGroup extends ICreatedEditData {
+export interface IProductsGroups extends ICreatedEditData {
     name: string;
     products:Array<IDocProducts["_id"]>;
 }
 
 //Mongoose modal
-export interface IDocProductsGroup extends Document, IProductsGroup {
+export interface IDocProductsGroups extends Document, IProductsGroups {
 }
