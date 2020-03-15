@@ -59,7 +59,6 @@ const NestedMenuList: React.FC<INestedMenuList> = ({menuOpen}) => {
     }
   }, [menuOpen]);
 
-  //TODO convert the  Click route  to a function cached
   const handleRoutes = useCallback((location:string) =>{
    return history.push(location)
   },[history]);
