@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from "express";
 import {noResult} from "../utilities/controllers/helpers";
 import {errorCatcher, errorFormatter, errorThrower} from "../utilities/controllers/error";
-import {NO_SUCH_DATA_EXISTS} from "../utilities/contants/messages";
+import {NO_SUCH_DATA_EXISTS} from "../utilities/constants/messages";
 import {myRequest} from "../interfaces/General";
 import {validationResult} from "express-validator";
 import {IDocProductsGroups} from "../interfaces/models/ProductsGroups";

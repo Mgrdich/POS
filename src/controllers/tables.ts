@@ -6,7 +6,7 @@ import {noResult} from "../utilities/controllers/helpers";
 import {IDelete, myRequest} from "../interfaces/General";
 import {alert} from "../utilities/controllers/messages";
 import {messageAlert} from "../interfaces/util";
-import {ITEM_DELETED, NO_SUCH_DATA_EXISTS} from "../utilities/contants/messages";
+import {ITEM_DELETED, NO_SUCH_DATA_EXISTS} from "../utilities/constants/messages";
 import {validationResult} from "express-validator";
 
 async function getTables(req: Request, res: Response, next: NextFunction): Promise<any> {

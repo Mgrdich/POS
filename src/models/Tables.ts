@@ -1,8 +1,8 @@
 import * as mongoose from 'mongoose';
 import {Schema} from "mongoose";
 import {IDocTables} from "../interfaces/models/Tables";
-import {TABLE_STATUS} from "../utilities/contants/arrays";
-import {TableStatus} from "../utilities/contants/enums";
+import {TABLE_STATUS} from "../utilities/constants/arrays";
+import {TableStatus} from "../utilities/constants/enums";
 
 const tableSchema: Schema = new Schema({
     name: {
