@@ -1,8 +1,10 @@
 import {Document} from 'mongoose';
+import {ICreatedEditData} from "./General";
 
 
-export interface IProducts {
-
+export interface IProducts extends ICreatedEditData {
+    name:string;
+    price:number;
 }
 
 //Mongoose modal
