@@ -1,8 +1,8 @@
 import * as mongoose from 'mongoose';
-import {Schema} from "mongoose";
-import {IDocProducts} from "../interfaces/models/Products";
+import {Model, Schema} from "mongoose";
+import {IDocProducts, IModelProducts, IProducts} from "../interfaces/models/Products";
 
-const productSchema: Schema = new Schema({
+const productSchema: Schema<IDocProducts> = new Schema({
     name: {
         type: String,
         required: true
@@ -36,6 +36,14 @@ const productSchema: Schema = new Schema({
     },
 });
 
-const Products = mongoose.model<IDocProducts>('Products', productSchema);
+productSchema.methods.addProduct = function ():void {
+
+};
+
+productSchema.statics.sss = function () {
+
+};
+
+const Products:IModelProducts = mongoose.model<IDocProducts,IModelProducts>('Products', productSchema);
 
 export {Products};

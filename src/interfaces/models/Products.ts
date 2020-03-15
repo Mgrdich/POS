@@ -1,4 +1,4 @@
-import {Document} from 'mongoose';
+import {Document, Model} from 'mongoose';
 import {ICreatedEditData} from "./General";
 
 
@@ -8,5 +8,12 @@ export interface IProducts extends ICreatedEditData {
 }
 
 //Mongoose modal
-export interface IDocProducts extends Document, IProducts {
+export interface IDocProducts extends IProducts,Document {
+    //here we declare the methods
+    addProduct:()=>void;
+}
+
+export interface IModelProducts extends Model<IDocProducts>{
+    //here we declare the statics
+    sss:()=>void;
 }

@@ -38,7 +38,9 @@ export async function addProductsGroup(req: myRequest, res: Response, next: Next
         if (!errors.isEmpty()) {
             errorThrower("Validation Failed", 422, errors.mapped());
         }
-
+        const {name, price} = req.body; //TODO should be related to a group
+        const productsGroup: IDocProductsGroups = new ProductsGroups({name, price});
+        productsGroup.createdBy = req.user._id;
     } catch (err) {
         errorCatcher(next,err);
     }

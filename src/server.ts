@@ -9,6 +9,7 @@ import users from "./routes/users";
 import api from "./routes/api";
 import tables from "./routes/tables";
 import products from "./routes/products";
+import productsGroups from "./routes/productsGroups";
 import {ImyError} from "./interfaces/General";
 import {isAuth} from "./middlewares/authorisation";
 
@@ -47,6 +48,8 @@ app.use('/api',api);
 app.use('/tables',tables);
 
 app.use('/products',products);
+
+app.use('/products-group/',productsGroups);
 
 //errors
 app.use(function (err: ImyError, req: Request, res: Response, next: NextFunction) {
