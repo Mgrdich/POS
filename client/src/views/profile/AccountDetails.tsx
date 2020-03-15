@@ -45,7 +45,8 @@ const AccountDetails: React.FC<IAccountDetails> = (props) => {
         return (
             <>
                 <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-                    <Grid container direction="column" justify="center" align-Items="left">
+                    <Grid container direction="column" xs={12} sm={8} md={6} lg={4}  >
+                        
                         <DynamicFields
                             InputFields={modifiedInputFields}
                             register={register}

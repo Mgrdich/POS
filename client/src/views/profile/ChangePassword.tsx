@@ -37,7 +37,7 @@ const ChangePassword: React.FC = () => {
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Grid container direction="column" justify="center" align-Items="left">
+                <Grid container direction="column" spacing={1} xs={12} sm={8} md={6} lg={4} >
                     <DynamicFields
                         InputFields={ChangePasswordInputField}
                         errors={errors}

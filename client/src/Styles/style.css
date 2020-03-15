@@ -1,33 +1,33 @@
-.loginRegister h1 {
+.loginRegister h1, .accountDetails h1 {
   text-align: center;
   font-size: 50px;
   color: #66fcf1; }
 
-.loginRegister form .MuiFormControl-root {
+.loginRegister form .MuiFormControl-root, .accountDetails form .MuiFormControl-root {
   width: 30%;
   margin-bottom: 20px; }
 
 @media (max-width: 960px) {
-  .loginRegister form .MuiFormControl-root {
+  .loginRegister form .MuiFormControl-root, .accountDetails form .MuiFormControl-root {
     width: 50%;
     margin-bottom: 20px; } }
 
 @media (max-width: 600px) {
-  .loginRegister form .MuiFormControl-root {
+  .loginRegister form .MuiFormControl-root, .accountDetails form .MuiFormControl-root {
     width: 75%;
     margin-bottom: 20px; } }
 
-.loginRegister form .MuiButtonBase-root {
+.loginRegister form .MuiButtonBase-root, .accountDetails form .MuiButtonBase-root {
   width: 30%;
   margin-bottom: 20px; }
 
 @media (max-width: 960px) {
-  .loginRegister form .MuiButtonBase-root {
+  .loginRegister form .MuiButtonBase-root, .accountDetails form .MuiButtonBase-root {
     width: 50%;
     margin-bottom: 20px; } }
 
 @media (max-width: 600px) {
-  .loginRegister form .MuiButtonBase-root {
+  .loginRegister form .MuiButtonBase-root, .accountDetails form .MuiButtonBase-root {
     width: 75%;
     margin-bottom: 20px; } }
 
