@@ -1,9 +1,13 @@
 import {NextFunction, Request, Response} from "express";
 import {noResult} from "../utilities/controllers/helpers";
-import {errorCatcher, errorThrower} from "../utilities/controllers/error";
+import {errorCatcher, errorFormatter, errorThrower} from "../utilities/controllers/error";
 import {IDocProducts} from "../interfaces/models/Products";
 import {Products} from "../models/Products";
-import {NO_SUCH_DATA_EXISTS} from "../utilities/contants/messages";
+import {ITEM_DELETED, NO_SUCH_DATA_EXISTS} from "../utilities/contants/messages";
+import {IDelete, myRequest} from "../interfaces/General";
+import {alert} from "../utilities/controllers/messages";
+import {messageAlert} from "../interfaces/util";
+import {validationResult} from "express-validator";
 
 export async function getProducts(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
@@ -29,14 +33,52 @@ export async function getProduct(req: Request, res: Response, next: NextFunction
     }
 }
 
-export async function addProduct(req: Request, res: Response, next: NextFunction): Promise<any> {
+export async function addProduct(req: myRequest, res: Response, next: NextFunction): Promise<any> {
+    try {
+        const errors: any = validationResult(req).formatWith(errorFormatter);
 
+        if (!errors.isEmpty()) {
+            errorThrower("Validation Failed", 422, errors.mapped());
+        }
+
+        const {name, price} = req.body; //TODO should be related to a group
+        const product: IDocProducts = new Products({name, price});
+        product.createdBy = req.user._id;
+        await product.save();
+        alert(res,200,messageAlert.success,'New Product is registered');
+    } catch (err) {
+        errorCatcher(next,err);
+    }
 }
 
-export async function editProduct(req: Request, res: Response, next: NextFunction): Promise<any> {
+export async function editProduct(req: myRequest, res: Response, next: NextFunction): Promise<any> {
+    try {
+        const errors: any = validationResult(req).formatWith(errorFormatter);
 
+        if (!errors.isEmpty()) {
+            errorThrower("Validation Failed", 422, errors.mapped());
+        }
+
+        const {name, price} = req.body;
+        const currentProduct: IDocProducts = await Products.findById(req.params.id);
+        currentProduct.name = name;
+        currentProduct.price = price;
+        currentProduct.modifiedBy.push({"_id": req.user._id,modifiedDate: new Date()});
+        await currentProduct.save();
+        alert(res,200,messageAlert.success,'Product element has been edited');
+    } catch (err) {
+        errorCatcher(next,err);
+    }
 }
 
 export async function deleteProduct(req: Request, res: Response, next: NextFunction): Promise<any> {
-
+    try {
+        let deletedProduct:IDelete  = await Products.deleteOne({_id:req.params.id});
+        if (deletedProduct.ok && deletedProduct.deletedCount) { //TODO check the validity of this code
+            alert(res,200,messageAlert.success,ITEM_DELETED);
+        }
+        noResult(res);
+    } catch (err) {
+        errorCatcher(next,err);
+    }
 }

@@ -55,18 +55,6 @@ async function addTable(req: myRequest, res: Response, next: NextFunction): Prom
 
 }
 
-async function deleteTable(req: Request, res: Response, next: NextFunction): Promise<any> {
-    try {
-        let deletedResult:IDelete  = await Tables.deleteOne({_id:req.params.id});
-        if (deletedResult.ok && deletedResult.deletedCount) { //TODO check the validity of this code
-            alert(res,200,messageAlert.success,ITEM_DELETED);
-        }
-        noResult(res);
-    } catch (err) {
-        errorCatcher(next,err);
-    }
-}
-
 async function editTable(req: myRequest, res: Response, next: NextFunction): Promise<any> {
     try {
         const errors:any = validationResult(req).formatWith(errorFormatter);
@@ -87,5 +75,16 @@ async function editTable(req: myRequest, res: Response, next: NextFunction): Pro
     }
 }
 
+async function deleteTable(req: Request, res: Response, next: NextFunction): Promise<any> {
+    try {
+        let deletedResult:IDelete  = await Tables.deleteOne({_id:req.params.id});
+        if (deletedResult.ok && deletedResult.deletedCount) { //TODO check the validity of this code
+            alert(res,200,messageAlert.success,ITEM_DELETED);
+        }
+        noResult(res);
+    } catch (err) {
+        errorCatcher(next,err);
+    }
+}
 
 export {getTables, getTable, addTable, deleteTable, editTable};
