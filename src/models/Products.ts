@@ -15,7 +15,7 @@ const productSchema: Schema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'ProductsGroup'
     },
-    createdBy:{
+    createdBy:{ //TODO created edit properties should be refactored
         type: Schema.Types.ObjectId,
         ref: 'Users',
     },
@@ -37,3 +37,5 @@ const productSchema: Schema = new Schema({
 });
 
 const Products = mongoose.model<IDocProducts>('Products', productSchema);
+
+export {Products};

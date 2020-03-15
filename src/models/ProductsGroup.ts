@@ -7,3 +7,5 @@ const productGroupSchema: Schema = new Schema({
 });
 
 const ProductsGroup = mongoose.model<IDocProducts>('ProductsGroup',productGroupSchema);
+
+export {ProductsGroup};

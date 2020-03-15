@@ -8,6 +8,7 @@ import {NextFunction, Request, Response} from "express";
 import users from "./routes/users";
 import api from "./routes/api";
 import tables from "./routes/tables";
+import products from "./routes/products";
 import {ImyError} from "./interfaces/General";
 import {isAuth} from "./middlewares/authorisation";
 
@@ -44,6 +45,8 @@ app.use(isAuth()); //all the routes should require an Authorization
 app.use('/api',api);
 
 app.use('/tables',tables);
+
+app.use('/products',products);
 
 //errors
 app.use(function (err: ImyError, req: Request, res: Response, next: NextFunction) {
