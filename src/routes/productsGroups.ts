@@ -6,6 +6,7 @@ import {
     getProductsGroup,
     getProductsGroups
 } from "../controllers/productsGroups";
+import {addProductsGroupValidation} from "../validations/productGroups";
 
 const router = express.Router();
 
@@ -14,7 +15,7 @@ router.get('/', getProductsGroups);
 
 router.get('/:id', getProductsGroup);
 
-router.put('/', addProductsGroup);
+router.put('/', addProductsGroupValidation,addProductsGroup);
 
 router.put('/:id', editProductsGroup);
 

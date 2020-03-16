@@ -1,6 +1,8 @@
 import * as mongoose from 'mongoose';
 import {Model, Schema} from "mongoose";
 import {IDocProducts, IModelProducts, IProducts} from "../interfaces/models/Products";
+import {ProductsGroups} from "./ProductsGroups";
+import {IDocProductsGroups} from "../interfaces/models/ProductsGroups";
 
 const productSchema: Schema<IDocProducts> = new Schema({
     name: {
@@ -36,14 +38,21 @@ const productSchema: Schema<IDocProducts> = new Schema({
     },
 });
 
-productSchema.methods.addProduct = function ():void {
+productSchema.methods.addProduct = function (productGroupId): Promise<any> {
+    let productGroupQ: Promise<any> = ProductsGroups.findById(productGroupId)
+        .then(function (productGroup: IDocProductsGroups) {
+            productGroup.products.push({_id: this._id});
+            return productGroup.save();
+        });
+    let productQ: Promise<any> = this.save();
 
+    return Promise.all([productQ, productGroupQ]);
 };
 
 productSchema.statics.sss = function () {
 
 };
 
-const Products:IModelProducts = mongoose.model<IDocProducts,IModelProducts>('Products', productSchema);
+const Products: IModelProducts = mongoose.model<IDocProducts, IModelProducts>('Products', productSchema);
 
 export {Products};

@@ -40,17 +40,12 @@ export async function addProduct(req: myRequest, res: Response, next: NextFuncti
         if (!errors.isEmpty()) {
             errorThrower("Validation Failed", 422, errors.mapped());
         }
-
-        const {name, price} = req.body;
+        const {name, price,productGroup} = req.body;
         const product: IDocProducts = new Products({name,price});
         product.createdBy = req.user._id;
-        product.addProduct();
-       /*  //TODO should be related to a group
-        const product: IDocProducts = new Products({name, price});
-        product.createdBy = req.user._id;
-        await product.save();
+        await product.addProduct(productGroup);
         alert(res,200,messageAlert.success,'New Product is registered');
-    */} catch (err) {
+    } catch (err) {
         errorCatcher(next,err);
     }
 }

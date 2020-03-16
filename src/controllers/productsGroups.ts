@@ -6,6 +6,8 @@ import {myRequest} from "../interfaces/General";
 import {validationResult} from "express-validator";
 import {IDocProductsGroups} from "../interfaces/models/ProductsGroups";
 import {ProductsGroups} from "../models/ProductsGroups";
+import {alert} from "../utilities/controllers/messages";
+import {messageAlert} from "../interfaces/util";
 
 export async function getProductsGroups(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
@@ -38,9 +40,11 @@ export async function addProductsGroup(req: myRequest, res: Response, next: Next
         if (!errors.isEmpty()) {
             errorThrower("Validation Failed", 422, errors.mapped());
         }
-        const {name, price} = req.body; //TODO should be related to a group
-        const productsGroup: IDocProductsGroups = new ProductsGroups({name, price});
+        const {name} = req.body;
+        const productsGroup: IDocProductsGroups = new ProductsGroups({name});
         productsGroup.createdBy = req.user._id;
+        await productsGroup.save();
+        alert(res,200,messageAlert.success,'New Product Group is registered');
     } catch (err) {
         errorCatcher(next,err);
     }

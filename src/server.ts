@@ -49,7 +49,7 @@ app.use('/tables',tables);
 
 app.use('/products',products);
 
-app.use('/products-group/',productsGroups);
+app.use('/products-group',productsGroups);
 
 //errors
 app.use(function (err: ImyError, req: Request, res: Response, next: NextFunction) {
