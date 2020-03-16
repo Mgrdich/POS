@@ -13,7 +13,7 @@ export const addProductValidation: Array<any> = [
         .isLength({min: 2, max: 25})
         .custom(function (value, {req}) {
             if(!req.body.productsGroup) {
-                return false;
+                return ;
             }
             return Products.findOne({name:value,group:req.body.productsGroup}) //TODO check later whether it shouldbe changed
                 .then(function (product: IProducts) {

@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 import {Schema} from "mongoose";
-import {IDocProductsGroups} from "../interfaces/models/ProductsGroups";
+import {IDocProductsGroups, IModelProductsGroups} from "../interfaces/models/ProductsGroups";
 
 const productGroupSchema: Schema = new Schema({
     name: {
@@ -36,6 +36,10 @@ const productGroupSchema: Schema = new Schema({
     }
 });
 
-const ProductsGroups = mongoose.model<IDocProductsGroups>('ProductsGroups', productGroupSchema);
+productGroupSchema.statics.deleteById = function (productsGroupID) {
+
+};
+
+const ProductsGroups:IModelProductsGroups = mongoose.model<IDocProductsGroups,IModelProductsGroups>('ProductsGroups', productGroupSchema);
 
 export {ProductsGroups};

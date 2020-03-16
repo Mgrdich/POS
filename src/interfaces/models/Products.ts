@@ -15,5 +15,5 @@ export interface IDocProducts extends IProducts, Document {
 
 export interface IModelProducts extends Model<IDocProducts> {
     //here we declare the statics
-    sss: () => void;
+    test: () => void;
 }
