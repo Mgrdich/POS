@@ -39,11 +39,15 @@ const productSchema: Schema<IDocProducts> = new Schema({
 });
 
 productSchema.methods.addProduct = function (productGroupId): Promise<any> {
+    let _id = this._id;
     let productGroupQ: Promise<any> = ProductsGroups.findById(productGroupId)
         .then(function (productGroup: IDocProductsGroups) {
-            productGroup.products.push({_id: this._id});
-            return productGroup.save();
+            if (productGroup) {
+                productGroup.products.push({_id});
+                return productGroup.save();
+            }
         });
+    this.group = productGroupId;
     let productQ: Promise<any> = this.save();
 
     return Promise.all([productQ, productGroupQ]);

@@ -1,5 +1,6 @@
 import * as express from "express";
 import {addProduct, deleteProduct, editProduct, getProduct, getProducts} from "../controllers/products";
+import {addProductValidation, editProductValidation} from "../validations/products";
 
 const router = express.Router();
 
@@ -8,9 +9,9 @@ router.get('/', getProducts);
 
 router.get('/:id', getProduct);
 
-router.put('/', addProduct);
+router.put('/', addProductValidation, addProduct);
 
-router.put('/:id', editProduct);
+router.put('/:id', editProductValidation, editProduct);
 
 router.delete('/:id', deleteProduct);
 
