@@ -49,16 +49,16 @@ productSchema.methods.addProduct = function (productGroupId): Promise<any> {
                     return productGroup.save();
                 }
             }).catch(function (err) {
-                console.log("verch");
+                console.log(err);
             });
         this.group = productGroupId;
         let productQ: Promise<any> = this.save();
         return Promise.all([productQ, productGroupQ]);
     } else {
         productGroupQ = ProductsGroups.findOne({name: "All"}) //all the stuff that do not have productGroup
-            .then((productGroup: IDocProductsGroups) => {
+            .then(function(productGroup: IDocProductsGroups) {
                 if (productGroup) {
-                    productGroup.products.push({_id});
+                    productGroup.products.push({_id}); //not unique inside if group is not selected
                     return productGroup.save();
                 }
                 //no product and All does not exits
