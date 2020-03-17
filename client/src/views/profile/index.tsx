@@ -11,7 +11,7 @@ import {useFetch} from "../../components/Hooks/useFetch";
 const Profile = () => {
     const [tabValue, handleChange] = useTab(0);
     const [reload,setReload] = useState<boolean>(false);
-    const {isLoading, data} = useFetch('/users/current', reload);
+    const {isLoading, data} = useFetch('/users/current',reload);
 
     return (
         <>

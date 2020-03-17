@@ -28,7 +28,7 @@ const dataFetchReducer = function (state: any, action: any) {
     }
 };
 
-export function useFetch(url: string, reload?:boolean):IUseFetch {
+export function useFetch(url: string, reload:boolean = false):IUseFetch {
     //TODO check the type
     const [state, dispatch] = useReducer(dataFetchReducer, {
         isLoading: true,
