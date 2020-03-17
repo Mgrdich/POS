@@ -1,4 +1,4 @@
-import {useEffect, useReducer} from "react";
+import {useEffect, useReducer, useState} from "react";
 import axios,{AxiosResponse} from "axios";
 import {IUseFetch} from "../../interfaces/Hooks";
 
@@ -28,7 +28,7 @@ const dataFetchReducer = function (state: any, action: any) {
     }
 };
 
-export function useFetch(url: string):IUseFetch {
+export function useFetch(url: string, reload?:boolean):IUseFetch {
     //TODO check the type
     const [state, dispatch] = useReducer(dataFetchReducer, {
         isLoading: true,
@@ -55,7 +55,7 @@ export function useFetch(url: string):IUseFetch {
         return function () {
             didCancel = true;
         };
-    }, [dispatch,url]);
+    }, [dispatch,url,reload]);
 
     return state;
 }

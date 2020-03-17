@@ -25,7 +25,7 @@ import {useModule} from "../../components/Hooks/useModule";
 import {Dialog} from '@material-ui/core';
 
 const AccountDetails: React.FC<IAccountDetails> = (props) => {
-    const {isLoading, data} = props;
+    const {isLoading, data, setReload} = props;
     const [editMode, changeEditMode] = useState<boolean>(false);
     const {handleSubmit, register, errors, control, reset} = useForm<EditAcountDetails>({
         validationSchema: AccontDetailsValSchema
@@ -40,6 +40,7 @@ const AccountDetails: React.FC<IAccountDetails> = (props) => {
         axios.put('/users/edit-user', values)
             .then(function (res: IAlertAxiosResponse) {
                 handleClose();
+                setReload((prev:boolean) => !prev );
                 
             }).catch(function (e: any) {
             if (!e.response.data) {

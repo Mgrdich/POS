@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useTab} from "../../components/Hooks/useTab";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -10,7 +10,9 @@ import {useFetch} from "../../components/Hooks/useFetch";
 
 const Profile = () => {
     const [tabValue, handleChange] = useTab(0);
-    const {isLoading, data} = useFetch('/users/current');
+    const [reload,setReload] = useState<boolean>(false);
+    const {isLoading, data} = useFetch('/users/current', reload);
+
     return (
         <>
             <AppBar position="static" color='secondary'>
@@ -20,7 +22,7 @@ const Profile = () => {
                 </Tabs>
             </AppBar>
             <TabPanel value={tabValue} index={0}>
-                <AccountDetails isLoading={isLoading} data={data} />
+                <AccountDetails setReload={setReload} isLoading={isLoading} data={data} />
             </TabPanel>
             <TabPanel value={tabValue} index={1}>
                 <ChangePassword/>
