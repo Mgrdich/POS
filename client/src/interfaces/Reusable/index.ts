@@ -34,7 +34,7 @@ export interface IDynamicFields {
     errors: any;
     control: any;
     render?:any;
-    Component?:React.FC;
+    Component?:React.FC | any;
     ComponentProps?:any;
 }
 

@@ -13,11 +13,11 @@ import {IAlertAxiosResponse} from "../../interfaces/General";
 
 
 const ChangePassword: React.FC = () => {
-    const {handleSubmit, register, errors, control,reset} = useForm<ChangePasswordFormData>({
+    const {handleSubmit, register, errors, control, reset} = useForm<ChangePasswordFormData>({
         validationSchema: ChangePasswordValSchema,
     });
-    const [serverError, setterError,resetServerError] = useServerErrorHandle();
-    const {alertMessage,openAlert,alertType,setAlert,setOpenAlert} = useAlert();
+    const [serverError, setterError, resetServerError] = useServerErrorHandle();
+    const {alertMessage, openAlert, alertType, setAlert, setOpenAlert} = useAlert();
 
 
     const onSubmit = function (values: any): void {
@@ -37,22 +37,25 @@ const ChangePassword: React.FC = () => {
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Grid container direction="column" spacing={1} xs={12} sm={8} md={6} lg={4} >
+                <Grid container direction="column" spacing={1}>
                     <DynamicFields
+                        Component={Grid}
+                        ComponentProps={{item: true, xs: 12, sm: 12, md: 6, lg: 4}}
                         InputFields={ChangePasswordInputField}
                         errors={errors}
                         control={control}
                         register={register}
                         serverError={serverError}
                     />
-
-                    <Button
-                        color="primary"
-                        variant="contained"
-                        size="large"
-                        className="submitBtn"
-                        type="submit"
-                    >Submit</Button>
+                    <Grid item xs={12} sm={12} md={6} lg={4}>
+                        <Button
+                            fullWidth={true}
+                            color="primary"
+                            variant="contained"
+                            size="large"
+                            type="submit"
+                        >Submit</Button>
+                    </Grid>
                 </Grid>
             </form>
             <Alerts open={openAlert} close={setOpenAlert} severity={alertType}>
