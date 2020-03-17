@@ -40,29 +40,36 @@ const productSchema: Schema<IDocProducts> = new Schema({
 
 productSchema.methods.addProduct = function (productGroupId): Promise<any> {
     let _id = this._id;
-    let productGroupQ: Promise<any> = ProductsGroups.findById(productGroupId)
-        .then(function (productGroup: IDocProductsGroups) {
-            if (productGroup) {
-                productGroup.products.push({_id});
-                return productGroup.save();
-            }
-
-            ProductsGroups.findOne({name:"All"}) //all the stuff that do not have productGroup
-                .then(function (productGroup:IDocProductsGroups) {
-                if(productGroup) {
+    let productGroupQ: Promise<any>;
+    if (productGroupId) {
+        productGroupQ = ProductsGroups.findById(productGroupId)
+            .then((productGroup: IDocProductsGroups) => {
+                if (productGroup) {
+                    productGroup.products.push({_id});
+                    return productGroup.save();
+                }
+            }).catch(function (err) {
+                console.log("verch");
+            });
+        this.group = productGroupId;
+        let productQ: Promise<any> = this.save();
+        return Promise.all([productQ, productGroupQ]);
+    } else {
+        productGroupQ = ProductsGroups.findOne({name: "All"}) //all the stuff that do not have productGroup
+            .then((productGroup: IDocProductsGroups) => {
+                if (productGroup) {
                     productGroup.products.push({_id});
                     return productGroup.save();
                 }
                 //no product and All does not exits
-                const newProductGroup: IDocProductsGroups = new ProductsGroups({name:"All"});
+                const newProductGroup: IDocProductsGroups = new ProductsGroups({name: "All"});
                 newProductGroup.products.push({_id});
                 return newProductGroup.save();
             });
-        });
-    this.group = productGroupId;
-    let productQ: Promise<any> = this.save();
 
-    return Promise.all([productQ, productGroupQ]);
+        return productGroupQ;
+    }
+
 };
 
 productSchema.statics.test = function () {
