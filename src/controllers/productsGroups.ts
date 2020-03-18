@@ -70,6 +70,11 @@ export async function deleteProductsGroup(req: Request, res: Response, next: Nex
         if (!errors.isEmpty()) {
             errorThrower("Validation Failed", 422, errors.mapped());
         }
+
+        const response = await ProductsGroups.deleteProductsGroupById(req.params.id);
+        if(response.ok) {
+            alert(res,200,messageAlert.success,'Product Group is deleted')
+        }
     } catch (err) {
         errorCatcher(next,err);
     }

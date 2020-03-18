@@ -3,6 +3,7 @@ import {Schema} from "mongoose";
 import {IDocProductsGroups, IModelProductsGroups} from "../interfaces/models/ProductsGroups";
 import {Products} from "./Products";
 import {IDocProducts} from "../interfaces/models/Products";
+import {runInNewContext} from "vm";
 
 const productGroupSchema: Schema = new Schema({
     name: {
@@ -43,7 +44,19 @@ productGroupSchema.statics.removeProdFrmProdGrp = function (productId:IDocProduc
     return ProductsGroups.updateOne({_id: groupId},{$pull:{products:{"_id":productId}}})
 };
 
-productGroupSchema.statics.deleteProductsGroupById = function (productsGroupID:IDocProductsGroups["_id"]) {
+productGroupSchema.statics.deleteProductsGroupById = async function (productsGroupID:IDocProductsGroups["_id"]):Promise<any>  {
+    let toBeDeletedProductGroup:IDocProductsGroups = await this.findOne({_id:productsGroupID});
+    let productGroupAll:IDocProductsGroups  = await this.findOne({name:'All'});
+    if(!productGroupAll) { //TODO check this case
+        return new Promise<any>(function () {
+         console.error("do this case");
+        });
+    }
+
+    productGroupAll.products.push(...toBeDeletedProductGroup.products);
+    let q1:Promise<any> = toBeDeletedProductGroup.remove();
+    let q2:Promise<any> = productGroupAll.save();
+    return Promise.all([q1,q2]);
 
 };
 

@@ -42,7 +42,7 @@ export const editProductValidation: Array<any> = [ //also params validation to c
         .custom(function(value, {req}) {
             return Products.findOne({_id:value}).then(function (products: IProducts) {
                 if (!products) {
-                    return Promise.reject("Product Group is not Found");
+                    return Promise.reject("Product is not Found");
                 }
             });
         })
@@ -53,7 +53,7 @@ export const deleteProductsValidation:Array<any> = [
         .custom(function(value, {req}) {
             return Products.findOne({_id:value}).then(function (products: IProducts) {
                 if (!products) {
-                    return Promise.reject("Product Group is not Found");
+                    return Promise.reject("Product is not Found");
                 }
             });
         })
