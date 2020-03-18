@@ -66,6 +66,14 @@ export interface IAlerts {
     children:ReactNode;
 
 }
+export interface IAlertQuestion {
+    open: boolean;
+    close: Function;
+    data: Array<any>;
+    setData: Function;
+    id: number;
+    children: ReactNode;
+}
 
 export interface IMyTable {
     keys: Array<string>

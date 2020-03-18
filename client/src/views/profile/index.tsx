@@ -10,8 +10,8 @@ import {useFetch} from "../../components/Hooks/useFetch";
 
 const Profile = () => {
     const [tabValue, handleChange] = useTab(0);
-    const [reload,setReload] = useState<boolean>(false);
-    const {isLoading, data} = useFetch('/users/current',reload);
+    const [refetch,setRefetch] = useState<boolean>(false);
+    const {isLoading, data} = useFetch('/users/current',refetch);
 
     return (
         <>
@@ -22,7 +22,7 @@ const Profile = () => {
                 </Tabs>
             </AppBar>
             <TabPanel value={tabValue} index={0}>
-                <AccountDetails setReload={setReload} isLoading={isLoading} data={data} />
+                <AccountDetails setRefetch={setRefetch} isLoading={isLoading} data={data} />
             </TabPanel>
             <TabPanel value={tabValue} index={1}>
                 <ChangePassword/>

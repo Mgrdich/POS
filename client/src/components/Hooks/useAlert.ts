@@ -6,6 +6,7 @@ export function useAlert(message: string = '', alertOpen: boolean = false, alert
     const [alertMessage, setAlertMessage] = useState<string>(message);
     const [openAlert, setOpenAlert] = useState<boolean>(alertOpen);
     const [alertType, setAlertType] = useState<Color>(alert);
+    const [id, setId] = useState<number>();
 
     const setAlert = useCallback(function ({message, alert}:{message:string,alert:Color}) {
         setAlertMessage(message);
@@ -13,5 +14,5 @@ export function useAlert(message: string = '', alertOpen: boolean = false, alert
         setOpenAlert(true);
     }, []);
 
-    return {alertMessage, openAlert, alertType, setOpenAlert, setAlert};
+    return {alertMessage, openAlert, alertType, setOpenAlert, setAlert, id, setId};
 }

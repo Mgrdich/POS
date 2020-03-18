@@ -8,7 +8,7 @@ export type ChangePasswordFormData = {
 export interface IAccountDetails {
     isLoading:boolean;
     data:Array<any> | any;
-    setReload:Function;
+    setRefetch:Function;
 }
 
 
