@@ -6,7 +6,7 @@ import {
     getProductsGroup,
     getProductsGroups
 } from "../controllers/productsGroups";
-import {addProductsGroupValidation} from "../validations/productGroups";
+import {addProductsGroupValidation, deleteProductsGroupValidation} from "../validations/productGroups";
 
 const router = express.Router();
 
@@ -19,6 +19,6 @@ router.put('/', addProductsGroupValidation,addProductsGroup);
 
 router.put('/:id', editProductsGroup);
 
-router.delete('/:id', deleteProductsGroup);
+router.delete('/:id', deleteProductsGroupValidation,deleteProductsGroup);
 
 export default router;

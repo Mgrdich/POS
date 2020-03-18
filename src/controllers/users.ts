@@ -80,6 +80,7 @@ async function registerUser(req: Request, res: Response, next: NextFunction):Pro
         errorCatcher(next, err);
     }
 }
+
 async function editUser(req: myRequest, res: Response, next: NextFunction):Promise<any> {
     try {
         const errors:any = validationResult(req).formatWith(errorFormatter);

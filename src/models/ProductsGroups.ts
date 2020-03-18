@@ -43,6 +43,10 @@ productGroupSchema.statics.removeProdFrmProdGrp = function (productId:IDocProduc
     return ProductsGroups.updateOne({_id: groupId},{$pull:{products:{"_id":productId}}})
 };
 
+productGroupSchema.statics.deleteProductsGroupById = function (productsGroupID:IDocProductsGroups["_id"]) {
+
+};
+
 const ProductsGroups:IModelProductsGroups = mongoose.model<IDocProductsGroups,IModelProductsGroups>('ProductsGroups', productGroupSchema);
 
 export {ProductsGroups};

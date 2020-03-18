@@ -71,7 +71,7 @@ export async function editProduct(req: myRequest, res: Response, next: NextFunct
 }
 
 export async function deleteProduct(req: Request, res: Response, next: NextFunction): Promise<any> {
-    try {
+    try { //TODO move the validations of params inside the express middleware
 
         const product = await Products.findOne({_id:req.params.id});
         if(!product) {

@@ -15,5 +15,6 @@ export interface IDocProductsGroups extends Document, IProductsGroups {
 export interface IModelProductsGroups extends Model<IDocProductsGroups> {
     //here we declare the statics
     delete: () => void;
-    removeProdFrmProdGrp: (_id:IDocProducts["_id"],ProductGroupId:IDocProductsGroups["_id"]) => Promise<any>;
+    removeProdFrmProdGrp: (_id: IDocProducts["_id"], ProductGroupId: IDocProductsGroups["_id"]) => Promise<any>;
+    deleteProductsGroupById: (_id: IDocProductsGroups["_id"]) => Promise<any>;
 }

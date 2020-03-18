@@ -1,6 +1,6 @@
 import * as express from "express";
 import {addProduct, deleteProduct, editProduct, getProduct, getProducts} from "../controllers/products";
-import {addProductValidation, editProductValidation} from "../validations/products";
+import {addProductValidation, deleteProductsValidation, editProductValidation} from "../validations/products";
 
 const router = express.Router();
 
@@ -13,6 +13,6 @@ router.put('/', addProductValidation, addProduct);
 
 router.put('/:id', editProductValidation, editProduct);
 
-router.delete('/:id', deleteProduct);
+router.delete('/:id', deleteProductsValidation,deleteProduct);
 
 export default router;

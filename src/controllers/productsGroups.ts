@@ -65,7 +65,11 @@ export async function editProductsGroup(req: myRequest, res: Response, next: Nex
 
 export async function deleteProductsGroup(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
+        const errors: any = validationResult(req).formatWith(errorFormatter);
 
+        if (!errors.isEmpty()) {
+            errorThrower("Validation Failed", 422, errors.mapped());
+        }
     } catch (err) {
         errorCatcher(next,err);
     }

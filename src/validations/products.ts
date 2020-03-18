@@ -1,4 +1,4 @@
-import {body} from "express-validator";
+import {body, param} from "express-validator";
 import {ProductsGroups} from "../models/ProductsGroups";
 import {IProductsGroups} from "../interfaces/models/ProductsGroups";
 import {Products} from "../models/Products";
@@ -37,5 +37,24 @@ export const addProductValidation: Array<any> = [
 ];
 
 export const editProductValidation: Array<any> = [ //also params validation to check whether it exists
-    ...addProductValidation
+    ...addProductValidation,
+    param('id')
+        .custom(function(value, {req}) {
+            return Products.findOne({_id:value}).then(function (products: IProducts) {
+                if (!products) {
+                    return Promise.reject("Product Group is not Found");
+                }
+            });
+        })
+];
+
+export const deleteProductsValidation:Array<any> = [
+    param('id')
+        .custom(function(value, {req}) {
+            return Products.findOne({_id:value}).then(function (products: IProducts) {
+                if (!products) {
+                    return Promise.reject("Product Group is not Found");
+                }
+            });
+        })
 ];
