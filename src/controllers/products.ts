@@ -3,8 +3,8 @@ import {noResult} from "../utilities/controllers/helpers";
 import {errorCatcher, errorFormatter, errorThrower} from "../utilities/controllers/error";
 import {IDocProducts} from "../interfaces/models/Products";
 import {Products} from "../models/Products";
-import {ITEM_DELETED, NO_SUCH_DATA_EXISTS} from "../utilities/constants/messages";
-import {IDelete, myRequest} from "../interfaces/General";
+import {ITEM_DELETED, NO_SUCH_DATA_EXISTS, NOT_MODIFIED} from "../utilities/constants/messages";
+import {myRequest} from "../interfaces/General";
 import {alert} from "../utilities/controllers/messages";
 import {messageAlert} from "../interfaces/util";
 import {validationResult} from "express-validator";
@@ -72,11 +72,13 @@ export async function editProduct(req: myRequest, res: Response, next: NextFunct
 
 export async function deleteProduct(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-        let deletedProduct:IDelete  = await Products.deleteOne({_id:req.params.id});
-        if (deletedProduct.ok && deletedProduct.deletedCount) { //TODO check the validity of this code
+
+        const respnose = await Products.deleteProductById(req.params.id);
+        if (respnose[0].ok  && respnose[1].ok) {
             alert(res,200,messageAlert.success,ITEM_DELETED);
+        } else {
+            alert(res,304,messageAlert.success,NOT_MODIFIED)
         }
-        noResult(res);
     } catch (err) {
         errorCatcher(next,err);
     }

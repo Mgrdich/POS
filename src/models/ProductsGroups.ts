@@ -1,6 +1,8 @@
 import * as mongoose from 'mongoose';
 import {Schema} from "mongoose";
 import {IDocProductsGroups, IModelProductsGroups} from "../interfaces/models/ProductsGroups";
+import {Products} from "./Products";
+import {IDocProducts} from "../interfaces/models/Products";
 
 const productGroupSchema: Schema = new Schema({
     name: {
@@ -36,8 +38,9 @@ const productGroupSchema: Schema = new Schema({
     }
 });
 
-productGroupSchema.statics.deleteById = function (productsGroupID) {
 
+productGroupSchema.statics.removeProdFrmProdGrp = function (productId:IDocProducts["_id"],groupId:IDocProductsGroups["_id"]) {
+    return ProductsGroups.updateOne({_id: groupId},{$pull:{products:{"_id":productId}}})
 };
 
 const ProductsGroups:IModelProductsGroups = mongoose.model<IDocProductsGroups,IModelProductsGroups>('ProductsGroups', productGroupSchema);

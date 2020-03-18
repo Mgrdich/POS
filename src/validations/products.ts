@@ -36,6 +36,6 @@ export const addProductValidation: Array<any> = [
         })
 ];
 
-export const editProductValidation: Array<any> = [
+export const editProductValidation: Array<any> = [ //also params validation to check whether it exists
     ...addProductValidation
 ];

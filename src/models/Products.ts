@@ -38,7 +38,7 @@ const productSchema: Schema<IDocProducts> = new Schema({
     },
 });
 
-productSchema.methods.addProduct = function (productGroupId): Promise<any> {
+productSchema.methods.addProduct = function (productGroupId:IDocProducts["_id"]): Promise<any> {
     let _id = this._id;
     let productGroupQ: Promise<any>;
     if (productGroupId) {
@@ -72,8 +72,11 @@ productSchema.methods.addProduct = function (productGroupId): Promise<any> {
 
 };
 
-productSchema.statics.test = function () {
-
+productSchema.statics.deleteProductById = async function(_id):Promise<any> { //either statics after find either delete it
+    const product:IProducts = await Products.findById(_id);
+    let q2:Promise<any>  = ProductsGroups.removeProdFrmProdGrp(_id,product.group);
+    let q1: Promise<any> = this.deleteOne({_id});
+    return Promise.all([q1,q2]);
 };
 
 const Products: IModelProducts = mongoose.model<IDocProducts, IModelProducts>('Products', productSchema);
