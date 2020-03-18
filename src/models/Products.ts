@@ -72,10 +72,9 @@ productSchema.methods.addProduct = function (productGroupId:IDocProducts["_id"])
 
 };
 
-productSchema.statics.deleteProductById = async function(_id):Promise<any> { //either statics after find either delete it
-    const product:IProducts = await Products.findById(_id);
-    let q2:Promise<any>  = ProductsGroups.removeProdFrmProdGrp(_id,product.group);
-    let q1: Promise<any> = this.deleteOne({_id});
+productSchema.methods.deleteProductById = function():Promise<any> { //either statics after find either delete it
+    let q2:Promise<any>  = ProductsGroups.removeProdFrmProdGrp(this._id,this.group);
+    let q1: any = Products.deleteOne({_id:this._id});
     return Promise.all([q1,q2]);
 };
 

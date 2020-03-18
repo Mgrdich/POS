@@ -73,7 +73,11 @@ export async function editProduct(req: myRequest, res: Response, next: NextFunct
 export async function deleteProduct(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
 
-        const respnose = await Products.deleteProductById(req.params.id);
+        const product = await Products.findOne({_id:req.params.id});
+        if(!product) {
+            res.status(304).json({empty:true});
+        }
+        const respnose = await product.deleteProductById();
         if (respnose[0].ok  && respnose[1].ok) {
             alert(res,200,messageAlert.success,ITEM_DELETED);
         } else {

@@ -13,9 +13,9 @@ export interface IProducts extends ICreatedEditData {
 export interface IDocProducts extends IProducts, Document {
     //here we declare the methods
     addProduct: (id: IDocProducts["_id"]) => Promise<any>;
+    deleteProductById: () => Promise<any>;
 }
 
 export interface IModelProducts extends Model<IDocProducts> {
     //here we declare the statics
-    deleteProductById: (id:IDocProducts["_id"]) => Promise<any>;
 }
