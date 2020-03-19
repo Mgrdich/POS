@@ -1,26 +1,12 @@
 import React, {useState} from 'react';
 import {TableBody, TableCell, TableRow} from '@material-ui/core/';
-// import axios from 'axios'
 import {IMyTableBody} from "../../../interfaces/Reusable";
-import DeleteIcon from '@material-ui/icons/Delete';
-import AlertQuestion from "../AlertQuestion";
-import {useAlert} from "../../Hooks/useAlert";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 
 const MyTableBody: React.FC<IMyTableBody> = (props) => {
-    const {page, data, rowsPerPage, keys} = props;
+    const {page, data, rowsPerPage, keys, actionsTypes, handleActions} = props;
     const [rows, setRows] = useState<any>(data);
-    const {alertMessage, setOpenAlert, openAlert, id, setId} = useAlert('Are you sure you want to delete this row!');
-
-    const handleDeleteRow = (id: any) => {
-        setOpenAlert(true);
-        setId(id);
-        // axios.delete(`/users/${id}`).then(() => {
-        //     console.log('deleted')
-        // }).catch((e) => {
-        //   console.log(e)
-        // });
-    };
 
     return (
         <>
@@ -29,13 +15,25 @@ const MyTableBody: React.FC<IMyTableBody> = (props) => {
                 {
                     rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row: any) => (
                         <TableRow key={row._id}>
-                            <TableCell key={row._id}>
-                                <DeleteIcon style={{cursor: 'pointer'}} onClick={() => handleDeleteRow(row._id)}/>
-                                <AlertQuestion open={openAlert} close={setOpenAlert} id={id} data={rows}
-                                               setData={setRows}>
-                                    {alertMessage}
-                                </AlertQuestion>
-                            </TableCell>
+                            {actionsTypes ? <TableCell key={actionsTypes[0]}>
+                                {
+                                    actionsTypes?.map((item: string) => {
+                                        switch (item) {
+                                            case 'delete':
+                                                return (
+                                                    <DeleteIcon key={item} style={{cursor: 'pointer'}}
+                                                                onClick={() => (props.handleActions) ? props.handleActions('delete', {_id: row._id}) : null}/>
+                                                );
+                                            case 'edit':
+                                                return (
+                                                    <></>
+                                                );
+                                            default:
+                                                break
+                                        }
+                                    })
+                                }
+                            </TableCell> : null}
                             {
                                 keys.map((item: any, index: number) => (
                                         <TableCell key={index}> {row[item]}</TableCell>

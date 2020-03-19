@@ -8,8 +8,7 @@ import {IAlertQuestion} from "../../interfaces/Reusable";
 
 
 const AlertQuestion: React.FC<IAlertQuestion> = (props) => {
-    const {open, close, data, setData, id, children} = props;
-
+    const {open, close, children,callback} = props;
     function handleClose(event?: React.SyntheticEvent, reason?: string) {
         if (reason === 'clickaway') {
             return;
@@ -17,11 +16,9 @@ const AlertQuestion: React.FC<IAlertQuestion> = (props) => {
         props.close(false);
     }
 
-    const action = () => {
-        const filteredRows = data.filter((row: any) => row._id != id);
-        setData(filteredRows);
-        close(false);
-    };
+   function action() {
+        callback();
+   }
 
     return (
 

@@ -69,9 +69,7 @@ export interface IAlerts {
 export interface IAlertQuestion {
     open: boolean;
     close: Function;
-    data: Array<any>;
-    setData: Function;
-    id: number;
+    callback:Function;
     children: ReactNode;
 }
 
@@ -81,7 +79,8 @@ export interface IMyTable {
     tbody: Array<object>;
     pagination?: boolean;
     paginationRowsCount?: Array<number>;
-
+    actionsTypes?:Array<string>;
+    handleActions?:Function;
 }
 
 
@@ -90,9 +89,13 @@ export interface IMyTableBody {
     keys:Array<string>;
     page?:any; // TODO CHECK THE TYPE
     rowsPerPage?:any;
+    actionsTypes?:Array<string>;
+    handleActions?:Function;
 }
 
 export interface IMyTableHead {
     data: any; //object
+    actionsTypes?:Array<string>;
     keys:Array<string>;
+    actions?:Array<any>;
 }
