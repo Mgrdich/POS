@@ -37,3 +37,13 @@ export function tableDataNormalize(data: Array<any>, tableObj: any) { //TODO rep
         tbody: tableData
     };
 }
+
+//related to the BE Fetching data from the Server and giving it to the Dropdown
+export function normalizeDropDowns(data:Array<any>,property:any) {
+    return data.map(function (item) {
+        let obj:any = {};
+        obj.value = item[property.value];
+        obj.placeholder = item[property.placeholder];
+        return obj;
+    })
+}
