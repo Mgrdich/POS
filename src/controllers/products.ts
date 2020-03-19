@@ -71,12 +71,14 @@ export async function editProduct(req: myRequest, res: Response, next: NextFunct
 }
 
 export async function deleteProduct(req: Request, res: Response, next: NextFunction): Promise<any> {
-    try { //TODO move the validations of params inside the express middleware
+    try {
+        const errors: any = validationResult(req).formatWith(errorFormatter);
+
+        if (!errors.isEmpty()) {
+            errorThrower("Validation Failed", 422, errors.mapped());
+        }
 
         const product = await Products.findOne({_id:req.params.id});
-        if(!product) {
-            res.status(304).json({empty:true});
-        }
         const respnose = await product.deleteProductById();
         if (respnose[0].ok  && respnose[1].ok) {
             alert(res,200,messageAlert.success,ITEM_DELETED);
