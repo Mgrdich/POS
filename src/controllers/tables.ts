@@ -8,12 +8,15 @@ import {alert} from "../utilities/controllers/messages";
 import {messageAlert} from "../interfaces/util";
 import {ITEM_DELETED, NO_SUCH_DATA_EXISTS} from "../utilities/constants/messages";
 import {validationResult} from "express-validator";
+import {tableDataNormalize} from "../utilities/reformaters";
+import {GET_TABLES_TABLE} from "../utilities/tables/constants";
 
 async function getTables(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
         let tables:Array<IDocTables> | IDocTables = await Tables.find({});
         if(tables.length) {
-            return res.status(200).json(tables);
+            const tablizeTable = tableDataNormalize(tables,GET_TABLES_TABLE);
+            return res.status(200).json(tablizeTable);
         }
         noResult(res);
     }catch (err) {
