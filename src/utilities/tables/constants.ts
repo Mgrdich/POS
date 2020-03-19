@@ -19,3 +19,22 @@ export const GET_TABLES_TABLE = {
         'createdDate':'created Date'
     }
 };
+
+//getProducts
+export const GET_PRODUCTS_TABLE = {
+    keys:['name','price','createdDate'],
+    translations:{
+        'name':'Name',
+        'price':'Price',
+        'createdDate':'created Date'
+    }
+};
+
+//getProductsGroup
+export const GET_PRODUCTS_GROUP_TABLE = {
+    keys:['name','createdDate'],
+    translations:{
+        'name':'Name',
+        'createdDate':'created Date'
+    }
+};

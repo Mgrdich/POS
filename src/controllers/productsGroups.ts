@@ -8,12 +8,15 @@ import {IDocProductsGroups} from "../interfaces/models/ProductsGroups";
 import {ProductsGroups} from "../models/ProductsGroups";
 import {alert} from "../utilities/controllers/messages";
 import {messageAlert} from "../interfaces/util";
+import {tableDataNormalize} from "../utilities/reformaters";
+import {GET_PRODUCTS_GROUP_TABLE} from "../utilities/tables/constants";
 
 export async function getProductsGroups(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
         let productsGroups: Array<IDocProductsGroups> | IDocProductsGroups = await ProductsGroups.find({});
         if (productsGroups.length) {
-            return res.status(200).json(productsGroups);
+            const tableFormProductsGroups = tableDataNormalize(productsGroups,GET_PRODUCTS_GROUP_TABLE); //TODO add interface
+            return res.status(200).json(tableFormProductsGroups);
         }
         noResult(res);
     } catch (err) {

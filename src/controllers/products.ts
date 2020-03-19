@@ -8,12 +8,15 @@ import {myRequest} from "../interfaces/General";
 import {alert} from "../utilities/controllers/messages";
 import {messageAlert} from "../interfaces/util";
 import {validationResult} from "express-validator";
+import {tableDataNormalize} from "../utilities/reformaters";
+import {GET_PRODUCTS_TABLE} from "../utilities/tables/constants";
 
 export async function getProducts(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
         let products: Array<IDocProducts> | IDocProducts = await Products.find({});
         if (products.length) {
-            return res.status(200).json(products);
+            const tableProducts = tableDataNormalize(products,GET_PRODUCTS_TABLE);
+            return res.status(200).json(tableProducts);
         }
         noResult(res);
     } catch (err) {
