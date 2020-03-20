@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
     Button,
     Card,
@@ -18,19 +18,19 @@ import {AccountDetailsEditInputFields, AccontDetailsValSchema} from "./config";
 import {useDefaultValue} from "../../components/Hooks/useDefaultValue";
 import axios from "axios";
 import {IAlertAxiosResponse} from "../../interfaces/General";
-import {useAlert} from "../../components/Hooks/useAlert";
-import Alerts from "../../components/Reusable/Alerts";
+// import {useAlert} from "../../components/Hooks/useAlert";
+// import Alerts from "../../components/Reusable/Alerts";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
 import {useModule} from "../../components/Hooks/useModule";
 import {Dialog} from '@material-ui/core';
 
 const AccountDetails: React.FC<IAccountDetails> = (props) => {
     const {isLoading, data, setRefetch} = props;
-    const {handleSubmit, register, errors, control, reset} = useForm<EditAcountDetails>({
+    const {handleSubmit, register, errors, control} = useForm<EditAcountDetails>({
         validationSchema: AccontDetailsValSchema
     });
-    const {alertMessage, openAlert, alertType, setAlert, setOpenAlert} = useAlert(); //TODO set alert message on error
-    const [serverError, setterError, resetServerError] = useServerErrorHandle();
+    // const {alertMessage, openAlert, alertType, setAlert, setOpenAlert} = useAlert(); //TODO set alert message on error
+    const [serverError, setterError] = useServerErrorHandle();
     const modifiedInputFields = useDefaultValue(AccountDetailsEditInputFields, data);
     const [open, handleClickOpen, handleClose] = useModule();
 
@@ -98,9 +98,9 @@ const AccountDetails: React.FC<IAccountDetails> = (props) => {
                         >Submit</Button>
                     </DialogActions>
                 </form>
-            <Alerts open={openAlert} close={setOpenAlert} severity={alertType}>
-                {alertMessage}
-            </Alerts>
+            {/*<Alerts open={openAlert} close={setOpenAlert} severity={alertType}>*/}
+            {/*    {alertMessage}*/}
+            {/*</Alerts>*/}
             </Dialog>
 
         </>

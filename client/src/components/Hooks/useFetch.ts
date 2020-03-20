@@ -1,4 +1,4 @@
-import {useEffect, useReducer, useState} from "react";
+import {useEffect, useReducer} from "react";
 import axios,{AxiosResponse} from "axios";
 import {IUseFetch} from "../../interfaces/Hooks";
 

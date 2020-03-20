@@ -13,7 +13,7 @@ const AlertQuestion: React.FC<IAlertQuestion> = (props) => {
         if (reason === 'clickaway') {
             return;
         }
-        props.close(false);
+        close(false);
     }
 
    function action() {
