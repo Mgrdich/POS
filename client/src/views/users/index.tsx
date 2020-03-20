@@ -18,31 +18,31 @@ const Users: React.FC = () => {
     const [tabValue, handleChange] = useTab(0);
     const {tbody, thead, keys, isLoading} = useTable('/users');
     const {alertMessage, setOpenAlert, openAlert} = useAlert('Are you sure you want to delete this row!');
-    const [deletedId,changedeletedId] = useState<string>('');
+    const [deletedId,changeDeletedId] = useState<string>('');
     const [rows, setRows] = useState<any>([]);
 
 
     useEffect(() => {
         if(!isLoading && tbody?.length){
 
-            setRows( (prev:any) => [...prev,...tbody]);
+            setRows(  [...tbody]);
         }
     },[isLoading, tbody]);
 
-
     const handleActions  = function (type:string,obj:any) {
         if(type === 'delete') {
-            console.log("s");
-            console.log(obj._id);
+            changeDeletedId(obj._id);
             setOpenAlert(true);
-            //TODO open it here
         }
     };
 
     const handleDeleted = function (id:string) {
-
+        setOpenAlert(false);
+        const filteredRows = rows.filter((row:any) => {
+               return row._id != id;
+        });
+        setRows(filteredRows);
     };
-
 
     return (
         <>
