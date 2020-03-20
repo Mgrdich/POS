@@ -11,6 +11,7 @@ import CreateUsers from "./views/users/create-user/CreateUsers";
 import Users from "./views/users";
 import TablesDashboard from "./views/tables/viewTables";
 import CreateEditTables from "./views/tables";
+import AddProduct from "./views/products";
 import {Roles, RoleType} from "./roles";
 import Profile from "./views/profile";
 
@@ -20,6 +21,7 @@ const HL_Users  = HeaderFooterLayout(Users);
 const HL_Profile = HeaderFooterLayout(Profile);
 const HL_TablesDashboard = HeaderFooterLayout(TablesDashboard);
 const HL_CreateEditTables = HeaderFooterLayout(CreateEditTables);
+const HL_AddProduct = HeaderFooterLayout(AddProduct);
 
 const superAdminMangerRoles :Array<RoleType> = [Roles.SuperAdmin,Roles.Admin,Roles.Manager];
 const Routes:React.FC = () => {
@@ -27,6 +29,7 @@ const Routes:React.FC = () => {
         <>
             <Switch>
                 <PrivateRoute exact path={['/','/dashboard']} component={HL_Dashboard}/>
+                <PrivateRoute exact path={['/products','/product/index']} component={HL_AddProduct}/>
                 <PrivateRoute exact path={'/tables/view-tables'} component={HL_TablesDashboard}/>
                 <PrivateRoute exact path={['/tables','/tables/index']} component={HL_CreateEditTables}/>
                 <PrivateRoute exact path='/users/create-user' allowedRoles={superAdminMangerRoles} component={HL_CreateUser}/>

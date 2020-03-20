@@ -3,15 +3,17 @@ import ViewAgendaIcon from '@material-ui/icons/ViewAgenda';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import TableChartIcon from '@material-ui/icons/TableChart';
 import CreateIcon from '@material-ui/icons/Create';
+import AddIcon from '@material-ui/icons/Add';
+import InboxIcon from '@material-ui/icons/Inbox';
 import {ComponentType} from "react";
 import {IDrawerRoute} from "../../../interfaces/layout/Drawer";
 import {Roles, RoleType} from "../../../roles";
 
 export type nestedRoutes = {
     icon: ComponentType, //TODO to be removed since it is static
-    location? : string,
+    location?: string,
     translation: string,
-    role?:Array<RoleType>,
+    role?: Array<RoleType>,
 }
 
 export const drawerRoutes: Array<IDrawerRoute> = [
@@ -51,6 +53,19 @@ export const drawerRoutes: Array<IDrawerRoute> = [
                 role: [Roles.SuperAdmin, Roles.Admin, Roles.Manager],
             },
         ]
-    },
+    }, {
+        icon: InboxIcon,
+        translation: "Products",
+        role: [Roles.SuperAdmin, Roles.Admin],
+        nested: [
+            {
+                icon: AddIcon,
+                location: "/products",
+                translation: "Add product",
+                role: [Roles.SuperAdmin, Roles.Admin],
+            },
+
+        ]
+    }
 
 ];
