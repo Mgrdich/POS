@@ -99,3 +99,10 @@ export interface IMyTableHead {
     keys:Array<string>;
     actions?:Array<any>;
 }
+
+export interface ICardMessage {
+    header:string;
+    message:string;
+    translation:string;
+    location:string;
+}

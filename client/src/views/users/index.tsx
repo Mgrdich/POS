@@ -10,6 +10,7 @@ import {useTable} from "../../components/Hooks/useTable";
 import AlertQuestion from "../../components/Reusable/AlertQuestion";
 import {useAlert} from "../../components/Hooks/useAlert";
 import axios, {AxiosResponse} from 'axios';
+import CardMessage from "../../components/Reusable/CardMessage";
 
 const actionsTypes: Array<string> = ["delete"];
 
@@ -61,14 +62,25 @@ const Users: React.FC = () => {
                 </Tabs>
             </AppBar>
             <TabPanel value={tabValue} index={0}>
-                <TabPanelOne
-                    data={rows}
-                    keys={keys}
-                    thead={thead}
-                    loading={isLoading}
-                    actionsTypes={actionsTypes}
-                    handleActions={handleActions}
-                />
+                {rows.length
+                    ?
+                    (<TabPanelOne
+                        data={rows}
+                        keys={keys}
+                        thead={thead}
+                        loading={isLoading}
+                        actionsTypes={actionsTypes}
+                        handleActions={handleActions}
+                    />)
+                    :
+                    (<CardMessage
+                        header='No users created!'
+                        message='You can create users by clicking on the button below'
+                        translation='Create user'
+                        location='/users/create-user'
+                    />)
+                }
+
             </TabPanel>
             <TabPanel value={tabValue} index={1}>
                 <TabPanelTwo/>
