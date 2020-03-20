@@ -9,6 +9,7 @@ import TabPanelTwo from "./TabPanelTwo";
 import {useTable} from "../../components/Hooks/useTable";
 import AlertQuestion from "../../components/Reusable/AlertQuestion";
 import {useAlert} from "../../components/Hooks/useAlert";
+import axios, {AxiosResponse} from 'axios';
 
 const actionsTypes: Array<string> = ["delete"];
 
@@ -18,31 +19,37 @@ const Users: React.FC = () => {
     const [tabValue, handleChange] = useTab(0);
     const {tbody, thead, keys, isLoading} = useTable('/users');
     const {alertMessage, setOpenAlert, openAlert} = useAlert('Are you sure you want to delete this row!');
-    const [deletedId,changeDeletedId] = useState<string>('');
+    const [deletedId, changeDeletedId] = useState<string>('');
     const [rows, setRows] = useState<any>([]);
 
 
     useEffect(() => {
-        if(!isLoading && tbody?.length){
+        if (!isLoading && tbody?.length) {
 
-            setRows(  [...tbody]);
+            setRows([...tbody]);
         }
-    },[isLoading, tbody]);
+    }, [isLoading, tbody]);
 
-    const handleActions  = function (type:string,obj:any) {
-        if(type === 'delete') {
+    const handleActions = function (type: string, obj: any) {
+        if (type === 'delete') {
             changeDeletedId(obj._id);
             setOpenAlert(true);
         }
     };
 
-    const handleDeleted = function (id:string) {
-        setOpenAlert(false);
-        const filteredRows = rows.filter((row:any) => {
-               return row._id !== id;
+    const handleDeleted = function (id: string) {
+        axios.delete(`/users/${id}`).then((res: AxiosResponse) => {
+            console.log(res.data);
+        }).catch((e) => {
+            console.log(e);
+        });
+        const filteredRows = rows.filter((row: any) => {
+            return row._id !== id;
         });
         setRows(filteredRows);
+        setOpenAlert(false);
     };
+    console.log(rows.lenght);
 
     return (
         <>
@@ -72,8 +79,8 @@ const Users: React.FC = () => {
             <AlertQuestion
                 open={openAlert}
                 close={setOpenAlert}
-                callback={()=>handleDeleted(deletedId)}
-                >
+                callback={() => handleDeleted(deletedId)}
+            >
                 {alertMessage}
             </AlertQuestion>
         </>
