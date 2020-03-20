@@ -6,14 +6,13 @@ import DeleteIcon from "@material-ui/icons/Delete";
 
 const MyTableBody: React.FC<IMyTableBody> = (props) => {
     const {page, data, rowsPerPage, keys, actionsTypes, handleActions} = props;
-    const [rows, setRows] = useState<any>(data);
 
     return (
         <>
 
             <TableBody>
                 {
-                    rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row: any) => (
+                    data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row: any) => (
                         <TableRow key={row._id}>
                             {actionsTypes ? <TableCell key={actionsTypes[0]}>
                                 {
@@ -22,7 +21,7 @@ const MyTableBody: React.FC<IMyTableBody> = (props) => {
                                             case 'delete':
                                                 return (
                                                     <DeleteIcon key={item} style={{cursor: 'pointer'}}
-                                                                onClick={() => (props.handleActions) ? props.handleActions('delete', {_id: row._id}) : null}/>
+                                                                onClick={() => (handleActions) ? handleActions('delete', {_id: row._id}) : null}/>
                                                 );
                                             case 'edit':
                                                 return (

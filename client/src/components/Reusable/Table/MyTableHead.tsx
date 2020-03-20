@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {TableCell, TableHead, TableRow} from '@material-ui/core/';
 import {IMyTableHead} from "../../../interfaces/Reusable";
 
@@ -6,7 +6,6 @@ import {IMyTableHead} from "../../../interfaces/Reusable";
 const MyTableHead: React.FC<IMyTableHead> = (props) => {
 
     const {data, keys, actionsTypes} = props;
-    const [thead, setThead] = useState<Array<string>>(data);
     return (
         <>
             <TableHead>

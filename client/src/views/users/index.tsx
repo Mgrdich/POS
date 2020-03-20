@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import TabPanel from "../../components/Reusable/TabPanel";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
@@ -19,11 +19,22 @@ const Users: React.FC = () => {
     const {tbody, thead, keys, isLoading} = useTable('/users');
     const {alertMessage, setOpenAlert, openAlert} = useAlert('Are you sure you want to delete this row!');
     const [deletedId,changedeletedId] = useState<string>('');
+    const [rows, setRows] = useState<any>([]);
+
+
+    useEffect(() => {
+        if(!isLoading && tbody?.length){
+
+            setRows( (prev:any) => [...prev,...tbody]);
+        }
+    },[isLoading, tbody]);
+
 
     const handleActions  = function (type:string,obj:any) {
         if(type === 'delete') {
-            console.log("sssssss");
+            console.log("s");
             console.log(obj._id);
+            setOpenAlert(true);
             //TODO open it here
         }
     };
@@ -44,7 +55,7 @@ const Users: React.FC = () => {
             </AppBar>
             <TabPanel value={tabValue} index={0}>
                 <TabPanelOne
-                    data={tbody}
+                    data={rows}
                     keys={keys}
                     thead={thead}
                     loading={isLoading}
