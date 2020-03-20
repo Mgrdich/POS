@@ -7,15 +7,17 @@ import {alert} from "../utilities/controllers/messages";
 import {blackListFilterObj, tableDataNormalize} from "../utilities/reformaters";
 import {NextFunction, Request, Response} from 'express';
 import {IDocUsers, IUser} from "../interfaces/models/Users";
-import {myRequest} from "../interfaces/General";
+import {IDelete, myRequest} from "../interfaces/General";
 import {messageAlert} from "../interfaces/util";
 import {GET_USERS_TABLE} from "../utilities/tables/constants";
 import {SECRET_KEY} from "../config/keys";
 import {ROLES_PRIORITY} from "../roles";
+import {ITEM_DELETED, NOT_MODIFIED} from "../utilities/constants/messages";
+import {childOfKind} from "tslint";
 
-async function register(req: Request, res: Response, next: NextFunction):Promise<any> {
+async function register(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-        const errors:any = validationResult(req).formatWith(errorFormatter);
+        const errors: any = validationResult(req).formatWith(errorFormatter);
 
         if (!errors.isEmpty()) {
             errorThrower("Validation Failed", 422, errors.mapped());
@@ -26,13 +28,13 @@ async function register(req: Request, res: Response, next: NextFunction):Promise
         const salt = await bcrypt.genSalt(10);
         newUser.password = await bcrypt.hash(newUser.password, salt);
         await newUser.save();
-        alert(res,200,messageAlert.success,'Registered Successfully');
+        alert(res, 200, messageAlert.success, 'Registered Successfully');
     } catch (err) {
         errorCatcher(next, err);
     }
 }
 
-async function login(req: Request, res: Response, next: NextFunction):Promise<any> {
+async function login(req: Request, res: Response, next: NextFunction): Promise<any> {
     const {email, password} = req.body;
     try {
         const user: any = await Users.findOne({email});
@@ -49,7 +51,7 @@ async function login(req: Request, res: Response, next: NextFunction):Promise<an
             id: user.id,
             name: user.name,
             avatar: user.avatar,
-            role:user.role
+            role: user.role
         };
         const token: string = await jwt.sign(payload, SECRET_KEY, {expiresIn: 3600});
         res.status(200).json({success: true, token: `Bearer ${token}`});
@@ -60,30 +62,30 @@ async function login(req: Request, res: Response, next: NextFunction):Promise<an
 
 }
 
-async function registerUser(req: Request, res: Response, next: NextFunction):Promise<any> {
+async function registerUser(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-        const errors:any = validationResult(req).formatWith(errorFormatter);
+        const errors: any = validationResult(req).formatWith(errorFormatter);
 
         if (!errors.isEmpty()) {
             errorThrower("Validation Failed", 422, errors.mapped());
         }
-        const {email, name, password,role} = req.body;
-        const newUser: IDocUsers = new Users({email, name, password,role});
+        const {email, name, password, role} = req.body;
+        const newUser: IDocUsers = new Users({email, name, password, role});
 
         newUser.rolePriority = ROLES_PRIORITY[role];
 
         const salt = await bcrypt.genSalt(10);
         newUser.password = await bcrypt.hash(newUser.password, salt);
         await newUser.save();
-        alert(res,200,messageAlert.success,'New user is registered');
+        alert(res, 200, messageAlert.success, 'New user is registered');
     } catch (err) {
         errorCatcher(next, err);
     }
 }
 
-async function editUser(req: myRequest, res: Response, next: NextFunction):Promise<any> {
+async function editUser(req: myRequest, res: Response, next: NextFunction): Promise<any> {
     try {
-        const errors:any = validationResult(req).formatWith(errorFormatter);
+        const errors: any = validationResult(req).formatWith(errorFormatter);
 
         if (!errors.isEmpty()) {
             errorThrower("Validation Failed", 422, errors.mapped());
@@ -93,7 +95,7 @@ async function editUser(req: myRequest, res: Response, next: NextFunction):Promi
         currentUser.email = email;
         currentUser.name = name;
         await currentUser.save();
-        alert(res,200,messageAlert.success,'user Data is edited');
+        alert(res, 200, messageAlert.success, 'user Data is edited');
     } catch (err) {
         errorCatcher(next, err);
     }
@@ -107,36 +109,57 @@ async function changePassword(req: myRequest, res: Response, next: NextFunction)
             errorThrower("Validation Failed", 422, errors.mapped());
         }
         const {new_password} = req.body;
-        const currentUser:IDocUsers = await Users.findById(req.user._id);
+        const currentUser: IDocUsers = await Users.findById(req.user._id);
         const salt = await bcrypt.genSalt(10);
         currentUser.password = await bcrypt.hash(new_password, salt);
         await currentUser.save();
-        alert(res,200,messageAlert.success,'Password is Changed');
+        alert(res, 200, messageAlert.success, 'Password is Changed');
     } catch (err) {
-        errorCatcher(next,err);
+        errorCatcher(next, err);
     }
 }
 
-async function currentUser(req: myRequest, res: Response, next: NextFunction):Promise<any> {
-    let obj:object = blackListFilterObj(req.user["_doc"],['password','rolePriority']);
+async function currentUser(req: myRequest, res: Response, next: NextFunction): Promise<any> {
+    let obj: object = blackListFilterObj(req.user["_doc"], ['password', 'rolePriority']);
     res.status(200).json(obj);
 }
 
-async function getUsers(req: myRequest, res: Response, next: NextFunction):Promise<any> {
+async function getUsers(req: myRequest, res: Response, next: NextFunction): Promise<any> {
     const rolePriority = req.user.rolePriority;
     try {
         //TODO do not return the current User
-        let users:IUser | any =  await Users.find({"rolePriority":{$lt:rolePriority}}); //TODO deep search whether more efficient method exist
+        let users: IUser | any = await Users.find({"rolePriority": {$lt: rolePriority}}); //TODO deep search whether more efficient method exist
         let tableUsers;
-        if(!users) {
+        if (!users) {
             tableUsers = {};
         } else {
-            tableUsers = tableDataNormalize(users,GET_USERS_TABLE);
+            tableUsers = tableDataNormalize(users, GET_USERS_TABLE);
         }
         res.status(200).json(tableUsers);
     } catch (err) {
-        errorCatcher(next,err);
+        errorCatcher(next, err);
     }
 }
 
-export {register, login, currentUser,registerUser,editUser,getUsers,changePassword};
+async function deleteUser(req: myRequest, res: Response, next: NextFunction): Promise<any> {
+    try {
+        const errors: any = validationResult(req).formatWith(errorFormatter);
+
+        if (!errors.isEmpty()) {
+            errorThrower("Validation Failed", 422, errors.mapped());
+        }
+
+        const response: IDelete = await Users.deleteOne({_id: req.params.id});
+        if (response.ok) {
+            alert(res, 200, messageAlert.success, ITEM_DELETED);
+        } else {
+            alert(res, 304, messageAlert.success, NOT_MODIFIED)
+        }
+
+    } catch (err) {
+        console.log(err);
+        errorCatcher(next, err);
+    }
+}
+
+export {register, login, currentUser, registerUser, editUser, getUsers, changePassword, deleteUser};

@@ -1,7 +1,8 @@
-import {body} from "express-validator";
+import {body, param} from "express-validator";
 import {Users} from "../models/Users";
 import {ROLES_ALL} from "../roles";
 import * as bcrypt from "bcryptjs";
+import * as mongoose from "mongoose";
 
 //TODO remove the repetitions
 
@@ -91,4 +92,11 @@ export const changePasswordValidation: Array<any> = [
     body("confirm_new_password").custom(function (value, {req}) {
         return value === req.body.new_password;
     })
+];
+
+export const deleteUserValidation:Array<any> = [
+    param('id')
+        .custom(function(value, {req}) {
+            return mongoose.Types.ObjectId.isValid(value);
+        })
 ];
