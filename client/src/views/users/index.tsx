@@ -39,7 +39,7 @@ const Users: React.FC = () => {
     const handleDeleted = function (id:string) {
         setOpenAlert(false);
         const filteredRows = rows.filter((row:any) => {
-               return row._id != id;
+               return row._id !== id;
         });
         setRows(filteredRows);
     };
