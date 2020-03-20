@@ -18,7 +18,6 @@ const CreateEditTables = () => {
     useDynamicFields(creteTableInputField, register, unregister);
 
     const onSubmit = function (values: any): void {
-        console.log(values);
         axios.put('/tables', values)
             .then(function (res: IAlertAxiosResponse) {
                 reset();

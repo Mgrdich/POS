@@ -11,6 +11,7 @@ export interface InputField {
     data?: Array<IDropDownData>;
     default?:any;
     url?:string;
+    ignoreNone?:boolean;
 }
 
 export interface IAlertAxiosResponse extends AxiosResponse {

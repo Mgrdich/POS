@@ -7,7 +7,7 @@ import {IDynamicField} from "../../interfaces/Reusable";
 
 const DynamicField: React.FC<IDynamicField> = (props) => {
     const {errors, register, serverError, control, item} = props;
-    const {id, placeholder, type, name, url, data} = item;
+    const {id, placeholder, type, name, url, data, ignoreNone} = item;
 
     switch (type) {
         case 'select':
@@ -22,6 +22,7 @@ const DynamicField: React.FC<IDynamicField> = (props) => {
                     control={control}
                     error={errorChecker(name, errors, serverError)}
                     helperText={errorText(name, errors, serverError)}
+                    ignoreNone={ignoreNone}
                 />
             );
         case 'password':

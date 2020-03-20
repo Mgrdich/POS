@@ -23,9 +23,5 @@ yup.setLocale({
 
 export const createTableValSchema = yup.object().shape({
     name: yup.string().required(),
-    number: yup
-        .number()
-        .required()
-        .positive()
-        .integer('must be number'),
+    number:yup.string().test('price', 'Invalid Value', (value) =>  !isNaN(parseInt(value)) ? value : null),
 });

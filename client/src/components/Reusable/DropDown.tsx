@@ -15,6 +15,7 @@ interface IDropDown {
     url?: string;
     control: any;
     defaultValue?: string | number;
+    ignoreNone?:boolean;
 }
 
 
@@ -51,11 +52,16 @@ const Dropdown: React.FC<IDropDown> = (props) => {
                         id="demo-simple-select-outlined"
                         labelWidth={labelWidth}
                     >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
+                        {props.ignoreNone ?
+                            (<MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>)
+                            :
+                            null
+                        }
                         {
                             data.map((item: IDropDownData, index) => {
+                                console.log(item);
                                 return (
                                     <MenuItem value={item.value} key={index}>{item.placeholder}</MenuItem>
                                 )
