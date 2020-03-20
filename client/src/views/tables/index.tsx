@@ -34,7 +34,8 @@ const CreateEditTables = () => {
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Grid container direction="row" spacing={1}>
+                <Grid container direction="column" spacing={1}>
+                <Grid item container direction="row" spacing={1}>
                     <DynamicFields
                         InputFields={creteTableInputField}
                         register={register}
@@ -53,14 +54,16 @@ const CreateEditTables = () => {
                     />
 
                 </Grid>
+                    <Grid item container direction="row-reverse" xs={12}>
                 <Button
                     color="primary"
                     variant="contained"
                     size="large"
                     className="FloatRight"
                     type="submit"
-                >Submit</Button>
-            </form>
+                >Submit</Button></Grid>
+                </Grid>
+                </form>
         </>
     );
 };
