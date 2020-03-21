@@ -5,6 +5,7 @@ import TableChartIcon from '@material-ui/icons/TableChart';
 import CreateIcon from '@material-ui/icons/Create';
 import AddIcon from '@material-ui/icons/Add';
 import InboxIcon from '@material-ui/icons/Inbox';
+import GroupWorkIcon from '@material-ui/icons/GroupWork';
 import {ComponentType} from "react";
 import {IDrawerRoute} from "../../../interfaces/layout/Drawer";
 import {Roles, RoleType} from "../../../roles";
@@ -61,7 +62,13 @@ export const drawerRoutes: Array<IDrawerRoute> = [
             {
                 icon: AddIcon,
                 location: "/products",
-                translation: "Add product",
+                translation: "Products",
+                role: [Roles.SuperAdmin, Roles.Admin],
+            },
+            {
+                icon: GroupWorkIcon,
+                location: "/products/product-group",
+                translation: "Products group",
                 role: [Roles.SuperAdmin, Roles.Admin],
             },
 
