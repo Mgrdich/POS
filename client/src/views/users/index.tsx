@@ -13,6 +13,7 @@ import axios, {AxiosResponse} from 'axios';
 import CardMessage from "../../components/Reusable/CardMessage";
 import Alerts from "../../components/Reusable/Alerts";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
+import {useTableBody} from "../../components/Hooks/useTableBody";
 
 const actionsTypes: Array<string> = ["delete"];
 
@@ -23,15 +24,7 @@ const Users: React.FC = () => {
     const {tbody, thead, keys, isLoading} = useTable('/users');
     const {alertMessage, setOpenAlert, openAlert, setAlert, alertType} = useAlert();
     const [deletedId, changeDeletedId] = useState<string>('');
-    const [rows, setRows] = useState<any>([]);
-
-
-    useEffect(() => {
-        if (!isLoading && tbody?.length) {
-
-            setRows([...tbody]);
-        }
-    }, [isLoading, tbody]);
+    const [rows, setRows] =  useTableBody(isLoading, tbody);
 
     const handleActions = function (type: string, obj: any) {
         if (type === 'delete') {
