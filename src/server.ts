@@ -10,6 +10,7 @@ import api from "./routes/api";
 import tables from "./routes/tables";
 import products from "./routes/products";
 import productsGroups from "./routes/productsGroups";
+import orders from "./routes/orders";
 import {ImyError} from "./interfaces/General";
 import {isAuth} from "./middlewares/authorisation";
 
@@ -50,6 +51,9 @@ app.use('/tables',tables);
 app.use('/products',products);
 
 app.use('/products-group',productsGroups);
+
+//TODO after this only admin super admin role
+app.use('orders',orders);
 
 //errors
 app.use(function (err: ImyError, req: Request, res: Response, next: NextFunction) {

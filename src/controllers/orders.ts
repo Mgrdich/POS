@@ -1,6 +1,4 @@
 import {NextFunction, Request, Response} from "express";
-import {IDocProducts} from "../interfaces/models/Products";
-import {Products} from "../models/Products";
 import {errorCatcher, errorFormatter, errorThrower} from "../utilities/controllers/error";
 import {ITEM_DELETED, NO_SUCH_DATA_EXISTS, NOT_MODIFIED} from "../utilities/constants/messages";
 import {myRequest} from "../interfaces/General";
@@ -24,7 +22,7 @@ export async function getOrders(req: Request, res: Response, next: NextFunction)
     }
 }
 
-export async function addOrders(req: myRequest, res: Response, next: NextFunction): Promise<any> {
+export async function addOrder(req: myRequest, res: Response, next: NextFunction): Promise<any> {
     try {
         const errors: any = validationResult(req).formatWith(errorFormatter);
 
@@ -51,7 +49,7 @@ export async function editOrders(req: myRequest, res: Response, next: NextFuncti
     }
 }
 
-export async function deleteOrders(req: Request, res: Response, next: NextFunction): Promise<any> {
+export async function deleteOrder(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
         const errors: any = validationResult(req).formatWith(errorFormatter);
 

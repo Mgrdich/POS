@@ -4,6 +4,7 @@ import {IProductsGroups} from "../interfaces/models/ProductsGroups";
 import {Products} from "../models/Products";
 import {IProducts} from "../interfaces/models/Products";
 import * as mongoose from "mongoose";
+import {paramIdValidation} from "./General";
 
 export const addProductValidation: Array<any> = [
     body('price')
@@ -39,14 +40,7 @@ export const addProductValidation: Array<any> = [
 
 export const editProductValidation: Array<any> = [ //also params validation to check whether it exists
     ...addProductValidation,
-    param('id')
-        .custom(function(value, {req}) {
-            return Products.findOne({_id:value}).then(function (products: IProducts) {
-                if (!products) {
-                    return Promise.reject("Product is not Found");
-                }
-            });
-        })
+    ...paramIdValidation
 ];
 
 export const deleteProductsValidation:Array<any> = [

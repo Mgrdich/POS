@@ -7,17 +7,18 @@ import {
     getProductsGroups
 } from "../controllers/productsGroups";
 import {addProductsGroupValidation, deleteProductsGroupValidation} from "../validations/productGroups";
+import {paramIdValidation} from "../validations/General";
 
 const router = express.Router();
 
 
 router.get('/', getProductsGroups);
 
-router.get('/:id', getProductsGroup);
+router.get('/:id', paramIdValidation ,getProductsGroup);
 
 router.put('/', addProductsGroupValidation,addProductsGroup);
 
-router.put('/:id', editProductsGroup);
+router.put('/:id', editProductsGroup); //TODO should be continued
 
 router.delete('/:id', deleteProductsGroupValidation,deleteProductsGroup);
 
