@@ -23,7 +23,6 @@ const Users: React.FC = () => {
     const [tabValue, handleChange] = useTab(0);
     const {tbody, thead, keys, isLoading} = useTable('/users');
     const {alertMessage, setOpenAlert, openAlert, setAlert, alertType} = useAlert();
-    // const [deletedId, changeDeletedId] = useState<string>('');
     const [rows, setRows, deletedId, changeDeletedId] =  useTableBody(isLoading, tbody);
 
     const handleActions = function (type: string, obj: any) {
