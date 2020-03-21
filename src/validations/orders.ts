@@ -10,10 +10,17 @@ export const addOrderValidation:Array<any> =[
       .custom(function (value) {
           return mongoose.Types.ObjectId.isValid(value);
   }),
-  body('orders')
+  body('waiter')
       .custom(function (value) {
-          return value.every(function (item:string) {
-            return mongoose.Types.ObjectId.isValid(value)
-          })
-      })
+         return mongoose.Types.ObjectId.isValid(value);
+  }),
+];
+
+export const editOrderValidation:Array<any> = [
+    body('orders')
+        .custom(function (value) {
+            return value.every(function (item:string) {
+                return mongoose.Types.ObjectId.isValid(value)
+            })
+        })
 ];

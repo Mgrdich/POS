@@ -15,7 +15,7 @@ export async function getOrder(req: Request, res: Response, next: NextFunction):
     try { //TODO transformed to a function with Generics GET /  GET/:id  delete/:id delete /
         let orders: Array<IDocOrders> | IDocOrders = await Orders.find({});
         if (orders.length) {
-            const tableProducts = tableDataNormalize(orders,GET_PRODUCTS_TABLE);
+            const tableProducts = tableDataNormalize(orders, GET_PRODUCTS_TABLE);
             return res.status(200).json(tableProducts);
         }
         noResult(res);
@@ -26,13 +26,13 @@ export async function getOrder(req: Request, res: Response, next: NextFunction):
 
 export async function getOrders(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-        let order:IDocOrders = await Orders.findById(req.params.Id);
+        let order: IDocOrders = await Orders.findById(req.params.Id);
         if (!order) {
             errorThrower(NO_SUCH_DATA_EXISTS, 422);
         }
         return res.status(200).json(order);
     } catch (err) {
-        errorCatcher(next,err);
+        errorCatcher(next, err);
     }
 }
 
@@ -43,9 +43,12 @@ export async function addOrder(req: myRequest, res: Response, next: NextFunction
         if (!errors.isEmpty()) {
             errorThrower("Validation Failed", 422, errors.mapped());
         }
-
+        const {table, waiter} = req.body;
+        const order: IDocOrders = new Orders({table, waiter});
+        await order.save();
+        alert(res, 200, messageAlert.success, 'New Order is registered');
     } catch (err) {
-        errorCatcher(next,err);
+        errorCatcher(next, err);
     }
 }
 
@@ -59,7 +62,7 @@ export async function editOrders(req: myRequest, res: Response, next: NextFuncti
 
 
     } catch (err) {
-        errorCatcher(next,err);
+        errorCatcher(next, err);
     }
 }
 
@@ -72,6 +75,6 @@ export async function deleteOrder(req: Request, res: Response, next: NextFunctio
         }
 
     } catch (err) {
-        errorCatcher(next,err);
+        errorCatcher(next, err);
     }
 }

@@ -1,6 +1,7 @@
 import {Document, Model} from 'mongoose';
 import {ICreatedEditData} from "./General";
 import {IDocProductsGroups} from "./ProductsGroups";
+import {IDocUsers} from "./Users";
 
 
 export interface IOrders extends ICreatedEditData{
@@ -9,6 +10,7 @@ export interface IOrders extends ICreatedEditData{
         _id:IDocOrders["_id"],
         modifiedDate:Date
     }>;
+    waiter:IDocUsers["_id"];
 }
 
 //Mongoose modal

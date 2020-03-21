@@ -24,7 +24,7 @@ const productGroupSchema: Schema = new Schema({
     },
     modifiedBy: [
         {
-            user: {
+            _id: { //user id
                 type: Schema.Types.ObjectId,
                 ref: 'Users',
             },

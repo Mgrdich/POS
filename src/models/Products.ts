@@ -23,7 +23,7 @@ const productSchema: Schema<IDocProducts> = new Schema({
     },
     modifiedBy: [
         {
-            user: {
+            _id: { //user id
                 type: Schema.Types.ObjectId,
                 ref: 'Users',
             },

@@ -15,8 +15,27 @@ const orderSchema: Schema = new Schema({
         },
         modifiedDate: {
             type: Date,
+        },
+        quantity: {
+            type:Number,
+            default: 1
         }
     }],
+    modifiedBy: [ //how many times after the initial order it does get change
+        {
+            _id: { //cashier or creator id
+                type: Schema.Types.ObjectId,
+                ref: 'Users',
+            },
+            waiter :{
+                type: Schema.Types.ObjectId,
+                ref: 'Users',
+            },
+            modifiedDate: {
+                type: Date,
+            }
+        }
+    ],
     createdDate: {
         type: Date,
         default: Date.now
