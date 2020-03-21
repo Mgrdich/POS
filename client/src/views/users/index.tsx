@@ -11,6 +11,8 @@ import AlertQuestion from "../../components/Reusable/AlertQuestion";
 import {useAlert} from "../../components/Hooks/useAlert";
 import axios, {AxiosResponse} from 'axios';
 import CardMessage from "../../components/Reusable/CardMessage";
+import Alerts from "../../components/Reusable/Alerts";
+import ComponentLoader from "../../components/Reusable/ComponentLoader";
 
 const actionsTypes: Array<string> = ["delete"];
 
@@ -19,7 +21,7 @@ const Users: React.FC = () => {
 
     const [tabValue, handleChange] = useTab(0);
     const {tbody, thead, keys, isLoading} = useTable('/users');
-    const {alertMessage, setOpenAlert, openAlert} = useAlert('Are you sure you want to delete this row!');
+    const {alertMessage, setOpenAlert, openAlert, setAlert, alertType} = useAlert();
     const [deletedId, changeDeletedId] = useState<string>('');
     const [rows, setRows] = useState<any>([]);
 
@@ -34,13 +36,13 @@ const Users: React.FC = () => {
     const handleActions = function (type: string, obj: any) {
         if (type === 'delete') {
             changeDeletedId(obj._id);
-            setOpenAlert(true);
+            setAlert({message: 'Are you sure you want to delete this row!'}, {alertQuestion: true, alert: false});
         }
     };
 
     const handleDeleted = function (id: string) {
         axios.delete(`/users/${id}`).then((res: AxiosResponse) => {
-            console.log(res.data);
+            setAlert(res.data, {alertQuestion: false, alert: true});
         }).catch((e) => {
             console.log(e);
         });
@@ -48,9 +50,9 @@ const Users: React.FC = () => {
             return row._id !== id;
         });
         setRows(filteredRows);
-        setOpenAlert(false);
+        setOpenAlert({alertQuestion: false, alert: false});
     };
-    console.log(rows.lenght);
+
 
     return (
         <>
@@ -62,16 +64,21 @@ const Users: React.FC = () => {
                 </Tabs>
             </AppBar>
             <TabPanel value={tabValue} index={0}>
-                {rows.length
+                {rows.length && !isLoading
                     ?
-                    (<TabPanelOne
-                        data={rows}
-                        keys={keys}
-                        thead={thead}
-                        loading={isLoading}
-                        actionsTypes={actionsTypes}
-                        handleActions={handleActions}
-                    />)
+                    //TODO Check the loader
+                    (<ComponentLoader isLoading={isLoading}>
+                            <TabPanelOne
+                                data={rows}
+                                keys={keys}
+                                thead={thead}
+                                loading={isLoading}
+                                actionsTypes={actionsTypes}
+                                handleActions={handleActions}
+                            />
+                        </ComponentLoader>
+
+                    )
                     :
                     (<CardMessage
                         header='No users created!'
@@ -89,12 +96,16 @@ const Users: React.FC = () => {
                 Item Three
             </TabPanel>
             <AlertQuestion
-                open={openAlert}
+                open={openAlert.alertQuestion}
                 close={setOpenAlert}
                 callback={() => handleDeleted(deletedId)}
             >
                 {alertMessage}
             </AlertQuestion>
+
+            <Alerts open={openAlert.alert} severity={alertType} close={setOpenAlert}>
+                {alertMessage};
+            </Alerts>
         </>
     );
 };

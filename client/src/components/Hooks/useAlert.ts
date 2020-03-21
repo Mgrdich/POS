@@ -7,10 +7,17 @@ export function useAlert(message: string = '', alertOpen: boolean = false, alert
     const [openAlert, setOpenAlert] = useState<boolean>(alertOpen);
     const [alertType, setAlertType] = useState<Color>(alert);
 
-    const setAlert = useCallback(function ({message, alert}:{message:string,alert:Color}) {
+    const setAlert = useCallback(function ({message, alert}: { message: string, alert: Color }, alertType: boolean | any) {
         setAlertMessage(message);
         setAlertType(alert);
-        setOpenAlert(true);
+        if (typeof (alertType) === 'object') {
+
+            setOpenAlert({...alertType});
+
+        } else {
+
+            setOpenAlert(true);
+        }
     }, []);
 
     return {alertMessage, openAlert, alertType, setOpenAlert, setAlert};
