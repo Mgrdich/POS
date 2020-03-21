@@ -9,33 +9,10 @@
   }
 
   form {
-    .MuiFormControl-root {
-      width: 30%;
-      @include tablet {
-        width: 50%;
-        margin-bottom: 20px;
-      }
-      @include mobile {
-        width: 75%;
-        margin-bottom: 20px;
-      }
-
-    }
-
     .MuiButtonBase-root {
-      width: 30%;
-      @include tablet {
-        width: 50%;
-        margin-bottom: 20px;
-      }
-      @include mobile {
-        width: 75%;
-        margin-bottom: 20px;
-      }
+      width: 100%;
     }
-    
   }
-
 }
 
 

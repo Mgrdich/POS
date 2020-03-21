@@ -36,6 +36,7 @@ export interface IDynamicFields {
     render?:any;
     Component?:React.FC | any;
     ComponentProps?:any;
+    boxProps?:any; //when component props is not used
 }
 
 export interface ILoader extends CircularProgressProps {

@@ -2,9 +2,10 @@ import React from 'react';
 import {InputField} from "../../interfaces/General";
 import {IDynamicFields} from "../../interfaces/Reusable";
 import DynamicField from "./DynamicField";
+import {Box} from "@material-ui/core";
 
 const DynamicFields: React.FC<IDynamicFields> = (props) => {
-    const {errors, register, serverError, control,Component,ComponentProps} = props;
+    const {errors, register, serverError, control,Component,ComponentProps,boxProps} = props;
 
     //TODO a lot of code repetition
     if (Component) {
@@ -13,7 +14,7 @@ const DynamicFields: React.FC<IDynamicFields> = (props) => {
                 {
                     props.InputFields.map((item: InputField, index: number) => (
                         <Component{...ComponentProps} key={index}>
-                            <DynamicField
+                                <DynamicField
                                 item={item}
                                 errors={errors}
                                 register={register}
@@ -30,14 +31,16 @@ const DynamicFields: React.FC<IDynamicFields> = (props) => {
         <>
             {
                 props.InputFields.map((item: InputField, index: number) => (
+                    <Box {...boxProps}>
                         <DynamicField
-                            key={index}
-                            item={item}
-                            errors={errors}
-                            register={register}
-                            serverError={serverError}
-                            control={control}
-                        />
+                        key={index}
+                        item={item}
+                        errors={errors}
+                        register={register}
+                        serverError={serverError}
+                        control={control}
+                    />
+                    </Box>
                 ))
             }
         </>
