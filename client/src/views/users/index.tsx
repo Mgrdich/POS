@@ -23,7 +23,7 @@ const Users: React.FC = () => {
     const [tabValue, handleChange] = useTab(0);
     const {tbody, thead, keys, isLoading} = useTable('/users');
     const {alertMessage, setOpenAlert, openAlert, setAlert, alertType} = useAlert();
-    const [rows, setRows, deletedId, changeDeletedId] =  useTableBody(isLoading, tbody);
+    const [rows, setRows, deletedId, changeDeletedId] = useTableBody(isLoading, tbody);
 
     const handleActions = function (type: string, obj: any) {
         if (type === 'delete') {
@@ -56,10 +56,10 @@ const Users: React.FC = () => {
                 </Tabs>
             </AppBar>
             <TabPanel value={tabValue} index={0}>
-                {rows.length && !isLoading
-                    ?
-                    //TODO Check the loader
-                    (<ComponentLoader isLoading={isLoading}>
+                <ComponentLoader isLoading={isLoading}>
+                    {rows.length && !isLoading
+                        ?
+                        (
                             <TabPanelOne
                                 data={rows}
                                 keys={keys}
@@ -68,17 +68,16 @@ const Users: React.FC = () => {
                                 actionsTypes={actionsTypes}
                                 handleActions={handleActions}
                             />
-                        </ComponentLoader>
-
-                    )
-                    :
-                    (<CardMessage
-                        header='No users created!'
-                        message='You can create users by clicking on the button below'
-                        translation='Create user'
-                        location='/users/create-user'
-                    />)
-                }
+                        )
+                        :
+                        (<CardMessage
+                            header='No users created!'
+                            message='You can create users by clicking on the button below'
+                            translation='Create user'
+                            location='/users/create-user'
+                        />)
+                    }
+                </ComponentLoader>
 
             </TabPanel>
             <TabPanel value={tabValue} index={1}>
