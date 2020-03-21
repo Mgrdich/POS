@@ -31,7 +31,7 @@ const DynamicFields: React.FC<IDynamicFields> = (props) => {
         <>
             {
                 props.InputFields.map((item: InputField, index: number) => (
-                    <Box {...boxProps}>
+                    <Box {...boxProps} key={index}>
                         <DynamicField
                         key={index}
                         item={item}
