@@ -18,7 +18,6 @@ const AddProduct = () => {
 
     const onSubmit = function (values: any): void {
         console.log(values);
-
     };
     return (
         <>

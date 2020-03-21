@@ -61,7 +61,6 @@ const Dropdown: React.FC<IDropDown> = (props) => {
                         }
                         {
                             data.map((item: IDropDownData, index) => {
-                                console.log(item);
                                 return (
                                     <MenuItem value={item.value} key={index}>{item.placeholder}</MenuItem>
                                 )

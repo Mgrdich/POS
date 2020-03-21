@@ -34,5 +34,5 @@ export const addProductInputField: Array<IAddProductInputField> = [
 export const addProductValSchema = yup.object().shape({
     name: yup.string().required(),
     price: yup.string().test('price', 'Invalid Value', (value) =>  !isNaN(parseInt(value)) ? value : null),
-
+    productsGroup:yup.string()
 });
