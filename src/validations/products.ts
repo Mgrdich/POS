@@ -45,7 +45,7 @@ export const editProductValidation: Array<any> = [ //also params validation to c
 
 export const deleteProductsValidation:Array<any> = [
     param('id')
-        .custom(function(value, {req}) {
+        .custom(function(value) {
             return mongoose.Types.ObjectId.isValid(value);
         })
 ];

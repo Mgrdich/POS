@@ -5,10 +5,20 @@ import {myRequest} from "../interfaces/General";
 import {validationResult} from "express-validator";
 import {alert} from "../utilities/controllers/messages";
 import {messageAlert} from "../interfaces/util";
+import {tableDataNormalize} from "../utilities/reformaters";
+import {GET_PRODUCTS_TABLE} from "../utilities/tables/constants";
+import {noResult} from "../utilities/controllers/helpers";
+import {Orders} from "../models/Orders";
+import {IDocOrders} from "../interfaces/models/Orders";
 
 export async function getOrder(req: Request, res: Response, next: NextFunction): Promise<any> {
-    try {
-
+    try { //TODO transformed to a function with Generics GET /  GET/:id  delete/:id delete /
+        let orders: Array<IDocOrders> | IDocOrders = await Orders.find({});
+        if (orders.length) {
+            const tableProducts = tableDataNormalize(orders,GET_PRODUCTS_TABLE);
+            return res.status(200).json(tableProducts);
+        }
+        noResult(res);
     } catch (err) {
         errorCatcher(next, err);
     }
@@ -16,7 +26,11 @@ export async function getOrder(req: Request, res: Response, next: NextFunction):
 
 export async function getOrders(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-
+        let order:IDocOrders = await Orders.findById(req.params.Id);
+        if (!order) {
+            errorThrower(NO_SUCH_DATA_EXISTS, 422);
+        }
+        return res.status(200).json(order);
     } catch (err) {
         errorCatcher(next,err);
     }
