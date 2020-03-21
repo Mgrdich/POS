@@ -12,7 +12,7 @@ const LoginRegisterTemplate: React.FC<ILoginRegisterTemplate> = (props) => {
             <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
                 <Grid container direction="column" justify="center" alignItems="center">
                 <DynamicFields
-                    {...dynamicInputFields} />
+                    {...dynamicInputFields} ComponentProps={{m:2}} />
 
                 <Button
                     color="primary"
