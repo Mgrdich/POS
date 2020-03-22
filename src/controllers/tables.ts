@@ -70,6 +70,7 @@ async function editTable(req: myRequest, res: Response, next: NextFunction): Pro
         if(name) {
             table.name = name;
         }
+        table.number = number;
         table.modifiedBy.push({"_id": req.user._id, modifiedDate: new Date()});
         await table.save();
         alert(res,200,messageAlert.success,'Table element has been edited');
