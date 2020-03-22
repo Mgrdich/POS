@@ -41,9 +41,14 @@ const orderSchema: Schema = new Schema({
         default: Date.now
     },
     createdBy: {
-        required:true,
         type: Schema.Types.ObjectId,
         ref: 'Users',
+        required:true
+    },
+    waiter:{
+        type: Schema.Types.ObjectId,
+        ref: 'Users',
+        required:true
     },
     price: {
         // required:true,

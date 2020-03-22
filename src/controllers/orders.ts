@@ -44,7 +44,7 @@ export async function addOrder(req: myRequest, res: Response, next: NextFunction
             errorThrower("Validation Failed", 422, errors.mapped());
         }
         const {table, waiter} = req.body;
-        const order: IDocOrders = new Orders({table, waiter});
+        const order: IDocOrders = new Orders({table, waiter,createdBy:req.user._id});
         await order.save();
         alert(res, 200, messageAlert.success, 'New Order is registered');
     } catch (err) {
@@ -59,6 +59,10 @@ export async function editOrders(req: myRequest, res: Response, next: NextFuncti
         if (!errors.isEmpty()) {
             errorThrower("Validation Failed", 422, errors.mapped());
         }
+        const {orders,waiter} = req.body;
+        const currentOrder:IDocOrders = await Orders.findById(req.params.id);
+        let isSameWaiter:boolean = currentOrder.waiter===waiter;
+        let isSameCashier:boolean = currentOrder.createdBy === req.user._id;
 
 
     } catch (err) {

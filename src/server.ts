@@ -53,7 +53,7 @@ app.use('/products',products);
 app.use('/products-group',productsGroups);
 
 //TODO after this only admin super admin role
-app.use('orders',orders);
+app.use('/orders',orders);
 
 //errors
 app.use(function (err: ImyError, req: Request, res: Response, next: NextFunction) {
