@@ -1,10 +1,16 @@
 import {Document, Model} from 'mongoose';
 import {IDocUsers} from "./Users";
+import {IDocOrdersData} from "./OrderData";
 
 
 export interface IOrders{
     table:IDocOrders["_id"];
-    orders:Array<any>;
+    orders:Array<{
+        _id:IDocOrdersData["_id"],
+        createdBy:IDocUsers["_id"],
+        waiter:IDocUsers["_id"],
+        createdDate:Date
+    }>;
     waiter:IDocUsers["_id"];
     createdDate:Date;
     createdBy:IDocUsers["_id"];
@@ -12,8 +18,9 @@ export interface IOrders{
 
 //Mongoose modal
 export interface IDocOrders extends Document, IOrders {
+    editOrder:(user:IDocUsers["_id"],waiter:IDocUsers["_id"],orders:any)=>Promise<any>;
 }
 
-export interface IModelOrdersData extends Model<IDocOrders> {
+export interface IModelOrders extends Model<IDocOrders> {
 
 }

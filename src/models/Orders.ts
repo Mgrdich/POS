@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 import {Schema} from "mongoose";
-import {IDocOrders} from "../interfaces/models/Orders";
+import {IDocOrders, IModelOrders} from "../interfaces/models/Orders";
 
 const orderSchema: Schema = new Schema({
     table: {
@@ -13,6 +13,7 @@ const orderSchema: Schema = new Schema({
                 _id: {
                     type: Schema.Types.ObjectId,
                     ref: 'OrdersData',
+                    required:true
                 },
                 createdBy: { //cashier or creator id
                     type: Schema.Types.ObjectId,
@@ -31,12 +32,12 @@ const orderSchema: Schema = new Schema({
         type: Date,
         default: Date.now
     },
-    createdBy: {
+    createdBy: { //initial
         type: Schema.Types.ObjectId,
         ref: 'Users',
         required: true
     },
-    waiter: {
+    waiter: { //initial
         type: Schema.Types.ObjectId,
         ref: 'Users',
         required: true
@@ -49,14 +50,12 @@ const orderSchema: Schema = new Schema({
 });
 
 
-orderSchema.methods.editOrder = function (user, waiter) {
+orderSchema.methods.editOrder = async function (user, waiter,orders):Promise<any> {
     let isSameWaiter: boolean = this.waiter === waiter;
     let isSameCashier: boolean = this.createdBy === user._id;
-    if (!isSameWaiter || isSameCashier) { //if either one of them changes so data about it should be stored
 
-    }
 };
 
-const Orders = mongoose.model<IDocOrders>('Orders', orderSchema);
+const Orders:IModelOrders = mongoose.model<IDocOrders,IModelOrders>('Orders', orderSchema);
 
 export {Orders};

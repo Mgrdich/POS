@@ -20,8 +20,8 @@ export const editOrderValidation: Array<any> = [
         }),
     body('orders')
         .custom(function (value) {
-            return value.every(function (item: string) {
-                return mongoose.Types.ObjectId.isValid(value)
+            return value.every(function (item: any) { //TODO adding a typing to it
+                return mongoose.Types.ObjectId.isValid(item._id)
             })
         }),
     ...paramIdValidation

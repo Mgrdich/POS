@@ -61,7 +61,7 @@ export async function editOrders(req: myRequest, res: Response, next: NextFuncti
         }
         const {orders,waiter} = req.body;
         const currentOrder:IDocOrders = await Orders.findById(req.params.id);
-
+        await currentOrder.editOrder(req.user._id,waiter,orders);
 
 
     } catch (err) {
