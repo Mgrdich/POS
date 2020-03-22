@@ -61,8 +61,7 @@ export async function editOrders(req: myRequest, res: Response, next: NextFuncti
         }
         const {orders,waiter} = req.body;
         const currentOrder:IDocOrders = await Orders.findById(req.params.id);
-        let isSameWaiter:boolean = currentOrder.waiter===waiter;
-        let isSameCashier:boolean = currentOrder.createdBy === req.user._id;
+
 
 
     } catch (err) {
