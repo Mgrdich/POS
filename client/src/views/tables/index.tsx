@@ -17,7 +17,7 @@ import {useAlert} from "../../components/Hooks/useAlert";
 import Alerts from "../../components/Reusable/Alerts";
 
 
-const actionsTypes: Array<string> = ["delete"];
+const actionsTypes: Array<string> = ["Delete"];
 
 
 const CreateEditTables = () => {

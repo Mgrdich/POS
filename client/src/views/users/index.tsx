@@ -15,7 +15,7 @@ import Alerts from "../../components/Reusable/Alerts";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
 import {useTableBody} from "../../components/Hooks/useTableBody";
 
-const actionsTypes: Array<string> = ["delete"];
+const actionsTypes: Array<string> = ["Delete"];
 
 
 const Users: React.FC = () => {

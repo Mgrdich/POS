@@ -18,12 +18,12 @@ const MyTableBody: React.FC<IMyTableBody> = (props) => {
                                 {
                                     actionsTypes?.map((item: string) => {
                                         switch (item) {
-                                            case 'delete':
+                                            case 'Delete':
                                                 return (
                                                     <DeleteIcon key={item} style={{cursor: 'pointer'}}
                                                                 onClick={() => (handleActions) ? handleActions('delete', {_id: row._id}) : null}/>
                                                 );
-                                            case 'edit':
+                                            case 'Edit':
                                                 return (
                                                     <></>
                                                 );
