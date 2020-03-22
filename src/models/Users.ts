@@ -27,12 +27,8 @@ const userSchema: Schema = new Schema({
     rolePriority: {
         type: Number,
         default: 1,
-    },
-    date: {
-        type: Date,
-        default: Date.now()
     }
-});
+},{timestamps:true});
 
 const Users = mongoose.model<IDocUsers>('Users', userSchema);
 

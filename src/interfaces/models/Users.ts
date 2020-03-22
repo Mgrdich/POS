@@ -7,7 +7,6 @@ export interface IUser {
     password: string;
     role?: RoleType;
     rolePriority?: number;
-    date?: Date;
 }
 
 //Mongoose modal

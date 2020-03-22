@@ -11,7 +11,6 @@ export interface ITables {
     createdBy:IDocUsers["_id"];
     cashier: IDocUsers["_id"];
     orders:IDocOrders["_id"];
-    createdDate:Date;
     modifiedBy:Array<{
         _id:IDocUsers["_id"],
         modifiedDate:Date,
