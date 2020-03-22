@@ -17,8 +17,8 @@ const orderDataSchema: Schema = new Schema({
     price: {
         type:Number,
 
-    }
-});
+    },
+},{timestamps: true});
 
 orderDataSchema.statics.addOrderData = async function (orders:Array<any>):Promise<any> {
     const newOrderData = new this();

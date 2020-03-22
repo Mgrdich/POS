@@ -3,7 +3,6 @@ import {Schema} from "mongoose";
 import {IDocProductsGroups, IModelProductsGroups} from "../interfaces/models/ProductsGroups";
 import {Products} from "./Products";
 import {IDocProducts} from "../interfaces/models/Products";
-import {runInNewContext} from "vm";
 
 const productGroupSchema: Schema = new Schema({
     name: {
@@ -33,11 +32,7 @@ const productGroupSchema: Schema = new Schema({
             }
         }
     ],
-    createdDate: {
-        type: Date,
-        default: Date.now
-    }
-});
+},{timestamps:true});
 
 
 productGroupSchema.statics.removeProdFrmProdGrp = function (productId:IDocProducts["_id"],groupId:IDocProductsGroups["_id"]) {

@@ -32,11 +32,7 @@ const productSchema: Schema<IDocProducts> = new Schema({
             }
         }
     ],
-    createdDate: {
-        type: Date,
-        default: Date.now
-    },
-});
+},{timestamps:true});
 
 productSchema.methods.addProduct = function (productGroupId:IDocProducts["_id"]): Promise<any> {
     let _id = this._id;

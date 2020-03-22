@@ -24,16 +24,9 @@ const orderSchema: Schema = new Schema({
                 waiter: {
                     type: Schema.Types.ObjectId,
                     ref: 'Users',
-                },
-                createdDate: {
-                    type: Date,
                 }
             }
         ],
-    createdDate: {
-        type: Date,
-        default: Date.now
-    },
     createdBy: { //initial
         type: Schema.Types.ObjectId,
         ref: 'Users',
@@ -49,7 +42,7 @@ const orderSchema: Schema = new Schema({
         type: Number,
     }
 
-});
+},{timestamps:true});
 
 
 orderSchema.methods.editOrder = async function (user, waiter,orders):Promise<any> {

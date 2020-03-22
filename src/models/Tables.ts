@@ -36,15 +36,11 @@ const tableSchema: Schema = new Schema({
             }
         }
     ],
-    createdDate:{
-      type:Date,
-      default:Date.now
-    },
     cashier: {
         type: Schema.Types.ObjectId,
         ref: 'Users'
     }
-});
+},{timestamps:true});
 
 const Tables = mongoose.model<IDocTables>('Tables',tableSchema);
 
