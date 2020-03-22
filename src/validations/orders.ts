@@ -21,7 +21,7 @@ export const editOrderValidation: Array<any> = [
     body('orders')
         .custom(function (value) {
             return value.every(function (item: any) { //TODO adding a typing to it
-                return mongoose.Types.ObjectId.isValid(item._id)
+                return mongoose.Types.ObjectId.isValid(item.product)
             })
         }),
     ...paramIdValidation

@@ -13,5 +13,5 @@ export interface IDocOrdersData extends Document, IOrdersData {
 }
 
 export interface IModelOrdersData extends Model<IDocOrdersData> {
-    addOrderData: () => Promise<any>;
+    addOrderData: (orders:Array<any>) => Promise<any>;
 }

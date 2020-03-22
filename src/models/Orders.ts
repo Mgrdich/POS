@@ -1,6 +1,8 @@
 import * as mongoose from 'mongoose';
 import {Schema} from "mongoose";
 import {IDocOrders, IModelOrders} from "../interfaces/models/Orders";
+import {sameObjectId} from "../utilities/functions";
+import {OrdersData} from "./OrderData";
 
 const orderSchema: Schema = new Schema({
     table: {
@@ -51,9 +53,23 @@ const orderSchema: Schema = new Schema({
 
 
 orderSchema.methods.editOrder = async function (user, waiter,orders):Promise<any> {
-    let isSameWaiter: boolean = this.waiter === waiter;
-    let isSameCashier: boolean = this.createdBy === user._id;
+    let isSameWaiter: boolean = sameObjectId(this.waiter,waiter);
+    let isSameCashier: boolean = sameObjectId(this.createdBy , user);
 
+    let orderData = await OrdersData.addOrderData(orders);
+    if(!isSameWaiter || isSameCashier) {
+       this.orders.push({
+           _id:orderData._id,
+           createdBy:user,
+           waiter:waiter,
+           createdDate:new Date()
+       })
+    } else {
+        this.orders.push({
+            _id:orderData._id,
+        })
+    }
+    return this.save();
 };
 
 const Orders:IModelOrders = mongoose.model<IDocOrders,IModelOrders>('Orders', orderSchema);

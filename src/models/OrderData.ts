@@ -16,17 +16,20 @@ const orderDataSchema: Schema = new Schema({
     }],
     price: {
         type:Number,
-        required:true
+
     }
 });
 
 orderDataSchema.statics.addOrderData = async function (orders:Array<any>):Promise<any> {
     const newOrderData = new this();
     newOrderData.data.push(...orders);
-    console.log(orders);
-    let price:number = orders.reduce(function (acc,curr) {
-
-    },0)
+    await newOrderData.save(); //TODO other ways to populate without save
+    let orderData:IDocOrdersData = await this.findById(newOrderData._id).populate('data.product', 'price');
+    orderData.price  = orderData.data.reduce(function (sum,curr) {
+        let itemAccumulatedPrice = curr.quantity * curr.product.price;
+        return (sum + itemAccumulatedPrice)
+    },0);
+    return orderData.save();
 };
 
 const OrdersData:IModelOrdersData = mongoose.model<IDocOrdersData,IModelOrdersData>('OrdersData', orderDataSchema);
