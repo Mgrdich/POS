@@ -75,8 +75,8 @@ export interface IAlertQuestion {
 }
 
 export interface IMyTable {
-    keys: Array<string>
-    thead: Array<string>;
+    keys: any; //TODO Check the type
+    thead: any;
     tbody: Array<object>;
     pagination?: boolean;
     paginationRowsCount?: Array<number>;
