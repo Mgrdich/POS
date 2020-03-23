@@ -65,6 +65,18 @@ orderSchema.methods.editOrder = async function (user, waiter, orders): Promise<a
     return this.save();
 };
 
+
+//TODO here should be used virtuals so that the populate name can be renamed
+orderSchema.statics.deleteOrderById = async function (id):Promise<any> {
+    const toBeDeletedOrder:IDocOrders = await Orders.findById(id).populate('orders._id');
+    console.log(toBeDeletedOrder);
+
+};
+
+orderSchema.statics.closeOrderById = async function (id):Promise<any> {
+    //delete should be called here
+};
+
 const Orders: IModelOrders = mongoose.model<IDocOrders, IModelOrders>('Orders', orderSchema);
 
 export {Orders};
