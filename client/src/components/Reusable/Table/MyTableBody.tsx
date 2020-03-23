@@ -2,6 +2,7 @@ import React from 'react';
 import {TableBody, TableCell, TableRow} from '@material-ui/core/';
 import {IMyTableBody} from "../../../interfaces/Reusable";
 import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from '@material-ui/icons/Edit';
 
 
 const MyTableBody: React.FC<IMyTableBody> = (props) => {
@@ -17,15 +18,18 @@ const MyTableBody: React.FC<IMyTableBody> = (props) => {
                             {actionsTypes ? <TableCell key={actionsTypes[0]}>
                                 {
                                     actionsTypes?.map((item: string) => {
+
                                         switch (item) {
                                             case 'Delete':
                                                 return (
-                                                    <DeleteIcon key={item} style={{cursor: 'pointer'}}
-                                                                onClick={() => (handleActions) ? handleActions('delete', {_id: row._id}) : null}/>
+                                                        <DeleteIcon key={item}  style={{cursor: 'pointer'}}
+                                                                    onClick={() => (handleActions) ? handleActions('delete', {_id: row._id}) : null}/>
                                                 );
+
                                             case 'Edit':
                                                 return (
-                                                    <></>
+                                                        <EditIcon key={item} style={{cursor:'pointer'}}
+                                                                  onClick={() => (handleActions) ? handleActions('edit', {...row}) : null}/>
                                                 );
                                             default:
                                                 break

@@ -11,9 +11,9 @@ const MyTableHead: React.FC<IMyTableHead> = (props) => {
             <TableHead>
                 <TableRow>
                     {
-                        actionsTypes?.map((item) =>
-                            (<TableCell key={item}>{item}</TableCell>)
-                        )
+                         actionsTypes?.length ?
+                            (<TableCell >Actions</TableCell>)
+                        :null
                     }
                     {
                         keys.map(item => (

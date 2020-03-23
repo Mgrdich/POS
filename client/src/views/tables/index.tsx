@@ -1,12 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useForm} from "react-hook-form";
 import {useDynamicFields} from "../../components/Hooks/useDynamicFields";
 import axios, {AxiosResponse} from "axios";
 import {IAlertAxiosResponse} from "../../interfaces/General";
 import Grid from "@material-ui/core/Grid";
 import DynamicFields from "../../components/Reusable/DynamicFields";
-import {Button} from "@material-ui/core";
-import {createTableValSchema, creteTableInputField} from "./config";
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@material-ui/core";
+import {createTableValSchema, creteTableInputField, EditTableInputField} from "./config";
 import {useServerErrorHandle} from "../../components/Hooks/useServerErrorHandle";
 import {useTable} from "../../components/Hooks/useTable";
 import {useTableBody} from "../../components/Hooks/useTableBody";
@@ -15,9 +15,11 @@ import ComponentLoader from "../../components/Reusable/ComponentLoader";
 import AlertQuestion from "../../components/Reusable/AlertQuestion";
 import {useAlert} from "../../components/Hooks/useAlert";
 import Alerts from "../../components/Reusable/Alerts";
+import {useModule} from "../../components/Hooks/useModule";
+import {DefaultVlue} from "../../util/functions";
 
 
-const actionsTypes: Array<string> = ["Delete"];
+const actionsTypes: Array<string> = ["Delete", 'Edit'];
 
 
 const CreateEditTables = () => {
@@ -28,8 +30,10 @@ const CreateEditTables = () => {
     const {tbody, thead, keys, isLoading} = useTable('/tables');
     const [rows, setRows, deletedId, changeDeletedId] = useTableBody(isLoading, tbody);
     const {alertMessage, setOpenAlert, openAlert, setAlert, alertType} = useAlert();
+    const [open, handleClickOpen, handleClose] = useModule();
+    const [EditData, setEditData] = useState();
     useDynamicFields(creteTableInputField, register, unregister);
-    // console.log(rows);
+    console.log(open);
 
     const onSubmit = function (values: any): void {
         axios.put('/tables', values)
@@ -51,6 +55,26 @@ const CreateEditTables = () => {
             changeDeletedId(obj._id);
             setAlert({message: 'Are you sure you want to delete this row!'}, {alertQuestion: true, alert: false});
         }
+        if (type === 'edit') {
+            const data = DefaultVlue(EditTableInputField, obj);
+            setEditData(data);
+            handleClickOpen();
+        }
+    };
+
+    const onEdit = function (values: any): void {
+        console.log('values');
+        axios.put('/tables', values)
+            .then(function (res: IAlertAxiosResponse) {
+                handleClose();
+                console.log('updated successfully');
+
+            }).catch(function (e: any) {
+            if (!e.response.data) {
+                console.error("No Response is found");
+            }
+            setterError(e.response.data.data);
+        });
     };
 
     const handleDeleted = function (id: string) {
@@ -112,6 +136,31 @@ const CreateEditTables = () => {
                     handleActions={handleActions}
                 />
             </ComponentLoader>
+
+            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth={true}>
+                <DialogTitle id="form-dialog-title">Edit</DialogTitle>
+                <form noValidate autoComplete="off" onSubmit={handleSubmit(onEdit)}>
+                    <DynamicFields
+                        Component={DialogContent}
+                        InputFields={EditData}
+                        register={register}
+                        errors={errors}
+                        control={control}
+                        serverError={serverError}
+                    />
+                    <DialogActions>
+                        <Button
+                            color="primary"
+                            onClick={handleClose}
+                        >Cancel</Button>
+                        <Button
+                            color="primary"
+                            type="submit"
+                        >Submit</Button>
+                    </DialogActions>
+                </form>
+
+            </Dialog>
 
 
             <AlertQuestion

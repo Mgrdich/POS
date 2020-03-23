@@ -2,8 +2,6 @@ import * as yup from "yup";
 import {ICreateTableInputField} from "../../interfaces/Views/tables";
 
 
-
-
 export const creteTableInputField: Array<ICreateTableInputField> = [
     {
         name: 'name',
@@ -15,13 +13,15 @@ export const creteTableInputField: Array<ICreateTableInputField> = [
     },
 ];
 
-yup.setLocale({
-    number: {
-        integer: "Invalid Value",
+export const EditTableInputField = [
+    {
+        name: 'number',
+        placeholder: 'Table number',
     },
-});
+];
+
 
 export const createTableValSchema = yup.object().shape({
     name: yup.string().required(),
-    number:yup.string().test('price', 'Invalid Value', (value) =>  !isNaN(parseInt(value)) ? value : null),
+    number: yup.string().test('price', 'Invalid Value', (value) => !isNaN(parseInt(value)) ? value : null),
 });
