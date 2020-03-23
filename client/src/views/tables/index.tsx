@@ -6,7 +6,7 @@ import {IAlertAxiosResponse} from "../../interfaces/General";
 import Grid from "@material-ui/core/Grid";
 import DynamicFields from "../../components/Reusable/DynamicFields";
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@material-ui/core";
-import {createTableValSchema, creteTableInputField, EditTableInputField} from "./config";
+import {createTableValSchema, creteTableInputField, EditTableInputField, EditTableValSchema} from "./config";
 import {useServerErrorHandle} from "../../components/Hooks/useServerErrorHandle";
 import {useTable} from "../../components/Hooks/useTable";
 import {useTableBody} from "../../components/Hooks/useTableBody";
@@ -16,7 +16,7 @@ import AlertQuestion from "../../components/Reusable/AlertQuestion";
 import {useAlert} from "../../components/Hooks/useAlert";
 import Alerts from "../../components/Reusable/Alerts";
 import {useModule} from "../../components/Hooks/useModule";
-import {DefaultVlue} from "../../util/functions";
+import {DefaultValue} from "../../util/functions";
 
 
 const actionsTypes: Array<string> = ["Delete", 'Edit'];
@@ -26,6 +26,10 @@ const CreateEditTables = () => {
     const {handleSubmit, register, errors, control, unregister, reset} = useForm<any>({
         validationSchema: createTableValSchema,
     });
+    const {handleSubmit:handleEditSubmit, register:editRegister, errors:editErrors, control:editControl} = useForm<any>({
+        validationSchema: EditTableValSchema,
+    });
+
     const [serverError, setterError, resetServerError] = useServerErrorHandle();
     const {tbody, thead, keys, isLoading} = useTable('/tables');
     const [rows, setRows, deletedId, changeDeletedId] = useTableBody(isLoading, tbody);
@@ -33,9 +37,8 @@ const CreateEditTables = () => {
     const [open, handleClickOpen, handleClose] = useModule();
     const [EditData, setEditData] = useState();
     useDynamicFields(creteTableInputField, register, unregister);
-    console.log(open);
 
-    const onSubmit = function (values: any): void {
+    const onSubmit =  function (values: any): void {
         axios.put('/tables', values)
             .then(function (res: IAlertAxiosResponse) {
                 reset();
@@ -47,6 +50,7 @@ const CreateEditTables = () => {
             }
             setterError(e.response.data.data);
         });
+
     };
 
 
@@ -56,15 +60,19 @@ const CreateEditTables = () => {
             setAlert({message: 'Are you sure you want to delete this row!'}, {alertQuestion: true, alert: false});
         }
         if (type === 'edit') {
-            const data = DefaultVlue(EditTableInputField, obj);
-            setEditData(data);
+            console.log(obj._id);
+            changeDeletedId(obj._id);
+            const editData = DefaultValue(EditTableInputField, obj);
+            setEditData(editData);
             handleClickOpen();
         }
     };
 
+    console.log(EditData)
+
     const onEdit = function (values: any): void {
-        console.log('values');
-        axios.put('/tables', values)
+        console.log(deletedId);
+        axios.put(`/tables/${deletedId}`, values)
             .then(function (res: IAlertAxiosResponse) {
                 handleClose();
                 console.log('updated successfully');
@@ -139,13 +147,13 @@ const CreateEditTables = () => {
 
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth={true}>
                 <DialogTitle id="form-dialog-title">Edit</DialogTitle>
-                <form noValidate autoComplete="off" onSubmit={handleSubmit(onEdit)}>
+                <form noValidate autoComplete="off" onSubmit={handleEditSubmit(onEdit)}>
                     <DynamicFields
                         Component={DialogContent}
                         InputFields={EditData}
-                        register={register}
-                        errors={errors}
-                        control={control}
+                        register={editRegister}
+                        errors={editErrors}
+                        control={editControl}
                         serverError={serverError}
                     />
                     <DialogActions>
@@ -159,7 +167,6 @@ const CreateEditTables = () => {
                         >Submit</Button>
                     </DialogActions>
                 </form>
-
             </Dialog>
 
 

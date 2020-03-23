@@ -15,7 +15,7 @@ export function dateFormat(date:string) :string {
 };
 
 
-export function DefaultVlue (myInputFields:Array<InputField>, data:any){
+export function DefaultValue (myInputFields:Array<InputField>, data:any){
 
         const newInputFields = myInputFields.map((item: InputField, index: number) => {
             item.default = data[item.name];
