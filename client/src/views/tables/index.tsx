@@ -26,7 +26,7 @@ const CreateEditTables = () => {
     const {handleSubmit, register, errors, control, unregister, reset} = useForm<any>({
         validationSchema: createTableValSchema,
     });
-    const {handleSubmit:handleEditSubmit, register:editRegister, errors:editErrors, control:editControl} = useForm<any>({
+    const {handleSubmit: handleEditSubmit, register: editRegister, errors: editErrors, control: editControl} = useForm<any>({
         validationSchema: EditTableValSchema,
     });
 
@@ -38,7 +38,7 @@ const CreateEditTables = () => {
     const [EditData, setEditData] = useState();
     useDynamicFields(creteTableInputField, register, unregister);
 
-    const onSubmit =  function (values: any): void {
+    const onSubmit = function (values: any): void {
         axios.put('/tables', values)
             .then(function (res: IAlertAxiosResponse) {
                 reset();
@@ -60,7 +60,6 @@ const CreateEditTables = () => {
             setAlert({message: 'Are you sure you want to delete this row!'}, {alertQuestion: true, alert: false});
         }
         if (type === 'edit') {
-            console.log(obj._id);
             changeDeletedId(obj._id);
             const editData = DefaultValue(EditTableInputField, obj);
             setEditData(editData);
@@ -68,10 +67,8 @@ const CreateEditTables = () => {
         }
     };
 
-    console.log(EditData)
 
     const onEdit = function (values: any): void {
-        console.log(deletedId);
         axios.put(`/tables/${deletedId}`, values)
             .then(function (res: IAlertAxiosResponse) {
                 handleClose();
