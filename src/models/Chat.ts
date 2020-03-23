@@ -2,10 +2,6 @@ import * as mongoose from 'mongoose';
 import {Schema} from "mongoose";
 
 const chatSchema = new Schema({
-    sender: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Users'
-    },
     messages: [
         {
             _id: { //message id
@@ -14,11 +10,12 @@ const chatSchema = new Schema({
             }
         }
     ],
-    participant: {
+    participant: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Users'
-    },
-    participantGroup:{
-
+    }],
+    participantGroup: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Users'
     }
 });

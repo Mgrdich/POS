@@ -12,15 +12,11 @@ const chatGroupsSchema = new Schema({
         required: true
     },
     admins: [{
-        _id: {
-            type: Schema.Types.ObjectId,
-            ref: 'Users',
-        }
+        type: Schema.Types.ObjectId,
+        ref: 'Users',
     }],
     members: [{
-        _id: {
-            type: Schema.Types.ObjectId,
-            ref: 'Users',
-        }
+        type: Schema.Types.ObjectId,
+        ref: 'Users',
     }]
 }, {timestamps: true});
