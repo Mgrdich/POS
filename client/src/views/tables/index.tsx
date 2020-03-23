@@ -61,7 +61,7 @@ const CreateEditTables = () => {
         }
         if (type === 'edit') {
             changeDeletedId(obj._id);
-            const editData = DefaultValue(EditTableInputField, obj);
+            const editData:any = DefaultValue(EditTableInputField, obj);
             setEditData(editData);
             handleClickOpen();
         }
@@ -147,7 +147,7 @@ const CreateEditTables = () => {
                 <form noValidate autoComplete="off" onSubmit={handleEditSubmit(onEdit)}>
                     <DynamicFields
                         Component={DialogContent}
-                        InputFields={EditData}
+                        InputFields={EditData || []}
                         register={editRegister}
                         errors={editErrors}
                         control={editControl}
