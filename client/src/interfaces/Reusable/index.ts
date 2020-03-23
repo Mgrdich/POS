@@ -103,7 +103,7 @@ export interface IMyTableHead {
 
 export interface ICardMessage {
     header:string;
-    message:string;
-    translation:string;
-    location:string;
+    message?:string;
+    translation?:string;
+    location?:string;
 }

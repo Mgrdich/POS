@@ -17,6 +17,7 @@ import {useAlert} from "../../components/Hooks/useAlert";
 import Alerts from "../../components/Reusable/Alerts";
 import {useModule} from "../../components/Hooks/useModule";
 import {DefaultValue} from "../../util/functions";
+import CardMessage from "../../components/Reusable/CardMessage";
 
 
 const actionsTypes: Array<string> = ["Delete", 'Edit'];
@@ -61,7 +62,7 @@ const CreateEditTables = () => {
         }
         if (type === 'edit') {
             changeDeletedId(obj._id);
-            const editData:any = DefaultValue(EditTableInputField, obj);
+            const editData: any = DefaultValue(EditTableInputField, obj);
             setEditData(editData);
             handleClickOpen();
         }
@@ -131,15 +132,20 @@ const CreateEditTables = () => {
             </form>
 
             <ComponentLoader isLoading={isLoading}>
-                <MyTable
-                    thead={thead}
-                    tbody={rows}
-                    keys={keys}
-                    pagination={true}
-                    paginationRowsCount={[3, 5, 10]}
-                    actionsTypes={actionsTypes}
-                    handleActions={handleActions}
-                />
+                {rows.length && !isLoading
+                    ?
+                    (<MyTable
+                        thead={thead}
+                        tbody={rows}
+                        keys={keys}
+                        pagination={true}
+                        paginationRowsCount={[3, 5, 10]}
+                        actionsTypes={actionsTypes}
+                        handleActions={handleActions}
+                    />)
+                    : (<CardMessage
+                        header='No Tables created!'
+                    />)}
             </ComponentLoader>
 
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth={true}>
