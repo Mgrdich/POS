@@ -30,6 +30,7 @@ const Routes:React.FC = () => {
     return (
         <>
             <Switch>
+                <PrivateRoute exact path='/chat' component={Error}/>
                 <PrivateRoute exact path={['/','/dashboard']} component={HL_Dashboard}/>
                 <PrivateRoute exact path={['/products','/product/index']} component={HL_AddProduct}/>
                 <PrivateRoute exact path={'/products/products-group'} component={HL_ProductsGroup}/>
