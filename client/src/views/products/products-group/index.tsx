@@ -9,7 +9,7 @@ import DynamicFields from "../../../components/Reusable/DynamicFields";
 import {Button} from "@material-ui/core";
 import {productGroupInputField, productGroupValSchema} from "./config";
 
-const ProductsGroup = () => {
+const ProductsGroup: React.FC = () => {
     const {handleSubmit, register, errors, control, unregister, reset} = useForm<any>({
         validationSchema: productGroupValSchema,
     });

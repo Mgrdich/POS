@@ -9,7 +9,7 @@ import DynamicFields from "../../components/Reusable/DynamicFields";
 import {Button} from "@material-ui/core";
 import {addProductInputField, addProductValSchema} from "./config";
 
-const AddProduct = () => {
+const AddProduct: React.FC = () => {
     const {handleSubmit, register, errors, control, unregister, reset} = useForm<any>({
         validationSchema: addProductValSchema,
     });
