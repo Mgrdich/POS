@@ -17,7 +17,17 @@ const AddProduct = () => {
     useDynamicFields(addProductInputField, register, unregister);
 
     const onSubmit = function (values: any): void {
-        console.log(values);
+        axios.put('/products', values)
+            .then(function (res: IAlertAxiosResponse) {
+                reset();
+                resetServerError();
+                console.log('successfully created', res.data.message);
+            }).catch(function (e: any) {
+            if (!e.response.data) {
+                console.error("No Response is found");
+            }
+            setterError(e.response.data.data);
+        });
     };
     return (
         <>

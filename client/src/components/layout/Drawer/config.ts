@@ -67,7 +67,7 @@ export const drawerRoutes: Array<IDrawerRoute> = [
             },
             {
                 icon: GroupWorkIcon,
-                location: "/products/product-group",
+                location: "/products/products-group",
                 translation: "Products group",
                 role: [Roles.SuperAdmin, Roles.Admin],
             },

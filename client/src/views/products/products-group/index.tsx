@@ -9,7 +9,7 @@ import DynamicFields from "../../../components/Reusable/DynamicFields";
 import {Button} from "@material-ui/core";
 import {productGroupInputField, productGroupValSchema} from "./config";
 
-const ProductGroup = () => {
+const ProductsGroup = () => {
     const {handleSubmit, register, errors, control, unregister, reset} = useForm<any>({
         validationSchema: productGroupValSchema,
     });
@@ -17,7 +17,17 @@ const ProductGroup = () => {
     useDynamicFields(productGroupInputField, register, unregister);
 
     const onSubmit = function (values: any): void {
-        console.log(values);
+        axios.put('/products-group', values)
+            .then(function (res: IAlertAxiosResponse) {
+                reset();
+                resetServerError();
+                console.log('successfully created', res.data.message);
+            }).catch(function (e: any) {
+            if (!e.response.data) {
+                console.error("No Response is found");
+            }
+            setterError(e.response.data.data);
+        });
     };
     return (
         <>
@@ -54,4 +64,4 @@ const ProductGroup = () => {
     );
 };
 
-export default ProductGroup;
+export default ProductsGroup;
