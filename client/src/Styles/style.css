@@ -13,7 +13,7 @@
   float: right; }
 
 .MuiAvatar-colorDefault.avatar {
-  border: 1px solid #66fcf1;
+  border: 2px solid #66fcf1;
   background-color: transparent;
   color: #fff;
   font-weight: 600; }
@@ -84,6 +84,18 @@
 .chatContainer .usersList {
   height: 100%;
   overflow: hidden; }
+
+.chatContainer .usersList .MuiListItem-root {
+  cursor: pointer; }
+
+.chatContainer .usersList .MuiListItem-root:hover {
+  color: #66fcf1;
+  border-top: 1px solid #66fcf1;
+  border-bottom: 1px solid #66fcf1; }
+
+.chatContainer .usersList .MuiListItem-root:hover .avatar {
+  border-color: #fff;
+  color: #66fcf1; }
 
 .chatContainer .conversation {
   position: relative;

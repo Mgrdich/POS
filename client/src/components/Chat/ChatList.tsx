@@ -1,5 +1,7 @@
 import React from 'react';
-import {Avatar, Box, Divider, List, ListItem, ListItemAvatar, ListItemText, Paper} from "@material-ui/core";
+import {Avatar, Divider, List, ListItem, ListItemAvatar, ListItemText} from "@material-ui/core";
+import {useFetch} from "../Hooks/useFetch";
+import ComponentLoader from "../Reusable/ComponentLoader";
 
 const arr = [
     {
@@ -45,28 +47,32 @@ const arr = [
 ];
 
 const ChatList: React.FC = () => {
+    const {data, isLoading} = useFetch('/users');
+    console.log(data, isLoading);
     return (
         <>
             <div className="usersList">
-                <List>
-                    {
-                        arr.map((item, index) => {
-                            return (
-                                <>
-                                    <ListItem key={item.name}>
-                                        <ListItemAvatar>
-                                            <Avatar>
-                                                {item.name[0]}
-                                            </Avatar>
-                                        </ListItemAvatar>
-                                        <ListItemText primary={item.name} secondary={item.status}/>
-                                    </ListItem>
-                                    <Divider component="li"/>
-                                </>
-                            );
-                        })
-                    }
-                </List>
+                <ComponentLoader isLoading={isLoading}>
+                    <List>
+                        {
+                            data.tbody ? data.tbody.map((item: any, index: number) => {
+                                return (
+                                    <React.Fragment key={item._id}>
+                                        <ListItem>
+                                            <ListItemAvatar>
+                                                <Avatar className="avatar">
+                                                    {item.name[0]}
+                                                </Avatar>
+                                            </ListItemAvatar>
+                                            <ListItemText primary={item.name} secondary={item.role}/>
+                                        </ListItem>
+                                        <Divider component="li"/>
+                                    </React.Fragment>
+                                );
+                            }) : null
+                        }
+                    </List>
+                </ComponentLoader>
             </div>
         </>
     );

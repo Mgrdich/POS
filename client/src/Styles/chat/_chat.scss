@@ -19,6 +19,18 @@ $right-msg-bg: transparent;
   .usersList {
     height: 100%;
     overflow: hidden;
+    .MuiListItem-root {
+      cursor: pointer;
+      &:hover {
+        .avatar {
+          border-color: #fff;
+          color:$primary;
+        }
+        color:$primary;
+        border-top: 1px solid $primary;
+        border-bottom: 1px solid $primary;
+      }
+    }
   }
 
   .conversation {
