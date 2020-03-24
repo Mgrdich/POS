@@ -27,12 +27,26 @@
       padding: 0 10px;
     }
     .conversationBody {
-      height: 82%;
+      height: 84%;
       overflow: auto;
+      padding-top: 10px;
+      .message {
+        display: flex;
+        justify-content: flex-start;
+        &.left {
+          
+        }
+        &.right {
+          flex-direction: row-reverse;
+        }
+      }
     }
     .conversationFooter {
-      height: 10%;
+      height: 8%;
       border-top: 1px solid $primary;
+      button {
+        height: 100%;
+      }
     }
   }
   .chatInput {

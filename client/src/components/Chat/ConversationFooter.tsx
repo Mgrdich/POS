@@ -1,14 +1,17 @@
 import React from 'react';
 import Grid from "@material-ui/core/Grid";
 import {Box, Button, TextField} from "@material-ui/core";
-import Input from "@material-ui/core/Input";
 
 const ConversationFooter = () => {
     return (
         <div className="conversationFooter">
-            <Box px={2} pt={2}>
                 <Grid container direction="row" wrap="nowrap">
-                    <Input inputProps={{ 'aria-label': 'description' }} className="chatInpu"/>
+                    <TextField
+                        label="Search Contacts"
+                        id="outlined-size-small"
+                        variant="filled"
+                        size="medium"
+                    />
                     <Box px='2'>
                         <Button
                             color="primary"
@@ -18,7 +21,6 @@ const ConversationFooter = () => {
                         >Submit</Button>
                     </Box>
                 </Grid>
-            </Box>
         </div>
     );
 };

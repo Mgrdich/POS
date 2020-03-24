@@ -92,12 +92,23 @@
   padding: 0 10px; }
 
 .chatContainer .conversation .conversationBody {
-  height: 82%;
-  overflow: auto; }
+  height: 84%;
+  overflow: auto;
+  padding-top: 10px; }
+
+.chatContainer .conversation .conversationBody .message {
+  display: flex;
+  justify-content: flex-start; }
+
+.chatContainer .conversation .conversationBody .message.right {
+  flex-direction: row-reverse; }
 
 .chatContainer .conversation .conversationFooter {
-  height: 10%;
+  height: 8%;
   border-top: 1px solid #66fcf1; }
+
+.chatContainer .conversation .conversationFooter button {
+  height: 100%; }
 
 .chatContainer .chatInput .MuiInput-underline:after {
   border: 1px solid #66fcf1; }
