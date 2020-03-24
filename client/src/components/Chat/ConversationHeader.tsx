@@ -8,7 +8,7 @@ interface IConversationHeader {
 const ConversationHeader: React.FC<IConversationHeader> = (props) => {
     return (
         <div className="conversationHeader">
-            <Avatar>
+            <Avatar className="avatar">
                 {props.avatar}
             </Avatar>
         </div>

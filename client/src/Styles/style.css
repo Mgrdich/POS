@@ -12,6 +12,12 @@
 .FloatRight {
   float: right; }
 
+.MuiAvatar-colorDefault.avatar {
+  border: 1px solid #66fcf1;
+  background-color: transparent;
+  color: #fff;
+  font-weight: 600; }
+
 .toolBar {
   display: flex;
   align-items: center;
@@ -100,8 +106,47 @@
   display: flex;
   justify-content: flex-start; }
 
+.chatContainer .conversation .conversationBody .message .msg-bubble {
+  max-width: 450px;
+  padding: 15px;
+  border-radius: 15px;
+  background: transparent;
+  border: 1px solid #66fcf1; }
+
+.chatContainer .conversation .conversationBody .message .msg-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  color: #66fcf1; }
+
+.chatContainer .conversation .conversationBody .message .msg-info * {
+  color: #66fcf1; }
+
+.chatContainer .conversation .conversationBody .message .msg-info-name {
+  margin-right: 10px;
+  font-weight: bold; }
+
+.chatContainer .conversation .conversationBody .message .msg-info-time {
+  font-size: 0.85em; }
+
+.chatContainer .conversation .conversationBody .message.left .msg-bubble {
+  background: transparent;
+  color: #fff;
+  border-bottom-left-radius: 0; }
+
 .chatContainer .conversation .conversationBody .message.right {
   flex-direction: row-reverse; }
+
+.chatContainer .conversation .conversationBody .message.right .msg-bubble {
+  background-color: transparent;
+  border-bottom-right-radius: 0; }
+
+.chatContainer .conversation .conversationBody .message .text {
+  padding: 10px 10px;
+  border: 3px solid #66fcf1;
+  border-radius: 15%;
+  margin: 10px; }
 
 .chatContainer .conversation .conversationFooter {
   height: 8%;
