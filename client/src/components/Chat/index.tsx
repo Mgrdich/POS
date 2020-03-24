@@ -1,12 +1,16 @@
-import React from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import ChatList from "./ChatList";
 import ConversationBody from "./ConversationBody";
 import Grid from "@material-ui/core/Grid";
 import {Box, Button, Paper, TextField} from "@material-ui/core";
 import ConversationHeader from "./ConversationHeader";
 import ConversationFooter from "./ConversationFooter";
+import {useFetch} from "../Hooks/useFetch";
 
 const Chat: React.FC = () => {
+    const [filter,setFilter] = useState<string>('');
+    const {data:users, isLoading} = useFetch('/users');
+
     return (
         <>
             <div className="chatContainer">
@@ -24,14 +28,14 @@ const Chat: React.FC = () => {
                         <Paper className="chatGrid listItems">
                             <Box pt={3} px={1}>
                                 <TextField
-                                    label="Search Contacts"
+                                    label="Search Users"
                                     id="outlined-size-small"
-                                    defaultValue="Small"
                                     variant="outlined"
                                     size="small"
+                                    onChange={(e:ChangeEvent<HTMLInputElement>)=>setFilter(e.target.value)}
                                 />
                             </Box>
-                            <ChatList/>
+                            <ChatList filter={filter} data={users.tbody} isLoading={isLoading}/>
                         </Paper>
                     </Grid>
                 </Grid>
