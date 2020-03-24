@@ -1,8 +1,10 @@
 import React from 'react';
 import ChatList from "./ChatList";
-import Conversation from "./Conversation";
+import ConversationBody from "./ConversationBody";
 import Grid from "@material-ui/core/Grid";
-import {Box, Paper, TextField} from "@material-ui/core";
+import {Box, Button, Paper, TextField} from "@material-ui/core";
+import ConversationHeader from "./ConversationHeader";
+import ConversationFooter from "./ConversationFooter";
 
 const Chat: React.FC = () => {
     return (
@@ -11,16 +13,10 @@ const Chat: React.FC = () => {
                 <Grid container direction="row" spacing={1} style={{height: '100'}}>
                     <Grid item lg={10}>
                         <Paper className="chatGrid">
-                            <div className="chatInterface">
-                                <Conversation/>
-                                <Box px={2} pt={2}>
-                                    <TextField
-                                        label="Search Contacts"
-                                        id="outlined-size-small"
-                                        variant="outlined"
-                                        size="small"
-                                    />
-                                </Box>
+                            <div className="conversation">
+                                <ConversationHeader avatar="H"/>
+                                <ConversationBody/>
+                                <ConversationFooter/>
                             </div>
                         </Paper>
                     </Grid>

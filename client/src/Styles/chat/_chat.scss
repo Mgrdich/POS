@@ -14,8 +14,33 @@
     overflow: hidden;
   }
 
-  .chatInterface {
+  .conversation {
     position: relative;
+    height: 100%;
 
+    .conversationHeader {
+      height: 8%;
+      border:1px solid $primary;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10px;
+    }
+    .conversationBody {
+      height: 82%;
+      overflow: auto;
+    }
+    .conversationFooter {
+      height: 10%;
+      border-top: 1px solid $primary;
+    }
   }
+  .chatInput {
+    .MuiInput-underline {
+      &:after {
+        border:1px solid $primary;
+      }
+    }
+  }
+
 }
