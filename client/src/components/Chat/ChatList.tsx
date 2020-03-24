@@ -1,5 +1,5 @@
 import React from 'react';
-import {Avatar, Divider, List, ListItem, ListItemAvatar, ListItemText} from "@material-ui/core";
+import {Avatar, Box, Divider, List, ListItem, ListItemAvatar, ListItemText, Paper} from "@material-ui/core";
 
 const arr = [
     {
@@ -11,6 +11,30 @@ const arr = [
         status: 'working'
     },
     {
+        name: 'boghos',
+        status: 'working'
+    },
+    {
+        name: 'boghos',
+        status: 'working'
+    }, {
+        name: 'boghos',
+        status: 'working'
+    },
+    {
+        name: 'boghos',
+        status: 'working'
+    }, {
+        name: 'boghos',
+        status: 'working'
+    },
+    {
+        name: 'boghos',
+        status: 'working'
+    }, {
+        name: 'boghos',
+        status: 'working'
+    }, {
         name: 'boghos',
         status: 'working'
     },

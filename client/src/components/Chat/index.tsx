@@ -25,7 +25,7 @@ const Chat: React.FC = () => {
                         </Paper>
                     </Grid>
                     <Grid item lg={2}>
-                        <Paper className="chatGrid">
+                        <Paper className="chatGrid listItems">
                             <Box pt={3} px={1}>
                                 <TextField
                                     label="Search Contacts"

@@ -5,9 +5,13 @@
   }
   .chatGrid {
     height: 100%;
+    &.listItems {
+      overflow: auto;
+    }
   }
   .usersList {
     height: 100%;
+    overflow: hidden;
   }
 
   .chatInterface {
