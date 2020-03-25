@@ -15,6 +15,7 @@ import AddProduct from "./views/products";
 import ProductsGroup from "./views/products/products-group";
 import {Roles, RoleType} from "./roles";
 import Profile from "./views/profile";
+import Pos from "./views/pos";
 
 const HL_Dashboard = HeaderFooterLayout(Dashboard);
 const HL_CreateUser = HeaderFooterLayout(CreateUsers);
@@ -31,6 +32,7 @@ const Routes:React.FC = () => {
         <>
             <Switch>
                 <PrivateRoute exact path='/chat' component={Error}/>
+                <PrivateRoute exact path={['/pos','/pos/index']} component={Pos}/>
                 <PrivateRoute exact path={['/','/dashboard']} component={HL_Dashboard}/>
                 <PrivateRoute exact path={['/products','/product/index']} component={HL_AddProduct}/>
                 <PrivateRoute exact path={'/products/products-group'} component={HL_ProductsGroup}/>
