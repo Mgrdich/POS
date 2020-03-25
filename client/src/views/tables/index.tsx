@@ -45,7 +45,6 @@ const CreateEditTables = () => {
                 setRefetch((prev:boolean) => !prev );
                 reset();
                 resetServerError();
-                console.log('successfully created', res.data.message);
             }).catch(function (e: any) {
             if (!e.response.data) {
                 console.error("No Response is found");
@@ -75,8 +74,7 @@ const CreateEditTables = () => {
             .then(function (res: IAlertAxiosResponse) {
                 setRefetch((prev:boolean) => !prev );
                 handleClose();
-                console.log('updated successfully');
-
+                setAlert(res.data,{alertQuestion: false, alert: true});
             }).catch(function (e: any) {
             if (!e.response.data) {
                 console.error("No Response is found");
