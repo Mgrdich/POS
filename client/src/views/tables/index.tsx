@@ -32,7 +32,7 @@ const CreateEditTables = () => {
     });
 
     const [serverError, setterError, resetServerError] = useServerErrorHandle();
-    const {tbody, thead, keys, isLoading} = useTable('/tables');
+    const {tbody, thead, keys, isLoading, setRefetch} = useTable('/tables');
     const [rows, setRows, deletedId, changeDeletedId] = useTableBody(isLoading, tbody);
     const {alertMessage, setOpenAlert, openAlert, setAlert, alertType} = useAlert();
     const [open, handleClickOpen, handleClose] = useModule();
@@ -42,6 +42,7 @@ const CreateEditTables = () => {
     const onSubmit = function (values: any): void {
         axios.put('/tables', values)
             .then(function (res: IAlertAxiosResponse) {
+                setRefetch((prev:boolean) => !prev );
                 reset();
                 resetServerError();
                 console.log('successfully created', res.data.message);
@@ -72,6 +73,7 @@ const CreateEditTables = () => {
     const onEdit = function (values: any): void {
         axios.put(`/tables/${deletedId}`, values)
             .then(function (res: IAlertAxiosResponse) {
+                setRefetch((prev:boolean) => !prev );
                 handleClose();
                 console.log('updated successfully');
 
