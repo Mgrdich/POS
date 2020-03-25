@@ -75,6 +75,7 @@ const Users: React.FC = () => {
                             message='You can create users by clicking on the button below'
                             translation='Create user'
                             location='/users/create-user'
+                            button={true}
                         />)
                     }
                 </ComponentLoader>
