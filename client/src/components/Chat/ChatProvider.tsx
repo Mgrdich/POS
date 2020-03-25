@@ -7,6 +7,7 @@ const ChatProvider:React.FC = (props) => { //tODO types to useReducer
     const [state,dispatch] = useReducer<any>(ChatDataReducer,{
         users:[],
         user:null,
+        messages:[],
         isLoading:true
     });
 

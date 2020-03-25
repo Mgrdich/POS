@@ -15,7 +15,8 @@ export function socketEvents(io) {
         });
 
         socket.on('new message', function (conversation) {
-            io.sockets.in(conversation).emit('refresh messages', conversation);
+            console.log("finally",conversation);
+            // io.sockets.in(conversation).emit('refresh messages', conversation);
         });
 
         socket.on('disconnect', function() {

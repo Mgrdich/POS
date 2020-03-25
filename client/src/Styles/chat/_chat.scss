@@ -46,6 +46,7 @@ $right-msg-bg: transparent;
       padding: 0 10px;
       >div {
         display: flex;
+        align-items: center;
         .email {
           color:#fff;
           font-weight: 500;
