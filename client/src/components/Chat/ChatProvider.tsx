@@ -3,10 +3,10 @@ import {ChatDataReducer} from "./ChatReducers";
 
 export const ChatContext = createContext<Array<any>>([]);
 
-const ChatProvider:React.FC = (props) => {
+const ChatProvider:React.FC = (props) => { //tODO types to useReducer
     const [state,dispatch] = useReducer<any>(ChatDataReducer,{
         users:[],
-        user:{},
+        user:null,
         isLoading:true
     });
 

@@ -1,6 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Avatar, Divider, List, ListItem, ListItemAvatar, ListItemText} from "@material-ui/core";
 import ComponentLoader from "../Reusable/ComponentLoader";
+import {ChatContext} from "./ChatProvider";
+import {CHAT_ACTIONS} from "./ActionsConfig";
 
 interface IChatList {
     filter: string;
@@ -11,6 +13,7 @@ interface IChatList {
 const ChatList: React.FC<IChatList> = (props) => {
     const {filter, data: users, isLoading} = props;
     const [data, setData] = useState<Array<any>>();
+    const [state,dispatch] = useContext(ChatContext);
 
     useEffect(function () {
         if (!isLoading) {
@@ -37,7 +40,7 @@ const ChatList: React.FC<IChatList> = (props) => {
                             data ? data.map((item: any, index: number) => {
                                 return (
                                     <React.Fragment key={item._id}>
-                                        <ListItem>
+                                        <ListItem onClick={()=>dispatch({type:CHAT_ACTIONS.SET_USER,payload:item})}>
                                             <ListItemAvatar>
                                                 <Avatar className="avatar">
                                                     {item.name[0]}

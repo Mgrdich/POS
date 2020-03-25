@@ -5,7 +5,12 @@ export const ChatDataReducer = function (state: any, action: any) {
         case CHAT_ACTIONS.SET_USER:
             return {
                 ...state,
-                user: {name:'boghos'},
+                user: action.payload,
+            };
+        case CHAT_ACTIONS.SET_USERS:
+            return {
+                ...state,
+                user: action.payload,
             };
         default:
             throw new Error();

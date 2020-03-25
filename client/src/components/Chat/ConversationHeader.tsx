@@ -2,18 +2,16 @@ import React, {useContext} from 'react';
 import {Avatar} from "@material-ui/core";
 import {ChatContext} from "./ChatProvider";
 
-interface IConversationHeader {
-    avatar: string;
-}
 
-const ConversationHeader: React.FC<IConversationHeader> = (props) => {
+const ConversationHeader: React.FC = () => {
     const [state,dispatch] = useContext(ChatContext);
-    console.log(state);
+    const {user} = state;
     return (
         <div className="conversationHeader">
             <Avatar className="avatar">
-                {props.avatar}
+                {user.name[0]}
             </Avatar>
+
         </div>
     );
 };
