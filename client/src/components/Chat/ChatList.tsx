@@ -23,7 +23,7 @@ const ChatList: React.FC<IChatList> = (props) => {
             if (filter === '') {
                 return setData(users);
             }
-            const filteredUsers = users.filter((item:any)=>item.name === filter); //more nice filter 
+            const filteredUsers:Array<any> = users.filter((item: any) => item.name.includes(filter)); //more nice filter
             setData(filteredUsers);
         }
     }, [filter, isLoading]);
