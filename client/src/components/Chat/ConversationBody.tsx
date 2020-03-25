@@ -3,6 +3,7 @@ import Message from "./Message";
 
 const ConversationBody:React.FC = () => {
 
+    //FETCHING the Messages
     return (
         <div className="conversationBody">
             <Message  position="left"/>

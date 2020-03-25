@@ -4,14 +4,16 @@ import {ChatContext} from "./ChatProvider";
 
 
 const ConversationHeader: React.FC = () => {
-    const [state,dispatch] = useContext(ChatContext);
+    const [state, dispatch] = useContext(ChatContext);
     const {user} = state;
     return (
         <div className="conversationHeader">
-            <Avatar className="avatar">
-                {user.name[0]}
-            </Avatar>
-
+            <div>
+                <Avatar className="avatar">
+                    {user.name[0]}
+                </Avatar>
+                <span className="email">{user.email}</span>
+            </div>
         </div>
     );
 };

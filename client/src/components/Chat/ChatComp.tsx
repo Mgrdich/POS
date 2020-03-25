@@ -11,7 +11,7 @@ import {ChatContext} from "./ChatProvider";
 const ChatComp: React.FC = () => {
     const [filter, setFilter] = useState<string>('');
     const {data: users, isLoading} = useFetch('/users');
-    const [state, dispatch] = useContext(ChatContext);
+    const [state] = useContext(ChatContext);
 
 
     return (
