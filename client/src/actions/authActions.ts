@@ -24,6 +24,11 @@ export const loginUser: ActionCreator<ThunkAction<void, any, any, AnyAction>> = 
     //decode the token
     const decoded = jwt_decode(token);
     dispatch(setCurrentUser(decoded));
+
+    //socket connection
+
+
+
     history.push('/dashboard');
 };
 

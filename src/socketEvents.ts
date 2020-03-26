@@ -1,7 +1,16 @@
 export function socketEvents(io) {
     // Set socket.io listeners.
     io.on('connection', function(socket) {
-        console.log('a user connected');
+
+        console.log("connected");
+        let userId:string;
+        socket.on('auth',function (id) {
+            userId = id;
+        });
+
+        socket.on('logout',function () {
+
+        });
 
         // On conversation entry, join broadcast channel
         socket.on('enter conversation', function (conversation) {
@@ -16,7 +25,7 @@ export function socketEvents(io) {
 
         socket.on('new message', function (conversation) {
             console.log("finally",conversation);
-            // io.sockets.in(conversation).emit('refresh messages', conversation);
+            io.sockets.emit('refresh messages', conversation,new Date().toLocaleDateString());
         });
 
         socket.on('disconnect', function() {

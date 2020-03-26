@@ -1,15 +1,13 @@
 import React, {useEffect} from 'react';
 import Message from "./Message";
-import io from "socket.io-client";
-
-const socket = io();
+import {socket} from "../../App";
 
 const ConversationBody:React.FC = () => {
 
     useEffect(function () {
-        return () => {
-
-        }
+        socket.on('refresh messages',function (message:any,date:any) {
+            console.log(message,date);
+        });
     },[]);
 
     //FETCHING the Messages

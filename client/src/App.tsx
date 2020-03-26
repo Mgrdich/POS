@@ -11,6 +11,7 @@ import {theme} from "./theme";
 import { ThemeProvider} from '@material-ui/styles';
 import {CssBaseline} from "@material-ui/core";
 import "../src/Styles/style.scss";
+import io from "socket.io-client";
 
 if (localStorage.token) {
     // Set auth token header auth
@@ -30,7 +31,11 @@ if (localStorage.token) {
     }
 }
 
+export const socket = io();
+
 const App: React.FC = () => {
+
+
     return (
         <>
             <ThemeProvider theme={theme}>

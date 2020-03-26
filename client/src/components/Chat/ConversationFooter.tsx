@@ -3,9 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import {Box, Button, TextField} from "@material-ui/core";
 import {ChatContext} from "./ChatProvider";
 import {CHAT_ACTIONS} from "./ActionsConfig";
-import io from "socket.io-client";
-
-const socket = io();
+import {socket} from "../../App";
 
 const ConversationFooter:React.FC = () => {
     const [state, dispatch] = useContext(ChatContext);
