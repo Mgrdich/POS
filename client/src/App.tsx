@@ -18,10 +18,16 @@ export const socket = io();
 if (localStorage.token) {
     // Set auth token header auth
     setAuthToken(localStorage.token);
+
     // Decode token and get user info and exp
     const decoded: any = jwt_decode(localStorage.token);
+
+    //socket auth
+    socket.emit('auth',decoded.id);
+
     // Set user and isAuthenticated
     store.dispatch(setCurrentUser(decoded));
+
     // Check for expired token
     const currentTime = Date.now() / 1000;
     if (decoded.exp < currentTime) {

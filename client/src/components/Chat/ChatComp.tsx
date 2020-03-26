@@ -18,7 +18,7 @@ const ChatComp: React.FC = () => {
         <>
             <div className="chatContainer">
                 <Grid container direction="row" spacing={1} style={{height: '100'}}>
-                    <Grid item lg={10}>
+                    <Grid item md={10} sm={8}>
                         <Paper className="chatGrid">
                             {state.user ? (<div className="conversation">
                                 <ConversationHeader/>
@@ -27,7 +27,7 @@ const ChatComp: React.FC = () => {
                             </div>) : null}
                         </Paper>
                     </Grid>
-                    <Grid item lg={2}>
+                    <Grid item md={2} sm={4}>
                         <Paper className="chatGrid listItems">
                             <Box pt={3} px={1}>
                                 <TextField

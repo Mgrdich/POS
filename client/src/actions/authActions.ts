@@ -8,6 +8,7 @@ import {socket} from "../App";
 
 type action = ActionCreator<Action>;
 
+
 export const setCurrentUser: action = function (decoded: any) {
     return {
         type: SET_CURRENT_USER,
@@ -27,10 +28,11 @@ export const loginUser: ActionCreator<ThunkAction<void, any, any, AnyAction>> = 
 
     //decode the token
     const decoded:any = jwt_decode(token);
-    dispatch(setCurrentUser(decoded));
 
     //socket connection
     socket.emit('auth',decoded.id);
+
+    dispatch(setCurrentUser(decoded));
 
     history.push('/dashboard');
 };

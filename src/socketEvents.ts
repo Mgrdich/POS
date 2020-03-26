@@ -2,8 +2,8 @@ export function socketEvents(io) {
     // Set socket.io listeners.
     io.on('connection', function(socket) {
 
-        console.log("connected");
         let userId:string;
+
         socket.on('auth',function (id) {
             userId = id;
         });
