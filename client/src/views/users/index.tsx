@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import TabPanel from "../../components/Reusable/TabPanel";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
@@ -75,6 +75,7 @@ const Users: React.FC = () => {
                             message='You can create users by clicking on the button below'
                             translation='Create user'
                             location='/users/create-user'
+                            button={true}
                         />)
                     }
                 </ComponentLoader>

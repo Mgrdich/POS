@@ -15,6 +15,8 @@ import AddProduct from "./views/products";
 import ProductsGroup from "./views/products/products-group";
 import {Roles, RoleType} from "./roles";
 import Profile from "./views/profile";
+import Pos from "./views/pos";
+import PosTable from "./views/pos/PosTable";
 import Chat from "./components/Chat";
 
 const HL_Dashboard = HeaderFooterLayout(Dashboard);
@@ -32,6 +34,8 @@ const Routes:React.FC = () => {
     return (
         <>
             <Switch>
+                <PrivateRoute exact path={'/pos'} component={Pos}/>
+                <PrivateRoute exact path={'/pos/:id'} component={PosTable}/>
                 <PrivateRoute exact path={['/','/dashboard']} component={HL_Dashboard}/>
                 <PrivateRoute exact path={['/products','/product/index']} component={HL_AddProduct}/>
                 <PrivateRoute exact path={'/products/products-group'} component={HL_ProductsGroup}/>

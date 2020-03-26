@@ -106,4 +106,5 @@ export interface ICardMessage {
     message?:string;
     translation?:string;
     location?:string;
+    button?:boolean;
 }

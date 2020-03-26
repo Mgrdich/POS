@@ -6,7 +6,7 @@ import {ICardMessage} from "../../interfaces/Reusable";
 
 const CardMessage : React.FC<ICardMessage>= (props) => {
 
-    const {header, message, translation, location} = props;
+    const {header, message, translation, location, button} = props;
     const history = useHistory();
 
     return (
@@ -28,9 +28,9 @@ const CardMessage : React.FC<ICardMessage>= (props) => {
                     {message}
                 </Typography>
 
-                <CardActions>
+               {button ? <CardActions>
                     <Button  variant="outlined" color='primary' onClick={() => history.push(`${location}`)}>{translation}</Button>
-                </CardActions>
+                </CardActions> : null}
                 </Box>
             </CardContent>
         </Card>
