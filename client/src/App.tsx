@@ -13,6 +13,8 @@ import {CssBaseline} from "@material-ui/core";
 import "../src/Styles/style.scss";
 import io from "socket.io-client";
 
+export const socket = io();
+
 if (localStorage.token) {
     // Set auth token header auth
     setAuthToken(localStorage.token);
@@ -30,8 +32,6 @@ if (localStorage.token) {
         window.location.href = '/login';
     }
 }
-
-export const socket = io();
 
 const App: React.FC = () => {
 
