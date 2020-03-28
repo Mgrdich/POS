@@ -10,10 +10,12 @@ import {alert} from "../utilities/controllers/messages";
 import {messageAlert} from "../interfaces/util";
 import {tableDataNormalize} from "../utilities/reformaters";
 import {GET_PRODUCTS_GROUP_TABLE} from "../utilities/tables/constants";
+import {IDocProducts} from "../interfaces/models/Products";
+import {Products} from "../models/Products";
 
 export async function getProductsGroups(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-        let productsGroups: Array<IDocProductsGroups> | IDocProductsGroups = await ProductsGroups.find({});
+        let productsGroups: Array<IDocProductsGroups> | IDocProductsGroups = await ProductsGroups.find({name:{$ne:"All"}});
         if (productsGroups.length) {
             const tableFormProductsGroups = tableDataNormalize(productsGroups,GET_PRODUCTS_GROUP_TABLE); //TODO add interface
             return res.status(200).json(tableFormProductsGroups);
@@ -61,6 +63,15 @@ export async function editProductsGroup(req: myRequest, res: Response, next: Nex
             errorThrower("Validation Failed", 422, errors.mapped());
         }
 
+        const {name} = req.body;
+        const currentProductsGroup: IDocProductsGroups = await ProductsGroups.findById(req.params.id); //TODO general solution for param
+        if(!currentProductsGroup) {
+            errorThrower(NO_SUCH_DATA_EXISTS, 422);
+        }
+        currentProductsGroup.name = name;
+        currentProductsGroup.modifiedBy.push({"_id": req.user._id,modifiedDate: new Date()});
+        await currentProductsGroup.save(); //TODO whether save was a success
+        alert(res,200,messageAlert.success,'Product element has been edited');
     } catch (err) {
         errorCatcher(next,err);
     }
@@ -75,7 +86,7 @@ export async function deleteProductsGroup(req: Request, res: Response, next: Nex
         }
 
         const response = await ProductsGroups.deleteProductsGroupById(req.params.id);
-        if(response.ok) {
+        if(response.length>=2) {
             alert(res,200,messageAlert.success,'Product Group is deleted')
         }
     } catch (err) {

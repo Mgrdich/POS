@@ -1,6 +1,6 @@
 import * as express from "express";
 import {addProduct, deleteProduct, editProduct, getProduct, getProducts} from "../controllers/products";
-import {addProductValidation, deleteProductsValidation, editProductValidation} from "../validations/products";
+import {addProductValidation, editProductValidation} from "../validations/products";
 import {paramIdValidation} from "../validations/General";
 
 const router = express.Router();

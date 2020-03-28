@@ -82,8 +82,8 @@ export async function deleteProduct(req: Request, res: Response, next: NextFunct
         }
 
         const product = await Products.findOne({_id:req.params.id});
-        const respnose = await product.deleteProductById();
-        if (respnose[0].ok  && respnose[1].ok) {
+        const res = await product.deleteProductById();
+        if (res[0].ok  && res[1].ok) {
             alert(res,200,messageAlert.success,ITEM_DELETED);
         } else {
             alert(res,304,messageAlert.success,NOT_MODIFIED)

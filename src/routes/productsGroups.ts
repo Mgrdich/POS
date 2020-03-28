@@ -6,7 +6,11 @@ import {
     getProductsGroup,
     getProductsGroups
 } from "../controllers/productsGroups";
-import {addProductsGroupValidation, deleteProductsGroupValidation} from "../validations/productGroups";
+import {
+    addProductsGroupValidation,
+    deleteProductsGroupValidation,
+    editProductsGroupValidation
+} from "../validations/productGroups";
 import {paramIdValidation} from "../validations/General";
 
 const router = express.Router();
@@ -18,7 +22,7 @@ router.get('/:id', paramIdValidation ,getProductsGroup);
 
 router.put('/', addProductsGroupValidation,addProductsGroup);
 
-router.put('/:id', editProductsGroup); //TODO should be continued
+router.put('/:id', editProductsGroupValidation,editProductsGroup); //TODO should be continued
 
 router.delete('/:id', deleteProductsGroupValidation,deleteProductsGroup);
 
