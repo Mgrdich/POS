@@ -1,21 +1,21 @@
 import * as mongoose from 'mongoose';
 import {Schema} from "mongoose";
+import {IDocChat, IModelChat} from "../interfaces/models/Chat";
 
 const chatSchema = new Schema({
     messages: [
-        {
-            _id: { //message id
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Messages'
-            }
+        { //message id
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Messages'
         }
     ],
-    participant: [{
-        type: mongoose.Schema.Types.ObjectId,
+    participants: [{
+        type: mongoose.Schema.Types.ObjectId, //in this case 2
         ref: 'Users'
     }],
-    participantGroup: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Users'
-    }
-});
+}, {timestamps: true});
+
+const Chats: IModelChat = mongoose.model<IDocChat, IModelChat>('Chats', chatSchema);
+
+export {Chats};
+

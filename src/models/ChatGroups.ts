@@ -11,6 +11,12 @@ const chatGroupsSchema = new Schema({
         ref: 'Users',
         required: true
     },
+    messages: [
+        { //message id
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Messages'
+        }
+    ],
     admins: [{
         type: Schema.Types.ObjectId,
         ref: 'Users',
