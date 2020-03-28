@@ -75,7 +75,7 @@ export async function deleteProductsGroup(req: Request, res: Response, next: Nex
         }
 
         const response = await ProductsGroups.deleteProductsGroupById(req.params.id);
-        if(response.ok) {
+        if(response.length>=2) {
             alert(res,200,messageAlert.success,'Product Group is deleted')
         }
     } catch (err) {
