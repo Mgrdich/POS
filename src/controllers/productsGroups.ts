@@ -13,7 +13,7 @@ import {GET_PRODUCTS_GROUP_TABLE} from "../utilities/tables/constants";
 
 export async function getProductsGroups(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-        let productsGroups: Array<IDocProductsGroups> | IDocProductsGroups = await ProductsGroups.find({});
+        let productsGroups: Array<IDocProductsGroups> | IDocProductsGroups = await ProductsGroups.find({name:{$ne:"All"}});
         if (productsGroups.length) {
             const tableFormProductsGroups = tableDataNormalize(productsGroups,GET_PRODUCTS_GROUP_TABLE); //TODO add interface
             return res.status(200).json(tableFormProductsGroups);

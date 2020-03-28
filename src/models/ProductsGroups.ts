@@ -11,10 +11,8 @@ const productGroupSchema: Schema = new Schema({
     },
     products: [
         {
-            product: {
-                type: Schema.Types.ObjectId,
-                ref: 'Products',
-            },
+            type: Schema.Types.ObjectId,
+            ref: 'Products',
         }
     ],
     createdBy: { //TODO created edit properties should be refactored
@@ -32,29 +30,26 @@ const productGroupSchema: Schema = new Schema({
             }
         }
     ],
-},{timestamps:true});
+}, {timestamps: true});
 
 
-productGroupSchema.statics.removeProdFrmProdGrp = function (productId:IDocProducts["_id"],groupId:IDocProductsGroups["_id"]) {
-    return ProductsGroups.updateOne({_id: groupId},{$pull:{products:{"_id":productId}}})
+productGroupSchema.statics.removeProdFrmProdGrp = function (productId: IDocProducts["_id"], groupId: IDocProductsGroups["_id"]) {
+    return ProductsGroups.updateOne({_id: groupId}, {$pull: {products: {"_id": productId}}})
 };
 
-productGroupSchema.statics.deleteProductsGroupById = async function (productsGroupID:IDocProductsGroups["_id"]):Promise<any>  {
-    let toBeDeletedProductGroup:IDocProductsGroups = await this.findOne({_id:productsGroupID});
-    let productGroupAll:IDocProductsGroups  = await this.findOne({name:'All'});
-    if(!productGroupAll) { //TODO check this case
-        return new Promise<any>(function () {
-         console.error("do this case");
-        });
+productGroupSchema.statics.deleteProductsGroupById = async function (productsGroupID: IDocProductsGroups["_id"]): Promise<any> {
+    let toBeDeletedProductGroup: IDocProductsGroups = await this.findOne({_id: productsGroupID});
+    let productGroupAll: IDocProductsGroups = await this.findOne({name: 'All'});
+    if (!productGroupAll) {
+        productGroupAll = new this({name:"All"});
     }
-
-    productGroupAll.products.push(...toBeDeletedProductGroup.products);
-    let q1:Promise<any> = toBeDeletedProductGroup.remove();
-    let q2:Promise<any> = productGroupAll.save();
-    return Promise.all([q1,q2]);
+    productGroupAll.products.push(...toBeDeletedProductGroup.products); //should be filtered
+    let q1: Promise<any> = toBeDeletedProductGroup.remove();
+    let q2: Promise<any> = productGroupAll.save();
+    return Promise.all([q1, q2]);
 
 };
 
-const ProductsGroups:IModelProductsGroups = mongoose.model<IDocProductsGroups,IModelProductsGroups>('ProductsGroups', productGroupSchema);
+const ProductsGroups: IModelProductsGroups = mongoose.model<IDocProductsGroups, IModelProductsGroups>('ProductsGroups', productGroupSchema);
 
 export {ProductsGroups};
