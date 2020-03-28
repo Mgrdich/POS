@@ -41,6 +41,7 @@ const AddProduct: React.FC = () => {
         axios.put('/products', values)
             .then(function (res: IAlertAxiosResponse) {
                 reset();
+                setRefetch((prev: boolean) => !prev);
                 resetServerError();
                 console.log('successfully created', res.data.message);
             }).catch(function (e: any) {
