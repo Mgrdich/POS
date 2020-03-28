@@ -13,7 +13,6 @@ import {
     productGroupInputField,
     productGroupValSchema
 } from "./config";
-import {addProductInputField, editProductInputField, editProductValSchema} from "../config";
 import {useTable} from "../../../components/Hooks/useTable";
 import {useTableBody} from "../../../components/Hooks/useTableBody";
 import {useAlert} from "../../../components/Hooks/useAlert";
@@ -99,33 +98,37 @@ const ProductsGroup: React.FC = () => {
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Grid container direction="row" spacing={1}>
-                    <DynamicFields
-                        InputFields={productGroupInputField}
-                        register={register}
-                        errors={errors}
-                        control={control}
-                        serverError={serverError}
-                        Component={Grid}
-                        ComponentProps={
-                            {
-                                item: true,
-                                xs: 12,
-                                sm: 6,
-                                md: 4,
-                                lg: 3,
+                <Grid container direction="column" spacing={1}>
+                    <Grid container direction="row" spacing={1}>
+                        <DynamicFields
+                            InputFields={productGroupInputField}
+                            register={register}
+                            errors={errors}
+                            control={control}
+                            serverError={serverError}
+                            Component={Grid}
+                            ComponentProps={
+                                {
+                                    item: true,
+                                    xs: 12,
+                                    sm: 6,
+                                    md: 4,
+                                    lg: 3,
+                                }
                             }
-                        }
-                    />
+                        />
 
+                    </Grid>
+                    <Grid item container direction="row-reverse" xs={12}>
+                        <Button
+                            color="primary"
+                            variant="contained"
+                            size="large"
+                            className="FloatRight"
+                            type="submit"
+                        >Submit</Button>
+                    </Grid>
                 </Grid>
-                <Button
-                    color="primary"
-                    variant="contained"
-                    size="large"
-                    className="FloatRight"
-                    type="submit"
-                >Submit</Button>
             </form>
             <ComponentLoader isLoading={isLoading}>
                 {rows.length && !isLoading
