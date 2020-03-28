@@ -13,5 +13,5 @@ export interface IDocMessage extends Document, IMessage {
 
 export interface IModelMessage extends Model<IDocMessage> {
     //here we declare the statics
-    addMessage: (message:string,userId:IDocUsers["_id"]) => Promise<any>;
+    add: (userId:IDocUsers["_id"],message:string) => Promise<any>;
 }

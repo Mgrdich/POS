@@ -24,8 +24,7 @@ export function socketEvents(io) {
         });
 
         socket.on('new message', function (conversation) {
-            console.log(userId);
-            console.log("finally",conversation);
+
             io.sockets.emit('refresh messages', conversation,new Date().toLocaleDateString());
         });
 
