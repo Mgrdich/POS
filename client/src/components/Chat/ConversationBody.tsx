@@ -5,8 +5,8 @@ import {socket} from "../../App";
 const ConversationBody:React.FC = () => {
 
     useEffect(function () {
-        socket.on('refresh messages',function (message:any,date:any) {
-            console.log(message,date);
+        socket.on('refresh messages',function (message:any) {
+            console.log(message);
         });
     },[]);
 

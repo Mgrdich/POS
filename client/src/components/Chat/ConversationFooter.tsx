@@ -9,9 +9,9 @@ const ConversationFooter:React.FC = () => {
     const [state, dispatch] = useContext(ChatContext);
     const [value,setValue] = useState<string>('');
 
-    const sendMessage = function () {
+    const sendMessage = function ():void {
         dispatch({type:CHAT_ACTIONS.SET_MESSAGE,payload:value});
-        socket.emit('new message',{message:value});
+        socket.emit('new message',{text:value,to:state.user._id});
         setValue('');
     };
 
