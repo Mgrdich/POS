@@ -7,7 +7,7 @@ const Pos = () => {
         <Grid className="pos-tables" container direction="row" justify="space-around" alignContent="flex-start" wrap='wrap'>
             {data.map((table)=>(
                 <Grid className="tables" item key={table.id}>
-                    <h1>{table.number}</h1>
+                    <span>{table.number}</span>
                 </Grid>
             ))}
         </Grid>

@@ -158,13 +158,12 @@ section.content h1 {
   width: 250px;
   height: 125px;
   border: 1px solid #66fcf1;
-  flex-shrink: 1;
   margin-top: 20px;
   background-color: #1f2833;
   display: flex;
-  justify-content: center;
-  align-items: center; }
+  align-items: center;
+  justify-content: center; }
 
-.pos-tables .tables h1 {
+.pos-tables .tables span {
   color: #66fcf1;
   font-size: 40px; }
