@@ -71,8 +71,8 @@ const NestedMenuList: React.FC<INestedMenuList> = ({menuOpen}) => {
       >
         {drawerRoutes.map((route: IDrawerRoute, index: number) => {
           return route.location ? (
-              <AuthorizationElem  allowedRoles={route.role}>
-              <ListItem key={index} button onClick={() => route.location ? handleRoutes(route.location) : null}>
+              <AuthorizationElem key={index} allowedRoles={route.role}>
+              <ListItem  button onClick={() => route.location ? handleRoutes(route.location) : null}>
                 <ListItemIcon>
                   <route.icon/>
                 </ListItemIcon>
