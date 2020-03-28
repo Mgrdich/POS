@@ -34,7 +34,7 @@ const productGroupSchema: Schema = new Schema({
 
 
 productGroupSchema.statics.removeProdFrmProdGrp = function (productId: IDocProducts["_id"], groupId: IDocProductsGroups["_id"]) {
-    return ProductsGroups.updateOne({_id: groupId}, {$pull: {products: {"_id": productId}}})
+    return ProductsGroups.updateOne({_id: groupId}, {$pull: {products: productId}})
 };
 
 productGroupSchema.statics.deleteProductsGroupById = async function (productsGroupID: IDocProductsGroups["_id"]): Promise<any> {
