@@ -150,3 +150,21 @@ section.content h1 {
   font-size: 25px;
   color: #66fcf1;
   margin-top: 0; }
+
+.pos-tables {
+  height: 100vh; }
+
+.pos-tables .tables {
+  width: 250px;
+  height: 125px;
+  border: 1px solid #66fcf1;
+  flex-shrink: 1;
+  margin-top: 20px;
+  background-color: #1f2833;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.pos-tables .tables h1 {
+  color: #66fcf1;
+  font-size: 40px; }

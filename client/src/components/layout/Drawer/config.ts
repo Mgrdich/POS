@@ -6,6 +6,7 @@ import CreateIcon from '@material-ui/icons/Create';
 import AddIcon from '@material-ui/icons/Add';
 import InboxIcon from '@material-ui/icons/Inbox';
 import GroupWorkIcon from '@material-ui/icons/GroupWork';
+import ChatIcon from '@material-ui/icons/Chat';
 import {ComponentType} from "react";
 import {IDrawerRoute} from "../../../interfaces/layout/Drawer";
 import {Roles, RoleType} from "../../../roles";
@@ -72,7 +73,14 @@ export const drawerRoutes: Array<IDrawerRoute> = [
                 role: [Roles.SuperAdmin, Roles.Admin],
             },
 
+
         ]
+    },
+    {
+        icon:ChatIcon,
+        translation: "Chat",
+        location:'/chat',
+        role: [Roles.SuperAdmin, Roles.Admin],
     }
 
 ];
