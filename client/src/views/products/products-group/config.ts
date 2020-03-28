@@ -16,9 +16,19 @@ export const productGroupInputField: Array<IProductGroup> = [
         placeholder: 'Product group name',
     }
 ];
+export const editProductGroupInputField: Array<IProductGroup> = [
+    {
+        name: 'name',
+        placeholder: 'Product group name',
+    }
+];
 
 
 
 export const productGroupValSchema = yup.object().shape({
+    name: yup.string().required(),
+});
+
+export const editProductGroupValSchema = yup.object().shape({
     name: yup.string().required(),
 });
