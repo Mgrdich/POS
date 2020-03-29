@@ -13,7 +13,6 @@ import {GET_USERS_TABLE} from "../utilities/tables/constants";
 import {SECRET_KEY} from "../config/keys";
 import {ROLES_PRIORITY} from "../roles";
 import {ITEM_DELETED, NOT_MODIFIED} from "../utilities/constants/messages";
-import {childOfKind} from "tslint";
 
 async function register(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {

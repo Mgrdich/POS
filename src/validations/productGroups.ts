@@ -14,7 +14,7 @@ export const editProductsGroupValidation: Array<any> =  [
 
 export const deleteProductsGroupValidation: Array<any> = [
     param('id')
-        .custom(function (value, {req}) {
+        .custom(function (value) {
             return ProductsGroups.findOne({_id: value}).then(function (productsGroup: IProductsGroups) {
                 if (!productsGroup) {
                     return Promise.reject("Product Group is not Found");

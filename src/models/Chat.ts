@@ -24,7 +24,7 @@ chatSchema.statics.add = async function (sender: IDocUsers["id"], receiver: IDoc
     const {_id: messageId}: IDocMessage = await Messages.add(sender, message);
     let chat: IDocChat;
     try {
-        chat = await this.findOne({participants: {$in: [sender, receiver]}});
+        chat = await this.findOne({participants: {$all: [sender, receiver]}});
     } catch (e) {
         console.log(e);
     }

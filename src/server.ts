@@ -58,7 +58,7 @@ app.use('/products-group', productsGroups);
 //TODO after this only admin super admin role
 app.use('/orders', orders);
 
-app.use('chat',chat);
+app.use('/chat',chat);
 
 //errors
 app.use(function (err: ImyError, req: Request, res: Response, next: NextFunction) {
