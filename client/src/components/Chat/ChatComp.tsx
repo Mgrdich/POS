@@ -10,7 +10,7 @@ import {ChatContext} from "./ChatProvider";
 
 const ChatComp: React.FC = () => {
     const [filter, setFilter] = useState<string>('');
-    const {data: users, isLoading} = useFetch('/users');
+    const {data: users, isLoading} = useFetch('/users/chat');
     const [state] = useContext(ChatContext);
 
 
@@ -38,7 +38,7 @@ const ChatComp: React.FC = () => {
                                     onChange={(e: ChangeEvent<HTMLInputElement>) => setFilter(e.target.value)}
                                 />
                             </Box>
-                            <ChatList filter={filter} data={users.tbody} isLoading={isLoading}/>
+                            <ChatList filter={filter} data={users} isLoading={isLoading}/>
                         </Paper>
                     </Grid>
                 </Grid>

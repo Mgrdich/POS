@@ -26,9 +26,9 @@ export async function getOrder(req: Request, res: Response, next: NextFunction):
 
 export async function getOrders(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-        let order: IDocOrders = await Orders.findById(req.params.Id);
+        let order: IDocOrders = await Orders.findById(req.params.id);
         if (!order) {
-            errorThrower(NO_SUCH_DATA_EXISTS, 422);
+            errorThrower(NO_SUCH_DATA_EXISTS, 422); //TODO check the validity
         }
         return res.status(200).json(order);
     } catch (err) {
