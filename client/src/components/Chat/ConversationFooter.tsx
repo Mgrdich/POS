@@ -2,7 +2,6 @@ import React, {ChangeEvent, useContext, useState} from 'react';
 import Grid from "@material-ui/core/Grid";
 import {Box, Button, TextField} from "@material-ui/core";
 import {ChatContext} from "./ChatProvider";
-import {CHAT_ACTIONS} from "./ActionsConfig";
 import {socket} from "../../App";
 
 const ConversationFooter:React.FC = () => {
@@ -10,7 +9,6 @@ const ConversationFooter:React.FC = () => {
     const [value,setValue] = useState<string>('');
 
     const sendMessage = function ():void {
-        dispatch({type:CHAT_ACTIONS.SET_MESSAGE,payload:value});
         socket.emit('new message',{text:value,to:state.user._id});
         setValue('');
     };

@@ -10,11 +10,10 @@ import axios,{AxiosResponse} from "axios";
 const ConversationBody: React.FC = () => {
     const [state,dispatch] = useContext(ChatContext);
     const user: any = useSelector<any>(state => state.auth.user);
-
+    
     useEffect(function () {
         socket.on('received message', function (message: any) {
-            // dispatch({type:CHAT_ACTIONS.SET_MESSAGES,payload:message});
-            console.log(message);
+            dispatch({type:CHAT_ACTIONS.SET_MESSAGE,payload:message});
         });
     }, []);
 
