@@ -149,7 +149,7 @@ async function getUsersChat(req: myRequest, res: Response, next: NextFunction): 
         let users: Array<IDocUsers>;
         if (rolePriority >= -2) {
             users = await Users.find({
-                "rolePriority": {$lt: rolePriority},
+                "rolePriority": {$lte: rolePriority},
                 "_id": {$ne: req.user._id}
             }, {rolePriority: 0, password: 0});
         } else {

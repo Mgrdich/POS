@@ -20,7 +20,13 @@ export async function getChatByUid(req: myRequest, res: Response, next: NextFunc
         const chat: IDocChat =
             await Chats.findOne({
                     participants: {$all: [req.user._id, to]}
-                }, {participants: 0, createdAt: 0, updatedAt: 0}).populate('messages');
+                }, {participants: 0, createdAt: 0, updatedAt: 0}).populate({
+                path:'messages',
+                populate:{
+                    path:'sender',
+                    select:'name'
+                }
+            });
         if (chat) {
             return res.status(200).json(chat);
         }

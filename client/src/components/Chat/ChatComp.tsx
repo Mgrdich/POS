@@ -1,18 +1,14 @@
-import React, {ChangeEvent, useContext, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import ChatList from "./ChatList";
-import ConversationBody from "./ConversationBody";
 import Grid from "@material-ui/core/Grid";
 import {Box, Paper, TextField} from "@material-ui/core";
-import ConversationHeader from "./ConversationHeader";
-import ConversationFooter from "./ConversationFooter";
 import {useFetch} from "../Hooks/useFetch";
-import {ChatContext} from "./ChatProvider";
+import Conversation from "./Conversation";
+import ChatProvider from "./ChatProvider";
 
 const ChatComp: React.FC = () => {
     const [filter, setFilter] = useState<string>('');
     const {data: users, isLoading} = useFetch('/users/chat');
-    const [state] = useContext(ChatContext);
-
 
     return (
         <>
@@ -20,11 +16,9 @@ const ChatComp: React.FC = () => {
                 <Grid container direction="row" spacing={1} style={{height: '100'}}>
                     <Grid item md={10} sm={8}>
                         <Paper className="chatGrid">
-                            {state.user ? (<div className="conversation">
-                                <ConversationHeader/>
-                                <ConversationBody/>
-                                <ConversationFooter/>
-                            </div>) : null}
+                            <ChatProvider>
+                                <Conversation/>
+                            </ChatProvider>
                         </Paper>
                     </Grid>
                     <Grid item md={2} sm={4}>

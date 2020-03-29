@@ -4,7 +4,7 @@ import {ChatContext} from "./ChatProvider";
 
 
 const ConversationHeader: React.FC = () => {
-    const [state, dispatch] = useContext(ChatContext);
+    const [state] = useContext(ChatContext);
     const {user} = state;
     return (
         <div className="conversationHeader">
@@ -12,7 +12,7 @@ const ConversationHeader: React.FC = () => {
                 <Avatar className="avatar">
                     {user.name[0]}
                 </Avatar>
-                <span className="email">{user.email}</span>
+                <span className="email">{user.email} ({user.name})</span>
             </div>
         </div>
     );

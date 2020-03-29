@@ -1,12 +1,9 @@
 import React from 'react';
-import ChatProvider from "./ChatProvider";
 import ChatComp from "./ChatComp";
 
-const Chat = () => {
+const Chat:React.FC = () => {
     return (
-        <ChatProvider>
-            <ChatComp/>
-        </ChatProvider>
+        <ChatComp/>
     );
 };
 

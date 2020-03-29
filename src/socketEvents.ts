@@ -1,4 +1,6 @@
 import {Chats} from "./models/Chat";
+import {IDocMessage} from "./interfaces/models/Message";
+import {Messages} from "./models/Message";
 
 export function socketEvents(io) {
     // Set socket.io listeners.
@@ -21,10 +23,13 @@ export function socketEvents(io) {
             // console.log('left ' + conversation);
         });
 
+
         socket.on('new message', async function (msg) {
             console.log("userId",userId);
-            const chat = await Chats.add(userId,msg.to,msg.text);
-            // io.sockets.emit('refresh messages', chat);
+            const {messages} = await Chats.add(userId,msg.to,msg.text);
+            const messageId = messages[messages.length-1]; //last
+            const message:IDocMessage = await Messages.findById(messageId).populate('sender','name');
+            socket.emit('received message',message);
         });
 
         socket.on('disconnect', function() {
