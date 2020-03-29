@@ -2,13 +2,15 @@ import React, {useContext, useEffect, useState} from 'react';
 import Message from "./Message";
 import {socket} from "../../App";
 import {ChatContext} from "./ChatProvider";
-import axios, {AxiosResponse} from "axios";
 import {useSelector} from "react-redux";
 import {CHAT_ACTIONS} from "./ActionsConfig";
+import axios,{AxiosResponse} from "axios";
+
 
 const ConversationBody: React.FC = () => {
     const [state,dispatch] = useContext(ChatContext);
     const user: any = useSelector<any>(state => state.auth.user);
+
     useEffect(function () {
         socket.on('received message', function (message: any) {
             // dispatch({type:CHAT_ACTIONS.SET_MESSAGES,payload:message});
@@ -16,9 +18,17 @@ const ConversationBody: React.FC = () => {
         });
     }, []);
 
-
-
-
+    useEffect(function () {
+        axios.get(`/chat/get-chat/${state.user._id}`)
+            .then(function (res: AxiosResponse) {
+                if (res.data && res.data.messages?.length) {
+                    dispatch({type:CHAT_ACTIONS.SET_MESSAGES,payload:res.data.messages});
+                } else {
+                    dispatch({type:CHAT_ACTIONS.SET_MESSAGES,payload:[]})
+                }
+            });
+    }, [state.user._id]);
+    
 
     //FETCHING the Messages
     return (

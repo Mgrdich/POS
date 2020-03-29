@@ -1,9 +1,12 @@
 import React from 'react';
 import ChatComp from "./ChatComp";
+import ChatProvider from "./ChatProvider";
 
 const Chat:React.FC = () => {
     return (
-        <ChatComp/>
+        <ChatProvider>
+            <ChatComp/>
+        </ChatProvider>
     );
 };
 

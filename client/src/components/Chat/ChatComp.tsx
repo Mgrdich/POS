@@ -4,11 +4,10 @@ import Grid from "@material-ui/core/Grid";
 import {Box, Paper, TextField} from "@material-ui/core";
 import {useFetch} from "../Hooks/useFetch";
 import Conversation from "./Conversation";
-import ChatProvider from "./ChatProvider";
 
 const ChatComp: React.FC = () => {
     const [filter, setFilter] = useState<string>('');
-    const {data: users, isLoading} = useFetch('/users/chat');
+    const {data: users, isLoading} = useFetch('/users/chat'); //from outside
 
     return (
         <>
@@ -16,9 +15,7 @@ const ChatComp: React.FC = () => {
                 <Grid container direction="row" spacing={1} style={{height: '100'}}>
                     <Grid item md={10} sm={8}>
                         <Paper className="chatGrid">
-                            <ChatProvider>
-                                <Conversation/>
-                            </ChatProvider>
+                            <Conversation/>
                         </Paper>
                     </Grid>
                     <Grid item md={2} sm={4}>

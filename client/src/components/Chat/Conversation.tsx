@@ -8,13 +8,13 @@ const Conversation: React.FC = () => {
     const [state] = useContext(ChatContext);
     return (
         <>
-        {
-            state.user ? (<div className="conversation">
-                <ConversationHeader/>
-                <ConversationBody/>
-                <ConversationFooter/>
-            </div>) : null
-        }
+            {
+                state.user ? (<div className="conversation">
+                    <ConversationHeader/>
+                    <ConversationBody/>
+                    <ConversationFooter/>
+                </div>) : null
+            }
         </>
 
     );

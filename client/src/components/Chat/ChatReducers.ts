@@ -16,14 +16,18 @@ export const ChatDataReducer = function (state: any, action: any) {
         case CHAT_ACTIONS.SET_MESSAGES:
             return  {
                 ...state,
-                messages:[...state.messages,...action.payload]
+                messages:action.payload
             };
         case CHAT_ACTIONS.SET_MESSAGE: //tODO if not used delete
             return  {
                 ...state,
                 messages:[...state.messages,...action.payload]
             };
-
+        case CHAT_ACTIONS.PREPEND_MESSAGES:
+            return {
+              ...state,
+              messages:[...state.messages,...action.payload]
+            };
         default:
             throw new Error();
     }
