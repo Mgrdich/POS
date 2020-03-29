@@ -12,6 +12,7 @@ import tables from "./routes/tables";
 import products from "./routes/products";
 import productsGroups from "./routes/productsGroups";
 import orders from "./routes/orders";
+import chat from "./routes/chat";
 import {ImyError} from "./interfaces/General";
 import {isAuth} from "./middlewares/authorisation";
 import {socketEvents} from "./socketEvents";
@@ -56,6 +57,8 @@ app.use('/products-group', productsGroups);
 
 //TODO after this only admin super admin role
 app.use('/orders', orders);
+
+app.use('chat',chat);
 
 //errors
 app.use(function (err: ImyError, req: Request, res: Response, next: NextFunction) {

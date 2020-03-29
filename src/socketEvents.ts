@@ -1,3 +1,5 @@
+import {Chats} from "./models/Chat";
+
 export function socketEvents(io) {
     // Set socket.io listeners.
     io.on('connection', function(socket) {
@@ -6,10 +8,6 @@ export function socketEvents(io) {
 
         socket.on('auth',function (id) {
             userId = id;
-        });
-
-        socket.on('logout',function () {
-
         });
 
         // On conversation entry, join broadcast channel
@@ -23,13 +21,14 @@ export function socketEvents(io) {
             // console.log('left ' + conversation);
         });
 
-        socket.on('new message', function (conversation) {
-
-            io.sockets.emit('refresh messages', conversation,new Date().toLocaleDateString());
+        socket.on('new message', async function (msg) {
+            console.log("userId",userId);
+            const chat = await Chats.add(userId,msg.to,msg.text);
+            // io.sockets.emit('refresh messages', chat);
         });
 
         socket.on('disconnect', function() {
-            //console.log('user disconnected');
+            userId = '';
         });
     });
 }

@@ -16,7 +16,7 @@ const messageSchema = new Schema({
 }, {timestamps: true});
 
 
-messageSchema.statics.addMessage = function (message: string, userId: IDocUsers["_id"]) {
+messageSchema.statics.add = function(userId: IDocUsers["_id"],message: string,) {
     let newMessage: IDocMessage = new this({message: message, sender: userId});
     return newMessage.save();
 };
