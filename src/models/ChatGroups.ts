@@ -1,7 +1,6 @@
 import * as mongoose from 'mongoose';
 import {Schema} from "mongoose";
-import {IDocChat, IModelChat} from "../interfaces/models/Chat";
-import {IDocChatGroups, IDocGroupsChat, IModelChatGroups, IModelGroupsChat} from "../interfaces/models/ChatGroups";
+import {IDocGroupsChat, IModelGroupsChat} from "../interfaces/models/ChatGroups";
 
 const chatGroupsSchema = new Schema({
     name: {

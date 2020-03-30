@@ -1,5 +1,5 @@
 import * as mongoose from "mongoose";
-import {body} from "express-validator"
+import {body} from "express-validator";
 import {paramIdValidation} from "./General";
 
 export const addOrderValidation: Array<any> = [

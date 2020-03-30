@@ -13,6 +13,7 @@ import products from "./routes/products";
 import productsGroups from "./routes/productsGroups";
 import orders from "./routes/orders";
 import chat from "./routes/chat";
+import groupChat from "./routes/chatGroups";
 import {ImyError} from "./interfaces/General";
 import {isAuth} from "./middlewares/authorisation";
 import {socketEvents} from "./socketEvents";
@@ -42,6 +43,8 @@ app.use(passport.initialize());
 passportConfig(passport);
 
 
+//TODO bring all the the routes into a single middleware
+
 // Routes
 app.use('/users', users);
 
@@ -59,6 +62,8 @@ app.use('/products-group', productsGroups);
 app.use('/orders', orders);
 
 app.use('/chat',chat);
+
+app.use('/group-chat',groupChat);
 
 //errors
 app.use(function (err: ImyError, req: Request, res: Response, next: NextFunction) {

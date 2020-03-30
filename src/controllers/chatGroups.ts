@@ -1,13 +1,15 @@
 import {NextFunction, Request, Response} from "express";
-import {IDocChat} from "../interfaces/models/Chat";
-import {Chats} from "../models/Chat";
-import {errorCatcher} from "../utilities/controllers/error";
+import {errorCatcher, errorFormatter, errorThrower} from "../utilities/controllers/error";
 import {GroupsChats} from "../models/ChatGroups";
 import {IDocGroupsChat} from "../interfaces/models/ChatGroups";
+import {validationResult} from "express-validator";
+import {myRequest} from "../interfaces/General";
+import {alert} from "../utilities/controllers/messages";
+import {messageAlert} from "../interfaces/util";
 
 export async function getChatGroups(req: Request, res: Response, next: NextFunction) {
     try {
-        const chats: Array<IDocChat> = await GroupsChats.find({}).populate('messages').populate('participants', 'name');
+        const chats: Array<IDocGroupsChat> = await GroupsChats.find({}).populate('messages').populate('participants', 'name');
         if (chats.length) {
             return res.status(200).json(chats);
         }
@@ -24,6 +26,44 @@ export async function getChatGroup(req: Request, res: Response, next: NextFuncti
             return res.status(200).json(chats);
         }
         res.status(200).json({empty: true});
+    } catch (err) {
+        errorCatcher(next, err);
+    }
+}
+export async function createGroupChat(req: myRequest, res: Response, next: NextFunction) {
+    try {
+        const errors: any = validationResult(req).formatWith(errorFormatter);
+
+        if (!errors.isEmpty()) {
+            errorThrower("Validation Failed", 422, errors.mapped());
+        }
+        const {name,admins,members} = req.body;
+        const groupChat:IDocGroupsChat = new GroupsChats({name,admins,members});
+        groupChat.createdBy = req.user._id;
+        await groupChat.save();
+        alert(res, 200, messageAlert.success, 'Password is Changed');
+    } catch (err) {
+        errorCatcher(next, err);
+    }
+}
+export async function editGroupChat(req: Request, res: Response, next: NextFunction) {
+    try {
+        const errors: any = validationResult(req).formatWith(errorFormatter);
+
+        if (!errors.isEmpty()) {
+            errorThrower("Validation Failed", 422, errors.mapped());
+        }
+    } catch (err) {
+        errorCatcher(next, err);
+    }
+}
+export async function deleteGroupChat(req: Request, res: Response, next: NextFunction) {
+    try {
+        const errors: any = validationResult(req).formatWith(errorFormatter);
+
+        if (!errors.isEmpty()) {
+            errorThrower("Validation Failed", 422, errors.mapped());
+        }
     } catch (err) {
         errorCatcher(next, err);
     }
