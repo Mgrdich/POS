@@ -1,8 +1,9 @@
 import {Document, Model} from 'mongoose';
 import {IDocUsers} from "./Users";
 import {IDocMessage} from "./Message";
+import {ICreatedEditData} from "./General";
 
-export interface IGroupsChat {
+export interface IGroupsChat extends ICreatedEditData{
     name: string;
     createdBy: IDocUsers["_id"];
     admins: Array<IDocUsers["_id"]>;

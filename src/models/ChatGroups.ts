@@ -18,6 +18,17 @@ const chatGroupsSchema = new Schema({
             ref: 'Messages'
         }
     ],
+    modifiedBy: [ //TODO transformed into another document
+        {
+            _id: { //user id
+                type: Schema.Types.ObjectId,
+                ref: 'Users',
+            },
+            modifiedDate: {
+                type: Date,
+            }
+        }
+    ],
     admins: [{
         type: Schema.Types.ObjectId,
         ref: 'Users',

@@ -2,7 +2,7 @@ import {body} from "express-validator";
 import {isMongooseValidId} from "../utilities/functions";
 import {Users} from "../models/Users";
 
-const addGroupChatValidation: Array<any> = [
+export const addGroupChatValidation: Array<any> = [
     body('name')
         .isString()
         .isLength({min:2,max:20}),
@@ -16,7 +16,7 @@ const addGroupChatValidation: Array<any> = [
             let query = value.map(item=>({_id:item}));
             let users = await Users.find({$and:[...query]});
             if(users.length !== value.length) {
-                return Promise.reject("one of the Users is not Found");
+                return Promise.reject("at least one of the Users is not Found");
             }
         }),
     body('members')
@@ -29,8 +29,12 @@ const addGroupChatValidation: Array<any> = [
             let query = value.map(item=>({_id:item}));
             let users = await Users.find({$and:[...query]});
             if(users.length !== value.length) {
-                return Promise.reject("one of the Users is not Found");
+                return Promise.reject("at least one of the Users is not Found");
             }
 
         })
+];
+
+export const editGroupChatValidation:Array<any> = [
+    ...addGroupChatValidation,
 ];

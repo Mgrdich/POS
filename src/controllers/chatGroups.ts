@@ -41,18 +41,23 @@ export async function createGroupChat(req: myRequest, res: Response, next: NextF
         const groupChat:IDocGroupsChat = new GroupsChats({name,admins,members});
         groupChat.createdBy = req.user._id;
         await groupChat.save();
-        alert(res, 200, messageAlert.success, 'Password is Changed');
+        alert(res, 200, messageAlert.success, 'Group chat is created');
     } catch (err) {
         errorCatcher(next, err);
     }
 }
-export async function editGroupChat(req: Request, res: Response, next: NextFunction) {
+export async function editGroupChat(req: myRequest, res: Response, next: NextFunction) {
     try {
         const errors: any = validationResult(req).formatWith(errorFormatter);
 
         if (!errors.isEmpty()) {
             errorThrower("Validation Failed", 422, errors.mapped());
         }
+        const {name,admins,members} = req.body;
+        const groupChat:IDocGroupsChat = new GroupsChats({name,admins,members});
+        groupChat.modifiedBy.push({_id:req.user._id,modifiedDate:new Date()});
+        await groupChat.save();
+        alert(res, 200, messageAlert.success, 'Group chat is edited');
     } catch (err) {
         errorCatcher(next, err);
     }
