@@ -42,7 +42,7 @@ const chatGroupsSchema = new Schema({
     }]
 }, {timestamps: true});
 
-chatGroupsSchema.methods.add = async function (chatGroupId: IDocGroupsChat["_id"], sender: IDocUsers["id"], message: string): Promise<any> {
+chatGroupsSchema.methods.add = async function (sender: IDocUsers["id"], message: string): Promise<any> {
     const {_id: messageId}: IDocMessage = await Messages.add(sender, message);
     this.messages.push(messageId);
     return this.save();

@@ -13,7 +13,7 @@ export interface IGroupsChat extends ICreatedEditData{
 
 //Mongoose modal
 export interface IDocGroupsChat extends Document, IGroupsChat {
-    add: (groupChatId:IDocGroupsChat["_id"],sender: IDocUsers["id"], message:string) => Promise<any>;
+    add: (sender: IDocUsers["_id"], message:string) => Promise<any>;
 }
 
 export interface IModelGroupsChat extends Model<IDocGroupsChat> {

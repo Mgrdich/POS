@@ -25,7 +25,13 @@ export async function getChatGroups(req: myRequest, res: Response, next: NextFun
 
 export async function getChatGroup(req: Request, res: Response, next: NextFunction) {
     try {
-        const chats: IDocGroupsChat = await GroupsChats.findById(req.params.id).populate('messages').populate('participants', 'name');
+        const chats: IDocGroupsChat = await GroupsChats.findById(req.params.id).populate({
+            path:'messages',
+            populate:{
+                path:'sender',
+                select:'name'
+            }});
+        
         if (chats) {
             return res.status(200).json(chats);
         }

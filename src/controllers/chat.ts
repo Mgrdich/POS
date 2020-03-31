@@ -38,7 +38,7 @@ export async function getChatByUid(req: myRequest, res: Response, next: NextFunc
 
 export async function getChats(req: Request, res: Response, next: NextFunction) {
     try {
-        const chats: Array<IDocChat> = await Chats.find({}).populate('messages').populate('participants', 'name');
+            const chats: Array<IDocChat> = await Chats.find({}).populate('messages')/*.populate('participants', 'name')*/;
         if (chats.length) {
             return res.status(200).json(chats);
         }
@@ -56,7 +56,7 @@ export async function getChat(req: Request, res: Response, next: NextFunction) {
             errorThrower("Validation Failed", 422, errors.mapped());
         }
 
-        const chat:IDocChat = await Chats.findById(req.params.id);
+        const chat:IDocChat = await Chats.findById(req.params.id).populate('messages')/*.populate('participants', 'name')*/;
         if (chat) {
             return res.status(200).json(chat);
         }
