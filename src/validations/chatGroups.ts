@@ -1,6 +1,7 @@
 import {body} from "express-validator";
 import {isMongooseValidId} from "../utilities/functions";
 import {Users} from "../models/Users";
+import {NOT_ALL_IDS} from "../utilities/constants/messages";
 
 export const addGroupChatValidation: Array<any> = [
     body('name')
@@ -10,8 +11,8 @@ export const addGroupChatValidation: Array<any> = [
         .isArray({min:1})
         .custom(async function (value) { //TODO oremove the repetitions
             let idSearch = value.every(item=>isMongooseValidId(item));
-            if(idSearch) {
-                return Promise.reject("Not all them are id")
+            if(!idSearch) {
+                return Promise.reject(NOT_ALL_IDS)
             }
             let query = value.map(item=>({_id:item}));
             let users = await Users.find({$and:[...query]});
@@ -23,8 +24,8 @@ export const addGroupChatValidation: Array<any> = [
         .isArray({min:1})
         .custom(async function (value) {
             let idSearch = value.every(item=>isMongooseValidId(item));
-            if(idSearch) {
-                return Promise.reject("Not all them are id")
+            if(!idSearch) {
+                return Promise.reject(NOT_ALL_IDS)
             }
             let query = value.map(item=>({_id:item}));
             let users = await Users.find({$and:[...query]});

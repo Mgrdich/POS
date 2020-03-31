@@ -1,6 +1,9 @@
 import * as mongoose from 'mongoose';
 import {Schema} from "mongoose";
 import {IDocGroupsChat, IModelGroupsChat} from "../interfaces/models/ChatGroups";
+import {IDocUsers} from "../interfaces/models/Users";
+import {IDocMessage} from "../interfaces/models/Message";
+import {Messages} from "./Message";
 
 const chatGroupsSchema = new Schema({
     name: {
@@ -38,6 +41,21 @@ const chatGroupsSchema = new Schema({
         ref: 'Users',
     }]
 }, {timestamps: true});
+
+chatGroupsSchema.statics.add = async function (chatGroupId:IDocGroupsChat["_id"],sender: IDocUsers["id"], message:string):Promise<any> {
+    const {_id: messageId}: IDocMessage = await Messages.add(sender, message);
+    let chatGroup: IDocGroupsChat;
+    try {
+        chatGroup = await this.findById(chatGroupId);
+    } catch (err) {
+        console.log(err);
+    }
+    if (chatGroup) {
+        chatGroup.messages.push(messageId);
+        return chatGroup.save();
+    }
+};
+
 
 const GroupsChats: IModelGroupsChat = mongoose.model<IDocGroupsChat, IModelGroupsChat>('GroupsChats', chatGroupsSchema);
 

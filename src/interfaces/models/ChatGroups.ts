@@ -18,5 +18,5 @@ export interface IDocGroupsChat extends Document, IGroupsChat {
 
 export interface IModelGroupsChat extends Model<IDocGroupsChat> {
     //here we declare the statics
-    add: (sender: IDocUsers["id"], string) => Promise<any>;
+    add: (groupChatId:IDocGroupsChat["_id"],sender: IDocUsers["id"], message:string) => Promise<any>;
 }
