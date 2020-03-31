@@ -2,6 +2,7 @@ import {body} from "express-validator";
 import {isMongooseValidId} from "../utilities/functions";
 import {Users} from "../models/Users";
 import {NOT_ALL_IDS} from "../utilities/constants/messages";
+import {IDocUsers} from "../interfaces/models/Users";
 
 export const addGroupChatValidation: Array<any> = [
     body('name')
@@ -14,8 +15,7 @@ export const addGroupChatValidation: Array<any> = [
             if(!idSearch) {
                 return Promise.reject(NOT_ALL_IDS)
             }
-            let query = value.map(item=>({_id:item}));
-            let users = await Users.find({$and:[...query]});
+            let users:Array<IDocUsers> = await Users.find({'_id': { $in: [...value]}});
             if(users.length !== value.length) {
                 return Promise.reject("at least one of the Users is not Found");
             }
@@ -27,8 +27,7 @@ export const addGroupChatValidation: Array<any> = [
             if(!idSearch) {
                 return Promise.reject(NOT_ALL_IDS)
             }
-            let query = value.map(item=>({_id:item}));
-            let users = await Users.find({$and:[...query]});
+            let users:Array<IDocUsers> = await Users.find({'_id': { $in: [...value]}});
             if(users.length !== value.length) {
                 return Promise.reject("at least one of the Users is not Found");
             }

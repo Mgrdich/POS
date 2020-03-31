@@ -42,18 +42,10 @@ const chatGroupsSchema = new Schema({
     }]
 }, {timestamps: true});
 
-chatGroupsSchema.statics.add = async function (chatGroupId:IDocGroupsChat["_id"],sender: IDocUsers["id"], message:string):Promise<any> {
+chatGroupsSchema.methods.add = async function (chatGroupId: IDocGroupsChat["_id"], sender: IDocUsers["id"], message: string): Promise<any> {
     const {_id: messageId}: IDocMessage = await Messages.add(sender, message);
-    let chatGroup: IDocGroupsChat;
-    try {
-        chatGroup = await this.findById(chatGroupId);
-    } catch (err) {
-        console.log(err);
-    }
-    if (chatGroup) {
-        chatGroup.messages.push(messageId);
-        return chatGroup.save();
-    }
+    this.messages.push(messageId);
+    return this.save();
 };
 
 

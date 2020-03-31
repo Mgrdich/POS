@@ -21,22 +21,27 @@ const chatSchema = new Schema({
 
 
 chatSchema.statics.add = async function (sender: IDocUsers["id"], receiver: IDocUsers["_id"], message: string): Promise<any> {
-    const {_id: messageId}: IDocMessage = await Messages.add(sender, message);
-    let chat: IDocChat;
     try {
-        chat = await this.findOne({participants: {$all: [sender, receiver]}});
-    } catch (e) {
+        const {_id: messageId}: IDocMessage = await Messages.add(sender, message);
+        let chat: IDocChat;
+        try {
+            chat = await this.findOne({participants: {$all: [sender, receiver]}});
+        } catch (e) {
+            console.log(e);
+        }
+
+        if (chat) {
+            chat.messages.push(messageId);
+            return chat.save();
+        }
+
+        const newChat: IDocChat = new this();
+        newChat.messages = [messageId];
+        newChat.participants = [sender, receiver];
+        return newChat.save();
+    }catch (e) {
         console.log(e);
     }
-
-    if (chat) {
-        chat.messages.push(messageId);
-        return chat.save();
-    }
-    const newChat: IDocChat = new this();
-    newChat.messages = [messageId];
-    newChat.participants = [sender, receiver];
-    return newChat.save();
 };
 
 
