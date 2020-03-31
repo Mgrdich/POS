@@ -9,9 +9,11 @@ import {messageAlert} from "../interfaces/util";
 import {Users} from "../models/Users";
 import {FORBIDDEN, ITEM_DELETED, NOT_MODIFIED} from "../utilities/constants/messages";
 
-export async function getChatGroups(req: Request, res: Response, next: NextFunction) {
+export async function getChatGroups(req: myRequest, res: Response, next: NextFunction) {
     try {
-        const chats: Array<IDocGroupsChat> = await GroupsChats.find({}).populate('messages').populate('participants', 'name');
+        const chats: Array<IDocGroupsChat> = await GroupsChats.find({members: {$in: [req.user._id]}})
+            .populate('messages')
+            .populate('participants', 'name');
         if (chats.length) {
             return res.status(200).json(chats);
         }

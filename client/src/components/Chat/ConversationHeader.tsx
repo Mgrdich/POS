@@ -5,14 +5,16 @@ import {ChatContext} from "./ChatProvider";
 
 const ConversationHeader: React.FC = () => {
     const [state] = useContext(ChatContext);
-    const {user} = state;
+    const {user, group} = state;
     return (
         <div className="conversationHeader">
             <div>
                 <Avatar className="avatar">
-                    {user.name[0]}
+                    {user ? user.name[0] : group.name[0]}
                 </Avatar>
-                <span className="email">{user.email} ({user.name})</span>
+                <span className="email">
+                    {user ? user.email : group.name} {user ? `(${user.name})` : ''}
+                </span>
             </div>
         </div>
     );

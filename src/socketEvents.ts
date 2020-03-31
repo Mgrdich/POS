@@ -64,7 +64,7 @@ export function socketEvents(io) {
             })[0];
            if(recipients) {
                for (let i = 0; i < recipients.length; i++) {
-                   socket.to(recipients[i].id).emit('received message','dddd');
+                   socket.to(recipients[i].id).emit('received message',messages );
                }
            }
         });

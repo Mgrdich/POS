@@ -9,7 +9,11 @@ const ConversationFooter:React.FC = () => {
     const [value,setValue] = useState<string>('');
 
     const sendMessage = function ():void {
-        socket.emit('new message',{text:value,to:state.user._id});
+        if(state.user) {
+            socket.emit('new message',{text:value,to:state.user._id});
+        } else  {
+            socket.emit('new message group',state.group._id,value);
+        }
         setValue('');
     };
 
