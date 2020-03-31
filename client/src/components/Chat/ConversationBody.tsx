@@ -18,7 +18,11 @@ const ConversationBody: React.FC = () => {
     }, []);
 
     useEffect(function () {
-        axios.get(`/chat/get-chat/${state.user._id}`)
+        let url: string = `/chat/get-chat/${state.user._id}`;
+        if(state.group) {
+            url = ''
+        }
+        axios.get(url)
             .then(function (res: AxiosResponse) {
                 if (res.data && res.data.messages?.length) {
                     dispatch({type:CHAT_ACTIONS.SET_MESSAGES,payload:res.data.messages});

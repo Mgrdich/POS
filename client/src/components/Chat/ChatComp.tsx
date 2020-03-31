@@ -5,11 +5,12 @@ import {Box, Paper, Tabs, TextField} from "@material-ui/core";
 import {useFetch} from "../Hooks/useFetch";
 import Conversation from "./Conversation";
 import Tab from "@material-ui/core/Tab";
+import GroupList from "./GroupList";
 
 const ChatComp: React.FC = () => {
     const [filter, setFilter] = useState<string>('');
     const {data: users, isLoading} = useFetch('/users/chat'); //from outside
-    // const {data: groupUsers, isLoading:groupLoading} = useFetch('/users/chat/group');
+    const {data: groupUsers, isLoading: groupLoading} = useFetch('/group-chat');
     const [tab, setTab] = useState<number>(0);
 
     const handleTabChange = function (event: React.ChangeEvent<{}>, newValue: number) {
@@ -50,7 +51,8 @@ const ChatComp: React.FC = () => {
                             </Box>
                             {
                                 (!tab) ?
-                                    <ChatList filter={filter} data={users} isLoading={isLoading}/> : <></>
+                                    <ChatList filter={filter} data={users} isLoading={isLoading}/> :
+                                    <GroupList filter={filter} data={groupUsers} isLoading={groupLoading}/>
                             }
 
                         </Paper>

@@ -69,7 +69,7 @@ const CreateEditTables = () => {
     };
 
 
-    const onEdit = function (values: any): void {
+    const onEdit = function (values: any): void { //TODO Cached
         axios.put(`/tables/${deletedId}`, values)
             .then(function (res: IAlertAxiosResponse) {
                 setRefetch((prev:boolean) => !prev );
@@ -83,7 +83,7 @@ const CreateEditTables = () => {
         });
     };
 
-    const handleDeleted = function (id: string) {
+    const handleDeleted = function (id: string) { //TODO Cached could be refacorable???
         axios.delete(`/tables/${id}`).then((res: AxiosResponse) => {
             setAlert(res.data, {alertQuestion: false, alert: true});
         }).catch((e) => {

@@ -9,7 +9,7 @@ const Conversation: React.FC = () => {
     return (
         <>
             {
-                state.user ? (<div className="conversation">
+                state.user || state.group ? (<div className="conversation">
                     <ConversationHeader/>
                     <ConversationBody/>
                     <ConversationFooter/>
