@@ -13,6 +13,11 @@ export const ChatDataReducer = function (state: any, action: any) {
                 ...state,
                 user: action.payload,
             };
+        case CHAT_ACTIONS.SET_GROUP:
+            return {
+                ...state,
+                group:action.payload
+            };
         case CHAT_ACTIONS.SET_MESSAGES:
             return  {
                 ...state,

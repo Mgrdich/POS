@@ -9,17 +9,11 @@ import Tab from "@material-ui/core/Tab";
 const ChatComp: React.FC = () => {
     const [filter, setFilter] = useState<string>('');
     const {data: users, isLoading} = useFetch('/users/chat'); //from outside
-    const {data: groupUsers, isLoading:groupLoading} = useFetch('/users/chat/group');
-    const [chatGroupList,setChatGroupList] = useState<Array<any>>([]);
-    const [tab,setTab] = useState<number>(0);
+    // const {data: groupUsers, isLoading:groupLoading} = useFetch('/users/chat/group');
+    const [tab, setTab] = useState<number>(0);
 
     const handleTabChange = function (event: React.ChangeEvent<{}>, newValue: number) {
         setTab(newValue);
-        if(newValue === 0) {
-            setChatGroupList(users);
-        } else {
-            setChatGroupList(groupUsers);
-        }
     };
 
     return (
@@ -49,12 +43,16 @@ const ChatComp: React.FC = () => {
                                         onChange={handleTabChange}
                                         aria-label="disabled tabs example"
                                     >
-                                        <Tab label="Chat" />
-                                        <Tab label="Group" />
+                                        <Tab label="Chat"/>
+                                        <Tab label="Group"/>
                                     </Tabs>
                                 </Paper>
                             </Box>
-                            <ChatList filter={filter} data={chatGroupList} isLoading={isLoading || groupLoading}/>
+                            {
+                                (!tab) ?
+                                    <ChatList filter={filter} data={users} isLoading={isLoading}/> : <></>
+                            }
+
                         </Paper>
                     </Grid>
                 </Grid>
