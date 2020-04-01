@@ -53,3 +53,56 @@ section {
     }
   }
 }
+
+
+.pos-tables{
+  height: 100vh;
+
+  .tables{
+    width: 250px;
+    height: 125px;
+    border: 1px solid $primary;
+    margin-top: 20px;
+    background-color: $secondary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span{
+      color: $primary;
+      font-size: 40px;
+
+    }
+  }
+
+}
+
+
+.products-header{
+  border-bottom: 1px solid $primary;
+  text-align: center;
+  color: $primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.products-button{
+  padding: 10px;
+  height: 120px;
+
+  Button{
+    width: 100%;
+  }
+}
+
+.menu-card{
+  padding: 10px;
+  .MuiCardActionArea-root{
+    border: 1px solid $primary;
+  }
+  .image{
+    text-align: center;
+  }
+
+}
