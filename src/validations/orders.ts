@@ -1,5 +1,5 @@
 import * as mongoose from "mongoose";
-import {body} from "express-validator"
+import {body} from "express-validator";
 import {paramIdValidation} from "./General";
 
 export const addOrderValidation: Array<any> = [
@@ -19,6 +19,7 @@ export const editOrderValidation: Array<any> = [
             return mongoose.Types.ObjectId.isValid(value);
         }),
     body('orders')
+        .isArray({min:1})
         .custom(function (value) {
             return value.every(function (item: any) { //TODO adding a typing to it
                 return mongoose.Types.ObjectId.isValid(item.product)

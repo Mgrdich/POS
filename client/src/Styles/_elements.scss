@@ -5,3 +5,10 @@
 .FloatRight{
   float: right;
 }
+
+.MuiAvatar-colorDefault.avatar {
+  border: 2px solid $primary;
+  background-color: transparent;
+  color: #fff;
+  font-weight: 600;
+}

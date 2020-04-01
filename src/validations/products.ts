@@ -5,6 +5,7 @@ import {Products} from "../models/Products";
 import {IProducts} from "../interfaces/models/Products";
 import * as mongoose from "mongoose";
 import {paramIdValidation} from "./General";
+import {isMongooseValidId} from "../utilities/functions";
 
 export const addProductValidation: Array<any> = [
     body('price')
@@ -29,6 +30,9 @@ export const addProductValidation: Array<any> = [
             if(!value) {
                 return Promise.resolve();
             }
+            if(!isMongooseValidId(value)) {
+                return false;
+            }
             return ProductsGroups.findById(value)
                 .then(function (productGroup: IProductsGroups) {
                     if (!productGroup) { //if it is not found
@@ -41,11 +45,4 @@ export const addProductValidation: Array<any> = [
 export const editProductValidation: Array<any> = [ //also params validation to check whether it exists
     ...addProductValidation,
     ...paramIdValidation
-];
-
-export const deleteProductsValidation:Array<any> = [
-    param('id')
-        .custom(function(value) {
-            return mongoose.Types.ObjectId.isValid(value);
-        })
 ];

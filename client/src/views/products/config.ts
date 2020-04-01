@@ -25,7 +25,6 @@ export const addProductInputField: Array<IAddProductInputField> = [
         type: 'select',
         url: '/api/products-group',
         ignoreNone:false,
-
     },
 ];
 

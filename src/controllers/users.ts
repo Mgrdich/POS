@@ -13,7 +13,6 @@ import {GET_USERS_TABLE} from "../utilities/tables/constants";
 import {SECRET_KEY} from "../config/keys";
 import {ROLES_PRIORITY} from "../roles";
 import {ITEM_DELETED, NOT_MODIFIED} from "../utilities/constants/messages";
-import {childOfKind} from "tslint";
 
 async function register(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
@@ -128,7 +127,10 @@ async function getUsers(req: myRequest, res: Response, next: NextFunction): Prom
     const rolePriority = req.user.rolePriority;
     try {
         //TODO do not return the current User
-        let users: IUser | any = await Users.find({"rolePriority": {$lt: rolePriority}}); //TODO deep search whether more efficient method exist
+        let users: Array<IDocUsers> = await Users.find({
+            "rolePriority": {$lt: rolePriority},
+            "_id": {$ne: req.user._id}
+        }, {rolePriority: 0, role: 0, password: 0}); //TODO deep search whether more efficient method exist
         let tableUsers;
         if (!users) {
             tableUsers = {};
@@ -136,6 +138,27 @@ async function getUsers(req: myRequest, res: Response, next: NextFunction): Prom
             tableUsers = tableDataNormalize(users, GET_USERS_TABLE);
         }
         res.status(200).json(tableUsers);
+    } catch (err) {
+        errorCatcher(next, err);
+    }
+}
+
+async function getUsersChat(req: myRequest, res: Response, next: NextFunction): Promise<any> {
+    const rolePriority = req.user.rolePriority;
+    try {
+        let users: Array<IDocUsers>;
+        if (rolePriority >= -2) {
+            users = await Users.find({
+                "rolePriority": {$lte: rolePriority},
+                "_id": {$ne: req.user._id}
+            }, {rolePriority: 0, password: 0});
+        } else {
+            users = await Users.find({
+                "rolePriority": {$gt: rolePriority},
+                "_id": {$ne: req.user._id}
+            }, {rolePriority: 0, password: 0})
+        }
+        res.status(200).json(users);
     } catch (err) {
         errorCatcher(next, err);
     }
@@ -162,4 +185,4 @@ async function deleteUser(req: myRequest, res: Response, next: NextFunction): Pr
     }
 }
 
-export {register, login, currentUser, registerUser, editUser, getUsers, changePassword, deleteUser};
+export {register, login, currentUser, registerUser, editUser, getUsers, changePassword, deleteUser, getUsersChat};

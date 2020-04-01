@@ -1,5 +1,6 @@
 import * as express from "express";
 import * as mongoose from "mongoose";
+import socket from "./socket"
 import * as bodyParser from "body-parser";
 import * as passport from "passport";
 import passportConfig from "./config/passport";
@@ -11,8 +12,11 @@ import tables from "./routes/tables";
 import products from "./routes/products";
 import productsGroups from "./routes/productsGroups";
 import orders from "./routes/orders";
+import chat from "./routes/chat";
+import groupChat from "./routes/chatGroups";
 import {ImyError} from "./interfaces/General";
 import {isAuth} from "./middlewares/authorisation";
+import {socketEvents} from "./socketEvents";
 
 const app = express();
 
@@ -39,21 +43,27 @@ app.use(passport.initialize());
 passportConfig(passport);
 
 
+//TODO bring all the the routes into a single middleware
+
 // Routes
 app.use('/users', users);
 
 app.use(isAuth()); //all the routes should require an Authorization
 
-app.use('/api',api);
+app.use('/api', api);
 
-app.use('/tables',tables);
+app.use('/tables', tables);
 
-app.use('/products',products);
+app.use('/products', products);
 
-app.use('/products-group',productsGroups);
+app.use('/products-group', productsGroups);
 
 //TODO after this only admin super admin role
-app.use('/orders',orders);
+app.use('/orders', orders);
+
+app.use('/chat',chat);
+
+app.use('/group-chat',groupChat);
 
 //errors
 app.use(function (err: ImyError, req: Request, res: Response, next: NextFunction) {
@@ -73,7 +83,7 @@ mongoose.connection.on('connected', function () {
 });
 
 // If the connection throws an error
-mongoose.connection.on('error',function (err) {
+mongoose.connection.on('error', function (err) {
     console.log('Mongoose default connection error: ' + err);
 });
 
@@ -84,12 +94,14 @@ mongoose.connection.on('disconnected', function () {
 
 mongoose.connect(MONGODB_URI, MONGOOSE_OPTIONS)
     .then(function () {
-        app.listen(port);
+        const server = app.listen(port);
+        const io = socket.init(server);
+        socketEvents(io);
     }).catch(function (err) {
     console.log(err);
 });
 
-process.on('SIGINT', function() {
+process.on('SIGINT', function () {
     mongoose.connection.close(function () {
         console.log('Mongoose default connection disconnected through app termination');
         process.exit(0);

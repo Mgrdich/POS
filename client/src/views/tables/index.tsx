@@ -35,7 +35,7 @@ const CreateEditTables = () => {
     const {tbody, thead, keys, isLoading, setRefetch} = useTable('/tables');
     const [rows, setRows, deletedId, changeDeletedId] = useTableBody(isLoading, tbody);
     const {alertMessage, setOpenAlert, openAlert, setAlert, alertType} = useAlert();
-    const [open, handleClickOpen, handleClose] = useModule();
+    const [open, handleClickOpen, handleClose] = useModule();//TODO it is Model not Module Rename
     const [EditData, setEditData] = useState();
     useDynamicFields(creteTableInputField, register, unregister);
 
@@ -69,7 +69,7 @@ const CreateEditTables = () => {
     };
 
 
-    const onEdit = function (values: any): void {
+    const onEdit = function (values: any): void { //TODO Cached
         axios.put(`/tables/${deletedId}`, values)
             .then(function (res: IAlertAxiosResponse) {
                 setRefetch((prev:boolean) => !prev );
@@ -83,7 +83,7 @@ const CreateEditTables = () => {
         });
     };
 
-    const handleDeleted = function (id: string) {
+    const handleDeleted = function (id: string) { //TODO Cached could be refacorable???
         axios.delete(`/tables/${id}`).then((res: AxiosResponse) => {
             setAlert(res.data, {alertQuestion: false, alert: true});
         }).catch((e) => {

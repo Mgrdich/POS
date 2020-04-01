@@ -1,0 +1,148 @@
+$left-msg-bg: transparent;
+$right-msg-bg: transparent;
+
+.chatContainer {
+  height: 80vh;
+
+  .MuiGrid-root {
+    height: 100%;
+  }
+
+  .chatGrid {
+    height: 100%;
+
+    &.listItems {
+      padding-bottom:10px;
+      .usersList {
+        overflow: auto;
+      }
+    }
+  }
+
+  .usersList {
+    height: 100%;
+    overflow: hidden;
+    .MuiListItem-root {
+      cursor: pointer;
+      &:hover {
+        .avatar {
+          border-color: #fff;
+          color:$primary;
+        }
+        color:$primary;
+        border-top: 1px solid $primary;
+        border-bottom: 1px solid $primary;
+      }
+    }
+  }
+
+  .conversation {
+    position: relative;
+    height: 100%;
+
+    .conversationHeader {
+      height: 8%;
+      border: 1px solid $primary;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10px;
+      >div {
+        display: flex;
+        align-items: center;
+        .email {
+          color:#fff;
+          font-weight: 500;
+          font-size: 16px;
+          margin-left: 20px;
+        }
+      }
+
+    }
+
+    .conversationBody {
+      height: 84%;
+      overflow: auto;
+      padding-top: 10px;
+
+      .message {
+        display: flex;
+        justify-content: flex-start;
+        margin: 10px;
+
+        .msg-bubble {
+          max-width: 450px;
+          padding: 15px;
+          border-radius: 15px;
+          background: transparent;
+          border: 1px solid $primary;
+        }
+
+        .msg-info {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 10px;
+          color: $primary;
+
+          * {
+            color: $primary;
+          }
+        }
+
+        .msg-info-name {
+          margin-right: 10px;
+          font-weight: bold;
+        }
+
+        .msg-info-time {
+          font-size: 0.85em;
+        }
+
+        &.left {
+
+          .msg-bubble {
+            background: $left-msg-bg;
+            color: #fff;
+            border-bottom-left-radius: 0;
+          }
+        }
+
+        &.right {
+          flex-direction: row-reverse;
+          .msg-bubble {
+            background-color: $right-msg-bg;
+            border-bottom-right-radius: 0;
+          }
+        }
+
+        .text {
+          padding: 10px 10px;
+          border: 3px solid $primary;
+          border-radius: 15%;
+          margin: 10px;
+        }
+      }
+    }
+
+    .conversationFooter {
+      height: 8%;
+      border-top: 1px solid $primary;
+
+      button {
+        height: 100%;
+      }
+    }
+  }
+
+  .chatInput {
+    .MuiInput-underline {
+      &:after {
+        border: 1px solid $primary;
+      }
+    }
+  }
+
+}
+
+$border: 2px solid $primary;

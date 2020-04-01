@@ -17,6 +17,7 @@ import {Roles, RoleType} from "./roles";
 import Profile from "./views/profile";
 import Pos from "./views/pos";
 import PosTable from "./views/pos/PosTable";
+import Chat from "./views/chat";
 
 const HL_Dashboard = HeaderFooterLayout(Dashboard);
 const HL_CreateUser = HeaderFooterLayout(CreateUsers);
@@ -26,13 +27,13 @@ const HL_TablesDashboard = HeaderFooterLayout(TablesDashboard);
 const HL_CreateEditTables = HeaderFooterLayout(CreateEditTables);
 const HL_AddProduct = HeaderFooterLayout(AddProduct);
 const HL_ProductsGroup = HeaderFooterLayout(ProductsGroup);
+const HL_Chat = HeaderFooterLayout(Chat);
 
 const superAdminMangerRoles :Array<RoleType> = [Roles.SuperAdmin,Roles.Admin,Roles.Manager];
 const Routes:React.FC = () => {
     return (
         <>
             <Switch>
-                <PrivateRoute exact path='/chat' component={Error}/>
                 <PrivateRoute exact path={'/pos'} component={Pos}/>
                 <PrivateRoute exact path={'/pos/:id'} component={PosTable}/>
                 <PrivateRoute exact path={['/','/dashboard']} component={HL_Dashboard}/>
@@ -45,6 +46,7 @@ const Routes:React.FC = () => {
                 <PrivateRoute exact path='/profile' component={HL_Profile}/>
                 <PublicRoute exact path='/login' component={Login}/>
                 <PublicRoute exact path='/register' component={Register}/>
+                <PrivateRoute exact path='/chat' component={HL_Chat}/>
                 <Route exact path="/404" render={(() =><Error errorNumber={404} errorText="Page Not Found"/> )}/>
                 <Redirect to="/404"/>
             </Switch>
