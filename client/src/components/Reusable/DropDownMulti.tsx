@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {FormControl, FormHelperText, InputLabel, MenuItem, Select} from "@material-ui/core";
-import {Controller} from "react-hook-form";
 import {IDropDownData} from "../../interfaces/Reusable";
 import axios, {AxiosResponse} from "axios";
-import Input from "@material-ui/core/Input";
+import {FormControl, FormHelperText, InputLabel, MenuItem, Select} from "@material-ui/core";
+import {Controller} from "react-hook-form";
+import ListItemText from "@material-ui/core/ListItemText";
+import Checkbox from "@material-ui/core/Checkbox";
 
-
-interface IDropDown {
+interface IDropDownMulti {
     id: string;
     name: string;
     label: string;
@@ -17,11 +17,8 @@ interface IDropDown {
     control: any;
     defaultValue?: string | number;
     ignoreNone?:boolean;
-    multiple?:boolean;
 }
-
-
-const Dropdown: React.FC<IDropDown> = (props) => {
+const DropDownMulti:React.FC<IDropDownMulti> = (props) => {
     const inputLabel = React.useRef<HTMLLabelElement>(null);
     const [labelWidth, setLabelWidth] = useState(0);
     const [data,setData]= useState<Array<IDropDownData>>((props.data) ? props.data : []);
@@ -46,27 +43,21 @@ const Dropdown: React.FC<IDropDown> = (props) => {
                 {props.label}
             </InputLabel>
             <Controller
-                control={props.control} name={props.name}
+                control={props.control}
+                name={`props.name${[]}`}
                 defaultValue={(!!props.defaultValue) ? props.defaultValue : ''}
                 as={
                     <Select
                         labelId={props.id}
                         id="demo-simple-select-outlined"
                         labelWidth={labelWidth}
-                        input={<Input />}
-                        multiple={props.multiple}
                     >
-                        {props.ignoreNone ?
-                            (<MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>)
-                            :
-                            null
-                        }
                         {
                             data.map((item: IDropDownData, index) => {
                                 return (
-                                    <MenuItem value={item.value} key={index}>{item.placeholder}</MenuItem>
+                                    <MenuItem value={item.value} key={index}>
+                                        <ListItemText primary={item.placeholder} />
+                                    </MenuItem>
                                 )
                             })
                         }
@@ -79,4 +70,4 @@ const Dropdown: React.FC<IDropDown> = (props) => {
     );
 };
 
-export default Dropdown;
+export default DropDownMulti;

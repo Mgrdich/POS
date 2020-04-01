@@ -15,11 +15,12 @@ import {
 import {CHAT_ACTIONS} from "./ActionsConfig";
 import Button from "@material-ui/core/Button";
 import {useModule} from "../Hooks/useModule";
-import axios from "axios";
-import {IAlertAxiosResponse} from "../../interfaces/General";
 import {useForm} from "react-hook-form";
 import {useServerErrorHandle} from "../Hooks/useServerErrorHandle";
 import Grid from "@material-ui/core/Grid";
+import DynamicFields from "../Reusable/DynamicFields";
+import {createGroupChat} from "./configs";
+import DialogContent from "@material-ui/core/DialogContent";
 
 interface IChatList {
     filter: string;
@@ -53,18 +54,18 @@ const GroupList: React.FC<IChatList> = (props) => {
 
     const onSubmit = function (values: any): void {
         console.log(values);
-/*
-        axios.put('/group-chat', values)
-            .then(function (res: IAlertAxiosResponse) {
-                reset();
-                resetServerError();
-            }).catch(function (e: any) {
-            if (!e.response.data) {
-                console.error("No Response is found");
-            }
-            setterError(e.response.data.data);
-        });
-*/
+        /*
+                axios.put('/group-chat', values)
+                    .then(function (res: IAlertAxiosResponse) {
+                        reset();
+                        resetServerError();
+                    }).catch(function (e: any) {
+                    if (!e.response.data) {
+                        console.error("No Response is found");
+                    }
+                    setterError(e.response.data.data);
+                });
+        */
 
     };
 
@@ -75,8 +76,8 @@ const GroupList: React.FC<IChatList> = (props) => {
                 color="primary"
                 variant="outlined"
                 size="small"
-                onClick={()=>handleClickOpen()}
-                >+
+                onClick={() => handleClickOpen()}
+            >+
             </Button>
             <div className="usersList">
                 <ComponentLoader isLoading={isLoading}>
@@ -103,17 +104,29 @@ const GroupList: React.FC<IChatList> = (props) => {
                 </ComponentLoader>
             </div>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth={true}>
-                <DialogTitle id="form-dialog-title">Edit</DialogTitle>
-                <form noValidate autoComplete="off" onSubmit={() => 0}>
+                <DialogTitle id="form-dialog-title">GroupChat</DialogTitle>
+
+                <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+                    <DialogContent>
+                    <Grid container direction="row" spacing={1}>
+                        <DynamicFields
+                            InputFields={createGroupChat}
+                            register={register}
+                            errors={errors}
+                            control={control}
+                            serverError={serverError}
+                            Component={Grid}
+                            ComponentProps={
+                                {
+                                    item: true,
+                                    xs: 12,
+                                    sm: 6,
+                                }
+                            }
+                        />
+                    </Grid>
+                    </DialogContent>
                     <DialogActions>
-                        <Grid container>
-                            <Grid sm={6}>
-
-                            </Grid>
-                            <Grid sm={6}>
-
-                            </Grid>
-                        </Grid>
                         <Button
                             color="primary"
                             onClick={handleClose}

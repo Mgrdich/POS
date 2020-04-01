@@ -9,13 +9,17 @@ export const createGroupChat: Array<InputField> = [
         name: 'admins',
         placeholder: 'Admins',
         type: 'select',
-        url: '/api/users',
+        url: '/api/users', //TODO fetch it once an give it to him
+        ignoreNone:true,
+        multiple:true
     },
     {
         name: 'members',
         placeholder: 'Members',
         type: 'select',
         url: '/api/users',
+        ignoreNone:true,
+        multiple: true
     }
 ];
 

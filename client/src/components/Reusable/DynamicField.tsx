@@ -7,12 +7,13 @@ import {IDynamicField} from "../../interfaces/Reusable";
 
 const DynamicField: React.FC<IDynamicField> = (props) => {
     const {errors, register, serverError, control, item} = props;
-    const {id, placeholder, type, name, url, data, ignoreNone} = item;
+    const {id, placeholder, type, name, url, data, ignoreNone,multiple} = item;
 
     switch (type) {
         case 'select':
             return (
                 <DropDown
+                    multiple={multiple}
                     defaultValue={item.default}
                     id={(id) ? id : name}
                     label={placeholder}
