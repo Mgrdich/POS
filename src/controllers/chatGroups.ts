@@ -49,7 +49,9 @@ export async function createGroupChat(req: myRequest, res: Response, next: NextF
             errorThrower("Validation Failed", 422, errors.mapped());
         }
         const {name, admins, members} = req.body;
-        const groupChat: IDocGroupsChat = new GroupsChats({name, admins, members});
+        let newAdmins = [req.user._id,...admins];
+        let newMembers = [req.user._id,...members];
+        const groupChat: IDocGroupsChat = new GroupsChats({name, admins:newAdmins, members:newMembers});
         groupChat.createdBy = req.user._id;
         await groupChat.save();
         alert(res, 200, messageAlert.success, 'Group chat is created');
@@ -74,8 +76,8 @@ export async function editGroupChat(req: myRequest, res: Response, next: NextFun
             errorThrower(FORBIDDEN, 422);
         }
         groupChat.name = name;
-        groupChat.admins = [...admins];
-        groupChat.members = [...members];
+        groupChat.admins = [req.user._id,...admins];
+        groupChat.members = [req.user._id,...members];
         groupChat.modifiedBy.push({_id: req.user._id, modifiedDate: new Date()});
         await groupChat.save();
         alert(res, 200, messageAlert.success, 'Group chat is edited');

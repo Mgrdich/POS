@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from "express";
 import {RoleType} from "../interfaces/roles";
 import {getSmallerRoles, normalizeRolesForm} from "../utilities/roles";
-import {IDropDowns} from "../interfaces/General";
+import {IDropDowns, myRequest} from "../interfaces/General";
 import {ProductsGroups} from "../models/ProductsGroups";
 import {IDocProductsGroups} from "../interfaces/models/ProductsGroups";
 import {normalizeDropDowns} from "../utilities/reformaters";
@@ -34,9 +34,9 @@ export async function getProductsGroupApi(req: Request, res: Response, next: Nex
 
 }
 
-export async function getUsersApi(req: Request, res: Response, next: NextFunction) {
+export async function getUsersApi(req: myRequest, res: Response, next: NextFunction) {
     try {
-        const users: Array<IDocUsers> = await Users.find({}, {name: 1, _id: 1});
+        const users: Array<IDocUsers> = await Users.find({"_id": {$ne: req.user._id}}, {name: 1, _id: 1});
         if (users.length) {
             const propertiesMapping = {
                 value: '_id',
