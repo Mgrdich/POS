@@ -3,7 +3,6 @@ import {FormControl, FormHelperText, InputLabel, MenuItem, Select} from "@materi
 import {Controller} from "react-hook-form";
 import {IDropDownData} from "../../interfaces/Reusable";
 import axios, {AxiosResponse} from "axios";
-import Input from "@material-ui/core/Input";
 
 
 interface IDropDown {
@@ -15,17 +14,25 @@ interface IDropDown {
     data?: Array<IDropDownData>;
     url?: string;
     control: any;
-    defaultValue?: string | number;
-    ignoreNone?:boolean;
-    multiple?:boolean;
+    defaultValue?: Array<any> | string | number;
+    ignoreNone?: boolean;
+    multiple?: boolean;
 }
 
 
 const Dropdown: React.FC<IDropDown> = (props) => {
     const inputLabel = React.useRef<HTMLLabelElement>(null);
     const [labelWidth, setLabelWidth] = useState(0);
-    const [data,setData]= useState<Array<IDropDownData>>((props.data) ? props.data : []);
+    const [data, setData] = useState<Array<IDropDownData>>((props.data) ? props.data : []);
+    let defaultValue: any = (props.multiple) ? [] : '';
 
+    if (!!props.defaultValue) {
+        if (props.multiple && Array.isArray(props.defaultValue)) {
+            defaultValue = [...props.defaultValue];
+        } else {
+            defaultValue = props.defaultValue;
+        }
+    }
 
     useEffect(() => {
         setLabelWidth(inputLabel.current!.offsetWidth);
@@ -39,7 +46,6 @@ const Dropdown: React.FC<IDropDown> = (props) => {
                 })
         }
     }, [props.url]);
-
     return (
         <FormControl variant="outlined" error={props.error}>
             <InputLabel ref={inputLabel} id={props.id}>
@@ -47,16 +53,15 @@ const Dropdown: React.FC<IDropDown> = (props) => {
             </InputLabel>
             <Controller
                 control={props.control} name={props.name}
-                defaultValue={(!!props.defaultValue) ? props.defaultValue : ''}
+                defaultValue={defaultValue}
                 as={
                     <Select
                         labelId={props.id}
                         id="demo-simple-select-outlined"
                         labelWidth={labelWidth}
-                        input={<Input />}
                         multiple={props.multiple}
                     >
-                        {props.ignoreNone ?
+                        {props.ignoreNone || props.multiple ?
                             (<MenuItem value="">
                                 <em>None</em>
                             </MenuItem>)
