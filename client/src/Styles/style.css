@@ -167,3 +167,27 @@ section.content h1 {
 .pos-tables .tables span {
   color: #66fcf1;
   font-size: 40px; }
+
+.products-header {
+  border-bottom: 1px solid #66fcf1;
+  text-align: center;
+  color: #66fcf1;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
+.products-button {
+  padding: 10px;
+  height: 120px; }
+
+.products-button Button {
+  width: 100%; }
+
+.menu-card {
+  padding: 10px; }
+
+.menu-card .MuiCardActionArea-root {
+  border: 1px solid #66fcf1; }
+
+.menu-card .image {
+  text-align: center; }
