@@ -17,7 +17,7 @@ import {Roles, RoleType} from "./roles";
 import Profile from "./views/profile";
 import Pos from "./views/pos";
 import PosTable from "./views/pos/PosTable";
-import Chat from "./components/Chat";
+import Chat from "./views/chat";
 
 const HL_Dashboard = HeaderFooterLayout(Dashboard);
 const HL_CreateUser = HeaderFooterLayout(CreateUsers);

@@ -2,8 +2,9 @@ import React, {useContext, useEffect, useState} from 'react';
 import {ChatContext} from "./ChatProvider";
 import ComponentLoader from "../Reusable/ComponentLoader";
 import {
-    Avatar, Dialog, DialogActions,
-    DialogContent,
+    Avatar,
+    Dialog,
+    DialogActions,
     DialogTitle,
     Divider,
     List,
@@ -13,7 +14,12 @@ import {
 } from "@material-ui/core";
 import {CHAT_ACTIONS} from "./ActionsConfig";
 import Button from "@material-ui/core/Button";
-import DynamicFields from "../Reusable/DynamicFields";
+import {useModule} from "../Hooks/useModule";
+import axios from "axios";
+import {IAlertAxiosResponse} from "../../interfaces/General";
+import {useForm} from "react-hook-form";
+import {useServerErrorHandle} from "../Hooks/useServerErrorHandle";
+import Grid from "@material-ui/core/Grid";
 
 interface IChatList {
     filter: string;
@@ -25,6 +31,9 @@ const GroupList: React.FC<IChatList> = (props) => {
     const {filter, data: users, isLoading} = props;
     const [data, setData] = useState<Array<any>>();
     const [state, dispatch] = useContext(ChatContext);
+    const [open, handleClickOpen, handleClose] = useModule();
+    const [serverError, setterError, resetServerError] = useServerErrorHandle();
+    const {handleSubmit, register, errors, control, unregister, reset} = useForm<any>(); //TODO front validations
 
     useEffect(function () {
         if (!isLoading) {
@@ -42,6 +51,23 @@ const GroupList: React.FC<IChatList> = (props) => {
         }
     }, [filter, isLoading]);
 
+    const onSubmit = function (values: any): void {
+        console.log(values);
+/*
+        axios.put('/group-chat', values)
+            .then(function (res: IAlertAxiosResponse) {
+                reset();
+                resetServerError();
+            }).catch(function (e: any) {
+            if (!e.response.data) {
+                console.error("No Response is found");
+            }
+            setterError(e.response.data.data);
+        });
+*/
+
+    };
+
     return (
         <>
             <Button
@@ -49,6 +75,7 @@ const GroupList: React.FC<IChatList> = (props) => {
                 color="primary"
                 variant="outlined"
                 size="small"
+                onClick={()=>handleClickOpen()}
                 >+
             </Button>
             <div className="usersList">
@@ -75,10 +102,18 @@ const GroupList: React.FC<IChatList> = (props) => {
                     </List>
                 </ComponentLoader>
             </div>
-            {/*<Dialog open={} onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth={true}>
+            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth={true}>
                 <DialogTitle id="form-dialog-title">Edit</DialogTitle>
-                <form noValidate autoComplete="off" onSubmit={()=>0}>
+                <form noValidate autoComplete="off" onSubmit={() => 0}>
                     <DialogActions>
+                        <Grid container>
+                            <Grid sm={6}>
+
+                            </Grid>
+                            <Grid sm={6}>
+
+                            </Grid>
+                        </Grid>
                         <Button
                             color="primary"
                             onClick={handleClose}
@@ -89,7 +124,7 @@ const GroupList: React.FC<IChatList> = (props) => {
                         >Submit</Button>
                     </DialogActions>
                 </form>
-            </Dialog>*/}
+            </Dialog>
         </>
     );
 };

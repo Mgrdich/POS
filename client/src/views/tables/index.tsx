@@ -35,7 +35,7 @@ const CreateEditTables = () => {
     const {tbody, thead, keys, isLoading, setRefetch} = useTable('/tables');
     const [rows, setRows, deletedId, changeDeletedId] = useTableBody(isLoading, tbody);
     const {alertMessage, setOpenAlert, openAlert, setAlert, alertType} = useAlert();
-    const [open, handleClickOpen, handleClose] = useModule();
+    const [open, handleClickOpen, handleClose] = useModule();//TODO it is Model not Module Rename
     const [EditData, setEditData] = useState();
     useDynamicFields(creteTableInputField, register, unregister);
 

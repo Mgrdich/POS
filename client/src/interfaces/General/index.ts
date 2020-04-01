@@ -11,6 +11,7 @@ export interface InputField {
     data?: Array<IDropDownData>;
     default?:any;
     url?:string;
+    multi?:boolean;
     ignoreNone?:boolean;
 }
 

@@ -56,7 +56,6 @@ export function socketEvents(io) {
             if (!groupChat) {
                 return
             }
-
             const {messages, members} = await groupChat.add(userId, msg);
             const messageId: string = messages[messages.length - 1]; //last
             let message = await Messages.findById(messageId).populate('sender', 'name'); //TODO check out the importance
@@ -64,8 +63,8 @@ export function socketEvents(io) {
 
             let recipients: Array<any> = connections.filter(function (recipient) {
                 return members.includes(recipient.userId);
-            })[0];
-            if (recipients) {
+            });
+            if (recipients && recipients.length) {
                 for (let i = 0; i < recipients.length; i++) {
                     socket.to(recipients[i].id).emit('received message', message);
                 }
