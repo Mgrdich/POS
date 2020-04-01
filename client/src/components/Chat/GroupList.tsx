@@ -21,6 +21,7 @@ import Grid from "@material-ui/core/Grid";
 import DynamicFields from "../Reusable/DynamicFields";
 import {createGroupChat} from "./configs";
 import DialogContent from "@material-ui/core/DialogContent";
+import {IAlertAxiosResponse} from "../../interfaces/General";
 
 interface IChatList {
     filter: string;
@@ -53,19 +54,17 @@ const GroupList: React.FC<IChatList> = (props) => {
     }, [filter, isLoading]);
 
     const onSubmit = function (values: any): void {
-        console.log(values);
-        /*
-                axios.put('/group-chat', values)
-                    .then(function (res: IAlertAxiosResponse) {
-                        reset();
-                        resetServerError();
-                    }).catch(function (e: any) {
-                    if (!e.response.data) {
-                        console.error("No Response is found");
-                    }
-                    setterError(e.response.data.data);
-                });
-        */
+        axios.put('/group-chat', values)
+            .then(function (res: IAlertAxiosResponse) {
+                reset();
+                resetServerError();
+                handleClose();
+            }).catch(function (e: any) {
+            if (!e.response.data) {
+                console.error("No Response is found");
+            }
+            setterError(e.response.data.data);
+        });
 
     };
 
