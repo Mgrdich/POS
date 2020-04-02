@@ -52,7 +52,7 @@ const ChatComp: React.FC = () => {
                             {
                                 (!tab) ?
                                     <ChatList filter={filter} data={users} isLoading={isLoading}/> :
-                                    <GroupList filter={filter} data={groupUsers} isLoading={groupLoading}/>
+                                    <GroupList filter={filter} data={groupUsers.empty ? [] : groupUsers} isLoading={groupLoading}/>
                             }
 
                         </Paper>
