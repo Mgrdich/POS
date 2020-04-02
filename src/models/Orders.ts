@@ -3,6 +3,7 @@ import {Schema} from "mongoose";
 import {IDocOrders, IModelOrders} from "../interfaces/models/Orders";
 import {sameObjectId} from "../utilities/functions";
 import {OrdersData} from "./OrderData";
+import {IDocUsers} from "../interfaces/models/Users";
 
 const orderSchema: Schema = new Schema({
     table: {
@@ -45,7 +46,7 @@ const orderSchema: Schema = new Schema({
 }, {timestamps: true});
 
 
-orderSchema.methods.editOrder = async function (user, waiter, orders): Promise<any> {
+orderSchema.methods.editOrder = async function (user:IDocUsers["_id"], waiter:IDocUsers["_id"], orders): Promise<any> {
     let isSameWaiter: boolean = sameObjectId(this.waiter, waiter);
     let isSameCashier: boolean = sameObjectId(this.createdBy, user);
 

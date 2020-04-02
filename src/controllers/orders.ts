@@ -62,8 +62,7 @@ export async function editOrders(req: myRequest, res: Response, next: NextFuncti
         const {orders,waiter} = req.body;
         const currentOrder:IDocOrders = await Orders.findById(req.params.id);
         await currentOrder.editOrder(req.user._id,waiter,orders);
-
-
+        alert(res, 200, messageAlert.success, 'Order is deleted');
     } catch (err) {
         errorCatcher(next, err);
     }

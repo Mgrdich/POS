@@ -11,7 +11,7 @@ const closedOrderSchema: Schema = new Schema({
     },
     orders: [ //each new order in array means that is added separately
         {
-            data: [{
+            data: [{ //TODO turn it into a Schema
                 product: {
                     type: Schema.Types.ObjectId,
                     ref: 'Products',

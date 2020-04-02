@@ -26,7 +26,7 @@ const tableSchema: Schema = new Schema({
         ref: 'Users',
     },
     modifiedBy:[
-        {
+        { //TODO Modified by Schema
             user: {
                 type: Schema.Types.ObjectId,
                 ref: 'Users',

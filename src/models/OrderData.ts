@@ -4,7 +4,7 @@ import {IDocOrdersData, IModelOrdersData} from "../interfaces/models/OrderData";
 
 //TODO check out whether an api is needed for it
 const orderDataSchema: Schema = new Schema({
-    data: [{
+    data: [{ //could be turned into Schema
         product: {
             type: Schema.Types.ObjectId,
             ref: 'Products',
