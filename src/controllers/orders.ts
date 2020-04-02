@@ -11,7 +11,7 @@ import {noResult} from "../utilities/controllers/helpers";
 import {Orders} from "../models/Orders";
 import {IDocOrders} from "../interfaces/models/Orders";
 
-export async function getOrder(req: Request, res: Response, next: NextFunction): Promise<any> {
+export async function getOrders(req: Request, res: Response, next: NextFunction): Promise<any> {
     try { //TODO transformed to a function with Generics GET /  GET/:id  delete/:id delete /
         let orders: Array<IDocOrders> | IDocOrders = await Orders.find({});
         if (orders.length) {
@@ -24,9 +24,9 @@ export async function getOrder(req: Request, res: Response, next: NextFunction):
     }
 }
 
-export async function getOrders(req: Request, res: Response, next: NextFunction): Promise<any> {
+export async function getOrder(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-        let order: IDocOrders = await Orders.findById(req.params.id);
+        let order: IDocOrders = await Orders.findById(req.params.id,{createdDate:0,createdBy:0,table:0}).populate('orders._id');
         if (!order) {
             errorThrower(NO_SUCH_DATA_EXISTS, 422); //TODO check the validity
         }
@@ -43,10 +43,10 @@ export async function addOrder(req: myRequest, res: Response, next: NextFunction
         if (!errors.isEmpty()) {
             errorThrower("Validation Failed", 422, errors.mapped());
         }
-        const {table, waiter} = req.body;
+        const {table, waiter} = req.body; //TODO Validation then this step
         const order: IDocOrders = new Orders({table, waiter,createdBy:req.user._id});
-        await order.save();
-        alert(res, 200, messageAlert.success, 'New Order is registered');
+        const ord:IDocOrders =  await order.save();
+        res.status(200).json({_id:ord._id,waiter:ord.waiter,createdBy:ord.createdBy})
     } catch (err) {
         errorCatcher(next, err);
     }
@@ -59,7 +59,7 @@ export async function editOrders(req: myRequest, res: Response, next: NextFuncti
         if (!errors.isEmpty()) {
             errorThrower("Validation Failed", 422, errors.mapped());
         }
-        const {orders,waiter} = req.body;
+        const {orders,waiter} = req.body; //TODO validation within Search Order
         const currentOrder:IDocOrders = await Orders.findById(req.params.id);
         await currentOrder.editOrder(req.user._id,waiter,orders);
         alert(res, 200, messageAlert.success, 'Order is deleted');

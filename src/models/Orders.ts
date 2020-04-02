@@ -4,6 +4,7 @@ import {IDocOrders, IModelOrders} from "../interfaces/models/Orders";
 import {sameObjectId} from "../utilities/functions";
 import {OrdersData} from "./OrderData";
 import {IDocUsers} from "../interfaces/models/Users";
+import {IDocOrdersData} from "../interfaces/models/OrderData";
 
 const orderSchema: Schema = new Schema({
     table: {
@@ -41,17 +42,18 @@ const orderSchema: Schema = new Schema({
     price: {
         // required:true,
         type: Number,
+        default: 0
     }
 
 }, {timestamps: true});
 
 
-orderSchema.methods.editOrder = async function (user:IDocUsers["_id"], waiter:IDocUsers["_id"], orders): Promise<any> {
+orderSchema.methods.editOrder = async function (user: IDocUsers["_id"], waiter: IDocUsers["_id"], orders): Promise<any> {
     let isSameWaiter: boolean = sameObjectId(this.waiter, waiter);
     let isSameCashier: boolean = sameObjectId(this.createdBy, user);
 
-    let orderData = await OrdersData.addOrderData(orders);
-    if (!isSameWaiter || isSameCashier) {
+    let orderData: IDocOrdersData = await OrdersData.addOrderData(orders);
+    if (!isSameWaiter || isSameCashier) { //not like the created Config store data
         this.orders.push({
             _id: orderData._id,
             createdBy: user,
@@ -63,18 +65,20 @@ orderSchema.methods.editOrder = async function (user:IDocUsers["_id"], waiter:ID
             _id: orderData._id,
         })
     }
+    this.price += orderData.price;
+
     return this.save();
 };
 
 
 //TODO here should be used virtuals so that the populate name can be renamed
-orderSchema.statics.deleteOrderById = async function (id):Promise<any> {
-    const toBeDeletedOrder:IDocOrders = await Orders.findById(id).populate('orders._id');
+orderSchema.statics.deleteOrderById = async function (id): Promise<any> {
+    const toBeDeletedOrder: IDocOrders = await Orders.findById(id).populate('orders._id');
     console.log(toBeDeletedOrder);
 
 };
 
-orderSchema.statics.closeOrderById = async function (id):Promise<any> {
+orderSchema.statics.closeOrderById = async function (id): Promise<any> {
     //delete should be called here
 };
 
