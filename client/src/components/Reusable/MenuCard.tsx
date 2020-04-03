@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Grid, Typography} from "@material-ui/core";
 
 const MenuCard : React.FC<any>= (props:any) => {
-    const {sako, image}=props
+    const {products, image}=props
     return (
                     <div className="menu-card ">
                             <Card>
@@ -15,8 +15,8 @@ const MenuCard : React.FC<any>= (props:any) => {
                                         title="Contemplative Reptile"
                                     />}
                                     <CardContent className={` ${image ? '' : 'image'}`}>
-                                        <Typography>{sako.name}</Typography>
-                                        <Typography>{sako.price}</Typography>
+                                        <Typography>{products.name}</Typography>
+                                        <Typography>{products.price}</Typography>
 
                                     </CardContent>
                                 </CardActionArea>

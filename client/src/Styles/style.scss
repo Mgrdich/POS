@@ -89,7 +89,7 @@ section {
 
 .products-button{
   padding: 10px;
-  height: 120px;
+  height: 80px;
 
   Button{
     width: 100%;
@@ -98,11 +98,25 @@ section {
 
 .menu-card{
   padding: 10px;
+  height: 120px;
+
   .MuiCardActionArea-root{
     border: 1px solid $primary;
   }
   .image{
     text-align: center;
   }
+  .MuiTypography-body1{
+    color: $primary;
+  }
 
+}
+
+.products-paper{
+   margin-top: 15px;
+}
+
+.products-scrollable-paper{
+  max-height: 250px;
+  overflow: auto;
 }
