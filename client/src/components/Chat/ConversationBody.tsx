@@ -39,7 +39,7 @@ const ConversationBody: React.FC = () => {
     return (
         <div className="conversationBody">
             {
-                state.messages.length && state.messages.map((item: any, index: number) => {
+                state.messages.length ? state.messages.map((item: any, index: number) => {
                     if (item.sender._id === user.id) {
 
                         return (
@@ -50,7 +50,7 @@ const ConversationBody: React.FC = () => {
                             <Message position="left" name={item.sender.name} key={item._id} message={item.message}/>
                         );
                     }
-                })
+                }): <h1>No Messages yet</h1>
             }
         </div>
     );

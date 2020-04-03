@@ -28,16 +28,17 @@ interface IChatList {
     filter: string;
     data: Array<any>;
     isLoading: boolean;
+    setReFetch: Function;
 }
 
 const GroupList: React.FC<IChatList> = (props) => {
-    const {filter, data: users, isLoading} = props;
+    const {filter, data: users, isLoading, setReFetch} = props;
     const [data, setData] = useState<Array<any>>();
     const [state, dispatch] = useContext(ChatContext);
     const [open, handleClickOpen, handleClose] = useModule();
     const [serverError, setterError, resetServerError] = useServerErrorHandle();
     const {handleSubmit, register, errors, control, unregister, reset} = useForm<any>(); //TODO front validations
-
+    console.log(data);
     useEffect(function () {
         if (!isLoading) {
             setData(users);
@@ -49,7 +50,7 @@ const GroupList: React.FC<IChatList> = (props) => {
             if (filter === '') {
                 return setData(users);
             }
-            const filteredUsers: Array<any> = users.filter((item: any) => item.name.includes(filter)); //more nice filter
+            const filteredUsers: Array<any> = users.filter((item: any) => item.name.toLowerCase().includes(filter.toLowerCase().trim()));
             setData(filteredUsers);
         }
     }, [filter, isLoading]);
@@ -59,6 +60,7 @@ const GroupList: React.FC<IChatList> = (props) => {
             .then(function (res: IAlertAxiosResponse) {
                 reset();
                 resetServerError();
+                setReFetch((prevState: boolean) => !prevState);
                 handleClose();
             }).catch(function (e: any) {
             if (!e.response.data) {
@@ -108,23 +110,23 @@ const GroupList: React.FC<IChatList> = (props) => {
 
                 <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
                     <DialogContent>
-                    <Grid container direction="row" spacing={1}>
-                        <DynamicFields
-                            InputFields={createGroupChat}
-                            register={register}
-                            errors={errors}
-                            control={control}
-                            serverError={serverError}
-                            Component={Grid}
-                            ComponentProps={
-                                {
-                                    item: true,
-                                    xs: 12,
-                                    sm: 6,
+                        <Grid container direction="row" spacing={1}>
+                            <DynamicFields
+                                InputFields={createGroupChat}
+                                register={register}
+                                errors={errors}
+                                control={control}
+                                serverError={serverError}
+                                Component={Grid}
+                                ComponentProps={
+                                    {
+                                        item: true,
+                                        xs: 12,
+                                        sm: 6,
+                                    }
                                 }
-                            }
-                        />
-                    </Grid>
+                            />
+                        </Grid>
                     </DialogContent>
                     <DialogActions>
                         <Button

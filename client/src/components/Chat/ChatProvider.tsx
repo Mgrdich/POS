@@ -8,7 +8,8 @@ const ChatProvider:React.FC = (props) => { //tODO types to useReducer
         users:[],
         user:null,
         messages:[],
-        isLoading:true
+        isLoading:true,
+        group:null,
     });
 
     return (

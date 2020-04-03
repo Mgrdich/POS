@@ -26,7 +26,7 @@ const ChatList: React.FC<IChatList> = (props) => {
             if (filter === '') {
                 return setData(users);
             }
-            const filteredUsers:Array<any> = users.filter((item: any) => item.name.includes(filter)); //more nice filter
+            const filteredUsers:Array<any> = users.filter((item: any) => item.name.toLowerCase().includes(filter.toLowerCase().trim()));
             setData(filteredUsers);
         }
     }, [filter, isLoading]);

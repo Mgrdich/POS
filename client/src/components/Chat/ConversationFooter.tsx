@@ -6,9 +6,13 @@ import {socket} from "../../App";
 
 const ConversationFooter:React.FC = () => {
     const [state, dispatch] = useContext(ChatContext);
+    console.log(state)
     const [value,setValue] = useState<string>('');
 
     const sendMessage = function ():void {
+        if(value === ''){
+            return
+        }
         if(state.user) {
             socket.emit('new message',{text:value,to:state.user._id});
         } else  {

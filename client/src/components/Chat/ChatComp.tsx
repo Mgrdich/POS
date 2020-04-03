@@ -9,8 +9,9 @@ import GroupList from "./GroupList";
 
 const ChatComp: React.FC = () => {
     const [filter, setFilter] = useState<string>('');
+    const [reFetch, setRefetch] = useState(false);
     const {data: users, isLoading} = useFetch('/users/chat'); //from outside
-    const {data: groupUsers, isLoading: groupLoading} = useFetch('/group-chat');
+        const {data: groupUsers, isLoading: groupLoading} = useFetch('/group-chat', reFetch);
     const [tab, setTab] = useState<number>(0);
 
     const handleTabChange = function (event: React.ChangeEvent<{}>, newValue: number) {
@@ -51,8 +52,8 @@ const ChatComp: React.FC = () => {
                             </Box>
                             {
                                 (!tab) ?
-                                    <ChatList filter={filter} data={users} isLoading={isLoading}/> :
-                                    <GroupList filter={filter} data={groupUsers.empty ? [] : groupUsers} isLoading={groupLoading}/>
+                                    <ChatList filter={filter} data={users} isLoading={isLoading} /> :
+                                    <GroupList filter={filter} data={groupUsers.empty ? [] : groupUsers} isLoading={groupLoading} setReFetch={setRefetch}/>
                             }
 
                         </Paper>
