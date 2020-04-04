@@ -40,24 +40,27 @@ const ConversationFooter: React.FC = () => {
 
     return (
         <div className="conversationFooter">
-            <Grid container direction="row" wrap="nowrap" justify='center' xs={12} >
-                <TextField
-                    label="Your Message"
-                    id="outlined-size-small"
-                    variant="filled"
-                    size="medium"
-                    value={value}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)}
-                    onKeyUp={(e) => handleSendMessageOnEnter(e)}
-                />
-                <IconButton>
-                <SendIcon
-                    color="primary"
-                    className="FloatRight"
-                    onClick={() => sendMessage()}
-                >Submit</SendIcon>
-                </IconButton>
-
+            <Grid container direction="row" wrap="nowrap" justify='center' alignItems='center'>
+                <Grid item xs={12}>
+                    <TextField
+                        label="Your Message"
+                        id="outlined-size-small"
+                        variant="filled"
+                        size="medium"
+                        value={value}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)}
+                        onKeyUp={(e) => handleSendMessageOnEnter(e)}
+                    />
+                </Grid>
+                <Grid  item xs={1}>
+                    <IconButton onClick={() => sendMessage()}>
+                        <SendIcon
+                            fontSize='large'
+                            color="primary"
+                            className="FloatRight"
+                        >Submit</SendIcon>
+                    </IconButton>
+                </Grid>
             </Grid>
         </div>
     );
