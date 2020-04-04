@@ -26,12 +26,13 @@ export async function getChatGroups(req: myRequest, res: Response, next: NextFun
 export async function getChatGroup(req: Request, res: Response, next: NextFunction) {
     try {
         const chats: IDocGroupsChat = await GroupsChats.findById(req.params.id).populate({
-            path:'messages',
-            populate:{
-                path:'sender',
-                select:'name'
-            }});
-        
+            path: 'messages',
+            populate: {
+                path: 'sender',
+                select: 'name'
+            }
+        });
+
         if (chats) {
             return res.status(200).json(chats);
         }
@@ -49,9 +50,9 @@ export async function createGroupChat(req: myRequest, res: Response, next: NextF
             errorThrower("Validation Failed", 422, errors.mapped());
         }
         const {name, admins, members} = req.body;
-        let newAdmins = [req.user._id,...admins];
-        let newMembers = [req.user._id,...members];
-        const groupChat: IDocGroupsChat = new GroupsChats({name, admins:newAdmins, members:newMembers});
+        let newAdmins = [req.user._id, ...admins];
+        let newMembers = [req.user._id, ...members];
+        const groupChat: IDocGroupsChat = new GroupsChats({name, admins: newAdmins, members: newMembers});
         groupChat.createdBy = req.user._id;
         await groupChat.save();
         alert(res, 200, messageAlert.success, 'Group chat is created');
@@ -68,9 +69,10 @@ export async function editGroupChat(req: myRequest, res: Response, next: NextFun
             errorThrower("Validation Failed", 422, errors.mapped());
         }
         const {name, admins, members} = req.body;
+
         const groupChat: IDocGroupsChat = await GroupsChats.findOne({
             _id: req.params.id,
-            $in: {admins: [req.user._id]}
+            admins: {$in: [req.user._id]}
         });
         if (!groupChat) {
             errorThrower(FORBIDDEN, 422);

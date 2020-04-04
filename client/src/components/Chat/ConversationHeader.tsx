@@ -31,7 +31,6 @@ const ConversationHeader: React.FC = () => {
     const onEdit = (values: any) => {
         axios.put(`/group-chat/${state.group._id}`, values)
             .then(function (res: IAlertAxiosResponse) {
-                console.log(res.data);
                 handleClose();
                 dispatch({type: CHAT_ACTIONS.REFETCH});
             }).catch(function (e: any) {

@@ -43,7 +43,7 @@ export async function getUsersApi(req: myRequest, res: Response, next: NextFunct
                 placeholder: 'name'
             };
             let dropDowns = normalizeDropDowns(users, propertiesMapping);
-            res.status(200).json(dropDowns);
+            return res.status(200).json(dropDowns);
         }
         noResult(res);
     } catch (err) {
