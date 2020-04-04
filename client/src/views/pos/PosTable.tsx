@@ -10,7 +10,7 @@ const PosTable = () => {
     const productsList = [{id:1, name:"fatoush",price:1000}, {id:2, name:"summer",price:1000}, {id:3, name:"taboule",price:1200},{id:1, name:"fatoush",price:1000},{id:1, name:"fatoush",price:1000},{id:1, name:"fatoush",price:1000},];
     return (
         <div>
-            <Grid container direction="row" justify="space-around" style={{paddingBottom:'80px'}}>
+            <Grid container direction="row" justify="space-around" className="pos-grid">
                 <Grid item xs={12} sm={3}>
                     <TableOrders />
                 </Grid>

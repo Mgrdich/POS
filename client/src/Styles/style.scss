@@ -101,7 +101,7 @@ section {
 
 .menu-card{
   padding: 10px;
-  height: 120px;
+  height: 100px;
 
   .MuiCardActionArea-root{
     border: 1px solid $primary;
@@ -120,6 +120,10 @@ section {
 }
 
 .products-scrollable-paper{
-  max-height: 250px;
+  max-height: 150px;
   overflow: auto;
+}
+
+.pos-grid{
+  padding-bottom: 80px;
 }
