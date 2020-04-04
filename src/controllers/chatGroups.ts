@@ -1,13 +1,13 @@
-import {NextFunction, Request, Response} from "express";
+import {NextFunction, Response} from "express";
 import {errorCatcher, errorFormatter, errorThrower} from "../utilities/controllers/error";
 import {GroupsChats} from "../models/ChatGroups";
-import {IDocGroupsChat} from "../interfaces/models/ChatGroups";
+import {IDocGroupsChat, IGroupsChat} from "../interfaces/models/ChatGroups";
 import {validationResult} from "express-validator";
 import {IDelete, myRequest} from "../interfaces/General";
 import {alert} from "../utilities/controllers/messages";
 import {messageAlert} from "../interfaces/util";
-import {Users} from "../models/Users";
 import {FORBIDDEN, ITEM_DELETED, NOT_MODIFIED} from "../utilities/constants/messages";
+import {sameObjectId} from "../utilities/functions";
 
 export async function getChatGroups(req: myRequest, res: Response, next: NextFunction) {
     try {
@@ -15,7 +15,12 @@ export async function getChatGroups(req: myRequest, res: Response, next: NextFun
             .populate('messages')
             .populate('participants', 'name');
         if (chats.length) {
-            return res.status(200).json(chats);
+            const newchat:Array<IGroupsChat> = chats.map(function (item:IGroupsChat) {
+                item.admins = item.admins.filter((item)=>!sameObjectId(item,req.user._id));
+                item.members = item.members.filter((item)=>!sameObjectId(item,req.user._id));
+                return item;
+            });
+            return res.status(200).json(newchat);
         }
         res.status(200).json({empty: true});
     } catch (err) {
@@ -23,7 +28,7 @@ export async function getChatGroups(req: myRequest, res: Response, next: NextFun
     }
 }
 
-export async function getChatGroup(req: Request, res: Response, next: NextFunction) {
+export async function getChatGroup(req: myRequest, res: Response, next: NextFunction) {
     try {
         const chats: IDocGroupsChat = await GroupsChats.findById(req.params.id).populate({
             path: 'messages',
@@ -34,6 +39,8 @@ export async function getChatGroup(req: Request, res: Response, next: NextFuncti
         });
 
         if (chats) {
+            chats.admins = chats.admins.filter((item)=>!sameObjectId(item,req.user._id));
+            chats.members = chats.members.filter((item)=>!sameObjectId(item,req.user._id));
             return res.status(200).json(chats);
         }
         res.status(200).json({empty: true});
