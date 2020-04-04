@@ -4,6 +4,7 @@ import {Box, Button, TextField} from "@material-ui/core";
 import {ChatContext} from "./ChatProvider";
 import {socket} from "../../App";
 import SendIcon from '@material-ui/icons/Send';
+import IconButton from '@material-ui/core/IconButton';
 
 const ConversationFooter: React.FC = () => {
     const [state, dispatch] = useContext(ChatContext);
@@ -39,8 +40,7 @@ const ConversationFooter: React.FC = () => {
 
     return (
         <div className="conversationFooter">
-            <Grid container direction="row" wrap="nowrap" justify='center'>
-                <Grid item sm={3} lg={6}  >
+            <Grid container direction="row" wrap="nowrap" justify='center' xs={12} >
                 <TextField
                     label="Your Message"
                     id="outlined-size-small"
@@ -50,14 +50,14 @@ const ConversationFooter: React.FC = () => {
                     onChange={(e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)}
                     onKeyUp={(e) => handleSendMessageOnEnter(e)}
                 />
-                </Grid>
-                <Grid item sm={3} lg={4} >
-                    <SendIcon
-                        color="primary"
-                        className="FloatRight"
-                        onClick={() => sendMessage()}
-                    >Submit</SendIcon>
-                </Grid>
+                <IconButton>
+                <SendIcon
+                    color="primary"
+                    className="FloatRight"
+                    onClick={() => sendMessage()}
+                >Submit</SendIcon>
+                </IconButton>
+
             </Grid>
         </div>
     );

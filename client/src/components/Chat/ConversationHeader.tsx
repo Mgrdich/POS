@@ -22,7 +22,7 @@ const ConversationHeader: React.FC = () => {
         validationSchema: editGroupChatVal,
     });
     const [serverError, setterError, resetServerError] = useServerErrorHandle();
-    const editData = DefaultValue(editGroupChat, state.group);
+
     const onEdit = (values: any) => {
         dispatch({type: CHAT_ACTIONS.FETCH});
         handleClose();
@@ -59,7 +59,7 @@ const ConversationHeader: React.FC = () => {
                     <DialogContent>
                         <Grid container direction="row" spacing={1}>
                             <DynamicFields
-                                InputFields={editData || []}
+                                InputFields={DefaultValue([] || editGroupChat, state.group)}
                                 register={editRegister}
                                 errors={editErrors}
                                 control={editControl}
