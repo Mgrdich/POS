@@ -5,16 +5,16 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 
-const EditGroup =  (props:any) =>  {
+const EditGroup = (props: any) => { //TODO types???
     const {editCallBack} = props;
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 
-    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    const handleClick = function (event: React.MouseEvent<HTMLElement>) {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = () => {
+    const handleClose = function () {
         setAnchorEl(null);
     };
 

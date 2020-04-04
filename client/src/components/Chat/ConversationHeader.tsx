@@ -1,4 +1,4 @@
-import React, {useCallback, useContext} from 'react';
+import React, {useCallback, useContext, useEffect} from 'react';
 import {Avatar, Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@material-ui/core";
 import {ChatContext} from "./ChatProvider";
 import EditGroup from "./EditGroup";
@@ -24,7 +24,7 @@ const ConversationHeader: React.FC = () => {
     });
     const [serverError, setterError, resetServerError] = useServerErrorHandle();
 
-    if (group) { //TODO put it inside use effect
+    if (group) {
         editGroup = DefaultValue(editGroupChat, group);
     }
 

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useContext, useState} from 'react';
+import React, {ChangeEvent, useCallback, useContext, useState} from 'react';
 import Grid from "@material-ui/core/Grid";
 import {Box, Button, TextField} from "@material-ui/core";
 import {ChatContext} from "./ChatProvider";
@@ -10,7 +10,7 @@ const ConversationFooter: React.FC = () => {
     const [state, dispatch] = useContext(ChatContext);
     const [value, setValue] = useState<string>('');
 
-    const sendMessage = function (): void {
+    const sendMessage = useCallback(function () {
         if (value === '') {
             return
         }
@@ -20,10 +20,10 @@ const ConversationFooter: React.FC = () => {
             socket.emit('new message group', state.group._id, value);
         }
         setValue('');
-    };
 
+    },[state.user,state.group._id,value]);
 
-    const handleSendMessageOnEnter = (e: any) => {
+    const handleSendMessageOnEnter = useCallback(function (e:any) { //TODO check typescript event
         if (e.keyCode === 13) {
 
             if (value === '') {
@@ -36,7 +36,8 @@ const ConversationFooter: React.FC = () => {
             }
             setValue('');
         }
-    };
+    },[value,state.user,state.group._id]);
+
 
     return (
         <div className="conversationFooter">

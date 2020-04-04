@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {ChatContext} from "./ChatProvider";
 import ComponentLoader from "../Reusable/ComponentLoader";
 import {
@@ -24,7 +24,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import {IAlertAxiosResponse} from "../../interfaces/General";
 import axios from "axios";
 
-interface IChatList {
+interface IChatList { //TODO seperate file
     filter: string;
     data: Array<any>;
     isLoading: boolean;
@@ -56,7 +56,7 @@ const GroupList: React.FC<IChatList> = (props) => {
         }
     }, [filter, isLoading]);
 
-    const onSubmit = function (values: any): void {
+    const onSubmit = useCallback(function (values: any) {
         axios.put('/group-chat', values)
             .then(function (res: IAlertAxiosResponse) {
                 reset();
@@ -70,7 +70,7 @@ const GroupList: React.FC<IChatList> = (props) => {
             setterError(e.response.data.data);
         });
 
-    };
+    },[axios,dispatch]);
 
     return (
         <>

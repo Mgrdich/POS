@@ -15,7 +15,7 @@ const ConversationBody: React.FC = () => {
         socket.on('received message', function (message: any) {
             dispatch({type: CHAT_ACTIONS.SET_MESSAGE, payload: message});
         });
-    }, []);
+    }, [dispatch]);
 
     useEffect(function () {
         let url: string;
