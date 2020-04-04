@@ -32,7 +32,7 @@ const ConversationBody: React.FC = () => {
                     dispatch({type: CHAT_ACTIONS.SET_MESSAGES, payload: []})
                 }
             });
-    }, [state.user, state.group]);
+    }, [state.user, state.group,dispatch]);
 
     return (
         <div className="conversationBody">

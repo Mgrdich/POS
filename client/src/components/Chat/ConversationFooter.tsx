@@ -1,13 +1,13 @@
 import React, {ChangeEvent, useCallback, useContext, useState} from 'react';
 import Grid from "@material-ui/core/Grid";
-import {Box, Button, TextField} from "@material-ui/core";
+import {TextField} from "@material-ui/core";
 import {ChatContext} from "./ChatProvider";
 import {socket} from "../../App";
 import SendIcon from '@material-ui/icons/Send';
 import IconButton from '@material-ui/core/IconButton';
 
 const ConversationFooter: React.FC = () => {
-    const [state, dispatch] = useContext(ChatContext);
+    const [state] = useContext(ChatContext);
     const [value, setValue] = useState<string>('');
 
     const sendMessage = useCallback(function () {

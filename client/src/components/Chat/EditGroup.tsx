@@ -19,7 +19,7 @@ const EditGroup = (props: any) => { //TODO types???
     };
 
     return (
-        <div>
+        <>
             <IconButton
                 aria-label="more"
                 aria-controls="long-menu"
@@ -44,7 +44,7 @@ const EditGroup = (props: any) => { //TODO types???
                 </MenuItem>
 
             </Menu>
-        </div>
+        </>
     );
 };
 

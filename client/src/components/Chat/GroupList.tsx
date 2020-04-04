@@ -33,10 +33,10 @@ interface IChatList { //TODO seperate file
 const GroupList: React.FC<IChatList> = (props) => {
     const {filter, data: users, isLoading} = props;
     const [data, setData] = useState<Array<any>>();
-    const [state, dispatch] = useContext(ChatContext);
+    const dispatch = useContext(ChatContext)[1];
     const [open, handleClickOpen, handleClose] = useModule();
     const [serverError, setterError, resetServerError] = useServerErrorHandle();
-    const {handleSubmit, register, errors, control, unregister, reset} = useForm<any>({
+    const {handleSubmit, register, errors, control, reset} = useForm<any>({
         validationSchema: createGroupChatVal
     });
 
@@ -44,7 +44,7 @@ const GroupList: React.FC<IChatList> = (props) => {
         if (!isLoading) {
             setData(users);
         }
-    }, [isLoading]);
+    }, [isLoading,users]);
 
     useEffect(function () {
         if (!isLoading) {
@@ -54,7 +54,7 @@ const GroupList: React.FC<IChatList> = (props) => {
             const filteredUsers: Array<any> = users.filter((item: any) => item.name.toLowerCase().includes(filter.toLowerCase().trim()));
             setData(filteredUsers);
         }
-    }, [filter, isLoading]);
+    }, [filter, isLoading,users]);
 
     const onSubmit = useCallback(function (values: any) {
         axios.put('/group-chat', values)
@@ -70,7 +70,7 @@ const GroupList: React.FC<IChatList> = (props) => {
             setterError(e.response.data.data);
         });
 
-    },[axios,dispatch]);
+    },[dispatch,reset,resetServerError,handleClose,setterError]);
 
     return (
         <>

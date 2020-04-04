@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect} from 'react';
+import React, {useCallback, useContext} from 'react';
 import {Avatar, Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@material-ui/core";
 import {ChatContext} from "./ChatProvider";
 import EditGroup from "./EditGroup";
@@ -22,7 +22,7 @@ const ConversationHeader: React.FC = () => {
     const {handleSubmit: handleEditSubmit, register: editRegister, errors: editErrors, control: editControl} = useForm<any>({
         validationSchema: editGroupChatVal,
     });
-    const [serverError, setterError, resetServerError] = useServerErrorHandle();
+    const [serverError, setterError] = useServerErrorHandle();
 
     if (group) {
         editGroup = DefaultValue(editGroupChat, group);
