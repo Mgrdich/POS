@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useContext, useState} from 'react';
 import ChatList from "./ChatList";
 import Grid from "@material-ui/core/Grid";
 import {Box, Paper, Tabs, TextField} from "@material-ui/core";
@@ -6,12 +6,14 @@ import {useFetch} from "../Hooks/useFetch";
 import Conversation from "./Conversation";
 import Tab from "@material-ui/core/Tab";
 import GroupList from "./GroupList";
+import {ChatContext} from "./ChatProvider";
 
 const ChatComp: React.FC = () => {
     const [filter, setFilter] = useState<string>('');
+    const [state, dispatch] = useContext(ChatContext);
     const [reFetch, setRefetch] = useState(false);
     const {data: users, isLoading} = useFetch('/users/chat'); //from outside
-        const {data: groupUsers, isLoading: groupLoading} = useFetch('/group-chat', reFetch);
+    const {data: groupUsers, isLoading: groupLoading} = useFetch('/group-chat', state.fetch);
     const [tab, setTab] = useState<number>(0);
 
     const handleTabChange = function (event: React.ChangeEvent<{}>, newValue: number) {
@@ -52,8 +54,9 @@ const ChatComp: React.FC = () => {
                             </Box>
                             {
                                 (!tab) ?
-                                    <ChatList filter={filter} data={users} isLoading={isLoading} /> :
-                                    <GroupList filter={filter} data={groupUsers.empty ? [] : groupUsers} isLoading={groupLoading} setReFetch={setRefetch}/>
+                                    <ChatList filter={filter} data={users} isLoading={isLoading}/> :
+                                    <GroupList filter={filter} data={groupUsers.empty ? [] : groupUsers}
+                                               isLoading={groupLoading} setReFetch={setRefetch}/>
                             }
 
                         </Paper>

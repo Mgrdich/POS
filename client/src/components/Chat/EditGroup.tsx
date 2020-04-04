@@ -16,6 +16,7 @@ const EditGroup =  (props:any) =>  {
 
     const handleClose = () => {
         setAnchorEl(null);
+        editCallBack();
     };
 
     return (
@@ -36,7 +37,7 @@ const EditGroup =  (props:any) =>  {
                 onClose={handleClose}
             >
 
-                <MenuItem onClick={editCallBack}>
+                <MenuItem onClick={handleClose}>
                     Edit
                 </MenuItem>
                 <MenuItem>
