@@ -5,10 +5,11 @@ import {IDropDowns, myRequest} from "../interfaces/General";
 import {ProductsGroups} from "../models/ProductsGroups";
 import {IDocProductsGroups} from "../interfaces/models/ProductsGroups";
 import {normalizeDropDowns} from "../utilities/reformaters";
-import {IDocUsers} from "../interfaces/models/Users";
+import {IDocUsers, IUser} from "../interfaces/models/Users";
 import {Users} from "../models/Users";
 import {errorCatcher} from "../utilities/controllers/error";
 import {noResult} from "../utilities/controllers/helpers";
+import {sameObjectId} from "../utilities/functions";
 
 export function getRolesApi(req: Request, res: Response, next: NextFunction): Response {
     const RolesArray: Array<RoleType> = getSmallerRoles(req.user["role"]);
@@ -38,11 +39,17 @@ export async function getUsersApi(req: myRequest, res: Response, next: NextFunct
     try {
         const users: Array<IDocUsers> = await Users.find({/*"_id": {$ne: req.user._id}*/}, {name: 1, _id: 1});
         if (users.length) {
+            const newUsers:Array<IDocUsers> = users.map(function(item:IDocUsers){
+               if(sameObjectId(item._id,req.user._id)){
+                   item.name = "me";
+               }
+               return item;
+            });
             const propertiesMapping = {
                 value: '_id',
                 placeholder: 'name'
             };
-            let dropDowns = normalizeDropDowns(users, propertiesMapping);
+            let dropDowns = normalizeDropDowns(newUsers, propertiesMapping);
             return res.status(200).json(dropDowns);
         }
         noResult(res);
