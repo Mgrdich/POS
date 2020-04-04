@@ -1,7 +1,6 @@
 import {POS_TYPES} from "../actions/types";
 import {IPOSReducer} from "../interfaces/redux/reducers";
 
-
 const initialState: IPOSReducer = {
     orders: [],
     productsGroups: {
@@ -12,14 +11,19 @@ const initialState: IPOSReducer = {
     waiter: null,
     createdBy: null,
     orderId: null,
-    isLoading: false
+    isLoading: false,
+    error: false
 };
 
 export default function (state: IPOSReducer = initialState, action: any) {
-    switch (action.type) {
+    const {payload, type} = action;
+    switch (type) {
         case POS_TYPES.SET_ORDER_INFO:
             return {
                 ...state,
+                waiter: payload.waiter,
+                createdBy: payload.createdBy,
+                orderId: payload._id
             };
         case POS_TYPES.SET_ORDERS:
             return {
@@ -58,6 +62,11 @@ export default function (state: IPOSReducer = initialState, action: any) {
             return {
                 ...state,
                 //loading
+            };
+        case POS_TYPES.SET_ERROR:
+            return {
+                ...state,
+                error: true
             };
         default:
             return state;

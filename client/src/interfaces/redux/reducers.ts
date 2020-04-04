@@ -1,5 +1,6 @@
 /*
 * Authentication Reducer
+*
 * */
 export interface IAuthReducer {
     isAuthenticated: boolean;
@@ -28,4 +29,5 @@ export interface IPOSReducer {
     createdBy: any // id name
     orderId: string | null;
     isLoading: boolean; //info Group
+    error:false;
 }
