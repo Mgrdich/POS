@@ -28,11 +28,10 @@ interface IChatList {
     filter: string;
     data: Array<any>;
     isLoading: boolean;
-    setReFetch: Function;
 }
 
 const GroupList: React.FC<IChatList> = (props) => {
-    const {filter, data: users, isLoading, setReFetch} = props;
+    const {filter, data: users, isLoading} = props;
     const [data, setData] = useState<Array<any>>();
     const [state, dispatch] = useContext(ChatContext);
     const [open, handleClickOpen, handleClose] = useModule();

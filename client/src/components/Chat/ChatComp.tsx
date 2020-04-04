@@ -11,7 +11,6 @@ import {ChatContext} from "./ChatProvider";
 const ChatComp: React.FC = () => {
     const [filter, setFilter] = useState<string>('');
     const [state, dispatch] = useContext(ChatContext);
-    const [reFetch, setRefetch] = useState(false);
     const {data: users, isLoading} = useFetch('/users/chat'); //from outside
     const {data: groupUsers, isLoading: groupLoading} = useFetch('/group-chat', state.fetch);
     const [tab, setTab] = useState<number>(0);
@@ -56,7 +55,7 @@ const ChatComp: React.FC = () => {
                                 (!tab) ?
                                     <ChatList filter={filter} data={users} isLoading={isLoading}/> :
                                     <GroupList filter={filter} data={groupUsers.empty ? [] : groupUsers}
-                                               isLoading={groupLoading} setReFetch={setRefetch}/>
+                                               isLoading={groupLoading} />
                             }
 
                         </Paper>
