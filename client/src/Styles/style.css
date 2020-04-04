@@ -326,5 +326,9 @@ section.content h1 {
   max-height: 150px;
   overflow: auto; }
 
+.products-scrollable-paper .MuiFormControl-root {
+  margin: 10px;
+  width: 30%; }
+
 .pos-grid {
   padding-bottom: 80px; }

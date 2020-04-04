@@ -4,7 +4,6 @@ import {Button, Grid, Paper} from "@material-ui/core";
 const ProductsGroups = (props: any) => {
     const {products} = props;
     return (
-        <>
             <Paper className="products-paper">
                 <div className="products-header">
                     <h1>Menu</h1>
@@ -27,7 +26,6 @@ const ProductsGroups = (props: any) => {
                 </Grid>
             </Paper>
 
-            </>
     );
 };
 

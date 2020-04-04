@@ -122,6 +122,10 @@ section {
 .products-scrollable-paper{
   max-height: 150px;
   overflow: auto;
+  .MuiFormControl-root{
+    margin:10px;
+    width: 30%;
+  }
 }
 
 .pos-grid{

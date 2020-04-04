@@ -5,13 +5,13 @@ import MenuCard from "../../components/Reusable/MenuCard";
 const Products:React.FC<any> = (props: any) => {
     const{productsList} = props;
     return (
-        <>
             <Paper className="products-scrollable-paper products-paper" >
                 <TextField
                     label="Search Products"
                     id="outlined-size-small"
                     variant="outlined"
                     size="small"
+                    className="products-search"
                     /*onChange={(e: ChangeEvent<HTMLInputElement>) => setFilter(e.target.value)}*/
                 />
 
@@ -26,7 +26,6 @@ const Products:React.FC<any> = (props: any) => {
 
                 </Grid>
             </Paper>
-        </>
     );
 };
 
