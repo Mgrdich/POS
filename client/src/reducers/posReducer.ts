@@ -2,20 +2,35 @@ import {POS_TYPES} from "../actions/types";
 
 interface IPOSReducer {
     orders: Array<any>; //TODO type array typed
-    productsGroups: Array<any>;
+    productsGroups: {
+        data: {
+            [key: string]: {
+                _id: string;
+                products: Array<any> | null;
+                name: string;
+                isLoading: boolean; //for products Fetch
+            };
+        },
+        isLoading: boolean; //for Products Group
+    };
     productsGroup: string | null; //id
-    products: Array<any>;
     waiter: any; // id name
     createdBy: any // id name
+    orderId: string | null;
+    isLoading: boolean; //info Group
 }
 
 const initialState: IPOSReducer = {
     orders: [],
-    products: [],
-    productsGroups: [],
+    productsGroups: {
+        data: {},
+        isLoading: false
+    },
     productsGroup: null,
     waiter: null,
-    createdBy:null
+    createdBy: null,
+    orderId: null,
+    isLoading: false
 };
 
 export default function (state: IPOSReducer = initialState, action: any) {
@@ -35,11 +50,32 @@ export default function (state: IPOSReducer = initialState, action: any) {
         case POS_TYPES.SET_PRODUCTS_GROUPS:
             return {
                 ...state,
+                productsGroups: {
+                    ...action.payload,
+                    isLoading: false
+                }
             };
-
         case POS_TYPES.SET_PRODUCTS_GROUP:
             return {
                 ...state,
+            };
+        case POS_TYPES.SET_LOADING:
+            return {
+                ...state,
+                isLoading: true
+            };
+        case POS_TYPES.SET_LOADING_PRODUCTS_GROUPS:
+            return {
+                ...state,
+                productsGroups: {
+                    ...state.productsGroups,
+                    isLoading: true
+                }
+            };
+        case POS_TYPES.SET_LOADING_PRODUCTS:
+            return {
+                ...state,
+                //loading
             };
         default:
             return state;
