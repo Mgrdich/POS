@@ -3,15 +3,17 @@ import jwt_decode from "jwt-decode";
 import {Action, ActionCreator, AnyAction, Dispatch} from 'redux';
 import {ThunkAction} from "redux-thunk";
 import history from "../util/history";
-import {SET_CURRENT_USER} from "./types";
+import {AUTH_TYPES} from "./types";
 import {socket} from "../App";
 
 type action = ActionCreator<Action>;
 
 
+//TODO checking right typing for the files
+
 export const setCurrentUser: action = function (decoded: any) {
     return {
-        type: SET_CURRENT_USER,
+        type: AUTH_TYPES.SET_CURRENT_USER,
         payload: decoded
     };
 };
