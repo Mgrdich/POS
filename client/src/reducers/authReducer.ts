@@ -1,10 +1,6 @@
 import {AUTH_TYPES} from "../actions/types";
 import {isEmpty} from "../util/functions";
-
-interface IAuthReducer {
-    isAuthenticated: boolean;
-    user: any; //TODO typed
-}
+import {IAuthReducer} from "../interfaces/redux/reducers";
 
 const initialState: IAuthReducer = {
     isAuthenticated: false,
