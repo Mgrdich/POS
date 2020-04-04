@@ -33,7 +33,7 @@ const ConversationBody: React.FC = () => {
                 }
             });
     }, [state.user, state.group]);
-    //FETCHING the Messages
+
     return (
         <div className="conversationBody">
             {

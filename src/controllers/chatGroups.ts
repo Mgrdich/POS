@@ -1,13 +1,12 @@
 import {NextFunction, Response} from "express";
 import {errorCatcher, errorFormatter, errorThrower} from "../utilities/controllers/error";
 import {GroupsChats} from "../models/ChatGroups";
-import {IDocGroupsChat, IGroupsChat} from "../interfaces/models/ChatGroups";
+import {IDocGroupsChat} from "../interfaces/models/ChatGroups";
 import {validationResult} from "express-validator";
 import {IDelete, myRequest} from "../interfaces/General";
 import {alert} from "../utilities/controllers/messages";
 import {messageAlert} from "../interfaces/util";
 import {FORBIDDEN, ITEM_DELETED, NOT_MODIFIED} from "../utilities/constants/messages";
-import {sameObjectId} from "../utilities/functions";
 
 export async function getChatGroups(req: myRequest, res: Response, next: NextFunction) {
     try {
@@ -15,12 +14,12 @@ export async function getChatGroups(req: myRequest, res: Response, next: NextFun
             .populate('messages')
             .populate('participants', 'name');
         if (chats.length) {
-            const newchat:Array<IGroupsChat> = chats.map(function (item:IGroupsChat) {
+           /* const newchat:Array<IGroupsChat> = chats.map(function (item:IGroupsChat) {
                 item.admins = item.admins.filter((item)=>!sameObjectId(item,req.user._id));
                 item.members = item.members.filter((item)=>!sameObjectId(item,req.user._id));
                 return item;
-            });
-            return res.status(200).json(newchat);
+            });*/
+            return res.status(200).json(chats);
         }
         res.status(200).json({empty: true});
     } catch (err) {
@@ -39,8 +38,8 @@ export async function getChatGroup(req: myRequest, res: Response, next: NextFunc
         });
 
         if (chats) {
-            chats.admins = chats.admins.filter((item)=>!sameObjectId(item,req.user._id));
-            chats.members = chats.members.filter((item)=>!sameObjectId(item,req.user._id));
+            // chats.admins = chats.admins.filter((item)=>!sameObjectId(item,req.user._id));
+            // chats.members = chats.members.filter((item)=>!sameObjectId(item,req.user._id));
             return res.status(200).json(chats);
         }
         res.status(200).json({empty: true});
@@ -57,8 +56,8 @@ export async function createGroupChat(req: myRequest, res: Response, next: NextF
             errorThrower("Validation Failed", 422, errors.mapped());
         }
         const {name, admins, members} = req.body;
-        let newAdmins = [req.user._id, ...admins];
-        let newMembers = [req.user._id, ...members];
+        let newAdmins = [...admins];
+        let newMembers = [...members];
         const groupChat: IDocGroupsChat = new GroupsChats({name, admins: newAdmins, members: newMembers});
         groupChat.createdBy = req.user._id;
         await groupChat.save();
@@ -84,9 +83,9 @@ export async function editGroupChat(req: myRequest, res: Response, next: NextFun
         if (!groupChat) {
             errorThrower(FORBIDDEN, 422);
         }
-        groupChat.name = name;
-        groupChat.admins = [req.user._id,...admins];
-        groupChat.members = [req.user._id,...members];
+        groupChat.name = name; //TODO check out whether it needs checking or not
+        groupChat.admins = [...admins];
+        groupChat.members = [...members];
         groupChat.modifiedBy.push({_id: req.user._id, modifiedDate: new Date()});
         await groupChat.save();
         alert(res, 200, messageAlert.success, 'Group chat is edited');

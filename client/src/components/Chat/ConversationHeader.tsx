@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useCallback, useContext} from 'react';
 import {Avatar, Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@material-ui/core";
 import {ChatContext} from "./ChatProvider";
 import EditGroup from "./EditGroup";
@@ -24,11 +24,11 @@ const ConversationHeader: React.FC = () => {
     });
     const [serverError, setterError, resetServerError] = useServerErrorHandle();
 
-    if (group) {
-        editGroup = DefaultValue(editGroupChat,group);
+    if (group) { //TODO put it inside use effect
+        editGroup = DefaultValue(editGroupChat, group);
     }
 
-    const onEdit = (values: any) => {
+    const onEdit = useCallback(function (values: any) {
         axios.put(`/group-chat/${state.group._id}`, values)
             .then(function (res: IAlertAxiosResponse) {
                 handleClose();
@@ -39,7 +39,7 @@ const ConversationHeader: React.FC = () => {
             }
             setterError(e.response.data.data);
         });
-    };
+    }, [state.group._id, dispatch]);
 
     return (
         <div className="conversationHeader">

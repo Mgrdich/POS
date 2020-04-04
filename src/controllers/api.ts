@@ -36,7 +36,7 @@ export async function getProductsGroupApi(req: Request, res: Response, next: Nex
 
 export async function getUsersApi(req: myRequest, res: Response, next: NextFunction) {
     try {
-        const users: Array<IDocUsers> = await Users.find({"_id": {$ne: req.user._id}}, {name: 1, _id: 1});
+        const users: Array<IDocUsers> = await Users.find({/*"_id": {$ne: req.user._id}*/}, {name: 1, _id: 1});
         if (users.length) {
             const propertiesMapping = {
                 value: '_id',
