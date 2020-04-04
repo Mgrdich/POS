@@ -88,14 +88,14 @@ export async function editGroupChat(req: myRequest, res: Response, next: NextFun
     }
 }
 
-export async function deleteGroupChat(req: Request, res: Response, next: NextFunction) { //TODO refactor with decorators
+export async function deleteGroupChat(req: myRequest, res: Response, next: NextFunction) { //TODO refactor with decorators
     try {
         const errors: any = validationResult(req).formatWith(errorFormatter);
 
         if (!errors.isEmpty()) {
             errorThrower("Validation Failed", 422, errors.mapped());
         }
-        const response: IDelete = await GroupsChats.deleteOne({_id: req.params.id});
+        const response: IDelete = await GroupsChats.deleteOne({_id: req.params.id,admins: {$in: [req.user._id]}});
         if (response.ok) {
             alert(res, 200, messageAlert.success, ITEM_DELETED);
         } else {
