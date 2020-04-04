@@ -95,7 +95,7 @@ export async function deleteGroupChat(req: Request, res: Response, next: NextFun
         if (!errors.isEmpty()) {
             errorThrower("Validation Failed", 422, errors.mapped());
         }
-        const response: IDelete = await Users.deleteOne({_id: req.params.id});
+        const response: IDelete = await GroupsChats.deleteOne({_id: req.params.id});
         if (response.ok) {
             alert(res, 200, messageAlert.success, ITEM_DELETED);
         } else {
