@@ -53,8 +53,8 @@ orderSchema.methods.editOrder = async function (user: IDocUsers["_id"], waiter: 
     let isSameCashier: boolean = sameObjectId(this.createdBy, user);
 
     let orderData: IDocOrdersData = await OrdersData.addOrderData(orders);
-    if (!isSameWaiter || isSameCashier) { //not like the created Config store data
-        this.orders.push({
+    if (!isSameWaiter || !isSameCashier) { //not like the created Config store data
+        this.orders.push({ //since here we only have to push and ID
             _id: orderData._id,
             createdBy: user,
             waiter: waiter,

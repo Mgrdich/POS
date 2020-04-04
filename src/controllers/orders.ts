@@ -45,7 +45,8 @@ export async function addOrder(req: myRequest, res: Response, next: NextFunction
         }
         const {table, waiter} = req.body; //TODO Validation then this step
         const order: IDocOrders = new Orders({table, waiter,createdBy:req.user._id});
-        const ord:IDocOrders =  await order.save();
+        const ord:IDocOrders =  await (await order.save())
+            .populate('waiter','name').populate('createdBy','name').execPopulate();
         res.status(200).json({_id:ord._id,waiter:ord.waiter,createdBy:ord.createdBy})
     } catch (err) {
         errorCatcher(next, err);
@@ -62,7 +63,7 @@ export async function editOrders(req: myRequest, res: Response, next: NextFuncti
         const {orders,waiter} = req.body; //TODO validation within Search Order
         const currentOrder:IDocOrders = await Orders.findById(req.params.id);
         await currentOrder.editOrder(req.user._id,waiter,orders);
-        alert(res, 200, messageAlert.success, 'Order is deleted');
+        alert(res, 200, messageAlert.success, 'Order is Edited');
     } catch (err) {
         errorCatcher(next, err);
     }
