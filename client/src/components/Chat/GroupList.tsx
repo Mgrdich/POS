@@ -19,7 +19,7 @@ import {useForm} from "react-hook-form";
 import {useServerErrorHandle} from "../Hooks/useServerErrorHandle";
 import Grid from "@material-ui/core/Grid";
 import DynamicFields from "../Reusable/DynamicFields";
-import {createGroupChat} from "./configs";
+import {createGroupChat, createGroupChatVal} from "./configs";
 import DialogContent from "@material-ui/core/DialogContent";
 import {IAlertAxiosResponse} from "../../interfaces/General";
 import axios from "axios";
@@ -37,7 +37,9 @@ const GroupList: React.FC<IChatList> = (props) => {
     const [state, dispatch] = useContext(ChatContext);
     const [open, handleClickOpen, handleClose] = useModule();
     const [serverError, setterError, resetServerError] = useServerErrorHandle();
-    const {handleSubmit, register, errors, control, unregister, reset} = useForm<any>(); //TODO front validations
+    const {handleSubmit, register, errors, control, unregister, reset} = useForm<any>({
+            validationSchema:createGroupChatVal
+        }); //TODO front validations
     console.log(data);
     useEffect(function () {
         if (!isLoading) {

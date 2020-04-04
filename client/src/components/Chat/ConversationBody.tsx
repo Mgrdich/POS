@@ -33,8 +33,6 @@ const ConversationBody: React.FC = () => {
                 }
             });
     }, [state.user, state.group]);
-
-
     //FETCHING the Messages
     return (
         <div className="conversationBody">
@@ -50,7 +48,7 @@ const ConversationBody: React.FC = () => {
                             <Message position="left" name={item.sender.name} key={item._id} message={item.message}/>
                         );
                     }
-                }): <h1>No Messages yet</h1>
+                }) : <h1>No Messages yet</h1>
             }
         </div>
     );
