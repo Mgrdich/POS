@@ -80,11 +80,14 @@ section {
 
 .products-header{
   border-bottom: 1px solid $primary;
-  text-align: center;
   color: $primary;
   display: flex;
-  align-items: center;
   justify-content: center;
+
+   h1{
+     margin: 0px;
+     padding: 10px;
+   }
 }
 
 .products-button{

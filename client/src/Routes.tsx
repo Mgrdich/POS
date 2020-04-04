@@ -28,14 +28,16 @@ const HL_CreateEditTables = HeaderFooterLayout(CreateEditTables);
 const HL_AddProduct = HeaderFooterLayout(AddProduct);
 const HL_ProductsGroup = HeaderFooterLayout(ProductsGroup);
 const HL_Chat = HeaderFooterLayout(Chat);
+const HL_Pos= HeaderFooterLayout(Pos);
+const HL_PosTable= HeaderFooterLayout(PosTable);
 
 const superAdminMangerRoles :Array<RoleType> = [Roles.SuperAdmin,Roles.Admin,Roles.Manager];
 const Routes:React.FC = () => {
     return (
         <>
             <Switch>
-                <PrivateRoute exact path={'/pos'} component={Pos}/>
-                <PrivateRoute exact path={'/pos/:id'} component={PosTable}/>
+                <PrivateRoute exact path={'/pos'} allowedRoles={superAdminMangerRoles} component={HL_Pos}/>
+                <PrivateRoute exact path={'/pos/:id'} component={HL_PosTable}/>
                 <PrivateRoute exact path={['/','/dashboard']} component={HL_Dashboard}/>
                 <PrivateRoute exact path={['/products','/product/index']} component={HL_AddProduct}/>
                 <PrivateRoute exact path={'/products/products-group'} component={HL_ProductsGroup}/>
