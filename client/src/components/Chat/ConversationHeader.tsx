@@ -17,27 +17,29 @@ import {CHAT_ACTIONS} from "./ActionsConfig";
 const ConversationHeader: React.FC = () => {
     const [state, dispatch] = useContext(ChatContext);
     const {user, group} = state;
+    let editGroup;
     const [open, handleClickOpen, handleClose] = useModule();
     const {handleSubmit: handleEditSubmit, register: editRegister, errors: editErrors, control: editControl} = useForm<any>({
         validationSchema: editGroupChatVal,
     });
     const [serverError, setterError, resetServerError] = useServerErrorHandle();
 
+    if (group) {
+        editGroup = DefaultValue(editGroupChat,group);
+    }
+
     const onEdit = (values: any) => {
-        dispatch({type: CHAT_ACTIONS.FETCH});
-        handleClose();
-        // axios.put(`/group-chat/${state.group._id}`, values)
-        //     .then(function (res: IAlertAxiosResponse) {
-        //         console.log(res.data)
-        //         // setRefetch((prev: boolean) => !prev);
-        //         // setAlert(res.data, {alertQuestion: false, alert: true});
-        //         // setRefetch((prev: boolean) => !prev);
-        //     }).catch(function (e: any) {
-        //     if (!e.response.data) {
-        //         console.error("No Response is found");
-        //     }
-        //     setterError(e.response.data.data);
-        // });
+        axios.put(`/group-chat/${state.group._id}`, values)
+            .then(function (res: IAlertAxiosResponse) {
+                console.log(res.data);
+                handleClose();
+                dispatch({type: CHAT_ACTIONS.REFETCH});
+            }).catch(function (e: any) {
+            if (!e.response.data) {
+                console.error("No Response is found");
+            }
+            setterError(e.response.data.data);
+        });
     };
 
     return (
@@ -59,7 +61,7 @@ const ConversationHeader: React.FC = () => {
                     <DialogContent>
                         <Grid container direction="row" spacing={1}>
                             <DynamicFields
-                                InputFields={DefaultValue([] || editGroupChat, state.group)}
+                                InputFields={(user) ? user : editGroup}
                                 register={editRegister}
                                 errors={editErrors}
                                 control={editControl}

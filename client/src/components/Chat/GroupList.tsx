@@ -38,7 +38,8 @@ const GroupList: React.FC<IChatList> = (props) => {
     const [serverError, setterError, resetServerError] = useServerErrorHandle();
     const {handleSubmit, register, errors, control, unregister, reset} = useForm<any>({
         validationSchema: createGroupChatVal
-    }); //TODO front validations
+    });
+
     useEffect(function () {
         if (!isLoading) {
             setData(users);
@@ -60,7 +61,7 @@ const GroupList: React.FC<IChatList> = (props) => {
             .then(function (res: IAlertAxiosResponse) {
                 reset();
                 resetServerError();
-                dispatch({type: CHAT_ACTIONS.FETCH});
+                dispatch({type: CHAT_ACTIONS.REFETCH});
                 handleClose();
             }).catch(function (e: any) {
             if (!e.response.data) {

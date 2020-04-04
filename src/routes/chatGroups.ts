@@ -1,5 +1,4 @@
 import * as express from "express";
-import {isAuthorized} from "../middlewares/authorisation";
 import {paramIdValidation} from "../validations/General";
 import {createGroupChat, deleteGroupChat, editGroupChat, getChatGroup, getChatGroups} from "../controllers/chatGroups";
 import {addGroupChatValidation, editGroupChatValidation} from "../validations/chatGroups";

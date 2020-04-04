@@ -35,7 +35,7 @@ export const ChatDataReducer = function (state: any, action: any) {
               ...state,
               messages:[...state.messages,...action.payload]
             };
-        case CHAT_ACTIONS.FETCH:
+        case CHAT_ACTIONS.REFETCH:
             return {
                 ...state,
                 fetch:!state.fetch,
