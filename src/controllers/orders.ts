@@ -10,6 +10,8 @@ import {Orders} from "../models/Orders";
 import {IDocOrders} from "../interfaces/models/Orders";
 import {Tables} from "../models/Tables";
 import {ITables} from "../interfaces/models/Tables";
+import {IProductsGroups} from "../interfaces/models/ProductsGroups";
+import {ProductsGroups} from "../models/ProductsGroups";
 
 export async function getOrders(req: Request, res: Response, next: NextFunction): Promise<any> {
     try { //TODO transformed to a function with Generics GET /  GET/:id  delete/:id delete /
@@ -34,6 +36,38 @@ export async function getPosTables(req: Request, res: Response, next: NextFuncti
         errorCatcher(next, err);
     }
 }
+
+export async function getPosProductsGroups(req: Request, res: Response, next: NextFunction): Promise<any> {
+    try {
+        let posProductsGroups: Array<IProductsGroups> = await ProductsGroups.find({},{_id:1,name:1}).lean();
+        if (posProductsGroups.length) {
+            return res.status(200).json(posProductsGroups);
+        }
+        noResult(res);
+    } catch (err) {
+        errorCatcher(next, err);
+    }
+}
+
+export async function getPosProducts(req: Request, res: Response, next: NextFunction): Promise<any> {
+    try {
+        const errors: any = validationResult(req).formatWith(errorFormatter);
+
+        if (!errors.isEmpty()) {
+            errorThrower("Validation Failed", 422, errors.mapped());
+        }
+        let posProductsGroups: Array<IProductsGroups> =
+            await ProductsGroups.find({},{_id:1})
+            .lean().populate('products','name');
+        if (posProductsGroups.length) {
+            return res.status(200).json(posProductsGroups);
+        }
+        noResult(res);
+    } catch (err) {
+        errorCatcher(next, err);
+    }
+}
+
 
 export async function getOrder(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
