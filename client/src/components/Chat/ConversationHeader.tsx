@@ -23,6 +23,7 @@ const ConversationHeader: React.FC = () => {
     let editGroup;
     const [open, handleClickOpen, handleClose] = useModule();
     const [openGroupInfo, handleClickOpenGroupInfo, handleCloseGroupInfo] = useModule();
+    const [openGroupDelete, handleClickOpenGroupDelete, handleCloseGroupDelete] = useModule();
     const {handleSubmit: handleEditSubmit, register: editRegister, errors: editErrors, control: editControl} = useForm<any>({
         validationSchema: editGroupChatVal,
     });
@@ -45,6 +46,19 @@ const ConversationHeader: React.FC = () => {
         });
     }, [state.group, dispatch]);
 
+    const onDelete = useCallback(() => {
+        axios.delete(`/group-chat/${state.group._id}`)
+            .then(function (res: IAlertAxiosResponse) {
+                handleCloseGroupDelete();
+                dispatch({type: CHAT_ACTIONS.REFETCH});
+            }).catch(function (e: any) {
+            if (!e.response.data) {
+                console.error("No Response is found");
+            }
+            setterError(e.response.data.data);
+        });
+    }, [state.group, dispatch]);
+
     return (
         <div className="conversationHeader">
             <div>
@@ -56,7 +70,7 @@ const ConversationHeader: React.FC = () => {
                 </span>
 
                 {user ? null : <div className='drop-wrapper'><EditGroup
-                    editCallBack={{handleClickOpen, handleClickOpenGroupInfo}}/></div>}
+                    editCallBack={{handleClickOpen, handleClickOpenGroupInfo, handleClickOpenGroupDelete}}/></div>}
 
             </div>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth={true}>
@@ -98,10 +112,10 @@ const ConversationHeader: React.FC = () => {
                     fullWidth={true}>
                 <DialogTitle id="group-info">Group Info</DialogTitle>
                 <DialogContent>
-                    <Typography variant='h6'  color='primary'>
+                    <Typography variant='h6' color='primary'>
                         Group-name: {state?.group?.name}
                     </Typography>
-                    <Typography variant='h6'  color='primary'>
+                    <Typography variant='h6' color='primary'>
                         {state?.group?.admins.length > 1 ? 'Admins' : 'Admin'}
                     </Typography>
                     {state?.group?.admins.map((admin: string, index: number) => (
@@ -123,6 +137,27 @@ const ConversationHeader: React.FC = () => {
                         color="primary"
                         onClick={handleCloseGroupInfo}
                     >Done</Button>
+                </DialogActions>
+            </Dialog>
+
+            <Dialog open={openGroupDelete} onClose={handleCloseGroupDelete} aria-labelledby="form-dialog-title"
+                    fullWidth={true}>
+                <DialogTitle id="group-info">Group Info</DialogTitle>
+                <DialogContent>
+                    <Typography component='p' color='primary'>
+                        Are you sure you want to delete {state?.group?.name} group ?
+                    </Typography>
+                </DialogContent>
+                <DialogActions>
+                    <Button
+                        color="primary"
+                        onClick={handleCloseGroupDelete}
+                    >Cancel
+                    </Button>
+                    <Button
+                        onClick={onDelete}
+                        color="primary"
+                    >Submit</Button>
                 </DialogActions>
             </Dialog>
         </div>

@@ -8,13 +8,14 @@ interface IEditGroup {
     editCallBack: {
         handleClickOpen: Function;
         handleClickOpenGroupInfo: Function;
+        handleClickOpenGroupDelete:Function;
     };
 
 }
 
 const EditGroup: React.FC<IEditGroup> = (props) => {
     const {editCallBack} = props;
-    const {handleClickOpen, handleClickOpenGroupInfo} = editCallBack;
+    const {handleClickOpen, handleClickOpenGroupInfo, handleClickOpenGroupDelete} = editCallBack;
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 
@@ -51,6 +52,11 @@ const EditGroup: React.FC<IEditGroup> = (props) => {
                 <div onClick={handleClose}>
                     <MenuItem onClick={() => handleClickOpenGroupInfo()}>
                         Group info
+                    </MenuItem>
+                </div>
+                <div onClick={handleClose}>
+                    <MenuItem onClick={() => handleClickOpenGroupDelete()}>
+                        Delete
                     </MenuItem>
                 </div>
             </Menu>
