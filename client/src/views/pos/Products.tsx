@@ -12,7 +12,7 @@ const Products: React.FC<any> = (props: any) => {
         <Paper className="products-scrollable-paper products-paper">
             <TextField
                 label="Search Products"
-                id="outlined-size-small"
+                id="products-search"
                 variant="outlined"
                 size="small"
                 /*onChange={(e: ChangeEvent<HTMLInputElement>) => setFilter(e.target.value)}*/

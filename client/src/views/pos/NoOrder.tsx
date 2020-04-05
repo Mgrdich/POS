@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Grid} from "@material-ui/core";
 
-const TableOrder: React.FC<any> = () => {
+const NoOrder: React.FC<any> = () => {
     return (
         <div className="table-order-button">
             <Button
@@ -14,4 +14,4 @@ const TableOrder: React.FC<any> = () => {
     );
 };
 
-export default TableOrder;
+export default NoOrder;

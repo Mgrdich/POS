@@ -55,27 +55,23 @@ section {
 }
 
 
-.pos-tables{
-  height: 100vh;
-
-  .tables{
+.tables{
+  button {
+    variant:"contained";
+    background-color: $secondary;
     width: 250px;
     height: 125px;
-    border: 1px solid $primary;
     margin-top: 20px;
-    background-color: $secondary;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    span{
+    border: 1px solid $primary;
+  }
+  span {
       color: $primary;
       font-size: 40px;
 
-    }
   }
-
 }
+
+
 
 
 .products-header{

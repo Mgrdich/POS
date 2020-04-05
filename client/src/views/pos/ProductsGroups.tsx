@@ -20,7 +20,7 @@ const ProductsGroups = (props: any) => {
             </div>
             <TextField
                 label="Search"
-                id="outlined-size-small"
+                id="products-group-search"
                 variant="outlined"
                 size="small"
                 /*onChange={(e: ChangeEvent<HTMLInputElement>) => setFilter(e.target.value)}*/
