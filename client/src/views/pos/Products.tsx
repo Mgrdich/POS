@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Grid, Paper, TextField} from "@material-ui/core";
 import MenuCard from "../../components/Reusable/MenuCard";
 import {useDispatch} from "react-redux";
+import {fetchProductsGroups} from "../../actions/posActions";
 
 const Products: React.FC<any> = (props: any) => {
     const {productsList} = props;

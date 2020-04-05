@@ -1,8 +1,18 @@
-import React from 'react';
-import {Button, Grid, Paper, TextField} from "@material-ui/core";
+import React, {useEffect} from 'react';
+import {Button, Grid, Paper} from "@material-ui/core";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchProductsGroups} from "../../actions/posActions";
 
 const ProductsGroups = (props: any) => {
     const {products} = props;
+    const dispatch = useDispatch();
+    const productsGroups  = useSelector<any>(state => state.pos.productsGroups.data);
+    const isLoading  = useSelector<any>(state => state.pos.productsGroups.isLoading);
+
+    useEffect(function () {
+        dispatch(fetchProductsGroups());
+    },[dispatch]);
+
     return (
         <Paper className="products-paper">
             <div className="products-header">

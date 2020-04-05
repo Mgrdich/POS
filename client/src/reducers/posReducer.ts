@@ -3,7 +3,10 @@ import {IPOSReducer} from "../interfaces/redux/reducers";
 
 const initialState: IPOSReducer = {
     orders: [],
-    tables: [],
+    tables: {
+        data:[],
+        isLoading:false
+    },
     productsGroups: {
         data: {},
         isLoading: false
