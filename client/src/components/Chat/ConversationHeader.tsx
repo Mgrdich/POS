@@ -98,10 +98,10 @@ const ConversationHeader: React.FC = () => {
                     fullWidth={true}>
                 <DialogTitle id="group-info">Group Info</DialogTitle>
                 <DialogContent>
-                    <Typography variant='h6' component="h2" color='primary'>
+                    <Typography variant='h6'  color='primary'>
                         Group-name: {state?.group?.name}
                     </Typography>
-                    <Typography variant='h6' component="h2" color='primary'>
+                    <Typography variant='h6'  color='primary'>
                         {state?.group?.admins.length > 1 ? 'Admins' : 'Admin'}
                     </Typography>
                     {state?.group?.admins.map((admin: string, index: number) => (
