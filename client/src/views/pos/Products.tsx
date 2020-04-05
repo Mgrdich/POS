@@ -14,7 +14,6 @@ const Products: React.FC<any> = (props: any) => {
                 id="outlined-size-small"
                 variant="outlined"
                 size="small"
-                className="products-search"
                 /*onChange={(e: ChangeEvent<HTMLInputElement>) => setFilter(e.target.value)}*/
             />
 

@@ -117,10 +117,14 @@ section {
 
 .products-paper{
    margin-top: 15px;
+   .MuiFormControl-root{
+     width: 30%;
+     margin: 10px;
+  }
 }
 
 .products-scrollable-paper{
-  max-height: 150px;
+  max-height: 100px;
   overflow: auto;
   .MuiFormControl-root{
     margin:10px;
