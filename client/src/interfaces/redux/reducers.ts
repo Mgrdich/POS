@@ -19,7 +19,6 @@ export interface IPOSReducer {
                 _id: string;
                 products: Array<any> | null;
                 name: string;
-                isLoading: boolean; //for products Fetch
             };
         },
         isLoading: boolean; //for Products Group
@@ -29,6 +28,10 @@ export interface IPOSReducer {
         isLoading:boolean
     };
     productsGroup: string | null; //id
+    products:{
+        data:any, //TODO to be filled
+        isLoading:boolean
+    }
     waiter: any; // id name
     createdBy: any // id name
     orderId: string | null;

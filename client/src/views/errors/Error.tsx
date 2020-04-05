@@ -7,6 +7,7 @@ import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissa
 const Error: React.FC<IError> = (props) => {
     const history = useHistory();
 
+    //TODO bod ->Body
     return (
         <div className='error'>
             <div className='head'>

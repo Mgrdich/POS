@@ -56,10 +56,10 @@ export async function getPosProducts(req: Request, res: Response, next: NextFunc
         if (!errors.isEmpty()) {
             errorThrower("Validation Failed", 422, errors.mapped());
         }
-        let posProductsGroups: Array<IProductsGroups> =
-            await ProductsGroups.find({},{_id:1})
+        let posProductsGroups: IProductsGroups =
+            await ProductsGroups.findById(req.params.productsGroupId,{_id:1})
             .lean().populate('products','name');
-        if (posProductsGroups.length) {
+        if (posProductsGroups) {
             return res.status(200).json(posProductsGroups);
         }
         noResult(res);

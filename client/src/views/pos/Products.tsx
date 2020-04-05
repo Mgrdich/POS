@@ -1,12 +1,12 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Grid, Paper, TextField} from "@material-ui/core";
 import MenuCard from "../../components/Reusable/MenuCard";
-import {useDispatch} from "react-redux";
-import {fetchProductsGroups} from "../../actions/posActions";
+import {useSelector} from "react-redux";
+import ComponentLoader from "../../components/Reusable/ComponentLoader";
 
-const Products: React.FC<any> = (props: any) => {
-    const {productsList} = props;
-    const dispatch = useDispatch();
+const Products: React.FC<any> = () => {
+    const products:any = useSelector<any>(state => state.pos.products.data);
+    const isLoading:any = useSelector<any>(state => state.pos.products.isLoading);
 
     return (
         <div className="products-container">
@@ -16,19 +16,16 @@ const Products: React.FC<any> = (props: any) => {
                 id="products-search"
                 variant="outlined"
                 size="small"
-                /*onChange={(e: ChangeEvent<HTMLInputElement>) => setFilter(e.target.value)}*/
             />
-
-            <Grid item container direction="row" justify="space-around">
-                {productsList ? productsList.map((product: any, index: number) => (
-                    <Grid item xs={12} sm={6} md={4}>
-                        <MenuCard key={index} products={product}/>
-
-                    </Grid>
-
-                )) : []}
-
-            </Grid>
+            <ComponentLoader isLoading={isLoading}>
+                <Grid item container direction="row" justify="space-around">
+                    {products.length?products.map((product: any, index: number) => (
+                        <Grid item xs={12} sm={6} md={4} key={product._id}>
+                            <MenuCard key={index} products={product}/>
+                        </Grid>
+                    )):null}
+                </Grid>
+            </ComponentLoader>
         </Paper>
         </div>
     );

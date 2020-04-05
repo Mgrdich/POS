@@ -3,12 +3,12 @@ import authReducer from "./authReducer";
 import posReducer from "./posReducer";
 import {IAuthReducer, IPOSReducer} from "../interfaces/redux/reducers";
 
-interface combinedReducers {
+export interface IState {
     auth: IAuthReducer,
     pos: IPOSReducer
 }
 
-export default combineReducers<combinedReducers>({
+export default combineReducers<IState>({
     auth: authReducer,
     pos: posReducer
 });

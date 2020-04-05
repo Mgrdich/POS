@@ -1,13 +1,13 @@
 import React, {useEffect} from 'react';
 import {Button, Grid, Paper, TextField} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchProductsGroups} from "../../actions/posActions";
+import {fetchProductsGroups, fetchSelectProducts} from "../../actions/posActions";
+import ComponentLoader from "../../components/Reusable/ComponentLoader";
 
-const ProductsGroups = (props: any) => {
-    const {products} = props;
+const ProductsGroups:React.FC = () => {
     const dispatch = useDispatch();
-    const productsGroups  = useSelector<any>(state => state.pos.productsGroups.data);
-    const isLoading  = useSelector<any>(state => state.pos.productsGroups.isLoading);
+    const productsGroups:any  = useSelector<any>(state => state.pos.productsGroups.data);
+    const isLoading:any  = useSelector<any>(state => state.pos.productsGroups.isLoading);
 
     useEffect(function () {
         dispatch(fetchProductsGroups());
@@ -27,20 +27,26 @@ const ProductsGroups = (props: any) => {
                 /*onChange={(e: ChangeEvent<HTMLInputElement>) => setFilter(e.target.value)}*/
             />
             <Grid item container direction="row" justify="space-around">
-                {products ? products.map((product: string, index: number) => (
-                    <Grid className='products-button' key={index} item container justify="center" xs={12}
-                          sm={6}
-                          md={4}>
-                        <Button
-                            aria-controls="customized-menu"
-                            aria-haspopup="true"
-                            variant="outlined"
-                            color="primary"
-                        >
-                            {product}
-                        </Button>
-                    </Grid>
-                )) : []}
+                <ComponentLoader isLoading={isLoading}>
+                    {Object.keys(productsGroups).map((key: string, index: number) => (
+                        <Grid className='products-button' key={key} item container justify="center"
+                              xs={12}
+                              sm={6}
+                              md={4}>
+                            <Button
+                                aria-controls="customized-menu"
+                                aria-haspopup="true"
+                                variant="outlined"
+                                color="primary"
+                                type="button"
+                                onClick={()=>dispatch(fetchSelectProducts(key))}
+                            >
+                                {productsGroups[key].name}
+                            </Button>
+                        </Grid>
+                    ))}
+
+                </ComponentLoader>
             </Grid>
         </Paper>
         </div>

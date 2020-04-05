@@ -14,8 +14,18 @@ export function dateFormat(date: string): string {
 
 
 export function DefaultValue(myInputFields: Array<InputField>, data: any) {
-    return myInputFields.map((item: InputField, index: number) => {
+    return myInputFields.map(function (item: InputField, index: number) {
         item.default = data[item.name];
         return item;
     });
+}
+
+export function hashingArray<T>(array: Array<T>, key: string):any {
+    return array.reduce(function (acc: any, curr: any) {
+        let obj: any = {...acc};
+        if (curr[key]) {
+            obj[curr[key]] = curr;
+        }
+        return obj;
+    }, {});
 }
