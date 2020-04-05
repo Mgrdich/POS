@@ -24,10 +24,11 @@ export interface IPOSReducer {
         },
         isLoading: boolean; //for Products Group
     };
+    tables:Array<any>;
     productsGroup: string | null; //id
     waiter: any; // id name
     createdBy: any // id name
     orderId: string | null;
     isLoading: boolean; //info Group
-    error:false;
+    error:boolean;
 }

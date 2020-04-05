@@ -46,9 +46,9 @@ const Routes:React.FC = () => {
                 <PrivateRoute exact path='/users/create-user' allowedRoles={superAdminMangerRoles} component={HL_CreateUser}/>
                 <PrivateRoute exact path='/users' allowedRoles={superAdminMangerRoles} component={HL_Users}/>
                 <PrivateRoute exact path='/profile' component={HL_Profile}/>
+                <PrivateRoute exact path='/chat' component={HL_Chat}/>
                 <PublicRoute exact path='/login' component={Login}/>
                 <PublicRoute exact path='/register' component={Register}/>
-                <PrivateRoute exact path='/chat' component={HL_Chat}/>
                 <Route exact path="/404" render={(() =><Error errorNumber={404} errorText="Page Not Found"/> )}/>
                 <Redirect to="/404"/>
             </Switch>

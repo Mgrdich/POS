@@ -9,6 +9,7 @@ export const AUTH_TYPES: any = { //TODO interfaces are needed
 };
 
 export const POS_TYPES: any = {
+    SET_TABLES:"SET_TABLES",
     SET_ORDER_INFO:"ORDER_INFO",
     SET_ORDERS: "ORDERS",
     SET_PRODUCTS_GROUPS: "PRODUCTS_GROUPS",

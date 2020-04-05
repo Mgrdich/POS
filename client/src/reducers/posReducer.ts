@@ -3,6 +3,7 @@ import {IPOSReducer} from "../interfaces/redux/reducers";
 
 const initialState: IPOSReducer = {
     orders: [],
+    tables: [],
     productsGroups: {
         data: {},
         isLoading: false
@@ -15,7 +16,7 @@ const initialState: IPOSReducer = {
     error: false
 };
 
-export default function (state: IPOSReducer = initialState, action: any) {
+export default function (state: IPOSReducer = initialState, action: any): IPOSReducer {
     const {payload, type} = action;
     switch (type) {
         case POS_TYPES.SET_ORDER_INFO:
@@ -24,6 +25,11 @@ export default function (state: IPOSReducer = initialState, action: any) {
                 waiter: payload.waiter,
                 createdBy: payload.createdBy,
                 orderId: payload._id
+            };
+        case POS_TYPES.SET_TABLES:
+            return {
+                ...state,
+                tables:action.payload
             };
         case POS_TYPES.SET_ORDERS:
             return {
