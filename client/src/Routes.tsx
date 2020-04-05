@@ -17,6 +17,7 @@ import {Roles, RoleType} from "./roles";
 import Profile from "./views/profile";
 import Pos from "./views/pos";
 import PosTable from "./views/pos/PosTable";
+import TableOrder from "./views/pos/TableOrder";
 import Chat from "./views/chat";
 
 const HL_Dashboard = HeaderFooterLayout(Dashboard);
@@ -30,6 +31,7 @@ const HL_ProductsGroup = HeaderFooterLayout(ProductsGroup);
 const HL_Chat = HeaderFooterLayout(Chat);
 const HL_Pos= HeaderFooterLayout(Pos);
 const HL_PosTable= HeaderFooterLayout(PosTable);
+const HL_TableOrder= HeaderFooterLayout(TableOrder);
 
 const superAdminMangerRoles :Array<RoleType> = [Roles.SuperAdmin,Roles.Admin,Roles.Manager];
 const Routes:React.FC = () => {
@@ -37,6 +39,7 @@ const Routes:React.FC = () => {
         <>
             <Switch>
                 <PrivateRoute exact path={'/pos'} allowedRoles={superAdminMangerRoles} component={HL_Pos}/>
+                <PrivateRoute exact path={'/tableOrder'} allowedRoles={superAdminMangerRoles} component={HL_TableOrder}/>
                 <PrivateRoute exact path={'/pos/:id'} component={HL_PosTable}/>
                 <PrivateRoute exact path={['/','/dashboard']} component={HL_Dashboard}/>
                 <PrivateRoute exact path={['/products','/product/index']} component={HL_AddProduct}/>
