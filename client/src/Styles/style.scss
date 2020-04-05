@@ -137,6 +137,12 @@ section {
 }
 
 .table-order-button{
-  text-align: center;
-  padding-top: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 500px;
+
+  .MuiButton-label{
+    padding: 40px;
+  }
 }

@@ -344,5 +344,10 @@ section.content h1 {
   padding-bottom: 80px; }
 
 .table-order-button {
-  text-align: center;
-  padding-top: 200px; }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 500px; }
+
+.table-order-button .MuiButton-label {
+  padding: 40px; }
