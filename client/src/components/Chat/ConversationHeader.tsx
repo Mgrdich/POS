@@ -74,7 +74,7 @@ const ConversationHeader: React.FC = () => {
 
             </div>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth={true}>
-                <DialogTitle id="form-dialog-title">Edit</DialogTitle>
+                <DialogTitle id="edit-group">Edit-group</DialogTitle>
                 <form noValidate autoComplete="off" onSubmit={handleEditSubmit(onEdit)}>
                     <DialogContent>
                         <Grid container direction="row" spacing={1}>
@@ -110,7 +110,7 @@ const ConversationHeader: React.FC = () => {
 
             <Dialog open={openGroupInfo} onClose={handleCloseGroupInfo} aria-labelledby="form-dialog-title"
                     fullWidth={true}>
-                <DialogTitle id="group-info">Group Info</DialogTitle>
+                <DialogTitle id="group-info">Group-info</DialogTitle>
                 <DialogContent>
                     <Typography variant='h6' color='primary'>
                         Group-name: {state?.group?.name}
@@ -142,7 +142,7 @@ const ConversationHeader: React.FC = () => {
 
             <Dialog open={openGroupDelete} onClose={handleCloseGroupDelete} aria-labelledby="form-dialog-title"
                     fullWidth={true}>
-                <DialogTitle id="group-info">Group Info</DialogTitle>
+                <DialogTitle id="delete-group">Delete-group</DialogTitle>
                 <DialogContent>
                     <Typography component='p' color='primary'>
                         Are you sure you want to delete {state?.group?.name} group ?
