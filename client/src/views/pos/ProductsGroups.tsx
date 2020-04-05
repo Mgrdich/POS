@@ -14,6 +14,7 @@ const ProductsGroups = (props: any) => {
     },[dispatch]);
 
     return (
+        <div className="product-groups-container">
         <Paper className="products-paper">
             <div className="products-header">
                 <h1>Menu</h1>
@@ -42,7 +43,7 @@ const ProductsGroups = (props: any) => {
                 )) : []}
             </Grid>
         </Paper>
-
+        </div>
     );
 };
 

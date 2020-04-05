@@ -110,17 +110,31 @@ section {
   }
 
 }
+.product-groups-container{
+  height: 60%;
+  padding-bottom: 15px;
+  padding-top: 20px;
+}
+.table-order-container{
+  height: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
 
 .products-paper{
-   margin-top: 15px;
+  height: 100%;
+  overflow: auto;
    .MuiFormControl-root{
      width: 30%;
      margin: 10px;
   }
 }
-
+.products-container{
+  height: 40%;
+  padding-bottom: 20px;
+}
 .products-scrollable-paper{
-  max-height: 100px;
+  height: 100%;
   overflow: auto;
   .MuiFormControl-root{
     margin:10px;
@@ -129,8 +143,13 @@ section {
 }
 
 .pos-grid{
-  padding-bottom: 80px;
+  height: 100%;
 }
+
+.pos-container{
+  height:80vh;
+}
+
 
 .table-order-button{
   display: flex;

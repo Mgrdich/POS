@@ -9,6 +9,7 @@ const Products: React.FC<any> = (props: any) => {
     const dispatch = useDispatch();
 
     return (
+        <div className="products-container">
         <Paper className="products-scrollable-paper products-paper">
             <TextField
                 label="Search Products"
@@ -29,6 +30,7 @@ const Products: React.FC<any> = (props: any) => {
 
             </Grid>
         </Paper>
+        </div>
     );
 };
 
