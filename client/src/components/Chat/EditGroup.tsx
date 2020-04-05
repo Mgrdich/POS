@@ -4,9 +4,17 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
+interface IEditGroup {
+    editCallBack: {
+        handleClickOpen: Function;
+        handleClickOpenGroupInfo: Function;
+    };
 
-const EditGroup = (props: any) => { //TODO types???
+}
+
+const EditGroup: React.FC<IEditGroup> = (props) => {
     const {editCallBack} = props;
+    const {handleClickOpen, handleClickOpenGroupInfo} = editCallBack;
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 
@@ -35,14 +43,16 @@ const EditGroup = (props: any) => { //TODO types???
                 open={open}
                 onClose={handleClose}
             >
-
-                <MenuItem onClick={editCallBack}>
-                    Edit
-                </MenuItem>
-                <MenuItem>
-                    Group info
-                </MenuItem>
-
+                <div onClick={handleClose}>
+                    <MenuItem onClick={() => handleClickOpen()}>
+                        Edit
+                    </MenuItem>
+                </div>
+                <div onClick={handleClose}>
+                    <MenuItem onClick={() => handleClickOpenGroupInfo()}>
+                        Group info
+                    </MenuItem>
+                </div>
             </Menu>
         </>
     );

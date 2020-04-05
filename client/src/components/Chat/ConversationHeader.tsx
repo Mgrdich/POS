@@ -12,6 +12,9 @@ import Grid from "@material-ui/core/Grid";
 import axios from "axios";
 import {IAlertAxiosResponse} from "../../interfaces/General";
 import {CHAT_ACTIONS} from "./ActionsConfig";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
 
 
 const ConversationHeader: React.FC = () => {
@@ -19,6 +22,7 @@ const ConversationHeader: React.FC = () => {
     const {user, group} = state;
     let editGroup;
     const [open, handleClickOpen, handleClose] = useModule();
+    const [openGroupInfo, handleClickOpenGroupInfo, handleCloseGroupInfo] = useModule();
     const {handleSubmit: handleEditSubmit, register: editRegister, errors: editErrors, control: editControl} = useForm<any>({
         validationSchema: editGroupChatVal,
     });
@@ -51,7 +55,8 @@ const ConversationHeader: React.FC = () => {
                     {user ? user.email : group.name} {user ? `(${user.name})` : ''}
                 </span>
 
-                {user ? null : <div className='drop-wrapper'><EditGroup editCallBack={handleClickOpen}/></div>}
+                {user ? null : <div className='drop-wrapper'><EditGroup
+                    editCallBack={{handleClickOpen, handleClickOpenGroupInfo}}/></div>}
 
             </div>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth={true}>
@@ -87,6 +92,38 @@ const ConversationHeader: React.FC = () => {
                         >Submit</Button>
                     </DialogActions>
                 </form>
+            </Dialog>
+
+            <Dialog open={openGroupInfo} onClose={handleCloseGroupInfo} aria-labelledby="form-dialog-title"
+                    fullWidth={true}>
+                <DialogTitle id="group-info">Group Info</DialogTitle>
+                <DialogContent>
+                    <Typography variant='h6' component="h2" color='primary'>
+                        Group-name: {state?.group?.name}
+                    </Typography>
+                    <Typography variant='h6' component="h2" color='primary'>
+                        {state?.group?.admins.length > 1 ? 'Admins' : 'Admin'}
+                    </Typography>
+                    {state?.group?.admins.map((admin: string, index: number) => (
+                        <Typography key={index} color="textSecondary">
+                            {admin}
+                        </Typography>
+                    ))}
+                    <Typography variant='h6' component="h2" color='primary'>
+                        {state?.group?.members.length > 1 ? 'Members' : 'Member'}
+                    </Typography>
+                    {state?.group?.members.map((member: any, index: number) => (
+                        <Typography key={index} color="textSecondary">
+                            {member}
+                        </Typography>
+                    ))}
+                </DialogContent>
+                <DialogActions>
+                    <Button
+                        color="primary"
+                        onClick={handleCloseGroupInfo}
+                    >Done</Button>
+                </DialogActions>
             </Dialog>
         </div>
     );
