@@ -39,7 +39,7 @@ const ConversationHeader: React.FC = () => {
             }
             setterError(e.response.data.data);
         });
-    }, [state.group._id, dispatch]);
+    }, [state.group, dispatch]);
 
     return (
         <div className="conversationHeader">

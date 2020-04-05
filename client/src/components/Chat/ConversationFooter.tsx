@@ -21,7 +21,7 @@ const ConversationFooter: React.FC = () => {
         }
         setValue('');
 
-    },[state.user,state.group._id,value]);
+    },[state.user,state.group,value]);
 
     const handleSendMessageOnEnter = useCallback(function (e:any) { //TODO check typescript event
         if (e.keyCode === 13) {
@@ -36,7 +36,7 @@ const ConversationFooter: React.FC = () => {
             }
             setValue('');
         }
-    },[value,state.user,state.group._id]);
+    },[value,state.user,state.group]);
 
 
     return (
