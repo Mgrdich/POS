@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Button, Grid, Paper} from "@material-ui/core";
+import {Button, Grid, Paper, TextField} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchProductsGroups} from "../../actions/posActions";
 
