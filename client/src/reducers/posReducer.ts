@@ -26,20 +26,20 @@ export default function (state: IPOSReducer = initialState, action: any): IPOSRe
                 createdBy: payload.createdBy,
                 orderId: payload._id
             };
-        case POS_TYPES.SET_TABLES:
+        case POS_TYPES.FETCH_TABLES:
             return {
                 ...state,
-                tables:action.payload
+                tables: action.payload
             };
         case POS_TYPES.SET_ORDERS:
             return {
                 ...state,
             };
-        case POS_TYPES.SET_PRODUCTS:
+        case POS_TYPES.FETCH_PRODUCTS:
             return {
                 ...state,
             };
-        case POS_TYPES.SET_PRODUCTS_GROUPS:
+        case POS_TYPES.FETCH_PRODUCTS_GROUPS:
             return {
                 ...state,
                 productsGroups: {
@@ -69,6 +69,19 @@ export default function (state: IPOSReducer = initialState, action: any): IPOSRe
                 ...state,
                 //loading
             };
+        case POS_TYPES.SET_LOADING_TABLES:
+            return {
+                ...state,
+                tables: {
+                    ...state.tables,
+                    isLoading: true
+                }
+            };
+        case POS_TYPES.SET_LOADING_INFO:{
+          return {
+              ...state
+          }
+        };
         case POS_TYPES.SET_ERROR:
             return {
                 ...state,

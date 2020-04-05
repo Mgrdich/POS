@@ -7,7 +7,7 @@ const initialState: IAuthReducer = {
     user: {}
 };
 
-export default function (state: IAuthReducer = initialState, action: any) {
+export default function (state: IAuthReducer = initialState, action: any):IAuthReducer {
     switch (action.type) {
         case AUTH_TYPES.SET_CURRENT_USER:
             return {

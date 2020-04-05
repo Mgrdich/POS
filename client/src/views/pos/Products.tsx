@@ -1,9 +1,12 @@
 import React from 'react';
 import {Grid, Paper, TextField} from "@material-ui/core";
 import MenuCard from "../../components/Reusable/MenuCard";
+import {useDispatch} from "react-redux";
 
 const Products: React.FC<any> = (props: any) => {
     const {productsList} = props;
+    const dispatch = useDispatch();
+
     return (
         <Paper className="products-scrollable-paper products-paper">
             <TextField

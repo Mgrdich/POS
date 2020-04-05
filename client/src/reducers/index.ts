@@ -1,10 +1,10 @@
 import {combineReducers} from "redux";
 import authReducer from "./authReducer";
 import posReducer from "./posReducer";
-import {IPOSReducer} from "../interfaces/redux/reducers";
+import {IAuthReducer, IPOSReducer} from "../interfaces/redux/reducers";
 
 interface combinedReducers {
-    auth: any, //TODO
+    auth: IAuthReducer,
     pos: IPOSReducer
 }
 

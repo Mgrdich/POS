@@ -3,20 +3,34 @@ import {ThunkAction} from "redux-thunk";
 import axios, {AxiosResponse} from "axios";
 import {POS_TYPES} from "./types";
 
-export const openOrder: ActionCreator<ThunkAction<void, any, any, AnyAction>> = () => async (dispatch: Dispatch) => {
+type actionVoid = ActionCreator<ThunkAction<void, any, any, AnyAction>>;
+
+export const openOrder: actionVoid = () => async (dispatch: Dispatch) => {
     try {
-        const res:AxiosResponse = await axios.put('/orders');
-        dispatch({type:POS_TYPES.SET_ORDER_INFO,payload:res.data})
+        dispatch({type: POS_TYPES.SET_LOADING_INFO});
+        const res: AxiosResponse = await axios.put('/orders');
+        dispatch({type: POS_TYPES.SET_ORDER_INFO, payload: res.data});
     } catch (err) {
-        dispatch({type:POS_TYPES.SET_ERROR})
+        dispatch({type: POS_TYPES.SET_ERROR})
     }
 };
 
-export const fetchTables : ActionCreator<ThunkAction<void, any, any, AnyAction>> = () => async (dispatch: Dispatch) =>  {
+export const fetchTables: actionVoid = () => async (dispatch: Dispatch) => {
     try {
-        const res:AxiosResponse = await axios.get('/orders/tables');
-        dispatch({type:POS_TYPES.SET_TABLES,payload:res.data})
+        dispatch({type: POS_TYPES.SET_LOADING_TABLES});
+        const res: AxiosResponse = await axios.get('/orders/tables');
+        dispatch({type: POS_TYPES.FETCH_TABLES, payload: res.data});
     } catch (err) {
-        dispatch({type:POS_TYPES.SET_ERROR});
+        dispatch({type: POS_TYPES.SET_ERROR});
+    }
+};
+
+export const fetchProductsGroups: actionVoid = () => async (dispatch: Dispatch) => {
+    try {
+        dispatch({type: POS_TYPES.SET_LOADING_PRODUCTS_GROUPS});
+        const res: AxiosResponse = await axios.get('/orders/tables');
+        dispatch({type: POS_TYPES.FETCH_PRODUCTS_GROUPS, payload: res.data});
+    } catch (err) {
+        dispatch({type: POS_TYPES.SET_ERROR});
     }
 };
