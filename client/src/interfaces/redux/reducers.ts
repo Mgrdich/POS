@@ -34,9 +34,26 @@ export interface IPOSReducer {
         data:any, //TODO to be filled
         isLoading:boolean
     }
-    waiter: any; // id name
-    createdBy: any // id name
+    waiter: { //chosen waiter
+        _id:string,
+        name:string
+    };
+    createdBy: {
+        _id:string,
+        name:string
+    };
     orderId: string | null;
+    tableHashed:{ //tableId -> orderId
+
+    };
+    Orders:{ //hashed with id everything about every table
+
+    }
     isLoading: boolean; //info Group
     error:boolean;
 }
+
+/**
+* Orders Reducer
+*
+* */

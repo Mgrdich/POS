@@ -4,6 +4,7 @@ import {hashingArray} from "../util/functions";
 
 const initialState: IPOSReducer = {
     orders: [],
+    nonSubmittedOrders: [],
     tables: {
         data: [],
         isLoading: false
@@ -18,8 +19,16 @@ const initialState: IPOSReducer = {
         isLoading: false
     },
     productsGroup: null,
-    waiter: null,
-    createdBy: null,
+    waiter: {
+        _id: '',
+        name: ''
+    },
+    createdBy: {
+        _id: '',
+        name: ''
+    },
+    Orders:{},
+    tableHashed:{},
     orderId: null,
     isLoading: false,
     error: false
@@ -28,6 +37,23 @@ const initialState: IPOSReducer = {
 export default function (state: IPOSReducer = initialState, action: any): IPOSReducer {
     const {payload, type} = action;
     switch (type) {
+        case POS_TYPES.FETCH_ORDER_INFO:
+            return {
+                ...state,
+                waiter: payload.data.waiter,
+                createdBy: payload.data.createdBy,
+                Orders: {
+                    ...state.Orders,
+                    [payload.data._id]:{
+                        orders:[],
+                    }
+                },
+                tableHashed: {
+                    ...state.tableHashed,
+                    [action.payload.tableId]: payload.data._id
+                },
+                isLoading: false
+            };
         case POS_TYPES.FETCH_PRODUCTS_GROUPS:
             return {
                 ...state,
@@ -77,9 +103,9 @@ export default function (state: IPOSReducer = initialState, action: any): IPOSRe
         case POS_TYPES.FILTER_PRODUCTS_GROUP:
             return {
                 ...state,
-                productsGroups:{
+                productsGroups: {
                     ...state.productsGroups,
-                    filterArray:action.payload
+                    filterArray: action.payload
                 }
             };
         case POS_TYPES.SET_ORDER_INFO:
@@ -142,7 +168,8 @@ export default function (state: IPOSReducer = initialState, action: any): IPOSRe
             };
         case POS_TYPES.SET_LOADING_INFO: {
             return {
-                ...state
+                ...state,
+                isLoading: true
             }
         }
         default:
