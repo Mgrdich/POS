@@ -8,6 +8,9 @@ const TableOrders: React.FC = () => {
             <div className="products-header">
                 <h1>Table order</h1>
             </div>
+            <div className="order-container">
+                <span> Name</span> <span>Quantity</span> <span>Price</span>
+            </div>
         </Paper>
         </div>
     );

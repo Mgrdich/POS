@@ -26,7 +26,7 @@ const ProductsGroups:React.FC = () => {
                 size="small"
                 onChange={(e: ChangeEvent<HTMLInputElement>) => dispatch(filterProductsGroup(e.target.value))}
             />
-            <Grid item container direction="row" justify="space-around">
+            <Grid item container direction="row" justify="flex-start">
                 <ComponentLoader isLoading={isLoading}>
                     {productsGroups.map((item:any, index: number) => (
                         <Grid className='products-button' key={item._id} item container justify="center"

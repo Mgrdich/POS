@@ -161,3 +161,18 @@ section {
     padding: 40px;
   }
 }
+
+.order-container{
+  display: table;
+  width: 100%;
+  padding-top: 10px;
+  color: $primary;
+  span{
+    display: table-cell;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+}
