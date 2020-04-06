@@ -22,6 +22,7 @@ export interface IPOSReducer {
             };
         },
         isLoading: boolean; //for Products Group
+        filterArray:Array<any>;
     };
     tables:{
         data:Array<any>,

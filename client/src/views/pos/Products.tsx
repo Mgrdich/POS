@@ -1,12 +1,14 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import {Grid, Paper, TextField} from "@material-ui/core";
 import MenuCard from "../../components/Reusable/MenuCard";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
+import {filterProducts} from "../../actions/posActions";
 
 const Products: React.FC<any> = () => {
     const products:any = useSelector<any>(state => state.pos.products.data);
     const isLoading:any = useSelector<any>(state => state.pos.products.isLoading);
+    const dispatch = useDispatch();
 
     return (
         <div className="products-container">
@@ -16,6 +18,7 @@ const Products: React.FC<any> = () => {
                 id="products-search"
                 variant="outlined"
                 size="small"
+                onChange={(e: ChangeEvent<HTMLInputElement>) => dispatch(filterProducts(e.target.value))}
             />
             <ComponentLoader isLoading={isLoading}>
                 <Grid item container direction="row" justify="space-around">

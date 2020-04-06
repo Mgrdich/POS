@@ -10,10 +10,11 @@ const initialState: IPOSReducer = {
     },
     productsGroups: {
         data: {},
-        isLoading: false
+        isLoading: false,
+        filterArray: []
     },
     products: {
-        data: {},
+        data: [],
         isLoading: false
     },
     productsGroup: null,
@@ -34,7 +35,8 @@ export default function (state: IPOSReducer = initialState, action: any): IPOSRe
                     data: {
                         ...hashingArray(action.payload, "_id")
                     },
-                    isLoading: false
+                    isLoading: false,
+                    filterArray: action.payload
                 }
             };
         case POS_TYPES.FETCH_TABLES:
@@ -50,7 +52,7 @@ export default function (state: IPOSReducer = initialState, action: any): IPOSRe
                 ...state,
                 productsGroups: {
                     ...state.productsGroups,
-                    data:{
+                    data: {
                         ...state.productsGroups.data,
                         [action.payload.productGroupId]: {
                             products: [...action.payload.data],
@@ -61,6 +63,23 @@ export default function (state: IPOSReducer = initialState, action: any): IPOSRe
                 products: {
                     data: [...action.payload.data],
                     isLoading: false
+                },
+                productsGroup: action.payload.productGroupId
+            };
+        case POS_TYPES.FILTER_PRODUCTS:
+            return {
+                ...state,
+                products: {
+                    ...state.products,
+                    data: action.payload
+                }
+            };
+        case POS_TYPES.FILTER_PRODUCTS_GROUP:
+            return {
+                ...state,
+                productsGroups:{
+                    ...state.productsGroups,
+                    filterArray:action.payload
                 }
             };
         case POS_TYPES.SET_ORDER_INFO:

@@ -1,12 +1,12 @@
-import React, {useEffect} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {Button, Grid, Paper, TextField} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchProductsGroups, fetchSelectProducts} from "../../actions/posActions";
+import {fetchProductsGroups, fetchSelectProducts, filterProductsGroup} from "../../actions/posActions";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
 
 const ProductsGroups:React.FC = () => {
     const dispatch = useDispatch();
-    const productsGroups:any  = useSelector<any>(state => state.pos.productsGroups.data);
+    const productsGroups:any  = useSelector<any>(state => state.pos.productsGroups.filterArray);
     const isLoading:any  = useSelector<any>(state => state.pos.productsGroups.isLoading);
 
     useEffect(function () {
@@ -24,12 +24,12 @@ const ProductsGroups:React.FC = () => {
                 id="products-group-search"
                 variant="outlined"
                 size="small"
-                /*onChange={(e: ChangeEvent<HTMLInputElement>) => setFilter(e.target.value)}*/
+                onChange={(e: ChangeEvent<HTMLInputElement>) => dispatch(filterProductsGroup(e.target.value))}
             />
             <Grid item container direction="row" justify="space-around">
                 <ComponentLoader isLoading={isLoading}>
-                    {Object.keys(productsGroups).map((key: string, index: number) => (
-                        <Grid className='products-button' key={key} item container justify="center"
+                    {productsGroups.map((item:any, index: number) => (
+                        <Grid className='products-button' key={item._id} item container justify="center"
                               xs={12}
                               sm={6}
                               md={4}>
@@ -39,9 +39,9 @@ const ProductsGroups:React.FC = () => {
                                 variant="outlined"
                                 color="primary"
                                 type="button"
-                                onClick={()=>dispatch(fetchSelectProducts(key))}
+                                onClick={()=>dispatch(fetchSelectProducts(item._id))}
                             >
-                                {productsGroups[key].name}
+                                {item.name}
                             </Button>
                         </Grid>
                     ))}
