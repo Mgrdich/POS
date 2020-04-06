@@ -13,6 +13,7 @@ export interface IAuthReducer {
  * */
 export interface IPOSReducer {
     orders: Array<any>; //TODO type array typed
+    nonSubmittedOrders: Array<any>; //TODO type array typed
     productsGroups: {
         data: {
             [key: string]: {
