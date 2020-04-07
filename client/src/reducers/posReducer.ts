@@ -19,10 +19,7 @@ const initialState: IPOSReducer = {
         isLoading: false
     },
     productsGroup: null,
-    waiter: {
-        _id: '',
-        name: ''
-    },
+    waiter: null,
     createdBy: {
         _id: '',
         name: ''
@@ -37,7 +34,7 @@ const initialState: IPOSReducer = {
 export default function (state: IPOSReducer = initialState, action: any): IPOSReducer {
     const {payload, type} = action;
     switch (type) {
-        case POS_TYPES.FETCH_ORDER_INFO:
+        case POS_TYPES.CREATE_ORDER_INFO:
             return {
                 ...state,
                 waiter: payload.data.waiter,
@@ -54,6 +51,12 @@ export default function (state: IPOSReducer = initialState, action: any): IPOSRe
                 },
                 orderId:payload.data._id,
                 isLoading: false
+            };
+        case POS_TYPES.FETCH_ORDER_INFO:
+            return  {
+                ...state,
+                Orders:payload.Orders,
+                tableHashed:payload.tableHashed
             };
         case POS_TYPES.FETCH_PRODUCTS_GROUPS:
             return {

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {Button, Grid} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchTables} from "../../actions/posActions";
+import {fetchOrders, fetchTables} from "../../actions/posActions";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
 import {useHistory} from "react-router";
 import ErrorHandler from "../errors/ErrorHandler";
@@ -16,27 +16,28 @@ const Pos: React.FC = () => {
 
     useEffect(function () {
         dispatch(fetchTables());
+        dispatch(fetchOrders())
     }, [dispatch]);
 
     return (
         <div>
-            <div> <ChosenEmployee click = {true} users={["sako","mgo","hovik"]}/> </div>
-        <Grid className="pos-tables" container direction="row" justify="space-around" alignContent="flex-start"
-              wrap='wrap'>
-            <ErrorHandler error={error as boolean}>
-                <ComponentLoader isLoading={isLoading as boolean}>
-                    {tables.map((table: any) => (
-                        <div className="tables" key={table._id}>
-                            <Button key={table.id} onClick={() => {
-                                (history.push(`/pos/${table._id}`))
-                            }}>
-                                <span>{table.number}</span>
-                            </Button>
-                        </div>
-                    ))}
-                </ComponentLoader>
-            </ErrorHandler>
-        </Grid>
+            <div><ChosenEmployee click={true} users={["sako", "mgo", "hovik"]}/></div>
+            <Grid className="pos-tables" container direction="row" justify="space-around" alignContent="flex-start"
+                  wrap='wrap'>
+                <ErrorHandler error={error as boolean}>
+                    <ComponentLoader isLoading={isLoading as boolean}>
+                        {tables.map((table: any) => (
+                            <div className="tables" key={table._id}>
+                                <Button key={table.id} onClick={() => {
+                                    (history.push(`/pos/${table._id}`))
+                                }}>
+                                    <span>{table.number}</span>
+                                </Button>
+                            </div>
+                        ))}
+                    </ComponentLoader>
+                </ErrorHandler>
+            </Grid>
         </div>
     );
 };

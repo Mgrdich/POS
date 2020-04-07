@@ -6,22 +6,41 @@ import {IState} from "../reducers";
 
 type actionVoid = ActionCreator<ThunkAction<void, any, any, AnyAction>>;
 
-export const openOrder: actionVoid = (tableId:string) => async (dispatch: Dispatch,getState:()=>IState) => {
-    const {auth} = getState();
+export const fetchOrders: actionVoid = () => async (dispatch: Dispatch, getState: () => IState) => {
     try {
         dispatch({type: POS_TYPES.SET_LOADING_INFO});
-        const res: AxiosResponse = await axios.put('/orders',{
-            waiter:auth.user.id,
-            table:tableId
-        });
-        dispatch({type: POS_TYPES.FETCH_ORDER_INFO, payload: {data:res.data,tableId}});
+        const res: AxiosResponse = await axios.get('/orders');
+        let tableHashed: any = {};
+        let Orders:any = {};
+        for (let i = 0; i < res.data.length; i++) {
+            let item = res.data[i];
+            tableHashed[item.table] = item._id;
+            Orders[item._id] = {
+                orders:[]
+            }
+        }
+        dispatch({type: POS_TYPES.FETCH_ORDER_INFO,payload:{tableHashed,Orders}});
     } catch (err) {
-        dispatch({type: POS_TYPES.SET_ERROR})
+        dispatch({type: POS_TYPES.SET_ERROR});
     }
 };
 
-export const setOrder: actionVoid = () => (dispatch: Dispatch,getState:()=>IState) => {
-        
+export const openOrder: actionVoid = (tableId: string) => async (dispatch: Dispatch, getState: () => IState) => {
+    const {auth} = getState();
+    try {
+        dispatch({type: POS_TYPES.SET_LOADING_INFO});
+        const res: AxiosResponse = await axios.put('/orders', {
+            waiter: auth.user.id,
+            table: tableId
+        });
+        dispatch({type: POS_TYPES.FETCH_ORDER_INFO, payload: {data: res.data, tableId}});
+    } catch (err) {
+        dispatch({type: POS_TYPES.SET_ERROR});
+    }
+};
+
+export const setOrder: actionVoid = () => (dispatch: Dispatch, getState: () => IState) => {
+
 };
 
 export const fetchTables: actionVoid = () => async (dispatch: Dispatch) => {
@@ -72,32 +91,32 @@ export const fetchSelectProducts = (id: string) => async (dispatch: Dispatch, ge
 
 export const filterProducts = (text: string) => (dispatch: Dispatch, getState: () => IState) => {
     const {pos} = getState();
-    let products:Array<any> | null = [];
-    if(pos.productsGroup) {
+    let products: Array<any> | null = [];
+    if (pos.productsGroup) {
         products = pos.productsGroups.data[pos.productsGroup].products;
     }
-    if(!products || !products.length) {
+    if (!products || !products.length) {
         return;
     }
-    const filteredProducts = products.filter(function(item){ //TODO with more data converting it into major Filter
+    const filteredProducts = products.filter(function (item) { //TODO with more data converting it into major Filter
         return item.name.toLowerCase().includes(text.toLowerCase().trim())
     });
-    dispatch({type:POS_TYPES.FILTER_PRODUCTS,payload:filteredProducts})
+    dispatch({type: POS_TYPES.FILTER_PRODUCTS, payload: filteredProducts})
 };
 
 export const filterProductsGroup = (text: string) => (dispatch: Dispatch, getState: () => IState) => {
     const {pos} = getState();
     //TODO more algorithmically good solution
-    const productsGroups:Array<any> = Object.keys(pos.productsGroups.data);
-    const filteredProducts = productsGroups.reduce(function(acc,key:string){ //TODO with more data converting it into major Filter
-        let arr:Array<any> = [...acc];
-        if(pos.productsGroups.data[key].name.toLowerCase().includes(text.toLowerCase().trim())) {
-         arr.push({
-             name:pos.productsGroups.data[key].name,
-             _id:key
-         });
+    const productsGroups: Array<any> = Object.keys(pos.productsGroups.data);
+    const filteredProducts = productsGroups.reduce(function (acc, key: string) { //TODO with more data converting it into major Filter
+        let arr: Array<any> = [...acc];
+        if (pos.productsGroups.data[key].name.toLowerCase().includes(text.toLowerCase().trim())) {
+            arr.push({
+                name: pos.productsGroups.data[key].name,
+                _id: key
+            });
         }
         return arr;
-    },[]);
-    dispatch({type:POS_TYPES.FILTER_PRODUCTS_GROUP,payload:filteredProducts})
+    }, []);
+    dispatch({type: POS_TYPES.FILTER_PRODUCTS_GROUP, payload: filteredProducts})
 };

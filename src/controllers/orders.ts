@@ -15,7 +15,7 @@ import {ProductsGroups} from "../models/ProductsGroups";
 
 export async function getOrders(req: Request, res: Response, next: NextFunction): Promise<any> {
     try { //TODO transformed to a function with Generics GET /  GET/:id  delete/:id delete /
-        let orders: Array<IDocOrders> | IDocOrders = await Orders.find({});
+        let orders: Array<IDocOrders> | IDocOrders = await Orders.find({},{_id:1,table:1}).lean();
         if (orders.length) {
             return res.status(200).json(orders);
         }
