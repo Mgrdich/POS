@@ -12,33 +12,43 @@ export const ChatDataReducer = function (state: any, action: any) {
             return {
                 ...state,
                 user: action.payload,
-                group:null
+                group: null
             };
         case CHAT_ACTIONS.SET_GROUP:
             return {
                 ...state,
-                group:action.payload,
-                user:null
+                group: action.payload,
+                user: null
             };
         case CHAT_ACTIONS.SET_MESSAGES:
-            return  {
+            return {
                 ...state,
-                messages:action.payload
+                messages: action.payload
             };
         case CHAT_ACTIONS.SET_MESSAGE: //tODO if not used delete
-            return  {
+            return {
                 ...state,
-                messages:[...state.messages,{...action.payload}]
+                messages: [...state.messages, {...action.payload}]
             };
         case CHAT_ACTIONS.PREPEND_MESSAGES:
             return {
-              ...state,
-              messages:[...state.messages,...action.payload]
+                ...state,
+                messages: [...state.messages, ...action.payload]
             };
         case CHAT_ACTIONS.REFETCH:
             return {
                 ...state,
-                fetch:!state.fetch,
+                fetch: !state.fetch,
+            };
+
+        case CHAT_ACTIONS.DELETE_GROUP :
+            return {
+                ...state, users: [],
+                user: null,
+                messages: [],
+                isLoading: true,
+                group: null,
+                fetch: false,
             };
         default:
             throw new Error();

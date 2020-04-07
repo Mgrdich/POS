@@ -51,6 +51,7 @@ const ConversationHeader: React.FC = () => {
             .then(function (res: IAlertAxiosResponse) {
                 handleCloseGroupDelete();
                 dispatch({type: CHAT_ACTIONS.REFETCH});
+                dispatch({type: CHAT_ACTIONS.DELETE_GROUP});
             }).catch(function (e: any) {
             if (!e.response.data) {
                 console.error("No Response is found");
