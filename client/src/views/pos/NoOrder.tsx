@@ -3,12 +3,15 @@ import {Button} from "@material-ui/core";
 import {useDispatch} from "react-redux";
 import {openOrder} from "../../actions/posActions";
 import {useParams} from "react-router";
+import UserSelector from "./UserSelector";
 
 const NoOrder: React.FC<any> = () => {
     const dispatch = useDispatch();
     const {id} = useParams();
 
     return (
+        <div>
+        <div> <UserSelector/> </div>
         <div className="table-order-button">
             <Button
                 variant="outlined"
@@ -17,6 +20,7 @@ const NoOrder: React.FC<any> = () => {
             >
                 To Create a table order CLICK HERE
             </Button>
+        </div>
         </div>
     );
 };

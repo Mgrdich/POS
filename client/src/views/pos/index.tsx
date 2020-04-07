@@ -5,6 +5,7 @@ import {fetchTables} from "../../actions/posActions";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
 import {useHistory} from "react-router";
 import ErrorHandler from "../errors/ErrorHandler";
+import UserSelector from "./UserSelector";
 
 const Pos: React.FC = () => {
     const tables: any = useSelector<any>(state => state.pos.tables.data);
@@ -18,6 +19,8 @@ const Pos: React.FC = () => {
     }, [dispatch]);
 
     return (
+        <div>
+            <div> <UserSelector click = {true} users={["sako","mgo","hovik"]}/> </div>
         <Grid className="pos-tables" container direction="row" justify="space-around" alignContent="flex-start"
               wrap='wrap'>
             <ErrorHandler error={error as boolean}>
@@ -34,6 +37,7 @@ const Pos: React.FC = () => {
                 </ComponentLoader>
             </ErrorHandler>
         </Grid>
+        </div>
     );
 };
 

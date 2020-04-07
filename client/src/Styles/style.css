@@ -352,7 +352,7 @@ section.content h1 {
   width: 30%; }
 
 .pos-grid {
-  height: 100%; }
+  height: 95%; }
 
 .pos-container {
   height: 80vh; }
@@ -385,4 +385,5 @@ section.content h1 {
   bottom: 0;
   display: flex;
   width: 100%;
-  justify-content: space-between; }
+  justify-content: space-between;
+  padding: 5px; }
