@@ -20,6 +20,10 @@ export const openOrder: actionVoid = (tableId:string) => async (dispatch: Dispat
     }
 };
 
+export const setOrder: actionVoid = () => (dispatch: Dispatch,getState:()=>IState) => {
+        
+};
+
 export const fetchTables: actionVoid = () => async (dispatch: Dispatch) => {
     try {
         dispatch({type: POS_TYPES.SET_LOADING_TABLES});

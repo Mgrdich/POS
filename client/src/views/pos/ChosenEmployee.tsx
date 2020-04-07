@@ -6,19 +6,19 @@ const ChosenEmployee = (props: any) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [userName, setUserName] = useState('');
 
-    const handleClick = (event:any) => {
+    const handleClick = function (event:any) {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = () => {
+    const handleClose = function ()  {
         setAnchorEl(null);
     };
-    const handleUserName = (name:string) => {
+    const handleUserName = function (name:string) {
         setUserName(name);
     };
 
     return (
-        <div>
+        <>
             <Button variant="outlined" color="primary" aria-controls="simple-menu" aria-haspopup="true"
                     onClick={click && handleClick}>
                 {userName.length ? userName : 'select employee' }
@@ -35,11 +35,8 @@ const ChosenEmployee = (props: any) => {
                     <MenuItem  onClick={() =>handleUserName(user)}>{user}</MenuItem>
                     </div>
                 )): []}
-
-
             </Menu>
-            
-        </div>
+        </>
     );
 };
 

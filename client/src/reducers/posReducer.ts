@@ -52,6 +52,7 @@ export default function (state: IPOSReducer = initialState, action: any): IPOSRe
                     ...state.tableHashed,
                     [action.payload.tableId]: payload.data._id
                 },
+                orderId:payload.data._id,
                 isLoading: false
             };
         case POS_TYPES.FETCH_PRODUCTS_GROUPS:
