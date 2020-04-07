@@ -12,7 +12,10 @@ export interface IAuthReducer {
  *
  * */
 export interface IPOSReducer {
-    orders: Array<any>; //TODO type array typed
+    orders: {
+        data:Array<any>,
+        isLoading:boolean
+    }; //TODO type array typed
     nonSubmittedOrders: Array<any>; //TODO type array typed
     productsGroups: {
         data: {
@@ -46,7 +49,6 @@ export interface IPOSReducer {
     Orders:{ //hashed with id everything about every table
         [key: string] :{
             orders:Array<any>;
-            isLoading:false
         }
     }
     isLoading: boolean; //info Group

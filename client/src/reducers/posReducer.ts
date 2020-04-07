@@ -3,7 +3,10 @@ import {IPOSReducer} from "../interfaces/redux/reducers";
 import {hashingArray} from "../util/functions";
 
 const initialState: IPOSReducer = {
-    orders: [],
+    orders: {
+        data: [],
+        isLoading: false
+    },
     nonSubmittedOrders: [],
     tables: {
         data: [],
@@ -24,8 +27,8 @@ const initialState: IPOSReducer = {
         _id: '',
         name: ''
     },
-    Orders:{},
-    tableHashed:{},
+    Orders: {},
+    tableHashed: {},
     isLoading: false,
     error: false
 };
@@ -40,8 +43,8 @@ export default function (state: IPOSReducer = initialState, action: any): IPOSRe
                 createdBy: payload.data.createdBy,
                 Orders: {
                     ...state.Orders,
-                    [payload.data._id]:{
-                        orders:[],
+                    [payload.data._id]: {
+                        orders: [],
                     }
                 },
                 tableHashed: {
@@ -51,10 +54,10 @@ export default function (state: IPOSReducer = initialState, action: any): IPOSRe
                 isLoading: false
             };
         case POS_TYPES.FETCH_ORDER_INFO:
-            return  {
+            return {
                 ...state,
-                Orders:payload.Orders,
-                tableHashed:payload.tableHashed
+                Orders: payload.Orders,
+                tableHashed: payload.tableHashed
             };
         case POS_TYPES.FETCH_PRODUCTS_GROUPS:
             return {
@@ -119,12 +122,11 @@ export default function (state: IPOSReducer = initialState, action: any): IPOSRe
         case POS_TYPES.SET_ORDERS:
             return {
                 ...state,
-                Orders:{
+                Orders: {
                     ...state.Orders,
-                    [payload.orderId]:{
+                    [payload.orderId]: {
                         ...state.Orders[payload.orderId],
-                        orders:[],//TODO fill it,
-                        isLoading:false
+                        orders: [],//TODO fill it,
                     }
                 }
             };
@@ -177,14 +179,11 @@ export default function (state: IPOSReducer = initialState, action: any): IPOSRe
             };
         case POS_TYPES.SET_LOADING_ORDERS:
             return {
-              ...state,
-              Orders:{
-                  ...state.Orders,
-                  [payload.orderId]:{
-                      ...state.Orders[payload.orderId],
-                      isLoading:true
-                  }
-              }
+                ...state,
+                orders: {
+                    ...state.orders,
+                    isLoading: true
+                }
             };
         case POS_TYPES.SET_LOADING_INFO: {
             return {
