@@ -26,7 +26,6 @@ const initialState: IPOSReducer = {
     },
     Orders:{},
     tableHashed:{},
-    orderId: null,
     isLoading: false,
     error: false
 };
@@ -49,7 +48,6 @@ export default function (state: IPOSReducer = initialState, action: any): IPOSRe
                     ...state.tableHashed,
                     [action.payload.tableId]: payload.data._id
                 },
-                orderId:payload.data._id,
                 isLoading: false
             };
         case POS_TYPES.FETCH_ORDER_INFO:
@@ -117,11 +115,18 @@ export default function (state: IPOSReducer = initialState, action: any): IPOSRe
                 ...state,
                 waiter: payload.waiter,
                 createdBy: payload.createdBy,
-                orderId: payload._id
             };
         case POS_TYPES.SET_ORDERS:
             return {
                 ...state,
+                Orders:{
+                    ...state.Orders,
+                    [payload.orderId]:{
+                        ...state.Orders[payload.orderId],
+                        orders:[],//TODO fill it,
+                        isLoading:false
+                    }
+                }
             };
         case POS_TYPES.SET_PRODUCTS:
             return {
@@ -169,6 +174,17 @@ export default function (state: IPOSReducer = initialState, action: any): IPOSRe
                     ...state.tables,
                     isLoading: true
                 }
+            };
+        case POS_TYPES.SET_LOADING_ORDERS:
+            return {
+              ...state,
+              Orders:{
+                  ...state.Orders,
+                  [payload.orderId]:{
+                      ...state.Orders[payload.orderId],
+                      isLoading:true
+                  }
+              }
             };
         case POS_TYPES.SET_LOADING_INFO: {
             return {

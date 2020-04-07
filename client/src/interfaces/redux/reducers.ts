@@ -39,12 +39,15 @@ export interface IPOSReducer {
         _id:string,
         name:string
     };
-    orderId: string | null;
-    tableHashed:{ //tableId -> orderId
-
+    // orderId: string | null;
+    tableHashed: { //tableId -> orderId
+        [key: string]: string;
     };
     Orders:{ //hashed with id everything about every table
-
+        [key: string] :{
+            orders:Array<any>;
+            isLoading:false
+        }
     }
     isLoading: boolean; //info Group
     error:boolean;
