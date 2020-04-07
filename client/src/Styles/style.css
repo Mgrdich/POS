@@ -332,7 +332,8 @@ section.content h1 {
 
 .products-paper {
   height: 100%;
-  overflow: auto; }
+  overflow: auto;
+  position: relative; }
 
 .products-paper .MuiFormControl-root {
   width: 30%;
@@ -376,4 +377,12 @@ section.content h1 {
   text-align: center;
   overflow: hidden;
   white-space: nowrap;
-  text-overflow: ellipsis; }
+  text-overflow: ellipsis;
+  width: 33%; }
+
+.order-button-container {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  width: 100%;
+  justify-content: space-between; }

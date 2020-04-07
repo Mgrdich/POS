@@ -124,6 +124,7 @@ section {
 .products-paper{
   height: 100%;
   overflow: auto;
+  position: relative;
    .MuiFormControl-root{
      width: 30%;
      margin: 10px;
@@ -173,6 +174,15 @@ section {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    width: 33%;
   }
 
+}
+
+.order-button-container{
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 }
