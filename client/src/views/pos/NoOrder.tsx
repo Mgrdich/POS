@@ -3,7 +3,7 @@ import {Button} from "@material-ui/core";
 import {useDispatch} from "react-redux";
 import {openOrder} from "../../actions/posActions";
 import {useParams} from "react-router";
-import UserSelector from "./UserSelector";
+import ChosenEmployee from "./ChosenEmployee";
 
 const NoOrder: React.FC<any> = () => {
     const dispatch = useDispatch();
@@ -11,7 +11,7 @@ const NoOrder: React.FC<any> = () => {
 
     return (
         <div>
-        <div> <UserSelector/> </div>
+        <div> <ChosenEmployee/> </div>
         <div className="table-order-button">
             <Button
                 variant="outlined"

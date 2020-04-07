@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Button, Menu, MenuItem} from "@material-ui/core";
 
-const UserSelector = (props: any) => {
+const ChosenEmployee = (props: any) => {
     const {users,click} = props;
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [userName, setUserName] = useState('');
@@ -21,7 +21,7 @@ const UserSelector = (props: any) => {
         <div>
             <Button variant="outlined" color="primary" aria-controls="simple-menu" aria-haspopup="true"
                     onClick={click && handleClick}>
-                {userName.length ? userName : 'select user' }
+                {userName.length ? userName : 'select employee' }
             </Button>
             <Menu
                 id="simple-menu"
@@ -43,4 +43,4 @@ const UserSelector = (props: any) => {
     );
 };
 
-export default UserSelector;
+export default ChosenEmployee;
