@@ -47,7 +47,9 @@ const Logout:React.FC = () => {
                 open={open}
                 onClose={handleClose}
             >
-                <MenuItem onClick={()=>history.push('/profile')}>Profile</MenuItem>
+                <div onClick={handleClose}>
+                    <MenuItem onClick={() => history.push('/profile')}>Profile</MenuItem>
+                </div>
                 <MenuItem onClick={()=>dispatch(logOutUser())}>Logout</MenuItem>
             </Menu>
         </>
