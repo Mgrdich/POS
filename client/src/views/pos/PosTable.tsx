@@ -22,10 +22,10 @@ const PosTable: React.FC = () => {
             <ErrorHandler error={error as boolean}>
                 {(id && tableOrderHash[id]) ? (
                     <Grid container direction="row" justify="space-around" className="pos-container">
-                        <Grid item xs={12} sm={3} className="pos-grid">
+                        <Grid item xs={12} md={3} className="pos-grid">
                             <TableOrders/>
                         </Grid>
-                        <Grid item xs={12} sm={8} className="pos-grid">
+                        <Grid item xs={12} md={8} className="pos-grid">
                             <ProductsGroups/>
                             <Products/>
                         </Grid>
