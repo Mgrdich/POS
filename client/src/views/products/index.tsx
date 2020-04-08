@@ -178,7 +178,7 @@ const AddProduct: React.FC = () => {
                 {alertMessage}
             </AlertQuestion>
             <Alerts open={openAlert.alert} severity={alertType} close={setOpenAlert}>
-                {alertMessage};
+                {alertMessage}
             </Alerts>
         </>
     );

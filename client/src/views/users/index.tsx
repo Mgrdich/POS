@@ -96,7 +96,7 @@ const Users: React.FC = () => {
             </AlertQuestion>
 
             <Alerts open={openAlert.alert} severity={alertType} close={setOpenAlert}>
-                {alertMessage};
+                {alertMessage}
             </Alerts>
         </>
     );
