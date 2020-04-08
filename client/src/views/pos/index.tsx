@@ -21,7 +21,9 @@ const Pos: React.FC = () => {
 
     return (
         <div>
-            <div><ChosenEmployee click={true} users={["sako", "mgo", "hovik"]}/></div>
+            <div>
+                <ChosenEmployee/>
+            </div>
             <Grid className="pos-tables" container direction="row" justify="space-around" alignContent="flex-start"
                   wrap='wrap'>
                 <ErrorHandler error={error as boolean}>
