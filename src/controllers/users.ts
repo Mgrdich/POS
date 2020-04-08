@@ -13,6 +13,7 @@ import {GET_USERS_TABLE} from "../utilities/tables/constants";
 import {SECRET_KEY} from "../config/keys";
 import {ROLES_PRIORITY} from "../roles";
 import {ITEM_DELETED, NOT_MODIFIED} from "../utilities/constants/messages";
+import {noResult} from "../utilities/controllers/helpers";
 
 async function register(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
@@ -143,6 +144,24 @@ async function getUsers(req: myRequest, res: Response, next: NextFunction): Prom
     }
 }
 
+async function getUsersRole(req: myRequest, res: Response, next: NextFunction): Promise<any> {
+    try {
+        const errors: any = validationResult(req).formatWith(errorFormatter);
+
+        if (!errors.isEmpty()) {
+            errorThrower("Validation Failed", 422, errors.mapped());
+        }
+        const users:Array<IUser> = await Users.find({role:req.params.role},{_id:1,name:1}).lean();
+        if(users.length) {
+            return res.status(200).json(users);
+        }
+        noResult(res);
+    } catch (err) {
+        errorCatcher(next, err);
+    }
+}
+
+
 async function getUsersChat(req: myRequest, res: Response, next: NextFunction): Promise<any> {
     const rolePriority = req.user.rolePriority;
     try {
@@ -185,4 +204,4 @@ async function deleteUser(req: myRequest, res: Response, next: NextFunction): Pr
     }
 }
 
-export {register, login, currentUser, registerUser, editUser, getUsers, changePassword, deleteUser, getUsersChat};
+export {register, login, currentUser, registerUser, editUser, getUsers, changePassword, deleteUser, getUsersChat,getUsersRole};

@@ -7,20 +7,22 @@ import {
     getUsers,
     changePassword,
     editUser,
-    deleteUser, getUsersChat
+    deleteUser, getUsersChat, getUsersRole
 } from "../controllers/users";
 import {isAuth,isAuthorized} from "../middlewares/authorisation";
-import {ROLES_SUPER_ADMIN_MANAGER} from "../roles";
+import {ROLES_SUPER_ADMIN_MANAGER, ROLES_SUPER_ADMIN_MANAGER_CASHIER} from "../roles";
 import {
     changePasswordValidation, deleteUserValidation,
     editUserValidation,
     registerUserValidation,
-    registerValidation
+    registerValidation, usersRoleValidation
 } from "../validations/users";
 
 const router = express.Router();
 
 router.get("/",isAuth(),isAuthorized(ROLES_SUPER_ADMIN_MANAGER),getUsers);
+
+router.get("/role/:role",isAuth(),isAuthorized(ROLES_SUPER_ADMIN_MANAGER_CASHIER),usersRoleValidation,getUsersRole);
 
 router.get("/chat",isAuth(),getUsersChat);
 

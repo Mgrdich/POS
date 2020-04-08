@@ -100,3 +100,10 @@ export const deleteUserValidation:Array<any> = [
             return mongoose.Types.ObjectId.isValid(value);
         })
 ];
+
+export const usersRoleValidation: Array<any> = [
+    param('role')
+        .custom(function (value) {
+            return ROLES_ALL.some(i => i === value);
+        })
+];

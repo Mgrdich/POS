@@ -22,3 +22,5 @@ export const ROLES_PRIORITY:roleProperties =  {
 
 //Roles with its Arrays
 export const ROLES_SUPER_ADMIN_MANAGER:Array<RoleType> = [Roles.SuperAdmin,Roles.Admin,Roles.Manager];
+
+export const ROLES_SUPER_ADMIN_MANAGER_CASHIER:Array<RoleType> = [Roles.SuperAdmin,Roles.Admin,Roles.Manager,Roles.Cashier];
