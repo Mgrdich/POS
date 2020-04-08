@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Menu, MenuItem} from "@material-ui/core";
 
-const ChosenEmployee = (props: any) => {
-    const {users,click} = props;
+const ChosenEmployee = () => {
+    const [users,setUsers] = useState<Array<any>>([]);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [userName, setUserName] = useState('');
+
 
     const handleClick = function (event:any) {
         setAnchorEl(event.currentTarget);
@@ -14,14 +15,14 @@ const ChosenEmployee = (props: any) => {
         setAnchorEl(null);
     };
     const handleUserName = function (name:string) {
-        setUserName(name);
+
     };
 
     return (
         <>
             <Button variant="outlined" color="primary" aria-controls="simple-menu" aria-haspopup="true"
-                    onClick={click && handleClick}>
-                {userName.length ? userName : 'select employee' }
+                    onClick={handleClick}>
+                {userName.length ? userName : 'Select employee' }
             </Button>
             <Menu
                 id="simple-menu"
@@ -30,11 +31,11 @@ const ChosenEmployee = (props: any) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                {users? users.map((user: string, index: number)=>(
+                {users.length? users.map((user: string, index: number)=>(
                     <div key={index} onClick={handleClose}>
                     <MenuItem  onClick={() =>handleUserName(user)}>{user}</MenuItem>
                     </div>
-                )): []}
+                )): null}
             </Menu>
         </>
     );

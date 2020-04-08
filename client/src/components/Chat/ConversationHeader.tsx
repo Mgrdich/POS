@@ -2,7 +2,7 @@ import React, {useCallback, useContext} from 'react';
 import {Avatar, Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@material-ui/core";
 import {ChatContext} from "./ChatProvider";
 import EditGroup from "./EditGroup";
-import {useModule} from "../Hooks/useModule";
+import {useModal} from "../Hooks/useModal";
 import DynamicFields from "../Reusable/DynamicFields";
 import {useForm} from "react-hook-form";
 import {editGroupChat, editGroupChatVal} from "./configs";
@@ -12,8 +12,6 @@ import Grid from "@material-ui/core/Grid";
 import axios from "axios";
 import {IAlertAxiosResponse} from "../../interfaces/General";
 import {CHAT_ACTIONS} from "./ActionsConfig";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 
 
@@ -21,9 +19,9 @@ const ConversationHeader: React.FC = () => {
     const [state, dispatch] = useContext(ChatContext);
     const {user, group} = state;
     let editGroup;
-    const [open, handleClickOpen, handleClose] = useModule();
-    const [openGroupInfo, handleClickOpenGroupInfo, handleCloseGroupInfo] = useModule();
-    const [openGroupDelete, handleClickOpenGroupDelete, handleCloseGroupDelete] = useModule();
+    const [open, handleClickOpen, handleClose] = useModal();
+    const [openGroupInfo, handleClickOpenGroupInfo, handleCloseGroupInfo] = useModal();
+    const [openGroupDelete, handleClickOpenGroupDelete, handleCloseGroupDelete] = useModal();
     const {handleSubmit: handleEditSubmit, register: editRegister, errors: editErrors, control: editControl} = useForm<any>({
         validationSchema: editGroupChatVal,
     });

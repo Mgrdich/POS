@@ -1,10 +1,11 @@
-import {ActionCreator, AnyAction, Dispatch} from "redux";
+import {Action, ActionCreator, AnyAction, Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
 import axios, {AxiosResponse} from "axios";
-import {POS_TYPES} from "./types";
+import {AUTH_TYPES, POS_TYPES} from "./types";
 import {IState} from "../reducers";
 
 type actionVoid = ActionCreator<ThunkAction<void, any, any, AnyAction>>;
+type action = ActionCreator<Action>;
 
 export const fetchOrders: actionVoid = () => async (dispatch: Dispatch, getState: () => IState) => {
     try {
@@ -41,6 +42,13 @@ export const openOrder: actionVoid = (tableId: string) => async (dispatch: Dispa
 
 export const setOrder: actionVoid = () => (dispatch: Dispatch, getState: () => IState) => {
 
+};
+
+export const setUser: action = function (id:string) {
+    return {
+        type: POS_TYPES.SET_WAITER,
+        payload: id
+    };
 };
 
 export const fetchTables: actionVoid = () => async (dispatch: Dispatch) => {

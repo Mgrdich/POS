@@ -57,7 +57,8 @@ export default function (state: IPOSReducer = initialState, action: any): IPOSRe
             return {
                 ...state,
                 Orders: payload.Orders,
-                tableHashed: payload.tableHashed
+                tableHashed: payload.tableHashed,
+                isLoading:false
             };
         case POS_TYPES.FETCH_PRODUCTS_GROUPS:
             return {
@@ -117,7 +118,6 @@ export default function (state: IPOSReducer = initialState, action: any): IPOSRe
             return {
                 ...state,
                 waiter: payload.waiter,
-                createdBy: payload.createdBy,
             };
         case POS_TYPES.SET_ORDERS:
             return {
@@ -147,6 +147,11 @@ export default function (state: IPOSReducer = initialState, action: any): IPOSRe
         case POS_TYPES.SET_PRODUCTS_GROUP:
             return {
                 ...state,
+            };
+        case POS_TYPES.SET_WAITER:
+            return {
+              ...state,
+              waiter:payload
             };
         case POS_TYPES.SET_LOADING:
             return {
