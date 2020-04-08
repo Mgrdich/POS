@@ -14,11 +14,12 @@ import NestedMenuList from "./NestedMenuList";
 import {IMenuDrawer} from "../../../interfaces/layout/Drawer";
 import Logout from "../../auth/Logout";
 import Grid from "@material-ui/core/Grid";
+import {useSelector} from "react-redux";
 
 const MenuDrawer: React.FC <IMenuDrawer> = ({children}) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState<boolean>(false);
-
+    const userName = useSelector<string | any>(state => state.auth.user.name);
   return (
     <Grid container>
       <CssBaseline />
@@ -45,7 +46,13 @@ const MenuDrawer: React.FC <IMenuDrawer> = ({children}) => {
                 <Typography variant="h6" noWrap>
                     POS
                 </Typography>
-                <Logout/>
+                <Grid item container direction='row' justify='flex-end' alignItems='center'
+                      className='profile-container'>
+                    <Typography variant="h6" noWrap>
+                        {`${userName}`}
+                    </Typography>
+                    <Logout/>
+                </Grid>
             </Grid>
         </Toolbar>
       </AppBar>
