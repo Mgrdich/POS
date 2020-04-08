@@ -66,7 +66,7 @@ const AccountDetails: React.FC<IAccountDetails> = (props) => {
                             Role: {data.role}
                         </Typography>
                         <Typography variant="caption" component="p">
-                            Created at: {dateFormat(data.date)}
+                            Created at: {dateFormat(data.createdAt)}
                         </Typography>
                     </CardContent>
                     <CardActions>
