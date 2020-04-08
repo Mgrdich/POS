@@ -27,11 +27,11 @@ export const fetchOrders: actionVoid = () => async (dispatch: Dispatch, getState
 };
 
 export const openOrder: actionVoid = (tableId: string) => async (dispatch: Dispatch, getState: () => IState) => {
-    const {auth} = getState();
+    const {pos} = getState();
     try {
         dispatch({type: POS_TYPES.SET_LOADING_INFO});
         const res: AxiosResponse = await axios.put('/orders', {
-            waiter: auth.user.id,
+            waiter: pos.waiter,
             table: tableId
         });
         dispatch({type: POS_TYPES.FETCH_ORDER_INFO, payload: {data: res.data, tableId}});
@@ -44,7 +44,7 @@ export const setOrder: actionVoid = () => (dispatch: Dispatch, getState: () => I
 
 };
 
-export const setUser: action = function (id:string) {
+export const setWaiter: action = function (id:string) {
     return {
         type: POS_TYPES.SET_WAITER,
         payload: id

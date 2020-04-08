@@ -1,28 +1,36 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Button, Menu, MenuItem} from "@material-ui/core";
+import {useFetch} from "../../components/Hooks/useFetch";
+import {Roles} from "../../roles";
+import {useDispatch} from "react-redux";
+import ComponentLoader from "../../components/Reusable/ComponentLoader";
+import {setWaiter} from "../../actions/posActions";
+
 
 const ChosenEmployee = () => {
-    const [users,setUsers] = useState<Array<any>>([]);
+    const [user, setUser] = useState<string>('');
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [userName, setUserName] = useState('');
+    const {isLoading, data: users} = useFetch(`/users/role/${Roles.Employee}`); //TODO change it with id create table for it
+    const dispatch = useDispatch();
 
-
-    const handleClick = function (event:any) {
+    const handleClick = function (event: any) {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = function ()  {
+    const handleClose = function () {
         setAnchorEl(null);
     };
-    const handleUserName = function (name:string) {
 
+    const handleUserName = function (user: any) {
+        setUser(user.name);
+        dispatch(setWaiter(user._id));
     };
 
     return (
-        <>
+        <ComponentLoader isLoading={isLoading}>
             <Button variant="outlined" color="primary" aria-controls="simple-menu" aria-haspopup="true"
                     onClick={handleClick}>
-                {userName.length ? userName : 'Select employee' }
+                {user ? user : 'Select employee'}
             </Button>
             <Menu
                 id="simple-menu"
@@ -31,13 +39,13 @@ const ChosenEmployee = () => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                {users.length? users.map((user: string, index: number)=>(
-                    <div key={index} onClick={handleClose}>
-                    <MenuItem  onClick={() =>handleUserName(user)}>{user}</MenuItem>
+                {users.length ? users.map((user: any, index: number) => (
+                    <div key={user._id} onClick={handleClose}>
+                        <MenuItem onClick={() => handleUserName(user)}>{user.name}</MenuItem>
                     </div>
-                )): null}
+                )) : null}
             </Menu>
-        </>
+        </ComponentLoader>
     );
 };
 
