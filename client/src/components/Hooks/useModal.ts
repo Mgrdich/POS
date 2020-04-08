@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-export function useModule (toggleModule:any = false) {
+export function useModal (toggleModule:any = false) {
     const [open, setOpen] = useState<any>(toggleModule);
 
     const handleClickOpen = () => {

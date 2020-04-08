@@ -15,7 +15,7 @@ import ComponentLoader from "../../components/Reusable/ComponentLoader";
 import AlertQuestion from "../../components/Reusable/AlertQuestion";
 import {useAlert} from "../../components/Hooks/useAlert";
 import Alerts from "../../components/Reusable/Alerts";
-import {useModule} from "../../components/Hooks/useModule";
+import {useModal} from "../../components/Hooks/useModal";
 import {DefaultValue} from "../../util/functions";
 import CardMessage from "../../components/Reusable/CardMessage";
 
@@ -35,7 +35,7 @@ const CreateEditTables = () => {
     const {tbody, thead, keys, isLoading, setRefetch} = useTable('/tables');
     const [rows, setRows, deletedId, changeDeletedId] = useTableBody(isLoading, tbody);
     const {alertMessage, setOpenAlert, openAlert, setAlert, alertType} = useAlert();
-    const [open, handleClickOpen, handleClose] = useModule();//TODO it is Model not Module Rename
+    const [open, handleClickOpen, handleClose] = useModal();//TODO it is Model not Module Rename
     const [EditData, setEditData] = useState();
     useDynamicFields(creteTableInputField, register, unregister);
 

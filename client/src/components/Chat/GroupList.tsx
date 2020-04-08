@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 import {CHAT_ACTIONS} from "./ActionsConfig";
 import Button from "@material-ui/core/Button";
-import {useModule} from "../Hooks/useModule";
+import {useModal} from "../Hooks/useModal";
 import {useForm} from "react-hook-form";
 import {useServerErrorHandle} from "../Hooks/useServerErrorHandle";
 import Grid from "@material-ui/core/Grid";
@@ -34,7 +34,7 @@ const GroupList: React.FC<IChatList> = (props) => {
     const {filter, data: users, isLoading} = props;
     const [data, setData] = useState<Array<any>>();
     const dispatch = useContext(ChatContext)[1];
-    const [open, handleClickOpen, handleClose] = useModule();
+    const [open, handleClickOpen, handleClose] = useModal();
     const [serverError, setterError, resetServerError] = useServerErrorHandle();
     const {handleSubmit, register, errors, control, reset} = useForm<any>({
         validationSchema: createGroupChatVal

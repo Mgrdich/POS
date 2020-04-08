@@ -19,7 +19,7 @@ import {useDefaultValue} from "../../components/Hooks/useDefaultValue";
 import axios from "axios";
 import {IAlertAxiosResponse} from "../../interfaces/General";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
-import {useModule} from "../../components/Hooks/useModule";
+import {useModal} from "../../components/Hooks/useModal";
 import {Dialog} from '@material-ui/core';
 
 const AccountDetails: React.FC<IAccountDetails> = (props) => {
@@ -30,7 +30,7 @@ const AccountDetails: React.FC<IAccountDetails> = (props) => {
      //TODO set alert message on error
     const [serverError, setterError] = useServerErrorHandle();
     const modifiedInputFields = useDefaultValue(AccountDetailsEditInputFields, data);
-    const [open, handleClickOpen, handleClose] = useModule();
+    const [open, handleClickOpen, handleClose] = useModal();
 
 
     const onSubmit = function (values: any): void {

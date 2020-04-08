@@ -16,7 +16,7 @@ import ComponentLoader from "../../components/Reusable/ComponentLoader";
 import AlertQuestion from "../../components/Reusable/AlertQuestion";
 import Alerts from "../../components/Reusable/Alerts";
 import {useAlert} from "../../components/Hooks/useAlert";
-import {useModule} from "../../components/Hooks/useModule";
+import {useModal} from "../../components/Hooks/useModal";
 import {DefaultValue} from "../../util/functions";
 
 const actionsTypes: Array<string> = ["Delete", 'Edit'];
@@ -31,7 +31,7 @@ const AddProduct: React.FC = () => {
     const {tbody, thead, keys, isLoading, setRefetch} = useTable('/products');
     const [rows, setRows, deletedId, changeDeletedId] = useTableBody(isLoading, tbody);
     const {alertMessage, setOpenAlert, openAlert, setAlert, alertType} = useAlert();
-    const [open, handleClickOpen, handleClose] = useModule();
+    const [open, handleClickOpen, handleClose] = useModal();
     const [serverError, setterError, resetServerError] = useServerErrorHandle();
     const [EditData, setEditData] = useState();
     useDynamicFields(addProductInputField, register, unregister);
