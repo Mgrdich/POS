@@ -40,7 +40,6 @@ export interface IPOSReducer {
             };
         },
         isLoading: boolean; //for Products Group
-        filterArray:Array<any>;
     };
     tables:{
         data:Array<any>,
@@ -55,7 +54,6 @@ export interface IPOSReducer {
                 price: number
             }
         },
-        filterArray:Array<any>;
         isLoading:boolean
     }
     waiter: { //chosen waiter id

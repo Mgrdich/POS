@@ -15,12 +15,10 @@ const initialState: IPOSReducer = {
     productsGroups: {
         data: {},
         isLoading: false,
-        filterArray: []
     },
     products: {
         data: {},
         isLoading: false,
-        filterArray:[]
     },
     productsGroup: null,
     waiter: {
@@ -68,11 +66,8 @@ export default function (state: IPOSReducer = initialState, action: any): any {
             return {
                 ...state,
                 productsGroups: {
-                    data: {
-                        ...hashingArray(action.payload, "_id")
-                    },
+                    data: action.payload,
                     isLoading: false,
-                    filterArray: action.payload
                 }
             };
         case POS_TYPES.FETCH_TABLES:
@@ -91,15 +86,14 @@ export default function (state: IPOSReducer = initialState, action: any): any {
                     data: {
                         ...state.productsGroups.data,
                         [action.payload.productGroupId]: {
-                            products: {...hashingArray(action.payload.data, "_id")},
+                            products: action.payload.data,
                             ...state.productsGroups.data[action.payload.productGroupId]
                         }
                     }
                 },
                 products: {
-                    data:{...hashingArray(action.payload.data, "_id")},
+                    data:action.payload.data,
                     isLoading: false,
-                    filterArray:action.payload.data
                 },
                 productsGroup: action.payload.productGroupId
             };

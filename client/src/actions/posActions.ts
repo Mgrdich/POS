@@ -3,6 +3,7 @@ import {ThunkAction} from "redux-thunk";
 import axios, {AxiosResponse} from "axios";
 import {POS_TYPES} from "./types";
 import {IState} from "../reducers";
+import {hashingArray} from "../util/functions";
 
 type actionVoid = ActionCreator<ThunkAction<void, any, any, AnyAction>>;
 type action = ActionCreator<Action>;
@@ -65,7 +66,7 @@ export const fetchProductsGroups: actionVoid = () => async (dispatch: Dispatch) 
     try {
         dispatch({type: POS_TYPES.SET_LOADING_PRODUCTS_GROUPS});
         const res: AxiosResponse = await axios.get('/orders/products-groups');
-        dispatch({type: POS_TYPES.FETCH_PRODUCTS_GROUPS, payload: res.data});
+        dispatch({type: POS_TYPES.FETCH_PRODUCTS_GROUPS, payload: hashingArray(res.data,"_id")});
     } catch (err) {
         dispatch({type: POS_TYPES.SET_ERROR});
     }
@@ -87,7 +88,7 @@ export const fetchSelectProducts = (id: string) => async (dispatch: Dispatch, ge
         const products = await axios.get(`/orders/products/${id}`);
         dispatch({
             type: POS_TYPES.FETCH_PRODUCTS, payload: {
-                data: products.data.products,
+                data: hashingArray(products.data.products,"_id"),
                 productGroupId: id
             }
         });
