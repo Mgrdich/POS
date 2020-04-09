@@ -108,3 +108,11 @@ export interface ICardMessage {
     location?:string;
     button?:boolean;
 }
+
+export interface IModal {
+    open:boolean;
+    handleClose:Function;
+    message:string;
+    action:Function;
+    modalTitle?:string;
+}
