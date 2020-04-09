@@ -7,13 +7,14 @@ import {useTab} from "../../components/Hooks/useTab";
 import TabPanelOne from "./TabPanelOne";
 import TabPanelTwo from "./TabPanelTwo";
 import {useTable} from "../../components/Hooks/useTable";
-import AlertQuestion from "../../components/Reusable/AlertQuestion";
 import {useAlert} from "../../components/Hooks/useAlert";
 import axios, {AxiosResponse} from 'axios';
 import CardMessage from "../../components/Reusable/CardMessage";
 import Alerts from "../../components/Reusable/Alerts";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
 import {useTableBody} from "../../components/Hooks/useTableBody";
+import DeleteModal from "../../components/Reusable/DeleteModal";
+import {useModal} from "../../components/Hooks/useModal";
 
 const actionsTypes: Array<string> = ["Delete"];
 
@@ -23,18 +24,19 @@ const Users: React.FC = () => {
     const [tabValue, handleChange] = useTab(0);
     const {tbody, thead, keys, isLoading} = useTable('/users');
     const {alertMessage, setOpenAlert, openAlert, setAlert, alertType} = useAlert();
+    const [open, handleClickOpen, handleClose] = useModal();
     const [rows, setRows, deletedId, changeDeletedId] = useTableBody(isLoading, tbody);
 
     const handleActions = function (type: string, obj: any) {
         if (type === 'delete') {
             changeDeletedId(obj._id);
-            setAlert({message: 'Are you sure you want to delete this row!'}, {alertQuestion: true, alert: false});
+            handleClickOpen();
         }
     };
 
     const handleDeleted = function (id: string) {
         axios.delete(`/users/${id}`).then((res: AxiosResponse) => {
-            setAlert(res.data, {alertQuestion: false, alert: true});
+            setAlert(res.data, true);
         }).catch((e) => {
             console.log(e);
         });
@@ -42,7 +44,6 @@ const Users: React.FC = () => {
             return row._id !== id;
         });
         setRows(filteredRows);
-        setOpenAlert({alertQuestion: false, alert: false});
     };
 
 
@@ -87,15 +88,13 @@ const Users: React.FC = () => {
             <TabPanel value={tabValue} index={2}>
                 Item Three
             </TabPanel>
-            <AlertQuestion
-                open={openAlert.alertQuestion}
-                close={setOpenAlert}
-                callback={() => handleDeleted(deletedId)}
-            >
-                {alertMessage}
-            </AlertQuestion>
-
-            <Alerts open={openAlert.alert} severity={alertType} close={setOpenAlert}>
+            <DeleteModal
+                open={open}
+                message={'Are you sure you want to delete this row ?'}
+                action={() => handleDeleted(deletedId)}
+                handleClose={handleClose}
+            />
+            <Alerts open={openAlert} severity={alertType} close={setOpenAlert}>
                 {alertMessage}
             </Alerts>
         </>

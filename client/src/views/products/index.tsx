@@ -13,11 +13,11 @@ import {useTableBody} from "../../components/Hooks/useTableBody";
 import MyTable from "../../components/Reusable/Table/MyTable";
 import CardMessage from "../../components/Reusable/CardMessage";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
-import AlertQuestion from "../../components/Reusable/AlertQuestion";
 import Alerts from "../../components/Reusable/Alerts";
 import {useAlert} from "../../components/Hooks/useAlert";
 import {useModal} from "../../components/Hooks/useModal";
 import {DefaultValue} from "../../util/functions";
+import DeleteModal from "../../components/Reusable/DeleteModal";
 
 const actionsTypes: Array<string> = ["Delete", 'Edit'];
 
@@ -32,6 +32,7 @@ const AddProduct: React.FC = () => {
     const [rows, setRows, deletedId, changeDeletedId] = useTableBody(isLoading, tbody);
     const {alertMessage, setOpenAlert, openAlert, setAlert, alertType} = useAlert();
     const [open, handleClickOpen, handleClose] = useModal();
+    const [openDeleteModal, handleClickOpenDeleteModal, handleCloseDeleteModal] = useModal();
     const [serverError, setterError, resetServerError] = useServerErrorHandle();
     const [EditData, setEditData] = useState();
     useDynamicFields(addProductInputField, register, unregister);
@@ -55,7 +56,7 @@ const AddProduct: React.FC = () => {
     const handleActions = function (type: string, obj: any) {
         if (type === 'delete') {
             changeDeletedId(obj._id);
-            setAlert({message: 'Are you sure you want to delete this row!'}, {alertQuestion: true, alert: false});
+            handleClickOpenDeleteModal();
         }
         if (type === 'edit') {
             changeDeletedId(obj._id);
@@ -81,7 +82,7 @@ const AddProduct: React.FC = () => {
 
     const handleDeleted = function (id: string) {
         axios.delete(`/products/${id}`).then((res: AxiosResponse) => {
-            setAlert(res.data, {alertQuestion: false, alert: true});
+            setAlert(res.data, true);
         }).catch((e) => {
             console.log(e);
         });
@@ -89,7 +90,6 @@ const AddProduct: React.FC = () => {
             return row._id !== id;
         });
         setRows(filteredRows);
-        setOpenAlert({alertQuestion: false, alert: false});
     };
 
     return (
@@ -168,16 +168,13 @@ const AddProduct: React.FC = () => {
                     </DialogActions>
                 </form>
             </Dialog>
-
-
-            <AlertQuestion
-                open={openAlert.alertQuestion}
-                close={setOpenAlert}
-                callback={() => handleDeleted(deletedId)}
-            >
-                {alertMessage}
-            </AlertQuestion>
-            <Alerts open={openAlert.alert} severity={alertType} close={setOpenAlert}>
+            <DeleteModal
+                open={openDeleteModal}
+                message={'Are you sure you want to delete this row ?'}
+                action={() => handleDeleted(deletedId)}
+                handleClose={handleCloseDeleteModal}
+            />
+            <Alerts open={openAlert} severity={alertType} close={setOpenAlert}>
                 {alertMessage}
             </Alerts>
         </>

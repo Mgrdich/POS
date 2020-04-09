@@ -21,8 +21,8 @@ import {DefaultValue} from "../../../util/functions";
 import ComponentLoader from "../../../components/Reusable/ComponentLoader";
 import MyTable from "../../../components/Reusable/Table/MyTable";
 import CardMessage from "../../../components/Reusable/CardMessage";
-import AlertQuestion from "../../../components/Reusable/AlertQuestion";
 import Alerts from "../../../components/Reusable/Alerts";
+import DeleteModal from "../../../components/Reusable/DeleteModal";
 
 const actionsTypes: Array<string> = ["Delete", 'Edit'];
 
@@ -37,6 +37,7 @@ const ProductsGroup: React.FC = () => {
     const [rows, setRows, deletedId, changeDeletedId] = useTableBody(isLoading, tbody);
     const {alertMessage, setOpenAlert, openAlert, setAlert, alertType} = useAlert();
     const [open, handleClickOpen, handleClose] = useModal();
+    const [openDeleteModal, handleClickOpenDeleteModal, handleCloseDeleteModal] = useModal();
     const [serverError, setterError, resetServerError] = useServerErrorHandle();
     const [EditData, setEditData] = useState();
     useDynamicFields(productGroupInputField, register, unregister);
@@ -58,7 +59,7 @@ const ProductsGroup: React.FC = () => {
     const ProductsGroupHandleActions = function (type: string, obj: any) {
         if (type === 'delete') {
             changeDeletedId(obj._id);
-            setAlert({message: 'Are you sure you want to delete this row!'}, {alertQuestion: true, alert: false});
+            handleClickOpenDeleteModal();
         }
         if (type === 'edit') {
             changeDeletedId(obj._id);
@@ -73,7 +74,7 @@ const ProductsGroup: React.FC = () => {
             .then(function (res: IAlertAxiosResponse) {
                 handleClose();
                 setRefetch((prev: boolean) => !prev);
-                setAlert(res.data, {alertQuestion: false, alert: true});
+                setAlert(res.data, true);
                 setRefetch((prev: boolean) => !prev);
             }).catch(function (e: any) {
             if (!e.response.data) {
@@ -170,15 +171,12 @@ const ProductsGroup: React.FC = () => {
                     </DialogActions>
                 </form>
             </Dialog>
-
-
-            <AlertQuestion
-                open={openAlert.alertQuestion}
-                close={setOpenAlert}
-                callback={() => handleDeleted(deletedId)}
-            >
-                {alertMessage}
-            </AlertQuestion>
+            <DeleteModal
+                open={openDeleteModal}
+                message={'Are you sure you want to delete this row ?'}
+                action={() => handleDeleted(deletedId)}
+                handleClose={handleCloseDeleteModal}
+            />
             <Alerts open={openAlert.alert} severity={alertType} close={setOpenAlert}>
                 {alertMessage}
             </Alerts>
