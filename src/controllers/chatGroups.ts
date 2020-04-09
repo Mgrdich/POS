@@ -10,7 +10,8 @@ import {FORBIDDEN, ITEM_DELETED, NOT_MODIFIED} from "../utilities/constants/mess
 
 export async function getChatGroups(req: myRequest, res: Response, next: NextFunction) {
     try {
-        const chats: Array<IDocGroupsChat> = await GroupsChats.find({members: {$in: [req.user._id]}})
+        const chats: Array<IDocGroupsChat> =
+            await GroupsChats.find({$or: [{members: {$in: [req.user._id]}}, {admins: {$in: [req.user._id]}}]})
             .populate('messages')
             .populate('participants', 'name');
         if (chats.length) {

@@ -12,10 +12,11 @@ export const GET_USERS_TABLE = { //TODO create an interface
 
 //getTables
 export const GET_TABLES_TABLE = {
-    keys:['number','status','createdDate'],
+    keys:['number','status','role','createdDate'],
     translations:{
         'number':'Number',
         'status':'Status',
+        'role':'Role',
         'createdDate':'created Date'
     }
 };
