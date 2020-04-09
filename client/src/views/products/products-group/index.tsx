@@ -86,7 +86,7 @@ const ProductsGroup: React.FC = () => {
 
     const handleDeleted = function (id: string) {
         axios.delete(`/products-group/${id}`).then((res: AxiosResponse) => {
-            setAlert(res.data, {alertQuestion: false, alert: true});
+            setAlert(res.data, true);
         }).catch((e) => {
             console.log(e);
         });
@@ -94,7 +94,6 @@ const ProductsGroup: React.FC = () => {
             return row._id !== id;
         });
         setRows(filteredRows);
-        setOpenAlert({alertQuestion: false, alert: false});
     };
     return (
         <>
@@ -177,7 +176,7 @@ const ProductsGroup: React.FC = () => {
                 action={() => handleDeleted(deletedId)}
                 handleClose={handleCloseDeleteModal}
             />
-            <Alerts open={openAlert.alert} severity={alertType} close={setOpenAlert}>
+            <Alerts open={openAlert} severity={alertType} close={setOpenAlert}>
                 {alertMessage}
             </Alerts>
         </>

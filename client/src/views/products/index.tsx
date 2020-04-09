@@ -71,7 +71,7 @@ const AddProduct: React.FC = () => {
             .then(function (res: IAlertAxiosResponse) {
                 setRefetch((prev: boolean) => !prev);
                 handleClose();
-                setAlert(res.data, {alertQuestion: false, alert: true});
+                setAlert(res.data, true);
             }).catch(function (e: any) {
             if (!e.response.data) {
                 console.error("No Response is found");
