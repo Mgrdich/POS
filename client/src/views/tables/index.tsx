@@ -38,6 +38,7 @@ const CreateEditTables = () => {
     const [open, handleClickOpen, handleClose] = useModal();
     const [openDeleteModal, handleClickOpenDeleteModal, handleCloseDeleteModal] = useModal();
     const [EditData, setEditData] = useState();
+    const [tableNumber, setTableNumber] = useState<string>('');
     useDynamicFields(creteTableInputField, register, unregister);
 
     const onSubmit = function (values: any): void {
@@ -59,6 +60,7 @@ const CreateEditTables = () => {
     const handleActions = function (type: string, obj: any) {
         if (type === 'delete') {
             changeDeletedId(obj._id);
+            setTableNumber(obj.number);
             handleClickOpenDeleteModal()
         }
         if (type === 'edit') {
@@ -173,7 +175,8 @@ const CreateEditTables = () => {
             </Dialog>
             <DeleteModal
                 open={openDeleteModal}
-                message={'Are you sure you want to delete this row ?'}
+                modalTitle='Delete table'
+                message={`Are you sure you want to delete table ${tableNumber} ?`}
                 action={() => handleDeleted(deletedId)}
                 handleClose={handleCloseDeleteModal}
             />

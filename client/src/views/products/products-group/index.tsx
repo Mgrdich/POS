@@ -40,6 +40,7 @@ const ProductsGroup: React.FC = () => {
     const [openDeleteModal, handleClickOpenDeleteModal, handleCloseDeleteModal] = useModal();
     const [serverError, setterError, resetServerError] = useServerErrorHandle();
     const [EditData, setEditData] = useState();
+    const [productGroupName, setProductName] = useState<string>('');
     useDynamicFields(productGroupInputField, register, unregister);
 
     const onSubmit = function (values: any): void {
@@ -59,6 +60,7 @@ const ProductsGroup: React.FC = () => {
     const ProductsGroupHandleActions = function (type: string, obj: any) {
         if (type === 'delete') {
             changeDeletedId(obj._id);
+            setProductName(obj.name);
             handleClickOpenDeleteModal();
         }
         if (type === 'edit') {
@@ -172,7 +174,8 @@ const ProductsGroup: React.FC = () => {
             </Dialog>
             <DeleteModal
                 open={openDeleteModal}
-                message={'Are you sure you want to delete this row ?'}
+                modalTitle='Delete product group'
+                message={`Are you sure you want to delete product group ${productGroupName} ?`}
                 action={() => handleDeleted(deletedId)}
                 handleClose={handleCloseDeleteModal}
             />

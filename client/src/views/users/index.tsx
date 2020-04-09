@@ -92,8 +92,8 @@ const Users: React.FC = () => {
             </TabPanel>
             <DeleteModal
                 open={open}
-                modalTitle={'Delete user'}
-                message={`Are you sure you want to delete ${email} ?`}
+                modalTitle='Delete user'
+                message={`Are you sure you want to delete email ${email} ?`}
                 action={() => handleDeleted(deletedId)}
                 handleClose={handleClose}
             />

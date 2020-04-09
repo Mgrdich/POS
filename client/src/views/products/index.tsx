@@ -35,6 +35,7 @@ const AddProduct: React.FC = () => {
     const [openDeleteModal, handleClickOpenDeleteModal, handleCloseDeleteModal] = useModal();
     const [serverError, setterError, resetServerError] = useServerErrorHandle();
     const [EditData, setEditData] = useState();
+    const [productName, setProductName] = useState<string>('');
     useDynamicFields(addProductInputField, register, unregister);
 
 
@@ -56,6 +57,7 @@ const AddProduct: React.FC = () => {
     const handleActions = function (type: string, obj: any) {
         if (type === 'delete') {
             changeDeletedId(obj._id);
+            setProductName(obj.name);
             handleClickOpenDeleteModal();
         }
         if (type === 'edit') {
@@ -170,7 +172,8 @@ const AddProduct: React.FC = () => {
             </Dialog>
             <DeleteModal
                 open={openDeleteModal}
-                message={'Are you sure you want to delete this row ?'}
+                modalTitle='Delete product'
+                message={`Are you sure you want to delete product ${productName} ?`}
                 action={() => handleDeleted(deletedId)}
                 handleClose={handleCloseDeleteModal}
             />

@@ -143,7 +143,7 @@ const ConversationHeader: React.FC = () => {
 
             <DeleteModal
                 open={openGroupDelete}
-                modalTitle={'Delete-group'}
+                modalTitle='Delete group'
                 message={`Are you sure you want to delete ${state?.group?.name} group ?`}
                 action={onDelete}
                 handleClose={handleCloseGroupDelete}
