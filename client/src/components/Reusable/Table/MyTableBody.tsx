@@ -23,7 +23,7 @@ const MyTableBody: React.FC<IMyTableBody> = (props) => {
                                             case 'Delete':
                                                 return (
                                                         <DeleteIcon key={item}  style={{cursor: 'pointer'}}
-                                                                    onClick={() => (handleActions) ? handleActions('delete', {_id: row._id}) : null}/>
+                                                                    onClick={() => (handleActions) ? handleActions('delete', {...row}) : null}/>
                                                 );
 
                                             case 'Edit':

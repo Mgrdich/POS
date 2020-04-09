@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import TabPanel from "../../components/Reusable/TabPanel";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
@@ -26,10 +26,12 @@ const Users: React.FC = () => {
     const {alertMessage, setOpenAlert, openAlert, setAlert, alertType} = useAlert();
     const [open, handleClickOpen, handleClose] = useModal();
     const [rows, setRows, deletedId, changeDeletedId] = useTableBody(isLoading, tbody);
+    const [email, setEmail] = useState<string>('');
 
     const handleActions = function (type: string, obj: any) {
         if (type === 'delete') {
             changeDeletedId(obj._id);
+            setEmail(obj.email);
             handleClickOpen();
         }
     };
@@ -90,7 +92,8 @@ const Users: React.FC = () => {
             </TabPanel>
             <DeleteModal
                 open={open}
-                message={'Are you sure you want to delete this row ?'}
+                modalTitle={'Delete user'}
+                message={`Are you sure you want to delete ${email} ?`}
                 action={() => handleDeleted(deletedId)}
                 handleClose={handleClose}
             />
