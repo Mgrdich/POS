@@ -1,14 +1,25 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useCallback, useEffect, useState} from 'react';
 import {Grid, Paper, TextField} from "@material-ui/core";
-import MenuCard from "../../components/Reusable/MenuCard";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
-import {filterProducts} from "../../actions/posActions";
+import MenuCard from "../../components/Reusable/MenuCard";
 
 const Products: React.FC<any> = () => {
-    const products:any = useSelector<any>(state => state.pos.products.filterArray);
+    let [initArray,setArray] = useState<Array<any>>([]);
+    const [filteredArray,setFilterArray] = useState<Array<any>>(initArray);
+    const products:any = useSelector<any>(state => state.pos.products.data);
     const isLoading:any = useSelector<any>(state => state.pos.products.isLoading);
-    const dispatch = useDispatch();
+
+    useEffect(function () {
+        let initial = Object.keys(products).map((item:any)=>products[item]);
+        setArray(initial);
+        setFilterArray(initial);
+    },[products]);
+
+    const filter = useCallback(function (match:string) {
+        const filteredUsers: Array<any> = initArray.filter((item: any) => item.name.toLowerCase().includes(match.toLowerCase().trim()));
+        setFilterArray(filteredUsers);
+    },[initArray]);
 
     return (
         <div className="products-container">
@@ -18,11 +29,11 @@ const Products: React.FC<any> = () => {
                 id="products-search"
                 variant="outlined"
                 size="small"
-                onChange={(e: ChangeEvent<HTMLInputElement>) => dispatch(filterProducts(e.target.value))}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => filter(e.target.value)}
             />
             <ComponentLoader isLoading={isLoading}>
                 <Grid item container direction="row" justify="flex-start">
-                    {products.length?products.map((product: any, index: number) => (
+                    {filteredArray.length?filteredArray.map((product: any, index: number) => (
                         <Grid item xs={12} sm={6} md={4} key={product._id}>
                             <MenuCard key={index} products={product}/>
                         </Grid>
