@@ -15,7 +15,7 @@ const productSchema: Schema<IDocProducts> = new Schema({
     },
     group: {
         type: Schema.Types.ObjectId,
-        ref: 'ProductsGroup'
+        ref: 'ProductsGroups'
     },
     createdBy: { //TODO created edit properties should be refactored
         type: Schema.Types.ObjectId,

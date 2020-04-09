@@ -13,7 +13,8 @@ import {GET_PRODUCTS_TABLE} from "../utilities/tables/constants";
 
 export async function getProducts(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-        let products: Array<IDocProducts> | IDocProducts = await Products.find({});
+        let products: Array<IDocProducts> =
+            await Products.find({},{name:1,group:1,createdDate:1,price:1}).lean().populate({path:'group',select:'name'});
         if (products.length) {
             const tableProducts = tableDataNormalize(products,GET_PRODUCTS_TABLE);
             return res.status(200).json(tableProducts);
@@ -82,8 +83,8 @@ export async function deleteProduct(req: Request, res: Response, next: NextFunct
         }
 
         const product = await Products.findOne({_id:req.params.id});
-        const res = await product.deleteProductById();
-        if (res[0].ok  && res[1].ok) {
+        const resp = await product.deleteProductById();
+        if (resp[0].ok  && resp[1].ok) {
             alert(res,200,messageAlert.success,ITEM_DELETED);
         } else {
             alert(res,304,messageAlert.success,NOT_MODIFIED)

@@ -27,7 +27,12 @@ export function tableDataNormalize(data: Array<any>, tableObj: any) { //TODO rep
         };
         for (let i = 0; i < tableObj.keys.length; i++) {
             let key = tableObj.keys[i];
-            objTable[key] = item[key];
+            if(typeof key === 'string') {
+                objTable[key] = item[key];
+            } else {
+                objTable[key.name] = item[key.name][key.alias];
+            }
+
         }
         return objTable;
     });

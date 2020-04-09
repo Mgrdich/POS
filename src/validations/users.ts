@@ -96,7 +96,7 @@ export const changePasswordValidation: Array<any> = [
 
 export const deleteUserValidation:Array<any> = [
     param('id')
-        .custom(function(value, {req}) {
+        .custom(function(value) {
             return mongoose.Types.ObjectId.isValid(value);
         })
 ];
