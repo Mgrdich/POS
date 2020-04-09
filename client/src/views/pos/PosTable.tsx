@@ -1,22 +1,30 @@
 import React from 'react';
-import {Grid} from "@material-ui/core";
+import {IconButton, Grid} from "@material-ui/core";
 import TableOrders from './TableOrders';
 import ProductsGroups from "./ProductsGroups";
 import {useSelector} from "react-redux";
 import ErrorHandler from "../errors/ErrorHandler";
 import ChosenEmployee from "./ChosenEmployee";
-import {useParams} from "react-router";
+import {useHistory, useParams} from "react-router";
 import Products from "./Products";
 import NoOrder from "./NoOrder";
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
 
 const PosTable: React.FC = () => {
     const error = useSelector<any>(state => state.pos.error);
     const {id} = useParams();
     const tableOrderHash: any = useSelector<any>(state => state.pos.tableHashed);
+    let history = useHistory();
 
     return (
         <div>
             <div>
+                <IconButton>
+                    <ArrowBackIcon color="primary" onClick={() => {
+                        (history.push(`/pos`))
+                    }}></ArrowBackIcon>
+                </IconButton>
                 <ChosenEmployee/>
             </div>
             <ErrorHandler error={error as boolean}>
