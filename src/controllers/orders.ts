@@ -58,7 +58,7 @@ export async function getPosProducts(req: Request, res: Response, next: NextFunc
         }
         let posProductsGroups: IProductsGroups =
             await ProductsGroups.findById(req.params.productsGroupId,{_id:1})
-            .lean().populate('products','name');
+            .lean().populate({path:'products',select:'name price'});
         if (posProductsGroups) {
             return res.status(200).json(posProductsGroups);
         }

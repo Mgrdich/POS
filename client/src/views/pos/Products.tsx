@@ -6,7 +6,7 @@ import ComponentLoader from "../../components/Reusable/ComponentLoader";
 import {filterProducts} from "../../actions/posActions";
 
 const Products: React.FC<any> = () => {
-    const products:any = useSelector<any>(state => state.pos.products.data);
+    const products:any = useSelector<any>(state => state.pos.products.filterArray);
     const isLoading:any = useSelector<any>(state => state.pos.products.isLoading);
     const dispatch = useDispatch();
 

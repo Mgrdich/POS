@@ -4,10 +4,10 @@ import {hashingArray} from "../util/functions";
 
 const initialState: IPOSReducer = {
     orders: {
-        data: [],
+        data: {},
         isLoading: false
     },
-    nonSubmittedOrders: [],
+    nonSubmittedOrders:null,
     tables: {
         data: [],
         isLoading: false
@@ -18,8 +18,9 @@ const initialState: IPOSReducer = {
         filterArray: []
     },
     products: {
-        data: [],
-        isLoading: false
+        data: {},
+        isLoading: false,
+        filterArray:[]
     },
     productsGroup: null,
     waiter: {
@@ -36,7 +37,7 @@ const initialState: IPOSReducer = {
     error: false
 };
 
-export default function (state: IPOSReducer = initialState, action: any): IPOSReducer {
+export default function (state: IPOSReducer = initialState, action: any): any {
     const {payload, type} = action;
     switch (type) {
         case POS_TYPES.CREATE_ORDER_INFO:
@@ -90,14 +91,15 @@ export default function (state: IPOSReducer = initialState, action: any): IPOSRe
                     data: {
                         ...state.productsGroups.data,
                         [action.payload.productGroupId]: {
-                            products: [...action.payload.data],
+                            products: {...hashingArray(action.payload.data, "_id")},
                             ...state.productsGroups.data[action.payload.productGroupId]
                         }
                     }
                 },
                 products: {
-                    data: [...action.payload.data],
-                    isLoading: false
+                    data:{...hashingArray(action.payload.data, "_id")},
+                    isLoading: false,
+                    filterArray:action.payload.data
                 },
                 productsGroup: action.payload.productGroupId
             };
@@ -106,7 +108,7 @@ export default function (state: IPOSReducer = initialState, action: any): IPOSRe
                 ...state,
                 products: {
                     ...state.products,
-                    data: action.payload
+                    filterArray:action.payload
                 }
             };
         case POS_TYPES.FILTER_PRODUCTS_GROUP:

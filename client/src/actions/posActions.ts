@@ -74,7 +74,7 @@ export const fetchProductsGroups: actionVoid = () => async (dispatch: Dispatch) 
 export const fetchSelectProducts = (id: string) => async (dispatch: Dispatch, getState: () => IState) => {
     const {pos} = getState();
     const productsGroups: any = pos.productsGroups;
-    if (productsGroups.data[id].products && productsGroups.data[id].products.length) {
+    if (productsGroups.data[id].products) {
         return dispatch({
             type: POS_TYPES.SET_PRODUCTS, payload: {
                 data: productsGroups.data[id].products,
@@ -99,16 +99,24 @@ export const fetchSelectProducts = (id: string) => async (dispatch: Dispatch, ge
 
 export const filterProducts = (text: string) => (dispatch: Dispatch, getState: () => IState) => {
     const {pos} = getState();
-    let products: Array<any> | null = [];
+    let products: { _id: string, price: number, name: string } | null = null;
     if (pos.productsGroup) {
         products = pos.productsGroups.data[pos.productsGroup].products;
     }
-    if (!products || !products.length) {
+    if (!products) {
         return;
     }
-    const filteredProducts = products.filter(function (item) { //TODO with more data converting it into major Filter
-        return item.name.toLowerCase().includes(text.toLowerCase().trim())
-    });
+    let productsArray:Array<any> = Object.keys(products);
+    const filteredProducts = productsArray.reduce(function (acc, key: string) {
+        let arr: Array<any> = [...acc];
+        if (pos.products.data[key].name.toLowerCase().includes(text.toLowerCase().trim())) {
+            arr.push({
+                name: pos.products.data[key].name,
+                _id: key
+            });
+        }
+        return arr;
+    }, []);
     dispatch({type: POS_TYPES.FILTER_PRODUCTS, payload: filteredProducts})
 };
 

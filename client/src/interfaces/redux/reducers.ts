@@ -13,15 +13,29 @@ export interface IAuthReducer {
  * */
 export interface IPOSReducer {
     orders: {
-        data:Array<any>,
+        data:{
+            [id: string]: { //product id
+                _id:string,
+                quantity:number
+            }
+        } | null,
         isLoading:boolean
     }; //TODO type array typed
-    nonSubmittedOrders: Array<any>; //TODO type array typed
+    nonSubmittedOrders: {
+        [id: string]: { //product id
+            _id:string,
+            quantity:number
+        }
+    } | null;
     productsGroups: {
         data: {
             [key: string]: {
                 _id: string;
-                products: Array<any> | null;
+                products: {
+                    _id:string,
+                    name:string,
+                    price:number
+                } | null;
                 name: string;
             };
         },
@@ -34,7 +48,14 @@ export interface IPOSReducer {
     };
     productsGroup: string | null; //id
     products:{
-        data:any, //TODO to be filled
+        data:{
+            [key: string]: {
+                _id: string,
+                name: string,
+                price: number
+            }
+        },
+        filterArray:Array<any>;
         isLoading:boolean
     }
     waiter: { //chosen waiter id
