@@ -369,20 +369,6 @@ section.content h1 {
 .table-order-button .MuiButton-label {
   padding: 40px; }
 
-.order-container {
-  display: table;
-  width: 100%;
-  padding-top: 10px;
-  color: #66fcf1; }
-
-.order-container span {
-  display: table-cell;
-  text-align: center;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  width: 33%; }
-
 .order-button-container {
   position: absolute;
   bottom: 0;
