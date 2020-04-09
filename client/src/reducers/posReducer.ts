@@ -103,22 +103,6 @@ export default function (state: IPOSReducer = initialState, action: any): any {
                 },
                 productsGroup: action.payload.productGroupId
             };
-        case POS_TYPES.FILTER_PRODUCTS:
-            return {
-                ...state,
-                products: {
-                    ...state.products,
-                    filterArray:action.payload
-                }
-            };
-        case POS_TYPES.FILTER_PRODUCTS_GROUP:
-            return {
-                ...state,
-                productsGroups: {
-                    ...state.productsGroups,
-                    filterArray: action.payload
-                }
-            };
         case POS_TYPES.SET_ORDER_INFO:
             return {
                 ...state,
