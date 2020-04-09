@@ -1,7 +1,7 @@
 import {Action, ActionCreator, AnyAction, Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
 import axios, {AxiosResponse} from "axios";
-import {AUTH_TYPES, POS_TYPES} from "./types";
+import {POS_TYPES} from "./types";
 import {IState} from "../reducers";
 
 type actionVoid = ActionCreator<ThunkAction<void, any, any, AnyAction>>;
@@ -44,10 +44,10 @@ export const setOrder: actionVoid = () => (dispatch: Dispatch, getState: () => I
 
 };
 
-export const setWaiter: action = function (id:string) {
+export const setWaiter: action = function (user:{_id:string,name:string}) {
     return {
         type: POS_TYPES.SET_WAITER,
-        payload: id
+        payload: user
     };
 };
 

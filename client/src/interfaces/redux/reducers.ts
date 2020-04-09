@@ -37,7 +37,10 @@ export interface IPOSReducer {
         data:any, //TODO to be filled
         isLoading:boolean
     }
-    waiter: string | null; //chosen waiter id
+    waiter: { //chosen waiter id
+        _id:string,
+        name:string
+    };
     createdBy: {
         _id:string,
         name:string

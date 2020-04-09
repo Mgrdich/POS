@@ -22,7 +22,10 @@ const initialState: IPOSReducer = {
         isLoading: false
     },
     productsGroup: null,
-    waiter: null,
+    waiter: {
+        _id:'',
+        name:''
+    },
     createdBy: {
         _id: '',
         name: ''

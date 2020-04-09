@@ -19,7 +19,7 @@ const ChatList: React.FC<IChatList> = (props) => {
         if (!isLoading) {
             setData(users);
         }
-    }, [isLoading]);
+    }, [isLoading,users]);
 
     useEffect(function () {
         if (!isLoading) {
@@ -29,7 +29,7 @@ const ChatList: React.FC<IChatList> = (props) => {
             const filteredUsers:Array<any> = users.filter((item: any) => item.name.toLowerCase().includes(filter.toLowerCase().trim()));
             setData(filteredUsers);
         }
-    }, [filter, isLoading]);
+    }, [filter, isLoading,users]);
 
     return (
         <>

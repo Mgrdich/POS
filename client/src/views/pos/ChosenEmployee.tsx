@@ -2,13 +2,14 @@ import React, {useState} from 'react';
 import {Button, Menu, MenuItem} from "@material-ui/core";
 import {useFetch} from "../../components/Hooks/useFetch";
 import {Roles} from "../../roles";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
 import {setWaiter} from "../../actions/posActions";
 
 
 const ChosenEmployee = () => {
-    const [user, setUser] = useState<string>('');
+    const waiter:any = useSelector<any>(state => state.pos.waiter.name);
+    const [user, setUser] = useState<any>(waiter?waiter:'');
     const [anchorEl, setAnchorEl] = React.useState(null);
     const {isLoading, data: users} = useFetch(`/users/role/${Roles.Employee}`); //TODO change it with id create table for it
     const dispatch = useDispatch();
@@ -23,13 +24,12 @@ const ChosenEmployee = () => {
 
     const handleUserName = function (user: any) {
         setUser(user.name);
-        dispatch(setWaiter(user._id));
+        dispatch(setWaiter(user));
     };
 
     return (
         <ComponentLoader isLoading={isLoading}>
-            <Button variant="outlined" color="primary" aria-controls="simple-menu" aria-haspopup="true"
-                    onClick={handleClick}>
+            <Button variant="outlined" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
                 {user ? user : 'Select employee'}
             </Button>
             <Menu
