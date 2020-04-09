@@ -22,13 +22,13 @@ export const GET_TABLES_TABLE = {
 
 //getProducts
 export const GET_PRODUCTS_TABLE = {
-    keys:['name','price','createdDate',{name:'group',alias:'name'}], //TODO make it recursive
+    keys:['name','price',{name:'group',alias:'name'},'createdDate'], //TODO make it recursive
     translations:{
         'name':'Name',
         'price':'Price',
         'group':'Product Group',
         'createdDate':'created Date'
-    }
+    },
 };
 
 //getProductsGroup

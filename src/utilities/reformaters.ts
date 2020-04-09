@@ -1,3 +1,5 @@
+import {type} from "os";
+
 export function whiteListFilterObj(obj: object, whiteList: Array<string>) {
     return Object.keys(obj).reduce(function (acc: object, curr: string) {
             let o: object = {...acc};
@@ -20,7 +22,16 @@ export function blackListFilterObj(obj: object, blackList: Array<string>) {
         , {});
 }
 
-export function tableDataNormalize(data: Array<any>, tableObj: any) { //TODO replace it by the created interface //TODO with blacklist idea
+export function tableDataNormalize(data: Array<any>, tableObj: any) { //TODO replace it by the created interface //TODO with blacklist
+    //tODO better algorithmic solution
+
+    let tableObjKeys:Array<string> = tableObj.keys.map(function(item:string | any){
+        if(typeof item === 'string') {
+            return item
+        }
+        return item.name;
+    });
+
     let tableData = data.map(function (item) {
         let objTable: any = {
             _id: item._id
@@ -37,7 +48,7 @@ export function tableDataNormalize(data: Array<any>, tableObj: any) { //TODO rep
         return objTable;
     });
     return {
-        keys: tableObj.keys,
+        keys: tableObjKeys,
         thead: tableObj.translations,
         tbody: tableData
     };
