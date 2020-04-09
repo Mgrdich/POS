@@ -61,7 +61,7 @@ const Dropdown: React.FC<IDropDown> = (props) => {
                         labelWidth={labelWidth}
                         multiple={props.multiple}
                     >
-                        {props.ignoreNone || props.multiple ?
+                        {props.ignoreNone || !props.multiple ?
                             (<MenuItem value="">
                                 <em>None</em>
                             </MenuItem>)
