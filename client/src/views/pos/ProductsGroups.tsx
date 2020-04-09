@@ -3,24 +3,13 @@ import {Button, Grid, Paper, TextField} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchProductsGroups, fetchSelectProducts} from "../../actions/posActions";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
+import {useFilter} from "../../components/Hooks/useFilter";
 
 const ProductsGroups:React.FC = () => {
     const dispatch = useDispatch();
-    let [initArray,setArray] = useState<Array<any>>([]);
-    const [filteredArray,setFilterArray] = useState<Array<any>>(initArray);
     const productsGroups:any  = useSelector<any>(state => state.pos.productsGroups.data);
     const isLoading:any  = useSelector<any>(state => state.pos.productsGroups.isLoading);
-
-    useEffect(function () {
-        let initial:Array<any> = Object.keys(productsGroups).map((item:any)=>productsGroups[item]);
-        setArray(initial);
-        setFilterArray(initial);
-    },[productsGroups]);
-
-    const filter = useCallback(function (match:string) {
-        const filteredUsers: Array<any> = initArray.filter((item: any) => item.name.toLowerCase().includes(match.toLowerCase().trim()));
-        setFilterArray(filteredUsers);
-    },[initArray]);
+    const {filteredArray,filter} = useFilter(productsGroups);
 
     useEffect(function () {
         dispatch(fetchProductsGroups());

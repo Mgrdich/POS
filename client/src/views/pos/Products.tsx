@@ -3,23 +3,12 @@ import {Grid, Paper, TextField} from "@material-ui/core";
 import {useSelector} from "react-redux";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
 import MenuCard from "../../components/Reusable/MenuCard";
+import {useFilter} from "../../components/Hooks/useFilter";
 
 const Products: React.FC<any> = () => {
-    let [initArray,setArray] = useState<Array<any>>([]);
-    const [filteredArray,setFilterArray] = useState<Array<any>>(initArray);
     const products:any = useSelector<any>(state => state.pos.products.data);
     const isLoading:any = useSelector<any>(state => state.pos.products.isLoading);
-
-    useEffect(function () {
-        let initial = Object.keys(products).map((item:any)=>products[item]);
-        setArray(initial);
-        setFilterArray(initial);
-    },[products]);
-
-    const filter = useCallback(function (match:string) {
-        const filteredUsers: Array<any> = initArray.filter((item: any) => item.name.toLowerCase().includes(match.toLowerCase().trim()));
-        setFilterArray(filteredUsers);
-    },[initArray]);
+    const {filteredArray,filter} = useFilter(products);
 
     return (
         <div className="products-container">
