@@ -13,6 +13,8 @@ import axios from "axios";
 import {IAlertAxiosResponse} from "../../interfaces/General";
 import {CHAT_ACTIONS} from "./ActionsConfig";
 import Typography from "@material-ui/core/Typography";
+import {useSelector} from "react-redux";
+import DeleteModal from "../Reusable/DeleteModal";
 
 
 const ConversationHeader: React.FC = () => {
@@ -139,26 +141,12 @@ const ConversationHeader: React.FC = () => {
                 </DialogActions>
             </Dialog>
 
-            <Dialog open={openGroupDelete} onClose={handleCloseGroupDelete} aria-labelledby="form-dialog-title"
-                    fullWidth={true}>
-                <DialogTitle id="delete-group">Delete-group</DialogTitle>
-                <DialogContent>
-                    <Typography component='p' color='primary'>
-                        Are you sure you want to delete {state?.group?.name} group ?
-                    </Typography>
-                </DialogContent>
-                <DialogActions>
-                    <Button
-                        color="primary"
-                        onClick={handleCloseGroupDelete}
-                    >Cancel
-                    </Button>
-                    <Button
-                        onClick={onDelete}
-                        color="primary"
-                    >Submit</Button>
-                </DialogActions>
-            </Dialog>
+            <DeleteModal
+                open={openGroupDelete}
+                message={`Are you sure you want to delete ${state?.group?.name} group ?`}
+                action={onDelete}
+                handleClose={handleCloseGroupDelete}
+            />
         </div>
     );
 };

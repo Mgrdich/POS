@@ -12,12 +12,12 @@ import {useTable} from "../../components/Hooks/useTable";
 import {useTableBody} from "../../components/Hooks/useTableBody";
 import MyTable from "../../components/Reusable/Table/MyTable";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
-import AlertQuestion from "../../components/Reusable/AlertQuestion";
 import {useAlert} from "../../components/Hooks/useAlert";
 import Alerts from "../../components/Reusable/Alerts";
 import {useModal} from "../../components/Hooks/useModal";
 import {DefaultValue} from "../../util/functions";
 import CardMessage from "../../components/Reusable/CardMessage";
+import DeleteModal from "../../components/Reusable/DeleteModal";
 
 
 const actionsTypes: Array<string> = ["Delete", 'Edit'];
@@ -35,7 +35,8 @@ const CreateEditTables = () => {
     const {tbody, thead, keys, isLoading, setRefetch} = useTable('/tables');
     const [rows, setRows, deletedId, changeDeletedId] = useTableBody(isLoading, tbody);
     const {alertMessage, setOpenAlert, openAlert, setAlert, alertType} = useAlert();
-    const [open, handleClickOpen, handleClose] = useModal();//TODO it is Model not Module Rename
+    const [open, handleClickOpen, handleClose] = useModal();
+    const [openDeleteModal, handleClickOpenDeleteModal, handleCloseDeleteModal] = useModal();
     const [EditData, setEditData] = useState();
     useDynamicFields(creteTableInputField, register, unregister);
 
@@ -58,7 +59,7 @@ const CreateEditTables = () => {
     const handleActions = function (type: string, obj: any) {
         if (type === 'delete') {
             changeDeletedId(obj._id);
-            setAlert({message: 'Are you sure you want to delete this row!'}, {alertQuestion: true, alert: false});
+            handleClickOpenDeleteModal()
         }
         if (type === 'edit') {
             changeDeletedId(obj._id);
@@ -85,7 +86,7 @@ const CreateEditTables = () => {
 
     const handleDeleted = function (id: string) { //TODO Cached could be refacorable???
         axios.delete(`/tables/${id}`).then((res: AxiosResponse) => {
-            setAlert(res.data, {alertQuestion: false, alert: true});
+            setAlert(res.data, true);
         }).catch((e) => {
             console.log(e);
         });
@@ -93,7 +94,6 @@ const CreateEditTables = () => {
             return row._id !== id;
         });
         setRows(filteredRows);
-        setOpenAlert({alertQuestion: false, alert: false});
     };
 
     return (
@@ -171,16 +171,13 @@ const CreateEditTables = () => {
                     </DialogActions>
                 </form>
             </Dialog>
-
-
-            <AlertQuestion
-                open={openAlert.alertQuestion}
-                close={setOpenAlert}
-                callback={() => handleDeleted(deletedId)}
-            >
-                {alertMessage}
-            </AlertQuestion>
-            <Alerts open={openAlert.alert} severity={alertType} close={setOpenAlert}>
+            <DeleteModal
+                open={openDeleteModal}
+                message={'Are you sure you want to delete this row ?'}
+                action={() => handleDeleted(deletedId)}
+                handleClose={handleCloseDeleteModal}
+            />
+            <Alerts open={openAlert} severity={alertType} close={setOpenAlert}>
                 {alertMessage}
             </Alerts>
         </>
