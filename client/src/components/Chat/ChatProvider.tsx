@@ -11,6 +11,7 @@ const ChatProvider: React.FC = (props) => { //tODO types to useReducer
         isLoading: true,
         group: null,
         fetch: false,
+        isTabGroup:false,
     });
 
     return (

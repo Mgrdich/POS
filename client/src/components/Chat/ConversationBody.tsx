@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useRef} from 'react';
 import Message from "./Message";
 import {socket} from "../../App";
 import {ChatContext} from "./ChatProvider";
@@ -10,6 +10,19 @@ import axios, {AxiosResponse} from "axios";
 const ConversationBody: React.FC = () => {
     const [state, dispatch] = useContext(ChatContext);
     const user: any = useSelector<any>(state => state.auth.user);
+    const container = useRef<any>(null);
+
+    useEffect(() => {
+        console.log('working')
+        const lastMessage = container.current.childNodes[container.current.childNodes.length - 1];
+        lastMessage.scrollIntoView({
+            behavior: 'smooth',
+            block: 'end'
+        });
+        // return () => container.current.lastChild.scrollIntoView()
+    }, [state.messages[state.messages.length - 1]]);
+
+
 
     useEffect(function () {
         socket.on('received message', function (message: any) {
@@ -19,9 +32,10 @@ const ConversationBody: React.FC = () => {
 
     useEffect(function () {
         let url: string;
-        if (state.group) {
+        if (state.isTabGroup) {
             url = `/group-chat/${state.group._id}`;
         } else {
+
             url = `/chat/get-chat/${state.user._id}`;
         }
         axios.get(url)
@@ -35,7 +49,7 @@ const ConversationBody: React.FC = () => {
     }, [state.user, state.group,dispatch]);
 
     return (
-        <div className="conversationBody">
+        <div className="conversationBody" ref={container}>
             {
                 state.messages.length ? state.messages.map((item: any, index: number) => {
                     if (item.sender._id === user.id) {

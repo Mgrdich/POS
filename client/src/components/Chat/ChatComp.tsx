@@ -7,16 +7,18 @@ import Conversation from "./Conversation";
 import Tab from "@material-ui/core/Tab";
 import GroupList from "./GroupList";
 import {ChatContext} from "./ChatProvider";
+import {CHAT_ACTIONS} from "./ActionsConfig";
 
 const ChatComp: React.FC = () => {
     const [filter, setFilter] = useState<string>('');
-    const [state] = useContext(ChatContext);
+    const [state, dispatch] = useContext(ChatContext);
     const {data: users, isLoading} = useFetch('/users/chat'); //from outside
     const {data: groupUsers, isLoading: groupLoading} = useFetch('/group-chat', state.fetch);
     const [tab, setTab] = useState<number>(0);
 
     const handleTabChange = function (event: React.ChangeEvent<{}>, newValue: number) {
         setTab(newValue);
+        dispatch({type:CHAT_ACTIONS.IS_TAB_GROUP});
     };
 
     return (

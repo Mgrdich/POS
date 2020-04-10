@@ -50,6 +50,8 @@ export const ChatDataReducer = function (state: any, action: any) {
                 group: null,
                 fetch: false,
             };
+        case CHAT_ACTIONS.IS_TAB_GROUP:
+            return {...state, isTabGroup:!state.isTabGroup};
         default:
             throw new Error();
     }
