@@ -7,7 +7,6 @@ import Conversation from "./Conversation";
 import Tab from "@material-ui/core/Tab";
 import GroupList from "./GroupList";
 import {ChatContext} from "./ChatProvider";
-import {CHAT_ACTIONS} from "./ActionsConfig";
 
 const ChatComp: React.FC = () => {
     const [filter, setFilter] = useState<string>('');
@@ -18,7 +17,6 @@ const ChatComp: React.FC = () => {
 
     const handleTabChange = function (event: React.ChangeEvent<{}>, newValue: number) {
         setTab(newValue);
-        dispatch({type:CHAT_ACTIONS.IS_TAB_GROUP});
     };
 
     return (
