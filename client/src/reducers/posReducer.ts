@@ -98,13 +98,14 @@ export default function (state: IPOSReducer = initialState, action: any): any {
             };
         case POS_TYPES.SET_UN_SUBMITTED_ORDERS:
             let nonSubmittedOrders = (state.nonSubmittedOrders) ? state.nonSubmittedOrders : {};
+            let id = action.payload;
             return {
               ...state,
                 nonSubmittedOrders:{
                   ...state.nonSubmittedOrders,
-                  [action.payload]:{
-                      _id:action.payload,
-                      quantity:(nonSubmittedOrders[action.payload])?(nonSubmittedOrders[action.payload].quantity + 1):1
+                  [id]:{
+                      _id:id,
+                      quantity:(nonSubmittedOrders[id])?(nonSubmittedOrders[id].quantity + 1):1,
                   }
                 }
             };
