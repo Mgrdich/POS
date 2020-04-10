@@ -16,9 +16,9 @@ const Conversation: React.FC = () => {
                 state.user || state.group ? (<div className="conversation">
                     <ConversationHeader/>
                     <ConversationBody/>
-                    <Conditional condition={condition}>
+                    {state.user ? <ConversationFooter/> : <Conditional condition={condition}>
                         <ConversationFooter/>
-                    </Conditional>
+                    </Conditional>}
                 </div>) : null
             }
         </>
