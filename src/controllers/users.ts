@@ -131,7 +131,7 @@ async function getUsers(req: myRequest, res: Response, next: NextFunction): Prom
         let users: Array<IDocUsers> = await Users.find({
             "rolePriority": {$lt: rolePriority},
             "_id": {$ne: req.user._id}
-        }, {rolePriority: 0, password: 0}); //TODO deep search whether more efficient method exist
+        }, {rolePriority: 0, password: 0});
         let tableUsers;
         if (!users) {
             tableUsers = {};
@@ -168,7 +168,6 @@ async function getUsersChat(req: myRequest, res: Response, next: NextFunction): 
         let users: Array<IDocUsers>;
         if (rolePriority >= -2) {
             users = await Users.find({
-                "rolePriority": {$lte: rolePriority},
                 "_id": {$ne: req.user._id}
             }, {rolePriority: 0, password: 0});
         } else {
