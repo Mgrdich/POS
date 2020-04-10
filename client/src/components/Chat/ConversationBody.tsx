@@ -16,7 +16,6 @@ const ConversationBody: React.FC = () => {
         const lastMessage = container.current.childNodes[container.current.childNodes.length - 1];
         lastMessage.scrollIntoView({
             behavior: 'smooth',
-            block: 'end'
         });
         // return () => container.current.lastChild.scrollIntoView()
     }, [state.messages[state.messages.length - 1]]);
