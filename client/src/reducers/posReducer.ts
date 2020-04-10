@@ -1,6 +1,5 @@
 import {POS_TYPES} from "../actions/types";
 import {IPOSReducer} from "../interfaces/redux/reducers";
-import {hashingArray} from "../util/functions";
 
 const initialState: IPOSReducer = {
     orders: {
@@ -96,6 +95,18 @@ export default function (state: IPOSReducer = initialState, action: any): any {
                     isLoading: false,
                 },
                 productsGroup: action.payload.productGroupId
+            };
+        case POS_TYPES.SET_UN_SUBMITTED_ORDERS:
+            let nonSubmittedOrders = (state.nonSubmittedOrders) ? state.nonSubmittedOrders : {};
+            return {
+              ...state,
+                nonSubmittedOrders:{
+                  ...state.nonSubmittedOrders,
+                  [action.payload]:{
+                      _id:action.payload,
+                      quantity:(nonSubmittedOrders[action.payload])?(nonSubmittedOrders[action.payload].quantity + 1):1
+                  }
+                }
             };
         case POS_TYPES.SET_ORDER_INFO:
             return {

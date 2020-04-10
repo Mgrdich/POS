@@ -41,11 +41,14 @@ export const openOrder: actionVoid = (tableId: string) => async (dispatch: Dispa
     }
 };
 
-export const setOrder: actionVoid = () => (dispatch: Dispatch, getState: () => IState) => {
-
+export const setUnSubmittedOrder: action = (productId) => {
+    return {
+        type:POS_TYPES.SET_UN_SUBMITTED_ORDERS,
+        payload:productId
+    }
 };
 
-export const setWaiter: action = function (user:{_id:string,name:string}) {
+export const setWaiter: action = (user:{_id:string,name:string}) => {
     return {
         type: POS_TYPES.SET_WAITER,
         payload: user
