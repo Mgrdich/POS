@@ -13,7 +13,6 @@ const ConversationBody: React.FC = () => {
     const container = useRef<any>(null);
 
     useEffect(() => {
-        console.log('working')
         const lastMessage = container.current.childNodes[container.current.childNodes.length - 1];
         lastMessage.scrollIntoView({
             behavior: 'smooth',
@@ -32,10 +31,9 @@ const ConversationBody: React.FC = () => {
 
     useEffect(function () {
         let url: string;
-        if (state.isTabGroup) {
+        if (state.group) {
             url = `/group-chat/${state.group._id}`;
         } else {
-
             url = `/chat/get-chat/${state.user._id}`;
         }
         axios.get(url)
