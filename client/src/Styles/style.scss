@@ -167,8 +167,13 @@ section {
 .order-button-container{
   position: absolute;
   bottom: 0;
-  display: flex;
+  /*display: flex;*/
+  /*flex-direction: column;*/
   width: 100%;
-  justify-content: space-between;
-  padding: 5px;
+
+    button {
+      width: 100%;
+      margin: 5px;
+    }
+
 }
