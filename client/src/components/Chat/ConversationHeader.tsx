@@ -13,7 +13,6 @@ import axios from "axios";
 import {IAlertAxiosResponse} from "../../interfaces/General";
 import {CHAT_ACTIONS} from "./ActionsConfig";
 import Typography from "@material-ui/core/Typography";
-import {useSelector} from "react-redux";
 import DeleteModal from "../Reusable/DeleteModal";
 
 

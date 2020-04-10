@@ -2,7 +2,7 @@ import React from 'react';
 
 interface IConditional {
     children: React.ReactNode;
-    condition: boolean | undefined;
+    condition: boolean;
 }
 
 
