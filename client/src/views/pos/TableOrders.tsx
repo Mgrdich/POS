@@ -5,6 +5,7 @@ import {useSelector} from "react-redux";
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 import {useParams} from "react-router";
+import {isEmpty} from "../../util/functions";
 
 /*
 function renderProduct(id:string,name:string,quantity:number,price:number):JSX.Element {
@@ -29,10 +30,10 @@ const TableOrders: React.FC = () => {
     const nonSubmittedOrders: any = useSelector<any>(state => state.pos.nonSubmittedOrders);
     const productsGroupData: any = useSelector<any>(state => state.pos.productsGroups.data);
     const tableHashed:any = useSelector<any>(state => state.pos.tableHashed);
-    const {id} = useParams();
+    const {id: id} = useParams<{id:string}>();
 
     useEffect(function () {
-        if (nonSubmittedOrders && tableHashed && id) {
+        if (nonSubmittedOrders && tableHashed && id && !isEmpty(nonSubmittedOrders[tableHashed[id]])) {
             let nonSubOrderKeys = Object.keys(nonSubmittedOrders[tableHashed[id]]);
             setNonSubmittedOrdersKeys(nonSubOrderKeys);
         }

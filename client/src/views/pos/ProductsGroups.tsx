@@ -1,9 +1,10 @@
-import React, {ChangeEvent, useCallback, useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect} from 'react';
 import {Button, Grid, Paper, TextField} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchProductsGroups, fetchSelectProducts} from "../../actions/posActions";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
 import {useFilter} from "../../components/Hooks/useFilter";
+import {isEmpty} from "../../util/functions";
 
 const ProductsGroups:React.FC = () => {
     const dispatch = useDispatch();
@@ -12,8 +13,10 @@ const ProductsGroups:React.FC = () => {
     const {filteredArray,filter} = useFilter(productsGroups);
 
     useEffect(function () {
-        dispatch(fetchProductsGroups());
-    },[dispatch]);
+        if (isEmpty(productsGroups)) {
+            dispatch(fetchProductsGroups());
+        }
+    }, [dispatch, productsGroups]);
 
     return (
         <div className="product-groups-container">
