@@ -3,7 +3,7 @@ import {IPOSReducer} from "../interfaces/redux/reducers";
 
 const initialState: IPOSReducer = {
     orders: {
-        data: {},
+        orderId:null,
         isLoading: false
     },
     nonSubmittedOrders:null,
@@ -48,13 +48,13 @@ export default function (state: IPOSReducer = initialState, action: any): any {
                         orders: [],
                     }
                 },
-                tableHashed: {
+                tableHashed: { //table Id -> OrderId
                     ...state.tableHashed,
                     [action.payload.tableId]: payload.data._id
                 },
                 isLoading: false
             };
-        case POS_TYPES.FETCH_ORDER_INFO:
+        case POS_TYPES.FETCH_ORDERS_INFO:
             return {
                 ...state,
                 Orders: payload.Orders,
@@ -99,15 +99,23 @@ export default function (state: IPOSReducer = initialState, action: any): any {
         case POS_TYPES.SET_UN_SUBMITTED_ORDERS:
             let nonSubmittedOrders = (state.nonSubmittedOrders) ? state.nonSubmittedOrders : {};
             let id = action.payload.productId;
+            let orderId = action.payload.orderId;
+            let quantity:number = 1;
+            if(nonSubmittedOrders[orderId] && nonSubmittedOrders[orderId][id]  ) {
+                quantity = nonSubmittedOrders[orderId][id].quantity+1;
+            }
             return {
               ...state,
                 nonSubmittedOrders:{
                   ...state.nonSubmittedOrders,
-                  [id]:{
-                      _id:id,
-                      productsGroupId: action.payload.productGroupId,
-                      quantity:(nonSubmittedOrders[id])?(nonSubmittedOrders[id].quantity + 1):1,
-                  }
+                    [orderId]:{
+                      ...nonSubmittedOrders[orderId],
+                        [id]:{
+                            _id:id,
+                            productsGroupId: action.payload.productGroupId,
+                            quantity:quantity,
+                        }
+                    },
                 }
             };
         case POS_TYPES.SET_ORDER_INFO:

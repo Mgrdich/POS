@@ -8,47 +8,56 @@ import {hashingArray} from "../util/functions";
 type actionVoid = ActionCreator<ThunkAction<void, any, any, AnyAction>>;
 type action = ActionCreator<Action>;
 
-export const fetchOrders: actionVoid = () => async (dispatch: Dispatch, getState: () => IState) => {
+export const submitTableOrders: actionVoid = () => async (dispatch: Dispatch, getState: () => IState) => {
+
+};
+
+export const fetchTableOrders: actionVoid = (tableId: string) => async (dispatch: Dispatch) => {
+
+};
+
+export const fetchOrders: actionVoid = () => async (dispatch: Dispatch) => {
     try {
         dispatch({type: POS_TYPES.SET_LOADING_INFO});
         const res: AxiosResponse = await axios.get('/orders');
         let tableHashed: any = {};
-        let Orders:any = {};
+        let Orders: any = {};
         for (let i = 0; i < res.data.length; i++) {
             let item = res.data[i];
             tableHashed[item.table] = item._id;
             Orders[item._id] = {
-                orders:[]
+                orders: []
             }
         }
-        dispatch({type: POS_TYPES.FETCH_ORDER_INFO,payload:{tableHashed,Orders}});
+        dispatch({type: POS_TYPES.FETCH_ORDERS_INFO, payload: {tableHashed, Orders}});
     } catch (err) {
         dispatch({type: POS_TYPES.SET_ERROR});
     }
 };
 
 export const openOrder: actionVoid = (tableId: string) => async (dispatch: Dispatch, getState: () => IState) => {
-    const {pos} = getState();
+    const {pos, auth} = getState();
     try {
         dispatch({type: POS_TYPES.SET_LOADING_INFO});
         const res: AxiosResponse = await axios.put('/orders', {
-            waiter: pos.waiter,
+            waiter: pos.waiter._id && auth.user.id, //TODO always make the waiter chosen
             table: tableId
         });
-        dispatch({type: POS_TYPES.FETCH_ORDER_INFO, payload: {data: res.data, tableId}});
+        dispatch({type: POS_TYPES.CREATE_ORDER_INFO, payload: {data: res.data, tableId}});
     } catch (err) {
         dispatch({type: POS_TYPES.SET_ERROR});
     }
 };
 
-export const setUnSubmittedOrder: action = (productId,productGroupId) => {
-    return {
-        type:POS_TYPES.SET_UN_SUBMITTED_ORDERS,
-        payload:{productId,productGroupId}
-    }
+export const setUnSubmittedOrder: actionVoid = (productId, productGroupId, tableId) => (dispatch: Dispatch, getState: () => IState) => {
+    const {pos} = getState();
+    dispatch({
+        type: POS_TYPES.SET_UN_SUBMITTED_ORDERS,
+        payload: {productId, productGroupId, orderId: pos.tableHashed[tableId]}
+    });
 };
 
-export const setWaiter: action = (user:{_id:string,name:string}) => {
+export const setWaiter: action = (user: { _id: string, name: string }) => {
     return {
         type: POS_TYPES.SET_WAITER,
         payload: user
@@ -69,7 +78,7 @@ export const fetchProductsGroups: actionVoid = () => async (dispatch: Dispatch) 
     try {
         dispatch({type: POS_TYPES.SET_LOADING_PRODUCTS_GROUPS});
         const res: AxiosResponse = await axios.get('/orders/products-groups');
-        dispatch({type: POS_TYPES.FETCH_PRODUCTS_GROUPS, payload: hashingArray(res.data,"_id")});
+        dispatch({type: POS_TYPES.FETCH_PRODUCTS_GROUPS, payload: hashingArray(res.data, "_id")});
     } catch (err) {
         dispatch({type: POS_TYPES.SET_ERROR});
     }
@@ -91,7 +100,7 @@ export const fetchSelectProducts = (id: string) => async (dispatch: Dispatch, ge
         const products = await axios.get(`/orders/products/${id}`);
         dispatch({
             type: POS_TYPES.FETCH_PRODUCTS, payload: {
-                data: hashingArray(products.data.products,"_id"),
+                data: hashingArray(products.data.products, "_id"),
                 productGroupId: id
             }
         });

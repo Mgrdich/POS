@@ -16,7 +16,7 @@ const Pos: React.FC = () => {
 
     useEffect(function () {
         dispatch(fetchTables());
-        dispatch(fetchOrders())
+        dispatch(fetchOrders());
     }, [dispatch]);
 
     return (

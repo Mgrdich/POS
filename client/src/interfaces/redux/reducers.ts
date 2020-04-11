@@ -13,18 +13,15 @@ export interface IAuthReducer {
  * */
 export interface IPOSReducer {
     orders: {
-        data:{
+        orderId: string | null;
+        isLoading:boolean
+    };
+    nonSubmittedOrders: {
+        [id:string]: { //orderId
             [id: string]: { //product id
                 _id:string,
                 quantity:number
             }
-        } | null,
-        isLoading:boolean
-    }; //TODO type array typed
-    nonSubmittedOrders: {
-        [id: string]: { //product id
-            _id:string,
-            quantity:number
         }
     } | null;
     productsGroups: {
@@ -70,7 +67,12 @@ export interface IPOSReducer {
     };
     Orders:{ //hashed with id everything about every table
         [key: string] :{
-            orders:Array<any>;
+            data:{
+                [id: string]: { //product id
+                    _id:string,
+                    quantity:number
+                }
+            };
         }
     }
     isLoading: boolean; //info Group

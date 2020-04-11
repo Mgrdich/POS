@@ -23,7 +23,7 @@ const PosTable: React.FC = () => {
                 <IconButton onClick={() => {
                     (history.push(`/pos`))
                 }}>
-                    <ArrowBackIcon color="primary"></ArrowBackIcon>
+                    <ArrowBackIcon color="primary"/>
                 </IconButton>
                 <ChosenEmployee/>
             </div>
