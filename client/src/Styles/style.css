@@ -179,7 +179,8 @@
   color: #fff;
   font-weight: 500;
   font-size: 16px;
-  margin-left: 20px; }
+  margin-left: 20px;
+  min-width: fit-content; }
 
 .chatContainer .conversation .conversationHeader .drop-wrapper {
   width: 100%;
@@ -246,7 +247,7 @@
   border-top: 1px solid #66fcf1;
   min-width: fit-content; }
 
-.chatContainer .conversation .conversationFooter .MuiGrid-grid-xs-10 {
+.chatContainer .conversation .conversationFooter .input-container {
   padding-left: 20px; }
 
 .chatContainer .conversation .conversationFooter button {

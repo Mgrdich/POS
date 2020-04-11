@@ -66,7 +66,7 @@ const ConversationHeader: React.FC = () => {
                     {user ? user.name[0] : group.name[0]}
                 </Avatar>
                 <span className="email">
-                    {user ? user.email : group.name} {user ? `(${user.name})` : ''}
+                     {user ? user.name : ''} {user ? `(${user.email})` : group.name}
                 </span>
 
                 {user ? null : <div className='drop-wrapper'><EditGroup

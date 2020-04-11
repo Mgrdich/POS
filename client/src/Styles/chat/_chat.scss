@@ -62,6 +62,7 @@ $right-msg-bg: transparent;
           font-weight: 500;
           font-size: 16px;
           margin-left: 20px;
+          min-width: fit-content;
         }
       }
       .drop-wrapper{
@@ -144,7 +145,7 @@ $right-msg-bg: transparent;
       height: 8%;
       border-top: 1px solid $primary;
       min-width: fit-content;
-      .MuiGrid-grid-xs-10{
+      .input-container{
         padding-left: 20px;
       }
       button {

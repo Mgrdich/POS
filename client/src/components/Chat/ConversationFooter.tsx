@@ -43,7 +43,7 @@ const ConversationFooter: React.FC = () => {
     return (
         <div className="conversationFooter">
             <Grid container direction="row" wrap="nowrap" justify='center' alignItems='center'>
-                <Grid item xs={10} container direction='row' alignItems='center'>
+                <Grid className='input-container' item xs={10} container direction='row' alignItems='center'>
                     <TextField
                         label="Your Message"
                         id="outlined-size-small"
