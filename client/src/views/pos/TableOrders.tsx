@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 const TableOrders: React.FC = () => {
     const [ordersKeys, setOrdersKeys] = useState<Array<any>>([]);
     const nonSubmittedOrders: any = useSelector<any>(state => state.pos.nonSubmittedOrders);
-    const products: any = useSelector<any>(state => state.pos.products.data);
+    const productsGroupData: any = useSelector<any>(state => state.pos.productsGroups.data);
 
     useEffect(function () {
         if (nonSubmittedOrders) {
@@ -22,54 +22,54 @@ const TableOrders: React.FC = () => {
                     <h1>Table order</h1>
                 </div>
                 <TableOrderHeader/>
-                <div>
-                    {ordersKeys.map((key: string, index: number) => (
-                        <Grid key={key} container direction="row" justify="space-between">
-                            <Grid item container xs={4} justify="center">
-                                <span>{products[key].name}</span>
-                            </Grid>
-                            <Grid item container xs={4} justify="center">
-                                <span> {nonSubmittedOrders[key].quantity}</span>
-                            </Grid>
-                            <Grid item container xs={4} justify="center">
-                                <span>{products[key].price}</span>
-                            </Grid>
-                        </Grid>))}
-                    <div className="order-button-container">
-                        <Grid container direction="row" justify="space-between">
 
-                            <Grid item container justify="center" xs={12} sm={6}>
-                                <Button
-                                    variant="outlined"
-                                    color="primary"
-                                    type="button"
-                                > delete </Button>
-                            </Grid>
-                            <Grid item container justify="center" xs={12} sm={6}>
-                                <Button
-                                    variant="outlined"
-                                    color="primary"
-                                    type="button"
-                                > done </Button>
-                            </Grid>
-                            <Grid item container justify="center" xs={12} sm={6}>
-                                <Button
-                                    variant="outlined"
-                                    color="primary"
-                                    type="button"
-                                > cancel </Button>
-                            </Grid>
+                {ordersKeys.map((key: string, index: number) => {
+                    let productGroupId = nonSubmittedOrders[key].productsGroupId;
+                    let product =  productsGroupData[productGroupId].products[key];
+                    return (<Grid key={key} container direction="row" justify="space-between">
+                        <Grid item container xs={4} justify="center">
+                            <span>{product.name}</span>
+                        </Grid>
+                        <Grid item container xs={4} justify="center">
+                            <span> {nonSubmittedOrders[key].quantity}</span>
+                        </Grid>
+                        <Grid item container xs={4} justify="center">
+                            <span>{product.price}</span>
+                        </Grid>
+                    </Grid>)})}
+                <div className="order-button-container">
+                    <Grid container direction="row" justify="space-between">
 
-                            <Grid item container justify="center" xs={12} sm={6}>
-                                <Button
-                                    variant="outlined"
-                                    color="primary"
-                                    type="button"
-                                > submit </Button>
-                            </Grid>
+                        <Grid item container justify="center" xs={12} sm={6}>
+                            <Button
+                                variant="outlined"
+                                color="primary"
+                                type="button"
+                            > delete </Button>
+                        </Grid>
+                        <Grid item container justify="center" xs={12} sm={6}>
+                            <Button
+                                variant="outlined"
+                                color="primary"
+                                type="button"
+                            > done </Button>
+                        </Grid>
+                        <Grid item container justify="center" xs={12} sm={6}>
+                            <Button
+                                variant="outlined"
+                                color="primary"
+                                type="button"
+                            > cancel </Button>
                         </Grid>
 
-                    </div>
+                        <Grid item container justify="center" xs={12} sm={6}>
+                            <Button
+                                variant="outlined"
+                                color="primary"
+                                type="button"
+                            > submit </Button>
+                        </Grid>
+                    </Grid>
 
                 </div>
             </Paper>

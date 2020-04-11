@@ -41,10 +41,10 @@ export const openOrder: actionVoid = (tableId: string) => async (dispatch: Dispa
     }
 };
 
-export const setUnSubmittedOrder: action = (productId) => {
+export const setUnSubmittedOrder: action = (productId,productGroupId) => {
     return {
         type:POS_TYPES.SET_UN_SUBMITTED_ORDERS,
-        payload:productId
+        payload:{productId,productGroupId}
     }
 };
 
