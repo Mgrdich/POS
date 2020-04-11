@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Grid, IconButton, Paper} from "@material-ui/core";
+import {Button, Grid, IconButton, Paper, Checkbox} from "@material-ui/core";
 import TableOrderHeader from "./TableOrderHeader";
 import {useSelector} from "react-redux";
 import RemoveIcon from '@material-ui/icons/Remove';
@@ -51,6 +51,13 @@ const TableOrders: React.FC = () => {
                     let productGroupId = nonSubmittedOrders[tableHashed[id]][key].productsGroupId;
                     let product = productsGroupData[productGroupId].products[key];
                     return (<Grid key={key} container direction="row" justify="space-between" className="nonSubmitted">
+                    <Grid item container xs={1} justify="center" alignContent="center">
+                        <Checkbox
+                            defaultChecked
+                            color="primary"
+                            inputProps={{ 'aria-label': 'secondary checkbox' }}
+                        />
+                            </Grid>
                         <Grid item container xs={4} justify="center" alignContent="center">
                             <span>{product.name}</span>
                         </Grid>
@@ -61,7 +68,7 @@ const TableOrders: React.FC = () => {
                                 <IconButton><AddIcon color="primary"/></IconButton>
                             </span>
                         </Grid>
-                        <Grid item container xs={4} justify="center" alignContent="center">
+                        <Grid item container xs={3} justify="center" alignContent="center">
                             <span>{product.price}</span>
                         </Grid>
                     </Grid>)
