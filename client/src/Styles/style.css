@@ -257,7 +257,7 @@
 
 .chatContainer .conversation .conversationFooter {
   height: 8%;
-  border-top: 1px solid #66fcf1;
+  border-top: 2px solid #66fcf1;
   min-width: fit-content; }
 
 .chatContainer .conversation .conversationFooter .input-container {
