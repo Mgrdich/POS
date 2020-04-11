@@ -378,8 +378,11 @@ section.content h1 {
 .order-button-container {
   position: absolute;
   bottom: 0;
-  width: 100%; }
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; }
 
 .order-button-container button {
-  width: 100%;
+  width: 40%;
   margin: 5px; }

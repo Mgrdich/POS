@@ -45,37 +45,26 @@ const TableOrders: React.FC = () => {
                         </Grid>
                     </Grid>)})}
                 <div className="order-button-container">
-                    <Grid container direction="row" justify="space-between">
-                        <Grid item container justify="center" xs={12} sm={6}>
                             <Button
                                 variant="outlined"
                                 color="primary"
                                 type="button"
                             > delete </Button>
-                        </Grid>
-                        <Grid item container justify="center" xs={12} sm={6}>
                             <Button
                                 variant="outlined"
                                 color="primary"
                                 type="button"
                             > done </Button>
-                        </Grid>
-                        <Grid item container justify="center" xs={12} sm={6}>
                             <Button
                                 variant="outlined"
                                 color="primary"
                                 type="button"
                             > cancel </Button>
-                        </Grid>
-
-                        <Grid item container justify="center" xs={12} sm={6}>
                             <Button
                                 variant="outlined"
                                 color="primary"
                                 type="button"
                             > submit </Button>
-                        </Grid>
-                    </Grid>
                 </div>
             </Paper>
         </div>
