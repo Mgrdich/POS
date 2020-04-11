@@ -137,6 +137,9 @@
 .chatContainer .chatGrid.listItems .usersList {
   overflow: auto; }
 
+.chatContainer .chatGrid .search-container {
+  margin-bottom: 10px; }
+
 .chatContainer .MuiTabs-flexContainer {
   display: flex;
   flex-direction: row;

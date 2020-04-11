@@ -31,6 +31,7 @@ const ChatComp: React.FC = () => {
                     <Paper className="chatGrid listItems">
                         <Box pt={3} pb={1} px={1}>
                             <TextField
+                                className='search-container'
                                 label="Search Users"
                                 id="outlined-size-small"
                                 variant="outlined"
