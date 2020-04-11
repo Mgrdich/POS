@@ -56,7 +56,7 @@ const ConversationFooter: React.FC = () => {
                 </Grid>
                 <Grid  item xs={2} container direction='row' justify='center' alignItems='center'>
                     <Button
-                        variant="contained"
+                        variant="outlined"
                         color="primary"
                         size="small"
                         endIcon={<SendIcon/>}
