@@ -129,6 +129,9 @@ section {
      width: 30%;
      margin: 10px;
   }
+  .MuiGrid-item{
+    white-space: nowrap;
+  }
 }
 .products-container{
   height: 60%;
@@ -167,8 +170,6 @@ section {
 .order-button-container{
   position: absolute;
   bottom: 0;
-  /*display: flex;*/
-  /*flex-direction: column;*/
   width: 100%;
 
     button {

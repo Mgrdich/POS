@@ -1,7 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Grid, Paper} from "@material-ui/core";
+import {Button, Grid, Paper,IconButton} from "@material-ui/core";
 import TableOrderHeader from "./TableOrderHeader";
 import {useSelector} from "react-redux";
+import RemoveIcon from '@material-ui/icons/Remove';
+import AddIcon from '@material-ui/icons/Add';
+
 
 const TableOrders: React.FC = () => {
     const [ordersKeys, setOrdersKeys] = useState<Array<any>>([]);
@@ -27,19 +30,22 @@ const TableOrders: React.FC = () => {
                     let productGroupId = nonSubmittedOrders[key].productsGroupId;
                     let product =  productsGroupData[productGroupId].products[key];
                     return (<Grid key={key} container direction="row" justify="space-between">
-                        <Grid item container xs={4} justify="center">
+                        <Grid item container xs={4} justify="center" alignContent="center">
                             <span>{product.name}</span>
                         </Grid>
-                        <Grid item container xs={4} justify="center">
-                            <span> {nonSubmittedOrders[key].quantity}</span>
+                        <Grid item container xs={4} justify="center" alignContent="center">
+                            <span>
+                                <IconButton color="primary" ><RemoveIcon/></IconButton>
+                                {nonSubmittedOrders[key].quantity}
+                                <IconButton><AddIcon color="primary"/></IconButton>
+                            </span>
                         </Grid>
-                        <Grid item container xs={4} justify="center">
+                        <Grid item container xs={4} justify="center" alignContent="center">
                             <span>{product.price}</span>
                         </Grid>
                     </Grid>)})}
                 <div className="order-button-container">
                     <Grid container direction="row" justify="space-between">
-
                         <Grid item container justify="center" xs={12} sm={6}>
                             <Button
                                 variant="outlined"
@@ -70,7 +76,6 @@ const TableOrders: React.FC = () => {
                             > submit </Button>
                         </Grid>
                     </Grid>
-
                 </div>
             </Paper>
         </div>

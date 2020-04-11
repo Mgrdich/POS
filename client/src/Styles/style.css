@@ -345,6 +345,9 @@ section.content h1 {
   width: 30%;
   margin: 10px; }
 
+.products-paper .MuiGrid-item {
+  white-space: nowrap; }
+
 .products-container {
   height: 60%;
   padding-bottom: 20px; }
@@ -375,8 +378,6 @@ section.content h1 {
 .order-button-container {
   position: absolute;
   bottom: 0;
-  /*display: flex;*/
-  /*flex-direction: column;*/
   width: 100%; }
 
 .order-button-container button {
