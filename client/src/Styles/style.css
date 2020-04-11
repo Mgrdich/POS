@@ -123,7 +123,7 @@
   transition: width 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms; }
 
 .chatContainer {
-  height: 80vh; }
+  height: 85vh; }
 
 .chatContainer .MuiGrid-root {
   height: 100%; }

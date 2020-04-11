@@ -2,7 +2,7 @@ $left-msg-bg: transparent;
 $right-msg-bg: transparent;
 
 .chatContainer {
-  height: 80vh;
+  height: 85vh;
 
   .MuiGrid-root {
     height: 100%;
@@ -21,7 +21,7 @@ $right-msg-bg: transparent;
         background-color: #1f2833;
         position: sticky;
         top: 0;
-        z-index: 1;
+        z-index: 1; // since its inside a container and scrollable items it should appear beneath it
       }
     }
     .search-container{
