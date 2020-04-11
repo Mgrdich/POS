@@ -132,10 +132,17 @@
   height: 100%; }
 
 .chatContainer .chatGrid.listItems {
-  padding-bottom: 10px; }
+  padding-bottom: 10px;
+  overflow: auto; }
 
 .chatContainer .chatGrid.listItems .usersList {
   overflow: auto; }
+
+.chatContainer .chatGrid.listItems .chat-list-header {
+  background-color: #1f2833;
+  position: sticky;
+  top: 0;
+  z-index: 1; }
 
 .chatContainer .chatGrid .search-container {
   margin-bottom: 10px; }
@@ -272,6 +279,9 @@
 
 .chatContainer .chatInput .MuiInput-underline:after {
   border: 1px solid #66fcf1; }
+
+.chatContainer .list-container {
+  overflow: auto; }
 
 .footer {
   position: absolute !important;

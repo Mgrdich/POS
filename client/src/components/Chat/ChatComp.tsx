@@ -29,7 +29,7 @@ const ChatComp: React.FC = () => {
                 </Grid>
                 <Grid item md={3} sm={4}>
                     <Paper className="chatGrid listItems">
-                        <Box pt={3} pb={1} px={1}>
+                        <Box pt={3} pb={1} px={1} className='chat-list-header'>
                             <TextField
                                 className='search-container'
                                 label="Search Users"

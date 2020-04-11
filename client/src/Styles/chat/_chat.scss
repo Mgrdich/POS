@@ -13,8 +13,15 @@ $right-msg-bg: transparent;
 
     &.listItems {
       padding-bottom:10px;
-      .usersList {
+      overflow: auto;
+      .usersList { //TODO mgo you have to check it if it is unnecessary
         overflow: auto;
+      }
+      .chat-list-header{
+        background-color: #1f2833;
+        position: sticky;
+        top: 0;
+        z-index: 1;
       }
     }
     .search-container{
@@ -178,6 +185,10 @@ $right-msg-bg: transparent;
         border: 1px solid $primary;
       }
     }
+  }
+
+  .list-container{
+    overflow: auto;
   }
 
 }
