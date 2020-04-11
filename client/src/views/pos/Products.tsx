@@ -5,13 +5,13 @@ import ComponentLoader from "../../components/Reusable/ComponentLoader";
 import MenuCard from "../../components/Reusable/MenuCard";
 import {useFilter} from "../../components/Hooks/useFilter";
 import {setUnSubmittedOrder} from "../../actions/posActions";
-import {useParams} from "react-router";
+
 
 const Products: React.FC<any> = () => {
     const products:any = useSelector<any>(state => state.pos.products.data);
     const isLoading:any = useSelector<any>(state => state.pos.products.isLoading);
     const productGroupId:any = useSelector<any>(state => state.pos.productsGroup);
-    const {id:tableId} = useParams();
+    const ordersId: any = useSelector<any>(state => state.pos.orders._id);
     const dispatch = useDispatch();
     const {filteredArray,filter} = useFilter(products);
 
@@ -29,7 +29,7 @@ const Products: React.FC<any> = () => {
                 <Grid item container direction="row" justify="flex-start">
                     {filteredArray.length?filteredArray.map((product: any, index: number) => (
                         <Grid item xs={12} sm={6} md={4} key={product._id}>
-                            <MenuCard key={index} products={product} onClick={()=>dispatch(setUnSubmittedOrder(product._id,productGroupId,tableId))}/>
+                            <MenuCard key={index} products={product} onClick={()=>dispatch(setUnSubmittedOrder(product._id,productGroupId,ordersId))}/>
                         </Grid>
                     )):null}
                 </Grid>

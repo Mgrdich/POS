@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {Button, Grid} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchOrders, fetchTables} from "../../actions/posActions";
+import {fetchOrders, fetchTables, setOrderId} from "../../actions/posActions";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
 import {useHistory} from "react-router";
 import ErrorHandler from "../errors/ErrorHandler";
@@ -19,6 +19,11 @@ const Pos: React.FC = () => {
         dispatch(fetchOrders());
     }, [dispatch]);
 
+    const tableClick = useCallback(function (tableId:string) {
+        history.push(`/pos/${tableId}`);
+        dispatch(setOrderId(tableId));
+    },[dispatch]);
+
     return (
         <div>
             <div>
@@ -30,9 +35,7 @@ const Pos: React.FC = () => {
                     <ComponentLoader isLoading={isLoading as boolean}>
                         {tables.map((table: any) => (
                             <div className="tables" key={table._id}>
-                                <Button key={table.id} onClick={() => {
-                                    (history.push(`/pos/${table._id}`))
-                                }}>
+                                <Button key={table.id} onClick={() =>tableClick(table._id)}>
                                     <span>{table.number}</span>
                                 </Button>
                             </div>

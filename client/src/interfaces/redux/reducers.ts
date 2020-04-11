@@ -13,7 +13,7 @@ export interface IAuthReducer {
  * */
 export interface IPOSReducer {
     orders: {
-        orderId: string | null;
+        _id: string | null;
         isLoading:boolean
     };
     nonSubmittedOrders: {

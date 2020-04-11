@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Grid, IconButton, Paper, Checkbox} from "@material-ui/core";
+import {Button, Checkbox, Grid, IconButton, Paper} from "@material-ui/core";
 import TableOrderHeader from "./TableOrderHeader";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 import {useParams} from "react-router";
 import {isEmpty} from "../../util/functions";
+import {submitTableOrders} from "../../actions/posActions";
 
 /*
 function renderProduct(id:string,name:string,quantity:number,price:number):JSX.Element {
@@ -29,15 +30,15 @@ const TableOrders: React.FC = () => {
     const [nonSubmittedOrdersKeys, setNonSubmittedOrdersKeys] = useState<Array<any>>([]);
     const nonSubmittedOrders: any = useSelector<any>(state => state.pos.nonSubmittedOrders);
     const productsGroupData: any = useSelector<any>(state => state.pos.productsGroups.data);
-    const tableHashed:any = useSelector<any>(state => state.pos.tableHashed);
-    const {id: id} = useParams<{id:string}>();
+    const ordersId: any = useSelector<any>(state => state.pos.orders._id);
+    const dispatch = useDispatch();
 
     useEffect(function () {
-        if (nonSubmittedOrders && tableHashed && id && !isEmpty(nonSubmittedOrders[tableHashed[id]])) {
-            let nonSubOrderKeys = Object.keys(nonSubmittedOrders[tableHashed[id]]);
+        if (nonSubmittedOrders &&  !isEmpty(nonSubmittedOrders[ordersId])) {
+            let nonSubOrderKeys = Object.keys(nonSubmittedOrders[ordersId]);
             setNonSubmittedOrdersKeys(nonSubOrderKeys);
         }
-    }, [nonSubmittedOrders,tableHashed,id]);
+    }, [nonSubmittedOrders,ordersId]);
 
     return (
         <div className="table-order-container">
@@ -47,31 +48,32 @@ const TableOrders: React.FC = () => {
                 </div>
                 <TableOrderHeader/>
 
-                {nonSubmittedOrdersKeys.length && id? nonSubmittedOrdersKeys.map((key: string) => {
-                    let productGroupId = nonSubmittedOrders[tableHashed[id]][key].productsGroupId;
+                {nonSubmittedOrdersKeys.length && ordersId? nonSubmittedOrdersKeys.map((key: string) => {
+                    let productGroupId = nonSubmittedOrders[ordersId][key].productsGroupId;
                     let product = productsGroupData[productGroupId].products[key];
-                    return (<Grid key={key} container direction="row" justify="space-between" className="nonSubmitted">
-                    <Grid item container xs={1} justify="center" alignContent="center">
-                        <Checkbox
-                            defaultChecked
-                            color="primary"
-                            inputProps={{ 'aria-label': 'secondary checkbox' }}
-                        />
+                    return (
+                        <Grid key={key} container direction="row" justify="space-between" className="nonSubmitted">
+                            <Grid item container xs={1} justify="center" alignContent="center">
+                                <Checkbox
+                                    defaultChecked
+                                    color="primary"
+                                    inputProps={{'aria-label': 'secondary checkbox'}}
+                                />
                             </Grid>
-                        <Grid item container xs={4} justify="center" alignContent="center">
-                            <span>{product.name}</span>
-                        </Grid>
-                        <Grid item container xs={4} justify="center">
+                            <Grid item container xs={4} justify="center" alignContent="center">
+                                <span>{product.name}</span>
+                            </Grid>
+                            <Grid item container xs={4} justify="center">
                             <span>
-                                <IconButton color="primary" ><RemoveIcon/></IconButton>
-                                {nonSubmittedOrders[tableHashed[id]][key].quantity}
+                                <IconButton color="primary"><RemoveIcon/></IconButton>
+                                {nonSubmittedOrders[ordersId][key].quantity}
                                 <IconButton><AddIcon color="primary"/></IconButton>
                             </span>
-                        </Grid>
-                        <Grid item container xs={3} justify="center" alignContent="center">
-                            <span>{product.price}</span>
-                        </Grid>
-                    </Grid>)
+                            </Grid>
+                            <Grid item container xs={3} justify="center" alignContent="center">
+                                <span>{product.price}</span>
+                            </Grid>
+                        </Grid>)
                 }) : null}
                 <div className="order-button-container">
                     <Button
@@ -93,6 +95,7 @@ const TableOrders: React.FC = () => {
                         variant="outlined"
                         color="primary"
                         type="button"
+                        onClick={()=>dispatch(submitTableOrders())}
                     > submit </Button>
                 </div>
             </Paper>

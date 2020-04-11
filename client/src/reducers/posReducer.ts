@@ -3,7 +3,7 @@ import {IPOSReducer} from "../interfaces/redux/reducers";
 
 const initialState: IPOSReducer = {
     orders: {
-        orderId:null,
+        _id:null,
         isLoading: false
     },
     nonSubmittedOrders:null,
@@ -121,7 +121,10 @@ export default function (state: IPOSReducer = initialState, action: any): any {
         case POS_TYPES.SET_ORDER_INFO:
             return {
                 ...state,
-                waiter: payload.waiter,
+                orders: {
+                    _id: payload,
+                    isLoading: false
+                }
             };
         case POS_TYPES.SET_ORDERS:
             return {

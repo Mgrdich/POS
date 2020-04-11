@@ -1,8 +1,8 @@
-import React from 'react';
-import {IconButton, Grid} from "@material-ui/core";
+import React, {useEffect} from 'react';
+import {Grid, IconButton} from "@material-ui/core";
 import TableOrders from './TableOrders';
 import ProductsGroups from "./ProductsGroups";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import ErrorHandler from "../errors/ErrorHandler";
 import ChosenEmployee from "./ChosenEmployee";
 import {useHistory, useParams} from "react-router";
@@ -12,10 +12,10 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 
 const PosTable: React.FC = () => {
+    const ordersId: any = useSelector<any>(state => state.pos.orders._id);
     const error = useSelector<any>(state => state.pos.error);
-    const {id} = useParams();
-    const tableOrderHash: any = useSelector<any>(state => state.pos.tableHashed);
     let history = useHistory();
+
 
     return (
         <div>
@@ -28,10 +28,10 @@ const PosTable: React.FC = () => {
                 <ChosenEmployee/>
             </div>
             <ErrorHandler error={error as boolean}>
-                {(id && tableOrderHash[id]) ? (
+                {(ordersId) ? (
                     <Grid container direction="row" justify="space-around" className="pos-container">
                         <Grid item xs={12} md={3} className="pos-grid">
-                            <TableOrders/>
+                            <TableOrders />
                         </Grid>
                         <Grid item xs={12} md={8} className="pos-grid">
                             <ProductsGroups/>
