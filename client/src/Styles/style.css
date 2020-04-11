@@ -137,8 +137,13 @@
 .chatContainer .chatGrid.listItems .usersList {
   overflow: auto; }
 
+.chatContainer .MuiTabs-flexContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; }
+
 .chatContainer .usersList {
-  height: 100%;
+  min-height: auto;
   overflow: hidden; }
 
 .chatContainer .usersList .MuiListItem-root {
@@ -238,10 +243,15 @@
 
 .chatContainer .conversation .conversationFooter {
   height: 8%;
-  border-top: 1px solid #66fcf1; }
+  border-top: 1px solid #66fcf1;
+  min-width: fit-content; }
+
+.chatContainer .conversation .conversationFooter .MuiGrid-grid-xs-10 {
+  padding-left: 20px; }
 
 .chatContainer .conversation .conversationFooter button {
-  height: 100%; }
+  height: 65%;
+  width: 65%; }
 
 .chatContainer .chatInput .MuiInput-underline:after {
   border: 1px solid #66fcf1; }

@@ -1,10 +1,11 @@
 import React, {ChangeEvent, useCallback, useContext, useState} from 'react';
 import Grid from "@material-ui/core/Grid";
-import {TextField} from "@material-ui/core";
+import {Icon, TextField} from "@material-ui/core";
 import {ChatContext} from "./ChatProvider";
 import {socket} from "../../App";
 import SendIcon from '@material-ui/icons/Send';
 import IconButton from '@material-ui/core/IconButton';
+import Button from "@material-ui/core/Button";
 
 const ConversationFooter: React.FC = () => {
     const [state] = useContext(ChatContext);
@@ -42,25 +43,27 @@ const ConversationFooter: React.FC = () => {
     return (
         <div className="conversationFooter">
             <Grid container direction="row" wrap="nowrap" justify='center' alignItems='center'>
-                <Grid item xs={12}>
+                <Grid item xs={10} container direction='row' alignItems='center'>
                     <TextField
                         label="Your Message"
                         id="outlined-size-small"
-                        variant="filled"
-                        size="medium"
+                        variant="outlined"
+                        size="small"
                         value={value}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)}
                         onKeyUp={(e) => handleSendMessageOnEnter(e)}
                     />
                 </Grid>
-                <Grid  item xs={1}>
-                    <IconButton onClick={() => sendMessage()}>
-                        <SendIcon
-                            fontSize='large'
-                            color="primary"
-                            className="FloatRight"
-                        >Submit</SendIcon>
-                    </IconButton>
+                <Grid  item xs={2} container direction='row' justify='center' alignItems='center'>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        size="small"
+                        endIcon={<SendIcon/>}
+                        onClick={() => sendMessage()}
+                    > Send
+                    </Button>
+
                 </Grid>
             </Grid>
         </div>

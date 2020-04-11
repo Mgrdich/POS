@@ -9,9 +9,9 @@ interface IConditional {
 const Conditional: React.FC<IConditional> = (props) => {
     const {children, condition} = props;
     return (
-        <div>
+        <>
             {condition ? children : null}
-        </div>
+        </>
     );
 };
 
