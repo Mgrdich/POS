@@ -242,6 +242,9 @@
   border-radius: 15%;
   margin: 10px; }
 
+.chatContainer .conversation .conversationBody .message .msg-text {
+  font-size: 16px; }
+
 .chatContainer .conversation .empty-message-container {
   position: relative;
   float: left;
