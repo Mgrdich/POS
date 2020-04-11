@@ -242,6 +242,16 @@
   border-radius: 15%;
   margin: 10px; }
 
+.chatContainer .conversation .empty-message-container {
+  position: relative;
+  float: left;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
+.chatContainer .conversation .empty-message-container h1 {
+  margin: 0; }
+
 .chatContainer .conversation .conversationFooter {
   height: 8%;
   border-top: 1px solid #66fcf1;

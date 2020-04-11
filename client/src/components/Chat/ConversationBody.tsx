@@ -56,7 +56,7 @@ const ConversationBody: React.FC = () => {
                             <Message position="left" name={item.sender.name} key={item._id} message={item.message}/>
                         );
                     }
-                }) : <h1>No Messages yet</h1>
+                }) :<div className='empty-message-container'><h1>No Messages yet</h1></div>
             }
         </div>
     );
