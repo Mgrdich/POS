@@ -27,19 +27,27 @@ function renderProduct(id:string,name:string,quantity:number,price:number):JSX.E
 
 const TableOrders: React.FC = () => {
     const [nonSubmittedOrdersKeys, setNonSubmittedOrdersKeys] = useState<Array<any>>([]);
+    const [submittedOrdersKeys, setSubmittedOrdersKeys] = useState<Array<any>>([]);
     const nonSubmittedOrders: any = useSelector<any>(state => state.pos.nonSubmittedOrders);
     const productsGroupData: any = useSelector<any>(state => state.pos.productsGroups.data);
     const checkedGroupActions:any = useSelector<any>(state => state.pos.groupActions);
+    const Orders:any = useSelector<any>(state => state.pos.Orders);
     const ordersId: any = useSelector<any>(state => state.pos.orders._id);
     const dispatch = useDispatch();
 
     useEffect(function () {
-        if (nonSubmittedOrders &&  !isEmpty(nonSubmittedOrders[ordersId])) {
+        if (!isEmpty(nonSubmittedOrders[ordersId])) {
             let nonSubOrderKeys = Object.keys(nonSubmittedOrders[ordersId]);
             setNonSubmittedOrdersKeys(nonSubOrderKeys);
         }
     }, [nonSubmittedOrders,ordersId]);
 
+    useEffect(function () {
+        if (!isEmpty(Orders[ordersId])) {
+            let SubOrderKeys = Object.keys(Orders[ordersId]);
+            setSubmittedOrdersKeys(SubOrderKeys);
+        }
+    },[Orders,ordersId]);
 
     return (
         <div className="table-order-container">
@@ -48,8 +56,29 @@ const TableOrders: React.FC = () => {
                     <h1>Table order</h1>
                 </div>
                 <TableOrderHeader/>
+                {!isEmpty(Orders[ordersId]) && submittedOrdersKeys.length && ordersId? submittedOrdersKeys.map((key: string) => {
+                    let productGroupId = Orders[ordersId][key].productsGroupId;
+                    let product = productsGroupData[productGroupId].products[key];
+                    return (
+                        <Grid key={key} container direction="row" justify="space-between" className="nonSubmitted">
+                            <Grid item container xs={1} justify="center" alignContent="center">
+                            </Grid>
+                            <Grid item container xs={4} justify="center" alignContent="center">
+                                <span>{product.name}</span>
+                            </Grid>
+                            <Grid item container xs={4} justify="center">
+                            <span>
+                                {Orders[ordersId][key].quantity}
+                            </span>
+                            </Grid>
+                            <Grid item container xs={3} justify="center" alignContent="center">
+                                <span>{product.price}</span>
+                            </Grid>
+                        </Grid>)
+                }) : null}
 
-                {nonSubmittedOrdersKeys.length && ordersId? nonSubmittedOrdersKeys.map((key: string) => {
+
+                {!isEmpty(nonSubmittedOrders[ordersId]) && nonSubmittedOrdersKeys.length && ordersId? nonSubmittedOrdersKeys.map((key: string) => {
                     let productGroupId = nonSubmittedOrders[ordersId][key].productsGroupId;
                     let product = productsGroupData[productGroupId].products[key];
                     return (
@@ -78,6 +107,8 @@ const TableOrders: React.FC = () => {
                             </Grid>
                         </Grid>)
                 }) : null}
+
+
                 <div className="order-button-container">
                     <Button
                         variant="outlined"

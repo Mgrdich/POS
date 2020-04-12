@@ -21,6 +21,7 @@ export interface IPOSReducer {
             [id: string]: { //product id
                 _id:string,
                 quantity:number
+                productsGroupId:string;
             }
         }
     };
@@ -67,12 +68,10 @@ export interface IPOSReducer {
     };
     Orders:{ //hashed with id everything about every table
         [key: string] :{
-            data:{
-                [id: string]: { //product id
-                    _id:string,
-                    quantity:number
-                }
-            };
+            [id: string]: { //product id
+                _id: string,
+                quantity: number
+            }
         }
     };
     groupActions:{

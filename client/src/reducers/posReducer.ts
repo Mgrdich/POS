@@ -55,6 +55,18 @@ export default function (state: IPOSReducer = initialState, action: any): any {
                 },
                 isLoading: false
             };
+        case POS_TYPES.SUBMIT_TABLE_ORDER:
+            return {
+                ...state,
+                Orders: {
+                    ...state.Orders,
+                    [payload.orderId]: {
+                        ...state.Orders[payload.orderId],
+                        ...payload.data
+                    }
+                },
+                nonSubmittedOrders: {}
+            };
         case POS_TYPES.FETCH_ORDERS_INFO:
             return {
                 ...state,
@@ -162,7 +174,6 @@ export default function (state: IPOSReducer = initialState, action: any): any {
                     ...state.Orders,
                     [payload.orderId]: {
                         ...state.Orders[payload.orderId],
-                        orders: [],//TODO fill it,
                     }
                 }
             };

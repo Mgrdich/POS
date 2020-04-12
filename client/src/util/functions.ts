@@ -20,11 +20,16 @@ export function DefaultValue(myInputFields: Array<InputField>, data: any) {
     });
 }
 
-export function hashingArray<T>(array: Array<T>, key: string):any {
+export function hashingArray<T>(array: Array<T>, key: string,keyRename?:string):any {
     return array.reduce(function (acc: any, curr: any) {
         let obj: any = {...acc};
         if (curr[key]) {
-            obj[curr[key]] = curr;
+            let hashedKey:string = curr[key];
+            if(keyRename) {
+                curr[keyRename] = curr[key];
+                delete curr[key];
+            }
+            obj[hashedKey] = curr;
         }
         return obj;
     }, {});
