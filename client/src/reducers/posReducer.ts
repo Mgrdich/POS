@@ -137,6 +137,16 @@ export default function (state: IPOSReducer = initialState, action: any): any {
                     }
                 }
             };
+        case POS_TYPES.SET_ALL_GROUP_ACTIONS:
+            return {
+                ...state,
+                groupActions:{
+                    ...state.groupActions,
+                    [payload.orderId]:{
+                        ...payload.data
+                    }
+                }
+            };
         case POS_TYPES.SET_ORDER_INFO:
             return {
                 ...state,

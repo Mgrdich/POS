@@ -70,11 +70,26 @@ export const setUnSubmittedOrder: action = (productId, productGroupId, orderId) 
 };
 
 export const setGroupAction :action = (orderId:string,productId:string,check:boolean) => {
-    console.log(orderId,productId,check);
     return {
         type:POS_TYPES.SET_GROUP_ACTIONS,
         payload:{orderId,productId,check}
     }
+};
+
+export const setAllGroupActions:actionVoid = (orderId:string,check:boolean) =>(dispatch: Dispatch, getState: () => IState) => {
+    let {pos} = getState();
+    let payload:any = {orderId:orderId,data:{}};
+    if(check && pos.nonSubmittedOrders){
+        payload.data = Object.keys(pos.nonSubmittedOrders[orderId]).reduce(function (acc: any, curr: string) {
+            let obj: any = {...acc};
+            obj[curr] = true;
+            return obj
+        }, {});
+    }
+    dispatch({
+        type:POS_TYPES.SET_ALL_GROUP_ACTIONS,
+        payload:payload
+    });
 };
 
 export const setWaiter: action = (user: { _id: string, name: string }) => {
