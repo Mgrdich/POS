@@ -5,17 +5,25 @@ import {useDispatch, useSelector} from "react-redux";
 
 const TableOrderHeader: React.FC = () => {
     const ordersId: any = useSelector<any>(state => state.pos.orders._id);
+    const checkedGroupActions:any = useSelector<any>(state => state.pos.groupActions);
+    const [checked, setChecked] = React.useState(true);
+
+    const handleChange = (event:ChangeEvent<HTMLInputElement>) => {
+        dispatch(setAllGroupActions(ordersId,event.target.checked));
+        setChecked(event.target.checked);
+    };
+
     const dispatch = useDispatch();
 
     return (
         <Grid container direction="row" justify="space-between">
             <Grid item container xs={1} justify="center">
                 <Checkbox
-                    defaultChecked
+                    checked={checked}
                     color="primary"
                     inputProps={{'aria-label': 'secondary checkbox'}}
                     size="small"
-                    onChange={(event:ChangeEvent<HTMLInputElement>)=>dispatch(setAllGroupActions(ordersId,event.target.checked))}
+                    onChange={(event:ChangeEvent<HTMLInputElement>)=>handleChange(event)}
                 />
 
             </Grid>

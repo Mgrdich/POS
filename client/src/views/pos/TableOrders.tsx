@@ -4,10 +4,8 @@ import TableOrderHeader from "./TableOrderHeader";
 import {useDispatch, useSelector} from "react-redux";
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
-import {useParams} from "react-router";
 import {isEmpty} from "../../util/functions";
 import {setGroupAction, submitTableOrders} from "../../actions/posActions";
-import {keys} from "@material-ui/core/styles/createBreakpoints";
 
 /*
 function renderProduct(id:string,name:string,quantity:number,price:number):JSX.Element {
@@ -58,7 +56,7 @@ const TableOrders: React.FC = () => {
                         <Grid key={key} container direction="row" justify="space-between" className="nonSubmitted">
                             <Grid item container xs={1} justify="center" alignContent="center">
                                 <Checkbox
-                                    checked={checkedGroupActions[ordersId][key]}
+                                    checked={!!checkedGroupActions[ordersId][key]}
                                     color="primary"
                                     inputProps={{'aria-label': 'secondary checkbox'}}
                                     size="small"
@@ -100,7 +98,7 @@ const TableOrders: React.FC = () => {
                         variant="outlined"
                         color="primary"
                         type="button"
-                        onClick={()=>dispatch(submitTableOrders())}
+                        onClick={()=>dispatch(submitTableOrders(ordersId))}
                     > submit </Button>
                 </div>
             </Paper>

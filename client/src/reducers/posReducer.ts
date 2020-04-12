@@ -6,7 +6,7 @@ const initialState: IPOSReducer = {
         _id:null,
         isLoading: false
     },
-    nonSubmittedOrders:null,
+    nonSubmittedOrders:{},
     tables: {
         data: [],
         isLoading: false

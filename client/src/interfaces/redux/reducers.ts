@@ -23,7 +23,7 @@ export interface IPOSReducer {
                 quantity:number
             }
         }
-    } | null;
+    };
     productsGroups: {
         data: {
             [key: string]: {

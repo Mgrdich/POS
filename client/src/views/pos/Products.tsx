@@ -29,7 +29,11 @@ const Products: React.FC<any> = () => {
                 <Grid item container direction="row" justify="flex-start">
                     {filteredArray.length?filteredArray.map((product: any, index: number) => (
                         <Grid item xs={12} sm={6} md={4} key={product._id}>
-                            <MenuCard key={index} products={product} onClick={()=>dispatch(setUnSubmittedOrder(product._id,productGroupId,ordersId))}/>
+                            <MenuCard
+                                key={index}
+                                products={product}
+                                onClick={()=>dispatch(setUnSubmittedOrder(product._id,productGroupId,ordersId))}
+                            />
                         </Grid>
                     )):null}
                 </Grid>

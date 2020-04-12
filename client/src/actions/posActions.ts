@@ -8,18 +8,19 @@ import {hashingArray} from "../util/functions";
 type actionVoid = ActionCreator<ThunkAction<void, any, any, AnyAction>>;
 type action = ActionCreator<Action>;
 
-export const submitTableOrders: actionVoid = () => async (dispatch: Dispatch, getState: () => IState) => {
+export const submitTableOrders: actionVoid = (orderId:string) => async (dispatch: Dispatch, getState: () => IState) => {
     const {pos, auth} = getState();
 
     let data: any = {
         waiter: pos.waiter._id || auth.user.id,
         orders: []
-    }
+    };
 
+    console.log(pos.nonSubmittedOrders[orderId]);
 
 };
 
-export const fetchTableOrders: actionVoid = (tableId: string) => async (dispatch: Dispatch) => {
+export const fetchTableOrders: actionVoid = (orderId: string) => async (dispatch: Dispatch) => {
 
 };
 
@@ -79,7 +80,7 @@ export const setGroupAction :action = (orderId:string,productId:string,check:boo
 export const setAllGroupActions:actionVoid = (orderId:string,check:boolean) =>(dispatch: Dispatch, getState: () => IState) => {
     let {pos} = getState();
     let payload:any = {orderId:orderId,data:{}};
-    if(check && pos.nonSubmittedOrders){
+    if(check && pos.nonSubmittedOrders && pos.nonSubmittedOrders[orderId]){
         payload.data = Object.keys(pos.nonSubmittedOrders[orderId]).reduce(function (acc: any, curr: string) {
             let obj: any = {...acc};
             obj[curr] = true;
