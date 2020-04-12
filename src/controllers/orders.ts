@@ -74,7 +74,7 @@ export async function getOrder(req: Request, res: Response, next: NextFunction):
         let order: IDocOrders = await Orders.findById(req.params.id, {
             price:1,
             orders:1
-        }).lean().populate('orders._id');
+        }).lean().populate('orders._id'); //TODO multiple layer populate
         if (!order) {
             errorThrower(NO_SUCH_DATA_EXISTS, 422); //TODO check the validity
         }

@@ -138,6 +138,20 @@ export default function (state: IPOSReducer = initialState, action: any): any {
                     }
                 }
             };
+        case POS_TYPES.SET_ORDER_QUANTITY:
+            return {
+              ...state,
+                nonSubmittedOrders: {
+                    ...state.nonSubmittedOrders,
+                    [payload.orderId]: {
+                        ...state.nonSubmittedOrders[payload.orderId],
+                        [payload.productId]: {
+                            ...state.nonSubmittedOrders[payload.orderId][payload.productId],
+                            quantity: payload.quantity
+                        }
+                    }
+                }
+            };
         case POS_TYPES.SET_GROUP_ACTIONS:
             return {
                 ...state,

@@ -56,10 +56,18 @@ export const fetchTableOrders: actionVoid = (orderId: string) => async (dispatch
         const orders:Array<any> = hashingArray(res.data.orders,"product","_id");
         for (let i = 0; i < res.data.orders; i++) {
             let item = res.data.orders[i];
-            
+
         }
     } catch (e) {
         dispatch({type: POS_TYPES.SUBMIT_TABLE_ORDER});
+    }
+};
+
+export const setQuantityOrderProduct: action = (orderId:string,productId:string,newQuantity:number) => {
+    console.log("sssss");
+    return {
+        type:POS_TYPES.SET_ORDER_QUANTITY,
+        payload:{orderId,productId,quantity:newQuantity}
     }
 };
 

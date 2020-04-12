@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 import {isEmpty} from "../../util/functions";
-import {fetchTableOrders, setGroupAction, submitTableOrders} from "../../actions/posActions";
+import {fetchTableOrders, setGroupAction, setQuantityOrderProduct, submitTableOrders} from "../../actions/posActions";
 
 /*
 function renderProduct(id:string,name:string,quantity:number,price:number):JSX.Element {
@@ -85,6 +85,7 @@ const TableOrders: React.FC = () => {
                 {!isEmpty(nonSubmittedOrders[ordersId]) && nonSubmittedOrdersKeys.length? nonSubmittedOrdersKeys.map((key: string) => {
                     let productGroupId = nonSubmittedOrders[ordersId][key].productsGroupId;
                     let product = productsGroupData[productGroupId].products[key];
+                    let productQuantity:number = nonSubmittedOrders[ordersId][key].quantity;
                     return (
                         <Grid key={key} container direction="row" justify="space-between" className="nonSubmitted">
                             <Grid item container xs={1} justify="center" alignContent="center">
@@ -101,9 +102,9 @@ const TableOrders: React.FC = () => {
                             </Grid>
                             <Grid item container xs={4} justify="center">
                             <span>
-                                <IconButton color="primary"><RemoveIcon/></IconButton>
-                                {nonSubmittedOrders[ordersId][key].quantity}
-                                <IconButton><AddIcon color="primary"/></IconButton>
+                                <IconButton color="primary" onClick={()=>dispatch(setQuantityOrderProduct(ordersId,key,(productQuantity-1)))}><RemoveIcon/></IconButton>
+                                {productQuantity}
+                                <IconButton onClick={()=>dispatch(setQuantityOrderProduct(ordersId,key,(productQuantity+1)))}><AddIcon color="primary"/></IconButton>
                             </span>
                             </Grid>
                             <Grid item container xs={3} justify="center" alignContent="center">
