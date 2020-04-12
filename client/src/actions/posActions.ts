@@ -49,8 +49,18 @@ export const submitTableOrders: actionVoid = (orderId:string) => async (dispatch
     }
 };
 
-export const fetchTableOrders: actionVoid = (orderId: string) => async (dispatch: Dispatch) => {
-
+export const fetchTableOrders: actionVoid = (orderId: string) => async (dispatch: Dispatch,getState: () => IState) => {
+    const {pos} = getState();
+    try {
+        const res:AxiosResponse = await axios.get(`/orders/${orderId}`);
+        const orders:Array<any> = hashingArray(res.data.orders,"product","_id");
+        for (let i = 0; i < res.data.orders; i++) {
+            let item = res.data.orders[i];
+            
+        }
+    } catch (e) {
+        dispatch({type: POS_TYPES.SUBMIT_TABLE_ORDER});
+    }
 };
 
 export const setOrderId: actionVoid = (tableId) => (dispatch: Dispatch, getState: () => IState) => {

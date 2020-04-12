@@ -70,13 +70,14 @@ export interface IPOSReducer {
         [key: string] :{
             [id: string]: { //product id
                 _id: string,
-                quantity: number
+                quantity: number,
+                productGroupId:string
             }
         }
     };
     groupActions:{
         [id:string]: { //orderId
-            [productId:string]:true; //productId
+            [productId:string]:boolean; //productId
         }
     };
     isLoading: boolean; //info Group

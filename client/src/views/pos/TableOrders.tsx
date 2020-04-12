@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 import {isEmpty} from "../../util/functions";
-import {setGroupAction, submitTableOrders} from "../../actions/posActions";
+import {fetchTableOrders, setGroupAction, submitTableOrders} from "../../actions/posActions";
 
 /*
 function renderProduct(id:string,name:string,quantity:number,price:number):JSX.Element {
@@ -49,6 +49,10 @@ const TableOrders: React.FC = () => {
         }
     },[Orders,ordersId]);
 
+    useEffect(function () {
+        dispatch(fetchTableOrders(ordersId));
+    },[dispatch]);
+
     return (
         <div className="table-order-container">
             <Paper className="products-paper">
@@ -56,7 +60,7 @@ const TableOrders: React.FC = () => {
                     <h1>Table order</h1>
                 </div>
                 <TableOrderHeader/>
-                {!isEmpty(Orders[ordersId]) && submittedOrdersKeys.length && ordersId? submittedOrdersKeys.map((key: string) => {
+                {!isEmpty(Orders[ordersId]) && submittedOrdersKeys.length? submittedOrdersKeys.map((key: string) => {
                     let productGroupId = Orders[ordersId][key].productsGroupId;
                     let product = productsGroupData[productGroupId].products[key];
                     return (
@@ -78,7 +82,7 @@ const TableOrders: React.FC = () => {
                 }) : null}
 
 
-                {!isEmpty(nonSubmittedOrders[ordersId]) && nonSubmittedOrdersKeys.length && ordersId? nonSubmittedOrdersKeys.map((key: string) => {
+                {!isEmpty(nonSubmittedOrders[ordersId]) && nonSubmittedOrdersKeys.length? nonSubmittedOrdersKeys.map((key: string) => {
                     let productGroupId = nonSubmittedOrders[ordersId][key].productsGroupId;
                     let product = productsGroupData[productGroupId].products[key];
                     return (
