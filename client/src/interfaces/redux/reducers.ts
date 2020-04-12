@@ -74,7 +74,12 @@ export interface IPOSReducer {
                 }
             };
         }
-    }
+    };
+    groupActions:{
+        [id:string]: { //orderId
+            [productId:string]:true; //productId
+        }
+    };
     isLoading: boolean; //info Group
     error:boolean;
 }

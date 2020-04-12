@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {Button, Checkbox, Grid, IconButton, Paper} from "@material-ui/core";
 import TableOrderHeader from "./TableOrderHeader";
 import {useDispatch, useSelector} from "react-redux";
@@ -6,7 +6,8 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 import {useParams} from "react-router";
 import {isEmpty} from "../../util/functions";
-import {submitTableOrders} from "../../actions/posActions";
+import {setGroupAction, submitTableOrders} from "../../actions/posActions";
+import {keys} from "@material-ui/core/styles/createBreakpoints";
 
 /*
 function renderProduct(id:string,name:string,quantity:number,price:number):JSX.Element {
@@ -30,6 +31,7 @@ const TableOrders: React.FC = () => {
     const [nonSubmittedOrdersKeys, setNonSubmittedOrdersKeys] = useState<Array<any>>([]);
     const nonSubmittedOrders: any = useSelector<any>(state => state.pos.nonSubmittedOrders);
     const productsGroupData: any = useSelector<any>(state => state.pos.productsGroups.data);
+    const checkedGroupActions:any = useSelector<any>(state => state.pos.groupActions);
     const ordersId: any = useSelector<any>(state => state.pos.orders._id);
     const dispatch = useDispatch();
 
@@ -39,6 +41,7 @@ const TableOrders: React.FC = () => {
             setNonSubmittedOrdersKeys(nonSubOrderKeys);
         }
     }, [nonSubmittedOrders,ordersId]);
+
 
     return (
         <div className="table-order-container">
@@ -55,9 +58,11 @@ const TableOrders: React.FC = () => {
                         <Grid key={key} container direction="row" justify="space-between" className="nonSubmitted">
                             <Grid item container xs={1} justify="center" alignContent="center">
                                 <Checkbox
-                                    defaultChecked
+                                    checked={checkedGroupActions[ordersId][key]}
                                     color="primary"
                                     inputProps={{'aria-label': 'secondary checkbox'}}
+                                    size="small"
+                                    onChange={(event:ChangeEvent<HTMLInputElement>)=>dispatch(setGroupAction(ordersId,key,event.target.checked))}
                                 />
                             </Grid>
                             <Grid item container xs={4} justify="center" alignContent="center">

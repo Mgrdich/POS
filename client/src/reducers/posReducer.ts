@@ -27,9 +27,10 @@ const initialState: IPOSReducer = {
     createdBy: {
         _id: '',
         name: ''
-    },
+    }, //TODO to be removed later
     Orders: {},
     tableHashed: {},
+    groupActions:{},
     isLoading: false,
     error: false
 };
@@ -116,6 +117,24 @@ export default function (state: IPOSReducer = initialState, action: any): any {
                             quantity:quantity,
                         }
                     },
+                },
+                groupActions: {
+                    ...state.groupActions,
+                    [orderId]: {
+                        ...state.groupActions[orderId],
+                        [id]: true
+                    }
+                }
+            };
+        case POS_TYPES.SET_GROUP_ACTIONS:
+            return {
+                ...state,
+                groupActions: {
+                    ...state.groupActions,
+                    [payload.orderId]: {
+                        ...state.groupActions[payload.orderId],
+                        [payload.productId]:payload.check
+                    }
                 }
             };
         case POS_TYPES.SET_ORDER_INFO:

@@ -69,6 +69,14 @@ export const setUnSubmittedOrder: action = (productId, productGroupId, orderId) 
     };
 };
 
+export const setGroupAction :action = (orderId:string,productId:string,check:boolean) => {
+    console.log(orderId,productId,check);
+    return {
+        type:POS_TYPES.SET_GROUP_ACTIONS,
+        payload:{orderId,productId,check}
+    }
+};
+
 export const setWaiter: action = (user: { _id: string, name: string }) => {
     return {
         type: POS_TYPES.SET_WAITER,
