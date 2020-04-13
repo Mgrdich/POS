@@ -88,15 +88,21 @@ export async function getOrder(req: Request, res: Response, next: NextFunction):
         let formalizeOrder = order.orders;
         let dataOrders:Array<any> = [];
 
-        for (let i = 0; i < formalizeOrder.length ; i++) { //TODO mix the TODO with reduce
-            dataOrders = [...dataOrders,...formalizeOrder[i]._id.data]
+        for (let i = 0; i < formalizeOrder.length ; i++) { //TODO check for another way
+            let obj:any = {...formalizeOrder[i]._id.data};
+            dataOrders.push(obj['0']);
         }
 
         dataOrders = dataOrders.reduce(function (acc:any,curr:any) {
             let obj:any = {...acc};
+            let quantity:number;
+            if(acc[curr.product._id]) {
+                quantity = curr.quantity + acc[curr.product._id].quantity;
+            }
+
             obj[curr.product._id] = {
                 _id:curr.product._id,
-                quantity:curr.quantity,
+                quantity:(quantity)?quantity:curr.quantity,
                 productGroupId:curr.product.group,
                 price:curr.product.price,
                 name:curr.product.name
