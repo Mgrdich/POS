@@ -4,6 +4,8 @@ import MyTableBody from "./MyTableBody";
 import {Table, TablePagination} from "@material-ui/core";
 import {usePagination} from "../../Hooks/usePagination";
 import {IMyTable} from "../../../interfaces/Reusable";
+import Paper from "@material-ui/core/Paper";
+import TableContainer from "@material-ui/core/TableContainer";
 
 
 //TODO make the use Pagination hook more reusable
@@ -15,6 +17,8 @@ const MyTable: React.FC<IMyTable> = (props) => {
 
     return (
         <>
+            <Paper className='table-container'>
+            <TableContainer>
             <Table>
                 <MyTableHead data={thead} keys={keys} actionsTypes={actionsTypes}/>
                 <MyTableBody
@@ -26,7 +30,9 @@ const MyTable: React.FC<IMyTable> = (props) => {
                     handleActions={handleActions}
                 />
             </Table>
+            </TableContainer>
             {pagination && <TablePagination
+                color='primary'
                 rowsPerPageOptions={paginationRowsCount}
                 component="div"
                 count={tbody.length}
@@ -35,6 +41,7 @@ const MyTable: React.FC<IMyTable> = (props) => {
                 onChangePage={handleChangePage}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
             />}
+            </Paper>
         </>
     );
 };

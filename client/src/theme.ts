@@ -47,6 +47,18 @@ theme = createMuiTheme({
                 color: '#fff'
             },
         },
+        MuiTableCell:{
+            head:{
+               color:'#66fcf1',
+                borderBottom:'1px solid #66fcf1',
+            }
+        },
+        MuiTablePagination:{
+            root:{
+                color:'#66fcf1',
+                borderTop:'1px solid #66fcf1',
+            }
+        }
     }
 });
 

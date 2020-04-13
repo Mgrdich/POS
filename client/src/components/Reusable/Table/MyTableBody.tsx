@@ -22,13 +22,13 @@ const MyTableBody: React.FC<IMyTableBody> = (props) => {
                                         switch (item) {
                                             case 'Delete':
                                                 return (
-                                                        <DeleteIcon key={item}  style={{cursor: 'pointer'}}
+                                                        <DeleteIcon color='primary' key={item}  style={{cursor: 'pointer'}}
                                                                     onClick={() => (handleActions) ? handleActions('delete', {...row}) : null}/>
                                                 );
 
                                             case 'Edit':
                                                 return (
-                                                        <EditIcon key={item} style={{cursor:'pointer'}}
+                                                        <EditIcon color='primary' key={item} style={{cursor:'pointer'}}
                                                                   onClick={() => (handleActions) ? handleActions('edit', {...row}) : null}/>
                                                 );
                                             default:

@@ -422,3 +422,6 @@ section.content h1 {
 .order-button-container button {
   width: 40%;
   margin: 5px; }
+
+.table-container {
+  margin: 15px; }
