@@ -12,12 +12,12 @@ const MyTableHead: React.FC<IMyTableHead> = (props) => {
                 <TableRow>
                     {
                          actionsTypes?.length ?
-                            (<TableCell >Actions</TableCell>)
+                            (<TableCell className='table-cell' >Actions</TableCell>)
                         :null
                     }
                     {
                         keys.map(item => (
-                            <TableCell key={item}>{data[item]}</TableCell>
+                            <TableCell className='table-cell' key={item}>{data[item]}</TableCell>
                         ))
                     }
                 </TableRow>

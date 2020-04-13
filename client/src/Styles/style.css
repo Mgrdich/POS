@@ -425,3 +425,6 @@ section.content h1 {
 
 .table-container {
   margin: 15px; }
+
+.table-cell {
+  white-space: nowrap; }
