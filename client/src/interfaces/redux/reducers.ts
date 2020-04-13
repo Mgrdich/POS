@@ -4,13 +4,7 @@
 * */
 export interface IAuthReducer {
     isAuthenticated: boolean;
-    user:{
-        id: string;
-        name: string;
-        role: string;
-        iat: number;
-        exp: number;
-    } | object;
+    user:any;
 }
 
 /**
