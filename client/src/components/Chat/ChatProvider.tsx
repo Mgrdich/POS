@@ -4,7 +4,7 @@ import {IChatProvider} from "../../interfaces/Chat";
 
 export const ChatContext = createContext<Array<any>>([]);
 
-const ChatProvider: React.FC <IChatProvider> = (props) => { //tODO types to useReducer
+const ChatProvider: React.FC <IChatProvider> = (props) => {
     const {children} = props;
     const [state, dispatch] = useReducer<any>(ChatDataReducer, {
         users: [],

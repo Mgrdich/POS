@@ -24,7 +24,7 @@ const ConversationFooter: React.FC = () => {
 
     },[state.user,state.group,value]);
 
-    const handleSendMessageOnEnter = useCallback(function (e:any) { //TODO check typescript event
+    const handleSendMessageOnEnter = useCallback(function (e:React.KeyboardEvent) {
         if (e.keyCode === 13) {
 
             if (value === '') {
@@ -51,7 +51,7 @@ const ConversationFooter: React.FC = () => {
                         size="small"
                         value={value}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)}
-                        onKeyUp={(e) => handleSendMessageOnEnter(e)}
+                        onKeyUp={(e:React.KeyboardEvent<HTMLInputElement>) => handleSendMessageOnEnter(e)}
                     />
                 </Grid>
                 <Grid  item xs={2} container direction='row' justify='center' alignItems='center'>
