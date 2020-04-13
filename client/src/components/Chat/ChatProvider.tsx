@@ -1,4 +1,4 @@
-import React, {createContext, ReactNode, useReducer} from 'react';
+import React, {createContext, useReducer} from 'react';
 import {ChatDataReducer} from "./ChatReducers";
 import {IChatProvider} from "../../interfaces/Chat";
 
