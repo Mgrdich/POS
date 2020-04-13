@@ -72,7 +72,9 @@ $right-msg-bg: transparent;
           font-weight: 500;
           font-size: 16px;
           margin-left: 20px;
-          min-width: fit-content;
+          min-width: auto;
+          white-space: nowrap;
+
         }
       }
       .drop-wrapper{
