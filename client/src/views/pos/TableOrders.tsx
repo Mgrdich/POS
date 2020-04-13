@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useRef, useState} from 'react';
 import {Button, Checkbox, Grid, IconButton, Paper} from "@material-ui/core";
 import TableOrderHeader from "./TableOrderHeader";
 import {useDispatch, useSelector} from "react-redux";
@@ -34,6 +34,7 @@ const TableOrders: React.FC = () => {
     const Orders:any = useSelector<any>(state => state.pos.Orders);
     const ordersId: any = useSelector<any>(state => state.pos.orders._id);
     const dispatch = useDispatch();
+    const listContainer = useRef<any>(null);
 
     useEffect(function () {
         if (!isEmpty(nonSubmittedOrders[ordersId])) {
@@ -53,9 +54,14 @@ const TableOrders: React.FC = () => {
         dispatch(fetchTableOrders(ordersId));
     },[dispatch, ordersId]);
 
+    useEffect(function(){
+        console.log("working");
+        listContainer.current.scrollBy({top:listContainer.current.scrollHeight, left: 0, behaviour: "smooth"})
+    },[nonSubmittedOrdersKeys,submittedOrdersKeys]);
+
     return (
         <div className="table-order-container">
-            <Paper className="products-paper">
+            <Paper className="products-paper" ref={listContainer}>
                 <div className="products-header">
                     <h1>Table order</h1>
                 </div>
