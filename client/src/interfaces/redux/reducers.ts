@@ -4,7 +4,13 @@
 * */
 export interface IAuthReducer {
     isAuthenticated: boolean;
-    user: any; //TODO typed
+    user: {
+        id: string;
+        name: string;
+        role: string;
+        iat: number;
+        exp: number;
+    };
 }
 
 /**
