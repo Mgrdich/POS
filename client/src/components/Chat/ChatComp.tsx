@@ -10,7 +10,7 @@ import {ChatContext} from "./ChatProvider";
 
 const ChatComp: React.FC = () => {
     const [filter, setFilter] = useState<string>('');
-    const [state, dispatch] = useContext(ChatContext);
+    const [state] = useContext(ChatContext);
     const {data: users, isLoading} = useFetch('/users/chat'); //from outside
     const {data: groupUsers, isLoading: groupLoading} = useFetch('/group-chat', state.fetch);
     const [tab, setTab] = useState<number>(0);
