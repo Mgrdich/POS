@@ -22,9 +22,13 @@ export const submitTableOrders: actionVoid = (orderId:string) => async (dispatch
     data.orders = Object.keys(orders).reduce(function (acc: Array<any>, id: string) {
         let obj: any = {};
         if (groupActions[id]) {
+            let productGroupId:string = orders[id].productsGroupId;
+            let product: { _id: string, name: string, price: number } = pos.productsGroups.data[productGroupId].products[id];
             obj.product = id;
             obj.quantity = orders[id].quantity;
-            obj.productsGroupId = orders[id].productsGroupId;
+            obj.productsGroupId = productGroupId;
+            obj.name = product.name;
+            obj.price = product.price;
             acc.push(obj);
         }
         return acc;
@@ -49,22 +53,16 @@ export const submitTableOrders: actionVoid = (orderId:string) => async (dispatch
     }
 };
 
-export const fetchTableOrders: actionVoid = (orderId: string) => async (dispatch: Dispatch,getState: () => IState) => {
-    const {pos} = getState();
+export const fetchTableOrders: actionVoid = (orderId: string) => async (dispatch: Dispatch) => {
     try {
         const res:AxiosResponse = await axios.get(`/orders/${orderId}`);
-        const orders:Array<any> = hashingArray(res.data.orders,"product","_id");
-        for (let i = 0; i < res.data.orders; i++) {
-            let item = res.data.orders[i];
-
-        }
+        dispatch({type: POS_TYPES.FETCH_TABLE_ORDER, payload: {data: res.data.orders, orderId}});
     } catch (e) {
-        dispatch({type: POS_TYPES.SUBMIT_TABLE_ORDER});
+        dispatch({type: POS_TYPES.SET_ERROR});
     }
 };
 
 export const setQuantityOrderProduct: action = (orderId:string,productId:string,newQuantity:number) => {
-    console.log("sssss");
     return {
         type:POS_TYPES.SET_ORDER_QUANTITY,
         payload:{orderId,productId,quantity:newQuantity}

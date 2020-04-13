@@ -66,8 +66,7 @@ const TableOrders: React.FC = () => {
                 </div>
                 <TableOrderHeader/>
                 {!isEmpty(Orders[ordersId]) && submittedOrdersKeys.length? submittedOrdersKeys.map((key: string) => {
-                    let productGroupId = Orders[ordersId][key].productsGroupId;
-                    let product = productsGroupData[productGroupId].products[key];
+                    let product = Orders[ordersId][key];
                     return (
                         <Grid key={key} container direction="row" justify="space-between" className="nonSubmitted">
                             <Grid item container xs={1} justify="center" alignContent="center">
@@ -77,7 +76,7 @@ const TableOrders: React.FC = () => {
                             </Grid>
                             <Grid item container xs={4} justify="center" alignContent="center">
                             <span>
-                                {Orders[ordersId][key].quantity}
+                                {product.quantity}
                             </span>
                             </Grid>
                             <Grid item container xs={3} justify="center" alignContent="center">
@@ -123,7 +122,8 @@ const TableOrders: React.FC = () => {
                 }) : null}
 
 
-                {!isEmpty(nonSubmittedOrders[ordersId]) && nonSubmittedOrdersKeys.length?<div className="order-button-container">
+                {!isEmpty(nonSubmittedOrders[ordersId]) && nonSubmittedOrdersKeys.length?
+                    <div className="order-button-container">
                     <Button
                         variant="outlined"
                         color="primary"

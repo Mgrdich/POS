@@ -74,15 +74,37 @@ export async function getOrder(req: Request, res: Response, next: NextFunction):
         let order: IDocOrders = await Orders.findById(req.params.id, {
             price:1,
             orders:1
-        }).lean().populate('orders._id'); //TODO multiple layer populate
+        }).lean().populate({
+            path:'orders._id',
+            select:'data price',
+            populate:{
+                path:'data.product',
+                select:'group name price'
+            }
+        });
         if (!order) {
             errorThrower(NO_SUCH_DATA_EXISTS, 422); //TODO check the validity
         }
         let formalizeOrder = order.orders;
         let dataOrders:Array<any> = [];
-        for (let i = 0; i < formalizeOrder.length ; i++) {
+
+        for (let i = 0; i < formalizeOrder.length ; i++) { //TODO mix the TODO with reduce
             dataOrders = [...dataOrders,...formalizeOrder[i]._id.data]
         }
+
+        dataOrders = dataOrders.reduce(function (acc:any,curr:any) {
+            let obj:any = {...acc};
+            obj[curr.product._id] = {
+                _id:curr.product._id,
+                quantity:curr.quantity,
+                productGroupId:curr.product.group,
+                price:curr.product.price,
+                name:curr.product.name
+            };
+            return obj
+        },{});
+
+
         let orderJson = {
           _id:order._id ,
           orders:dataOrders,

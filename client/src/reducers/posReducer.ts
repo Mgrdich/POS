@@ -82,6 +82,14 @@ export default function (state: IPOSReducer = initialState, action: any): any {
                     isLoading: false,
                 }
             };
+        case POS_TYPES.FETCH_TABLE_ORDER:
+            return {
+                ...state,
+                Orders: {
+                    ...state.Orders,
+                    [payload.orderId]: payload.data
+                }
+            };
         case POS_TYPES.FETCH_TABLES:
             return {
                 ...state,

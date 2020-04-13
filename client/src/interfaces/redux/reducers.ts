@@ -27,13 +27,15 @@ export interface IPOSReducer {
     };
     productsGroups: {
         data: {
-            [key: string]: {
+            [productGroupId: string]: {
                 _id: string;
                 products: {
-                    _id:string,
-                    name:string,
-                    price:number
-                } | null;
+                    [productId: string]: {
+                        _id: string,
+                        name: string,
+                        price: number
+                    }
+                };
                 name: string;
             };
         },
@@ -71,7 +73,9 @@ export interface IPOSReducer {
             [id: string]: { //product id
                 _id: string,
                 quantity: number,
-                productGroupId:string
+                productGroupId:string,
+                name:string,
+                price:string
             }
         }
     };
