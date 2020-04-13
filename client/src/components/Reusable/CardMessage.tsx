@@ -10,7 +10,7 @@ const CardMessage : React.FC<ICardMessage>= (props) => {
     const history = useHistory();
 
     return (
-        <Card>
+        <Card className='card-container'>
             <CardContent>
                 <Box
                     display={'flex'}

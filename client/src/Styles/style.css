@@ -427,3 +427,6 @@ section.content h1 {
 
 .table-cell {
   white-space: nowrap; }
+
+.card-container {
+  margin: 15px; }
