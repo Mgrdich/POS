@@ -114,11 +114,25 @@ export const setUnSubmittedOrder: action = (productId, productGroupId, orderId) 
 };
 
 export const setGroupAction :action = (orderId:string,productId:string,check:boolean) => {
-    console.log({orderId,productId,check});
     return {
         type:POS_TYPES.SET_GROUP_ACTIONS,
         payload:{orderId,productId,check}
     }
+};
+
+export const deleteGroupAction:actionVoid = (orderId:string) =>(dispatch: Dispatch, getState: () => IState) => {
+    const {pos} = getState();
+    let newNonSubmittedOrdersId = {...pos.nonSubmittedOrders[orderId]};
+    let groupActionOrder:any = { ...pos.groupActions[orderId] };
+    let groupActionsKeys:Array<string> = Object.keys(groupActionOrder); //productId it is hashed that way
+    for (let i = 0; i < groupActionsKeys.length; i++) {
+        let keyProduct: string = groupActionsKeys[i];
+        if (groupActionOrder[keyProduct]) {
+            delete newNonSubmittedOrdersId[keyProduct];
+            delete groupActionOrder[keyProduct];
+        }
+    }
+    dispatch({type:POS_TYPES.DELETE_GROUP_ACTIONS,payload:{nonSubmittedOrders:newNonSubmittedOrdersId,orderId,groupOrderActions:groupActionOrder}})
 };
 
 export const setAllGroupActions:actionVoid = (orderId:string,check:boolean) =>(dispatch: Dispatch, getState: () => IState) => {

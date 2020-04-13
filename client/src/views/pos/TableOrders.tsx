@@ -5,7 +5,13 @@ import {useDispatch, useSelector} from "react-redux";
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 import {isEmpty} from "../../util/functions";
-import {fetchTableOrders, setGroupAction, setQuantityOrderProduct, submitTableOrders} from "../../actions/posActions";
+import {
+    deleteGroupAction,
+    fetchTableOrders,
+    setGroupAction,
+    setQuantityOrderProduct,
+    submitTableOrders
+} from "../../actions/posActions";
 
 /*
 function renderProduct(id:string,name:string,quantity:number,price:number):JSX.Element {
@@ -87,6 +93,9 @@ const TableOrders: React.FC = () => {
 
 
                 {!isEmpty(nonSubmittedOrders[ordersId]) && nonSubmittedOrdersKeys.length? nonSubmittedOrdersKeys.map((key: string) => {
+                    if(!nonSubmittedOrders[ordersId][key]) { //TODO check the reason
+                        return
+                    }
                     let productGroupId = nonSubmittedOrders[ordersId][key].productsGroupId;
                     let product = productsGroupData[productGroupId].products[key];
                     let productQuantity:number = nonSubmittedOrders[ordersId][key].quantity;
@@ -128,6 +137,7 @@ const TableOrders: React.FC = () => {
                         variant="outlined"
                         color="primary"
                         type="button"
+                        onClick={()=>dispatch(deleteGroupAction(ordersId))}
                     > delete </Button>
                     <Button
                         variant="outlined"

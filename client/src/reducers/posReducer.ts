@@ -160,6 +160,23 @@ export default function (state: IPOSReducer = initialState, action: any): any {
                     }
                 }
             };
+        case POS_TYPES.DELETE_GROUP_ACTIONS:
+            return {
+                ...state,
+                nonSubmittedOrders: {
+                    ...state.nonSubmittedOrders,
+                    [payload.orderId]: {
+                        ...payload.nonSubmittedOrders
+                    }
+                },
+                groupActions:{
+                    ...state.groupActions,
+                    [payload.orderId]:{
+                        ...state.groupActions[payload.orderId],
+                        ...payload.groupOrderActions
+                    }
+                }
+            };
         case POS_TYPES.SET_GROUP_ACTIONS:
             return {
                 ...state,
