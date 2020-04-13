@@ -23,12 +23,9 @@ import {createGroupChat, createGroupChatVal} from "./configs";
 import DialogContent from "@material-ui/core/DialogContent";
 import {IAlertAxiosResponse} from "../../interfaces/General";
 import axios from "axios";
+import {IChatList} from "../../interfaces/Chat";
 
-interface IChatList { //TODO seperate file
-    filter: string;
-    data: Array<any>;
-    isLoading: boolean;
-}
+
 
 const GroupList: React.FC<IChatList> = (props) => {
     const {filter, data: users, isLoading} = props;

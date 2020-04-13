@@ -1,9 +1,11 @@
-import React, {createContext, useReducer} from 'react';
+import React, {createContext, ReactNode, useReducer} from 'react';
 import {ChatDataReducer} from "./ChatReducers";
+import {IChatProvider} from "../../interfaces/Chat";
 
 export const ChatContext = createContext<Array<any>>([]);
 
-const ChatProvider: React.FC = (props) => { //tODO types to useReducer
+const ChatProvider: React.FC <IChatProvider> = (props) => { //tODO types to useReducer
+    const {children} = props;
     const [state, dispatch] = useReducer<any>(ChatDataReducer, {
         users: [],
         user: null,
@@ -15,7 +17,7 @@ const ChatProvider: React.FC = (props) => { //tODO types to useReducer
 
     return (
         <ChatContext.Provider value={[state, dispatch]}>
-            {props.children}
+            {children}
         </ChatContext.Provider>
     );
 };
