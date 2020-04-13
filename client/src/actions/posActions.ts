@@ -97,7 +97,7 @@ export const openOrder: actionVoid = (tableId: string) => async (dispatch: Dispa
     try {
         dispatch({type: POS_TYPES.SET_LOADING_INFO});
         const res: AxiosResponse = await axios.put('/orders', {
-            waiter: pos.waiter._id && auth.user.id, //TODO always make the waiter chosen
+            waiter: pos.waiter._id || auth.user.id, //TODO always make the waiter chosen
             table: tableId
         });
         dispatch({type: POS_TYPES.CREATE_ORDER_INFO, payload: {data: res.data, tableId}});
@@ -114,6 +114,7 @@ export const setUnSubmittedOrder: action = (productId, productGroupId, orderId) 
 };
 
 export const setGroupAction :action = (orderId:string,productId:string,check:boolean) => {
+    console.log({orderId,productId,check});
     return {
         type:POS_TYPES.SET_GROUP_ACTIONS,
         payload:{orderId,productId,check}
