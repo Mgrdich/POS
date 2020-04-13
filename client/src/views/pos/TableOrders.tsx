@@ -65,8 +65,6 @@ const TableOrders: React.FC = () => {
                     let product = productsGroupData[productGroupId].products[key];
                     return (
                         <Grid key={key} container direction="row" justify="space-between" className="nonSubmitted">
-                            <Grid item container xs={1} justify="center" alignContent="center">
-                            </Grid>
                             <Grid item container xs={4} justify="center" alignContent="center">
                                 <span>{product.name}</span>
                             </Grid>

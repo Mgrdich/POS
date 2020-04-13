@@ -16,7 +16,7 @@ const TableOrderHeader: React.FC = () => {
     const dispatch = useDispatch();
 
     return (
-        <Grid container direction="row" justify="space-between">
+        <Grid container direction="row" justify="space-between" alignItems="center">
             <Grid item container xs={1} justify="center">
                 <Checkbox
                     checked={checked}

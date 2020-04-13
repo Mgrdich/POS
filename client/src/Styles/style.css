@@ -412,7 +412,6 @@ section.content h1 {
   padding: 40px; }
 
 .order-button-container {
-  position: absolute;
   width: 100%;
   display: flex;
   justify-content: space-between;
