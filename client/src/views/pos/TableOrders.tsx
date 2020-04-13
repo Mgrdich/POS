@@ -51,7 +51,7 @@ const TableOrders: React.FC = () => {
 
     useEffect(function () {
         dispatch(fetchTableOrders(ordersId));
-    },[dispatch]);
+    },[dispatch, ordersId]);
 
     return (
         <div className="table-order-container">

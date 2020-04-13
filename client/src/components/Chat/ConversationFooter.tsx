@@ -1,10 +1,9 @@
 import React, {ChangeEvent, useCallback, useContext, useState} from 'react';
 import Grid from "@material-ui/core/Grid";
-import {Icon, TextField} from "@material-ui/core";
+import {TextField} from "@material-ui/core";
 import {ChatContext} from "./ChatProvider";
 import {socket} from "../../App";
 import SendIcon from '@material-ui/icons/Send';
-import IconButton from '@material-ui/core/IconButton';
 import Button from "@material-ui/core/Button";
 
 const ConversationFooter: React.FC = () => {

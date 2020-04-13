@@ -43,7 +43,7 @@ const ConversationHeader: React.FC = () => {
             }
             setterError(e.response.data.data);
         });
-    }, [state.group, dispatch]);
+    }, [state.group, dispatch,handleClose, setterError]);
 
     const onDelete = useCallback(() => {
         axios.delete(`/group-chat/${state.group._id}`)
@@ -57,7 +57,7 @@ const ConversationHeader: React.FC = () => {
             }
             setterError(e.response.data.data);
         });
-    }, [state.group, dispatch]);
+    }, [state.group, dispatch, setterError, handleCloseGroupDelete]);
 
     return (
         <div className="conversationHeader">

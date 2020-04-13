@@ -13,7 +13,7 @@ interface IChatList {
 const ChatList: React.FC<IChatList> = (props) => {
     const {filter, data: users, isLoading} = props;
     const [data, setData] = useState<Array<any>>();
-    const [state,dispatch] = useContext(ChatContext);
+    const dispatch = useContext(ChatContext)[1];
 
     useEffect(function () {
         if (!isLoading) {

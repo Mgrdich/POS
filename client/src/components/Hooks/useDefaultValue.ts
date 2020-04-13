@@ -12,7 +12,7 @@ export function useDefaultValue(inputFields: Array<InputField>,data:any) {
             });
             setInputFields(newInputFields);
         }
-    }, [data]);
+    }, [data, myInputFields]);
 
     return myInputFields;
 }

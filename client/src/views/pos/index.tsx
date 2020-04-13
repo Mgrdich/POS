@@ -22,7 +22,7 @@ const Pos: React.FC = () => {
     const tableClick = useCallback(function (tableId:string) {
         history.push(`/pos/${tableId}`);
         dispatch(setOrderId(tableId));
-    },[dispatch]);
+    },[dispatch, history]);
 
     return (
         <div>
