@@ -20,7 +20,7 @@ const ProductsGroups:React.FC = () => {
 
     return (
         <div className="product-groups-container">
-        <Paper className="products-paper">
+        <Paper className="products-scrollable-paper">
             <div className="products-header">
                 <h1>Menu</h1>
             </div>

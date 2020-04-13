@@ -17,7 +17,7 @@ const Products: React.FC<any> = () => {
 
     return (
         <div className="products-container">
-        <Paper className="products-scrollable-paper products-paper">
+        <Paper className="products-scrollable-paper">
             <TextField
                 label="Search Products"
                 id="products-search"

@@ -114,7 +114,7 @@ const TableOrders: React.FC = () => {
                 }) : null}
 
 
-                <div className="order-button-container">
+                {!isEmpty(nonSubmittedOrders[ordersId]) && nonSubmittedOrdersKeys.length?<div className="order-button-container">
                     <Button
                         variant="outlined"
                         color="primary"
@@ -136,7 +136,7 @@ const TableOrders: React.FC = () => {
                         type="button"
                         onClick={()=>dispatch(submitTableOrders(ordersId))}
                     > submit </Button>
-                </div>
+                </div>: null}
             </Paper>
         </div>
     );
