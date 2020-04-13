@@ -428,5 +428,10 @@ section.content h1 {
 .table-cell {
   white-space: nowrap; }
 
+.ellipses {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden; }
+
 .card-container {
   margin: 15px; }

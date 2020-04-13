@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useEffect, useRef, useState} from 'react';
-import {Button, Checkbox, Grid, IconButton, Paper} from "@material-ui/core";
+import {Button, Checkbox, Grid, IconButton, Paper, Tooltip} from "@material-ui/core";
 import TableOrderHeader from "./TableOrderHeader";
 import {useDispatch, useSelector} from "react-redux";
 import RemoveIcon from '@material-ui/icons/Remove';
@@ -71,10 +71,12 @@ const TableOrders: React.FC = () => {
                     let product = productsGroupData[productGroupId].products[key];
                     return (
                         <Grid key={key} container direction="row" justify="space-between" className="nonSubmitted">
+                            <Grid item container xs={1} justify="center" alignContent="center">
+                            </Grid>
                             <Grid item container xs={4} justify="center" alignContent="center">
                                 <span>{product.name}</span>
                             </Grid>
-                            <Grid item container xs={4} justify="center">
+                            <Grid item container xs={4} justify="center" alignContent="center">
                             <span>
                                 {Orders[ordersId][key].quantity}
                             </span>
@@ -102,9 +104,11 @@ const TableOrders: React.FC = () => {
                                 />
                             </Grid>
                             <Grid item container xs={4} justify="center" alignContent="center">
-                                <span>{product.name}</span>
+                                <Tooltip title={product.name} placement="top" arrow>
+                                    <span className="ellipses">{product.name}</span>
+                                </Tooltip>
                             </Grid>
-                            <Grid item container xs={4} justify="center">
+                            <Grid item container xs={4} justify="center" alignContent="center">
                             <span>
                                 <IconButton color="primary" onClick={()=>dispatch(setQuantityOrderProduct(ordersId,key,(productQuantity-1)))}><RemoveIcon/></IconButton>
                                 {productQuantity}
@@ -112,7 +116,9 @@ const TableOrders: React.FC = () => {
                             </span>
                             </Grid>
                             <Grid item container xs={3} justify="center" alignContent="center">
-                                <span>{product.price}</span>
+                                <Tooltip title={product.price} placement="top" arrow>
+                                    <span className="ellipses">{product.price}</span>
+                                </Tooltip>
                             </Grid>
                         </Grid>)
                 }) : null}

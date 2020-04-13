@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, CardActionArea, CardContent, CardMedia, Typography} from "@material-ui/core";
+import {Card, CardActionArea, CardContent, CardMedia, Tooltip, Typography} from "@material-ui/core";
 
 const MenuCard: React.FC<any> = (props: any) => { //TODO interface
     const {products, image,onClick} = props;
@@ -15,7 +15,9 @@ const MenuCard: React.FC<any> = (props: any) => { //TODO interface
                         title="Contemplative Reptile"
                     />}
                     <CardContent className={` ${image ? '' : 'image'}`}>
-                        <Typography>{products.name}</Typography>
+                        <Tooltip title={products.name} placement="top" arrow>
+                            <Typography className="ellipses">{products.name}</Typography>
+                        </Tooltip>
                         <Typography>{products.price}</Typography>
 
                     </CardContent>
