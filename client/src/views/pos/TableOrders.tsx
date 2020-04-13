@@ -55,7 +55,6 @@ const TableOrders: React.FC = () => {
     },[dispatch, ordersId]);
 
     useEffect(function(){
-        console.log("working");
         listContainer.current.scrollBy({top:listContainer.current.scrollHeight, left: 0, behaviour: "smooth"})
     },[nonSubmittedOrdersKeys,submittedOrdersKeys]);
 
