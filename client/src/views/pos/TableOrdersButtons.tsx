@@ -1,43 +1,45 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Button} from "@material-ui/core";
-import {deleteGroupAction, fetchTableOrders, submitTableOrders} from "../../actions/posActions";
+import {deleteGroupAction, submitTableOrders} from "../../actions/posActions";
 import {useDispatch, useSelector} from "react-redux";
 import DeleteIcon from '@material-ui/icons/Delete';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import DoneIcon from '@material-ui/icons/Done';
 
-const TableOrdersButtons : React.FC  = () => {
+interface ITableOrdersButtons {
+    disable:boolean;
+}
+
+const TableOrdersButtons : React.FC<ITableOrdersButtons>  = (props) => {
     const ordersId: any = useSelector<any>(state => state.pos.orders._id);
     const dispatch = useDispatch();
 
     return (
         <>
-                <div className="order-button-container">
-                    <div className="table-order-total-price">
-                        <span> Total price = 5000</span>
-                    </div>
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        type="button"
-                        startIcon={<DeleteIcon />}
-                        onClick={()=>dispatch(deleteGroupAction(ordersId))}
-                    > delete </Button>
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        type="button"
-                        onClick={()=>dispatch(submitTableOrders(ordersId))}
-                        startIcon={<KeyboardArrowUpIcon />}
-                    > submit </Button>
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        type="button"
-                        className="large-button"
-                        startIcon={<DoneIcon />}
-                    > Finish order </Button>
-                </div>
+            <Button
+                variant="outlined"
+                color="primary"
+                type="button"
+                startIcon={<DeleteIcon/>}
+                onClick={() => dispatch(deleteGroupAction(ordersId))}
+                disabled={props.disable}
+            > delete </Button>
+            <Button
+                variant="outlined"
+                color="primary"
+                type="button"
+                onClick={() => dispatch(submitTableOrders(ordersId))}
+                disabled={props.disable}
+                startIcon={<KeyboardArrowUpIcon/>}
+            > submit </Button>
+            <Button
+                variant="outlined"
+                color="primary"
+                type="button"
+                className="large-button"
+                startIcon={<DoneIcon/>}
+                disabled={props.disable}
+            > Finish order </Button>
         </>
     );
 };

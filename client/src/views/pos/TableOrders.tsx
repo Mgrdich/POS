@@ -123,8 +123,12 @@ const TableOrders: React.FC = () => {
                         </Grid>)
                 }) : null}
                 </div>
-                {submittedOrdersKeys.length && !nonSubmittedOrdersKeys.length? null:
-                   <TableOrdersButtons />}
+                <div className="order-button-container">
+                    <div className="table-order-total-price">
+                        <span> Total price = 5000</span>
+                    </div>
+                    <TableOrdersButtons disable={!nonSubmittedOrdersKeys.length}/>
+                </div>
             </Paper>
         </div>
     );
