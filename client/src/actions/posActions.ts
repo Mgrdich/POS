@@ -50,8 +50,6 @@ export const submitTableOrders: actionVoid = (orderId:string) => async (dispatch
                 return obj;
             },{});
 
-            console.log(dispatchedOrdersObj);
-
             dispatch(
                 {
                     type: POS_TYPES.SUBMIT_TABLE_ORDER,
