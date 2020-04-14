@@ -18,6 +18,7 @@ export const submitTableOrders: actionVoid = (orderId:string) => async (dispatch
 
     let groupActions = pos.groupActions[orderId];
     let orders = pos.nonSubmittedOrders[orderId];
+    let OrdersOrderId = pos.Orders[orderId];
 
     data.orders = Object.keys(orders).reduce(function (acc: Array<any>, id: string) {
         let obj: any = {};
@@ -39,11 +40,23 @@ export const submitTableOrders: actionVoid = (orderId:string) => async (dispatch
     try {
         const res: AxiosResponse = await axios.put(`/orders/${orderId}`, data);
         if (res.data.alert === 'success') {
+            let hashedProductOrders:any = hashingArray(data.orders, "product", "_id");
+            let dispatchedOrdersObj:any =  Object.keys(hashedProductOrders).reduce(function (acc:any,productId:string) {
+                let obj:any = {...acc};
+                obj[productId] = hashedProductOrders[productId];
+                if(OrdersOrderId[productId]){
+                    obj[productId].quantity += OrdersOrderId[productId].quantity;
+                }
+                return obj;
+            },{});
+
+            console.log(dispatchedOrdersObj);
+
             dispatch(
                 {
                     type: POS_TYPES.SUBMIT_TABLE_ORDER,
                     payload: {
-                        data: hashingArray(data.orders, "product", "_id"),
+                        data: dispatchedOrdersObj,
                         orderId: orderId
                     }
                 });
