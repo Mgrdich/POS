@@ -123,7 +123,6 @@ section {
 
 .products-paper{
   height: 100%;
-  overflow: auto;
   position: relative;
    .MuiFormControl-root{
      width: 30%;
@@ -165,17 +164,37 @@ section {
     padding: 40px;
   }
 }
+.table-add-orders-container{
+  overflow: auto;
+  height: 55%;
+  position: relative;
+}
 
+.table-order-total-price{
+  position:relative;
+  width:100%;
+  display: flex;
+  justify-content:center;
+  color: $primary;
+  border-radius: 4px;
+  border: 1px solid $primary;
+  padding: 10px;
+  margin: 0px 4px 4px 4px;
+}
 
 .order-button-container{
   width: 100%;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-
+  bottom: 0;
+  position: absolute;
+  .large-button{
+    width: 100%;
+  }
     button {
-      width: 40%;
-      margin: 5px;
+      width:45%;
+      margin: 4px;
     }
 
 }

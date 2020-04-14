@@ -1,17 +1,15 @@
 import React, {ChangeEvent, useEffect, useRef, useState} from 'react';
-import {Button, Checkbox, Grid, IconButton, Paper, Tooltip} from "@material-ui/core";
+import {Checkbox, Grid, IconButton, Paper, Tooltip} from "@material-ui/core";
 import TableOrderHeader from "./TableOrderHeader";
 import {useDispatch, useSelector} from "react-redux";
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 import {isEmpty} from "../../util/functions";
 import {
-    deleteGroupAction,
-    fetchTableOrders,
     setGroupAction,
     setQuantityOrderProduct,
-    submitTableOrders
 } from "../../actions/posActions";
+import TableOrdersButtons from "./TableOrdersButtons";
 
 /*
 function renderProduct(id:string,name:string,quantity:number,price:number):JSX.Element {
@@ -56,9 +54,6 @@ const TableOrders: React.FC = () => {
         }
     },[Orders,ordersId]);
 
-    useEffect(function () {
-        dispatch(fetchTableOrders(ordersId));
-    },[dispatch, ordersId]);
 
     useEffect(function(){
         listContainer.current.scrollBy({top:listContainer.current.scrollHeight, left: 0, behaviour: "smooth"})
@@ -66,11 +61,12 @@ const TableOrders: React.FC = () => {
 
     return (
         <div className="table-order-container">
-            <Paper className="products-paper" ref={listContainer}>
+            <Paper className="products-paper">
                 <div className="products-header">
                     <h1>Table order</h1>
                 </div>
-                <TableOrderHeader/>
+                <div className="table-add-orders-container" ref={listContainer}>
+                    <TableOrderHeader/>
                 {!isEmpty(Orders[ordersId]) && submittedOrdersKeys.length? submittedOrdersKeys.map((key: string) => {
                     let product = Orders[ordersId][key];
                     return (
@@ -129,33 +125,9 @@ const TableOrders: React.FC = () => {
                             </Grid>
                         </Grid>)
                 }) : null}
-
-
-                {!isEmpty(nonSubmittedOrders[ordersId]) && nonSubmittedOrdersKeys.length?
-                    <div className="order-button-container">
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        type="button"
-                        onClick={()=>dispatch(deleteGroupAction(ordersId))}
-                    > delete </Button>
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        type="button"
-                    > done </Button>
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        type="button"
-                    > cancel </Button>
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        type="button"
-                        onClick={()=>dispatch(submitTableOrders(ordersId))}
-                    > submit </Button>
-                </div>: null}
+                </div>
+                {submittedOrdersKeys.length && !nonSubmittedOrdersKeys.length? null:
+                   <TableOrdersButtons />}
             </Paper>
         </div>
     );
