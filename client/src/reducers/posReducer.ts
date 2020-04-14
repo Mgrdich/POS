@@ -31,6 +31,7 @@ const initialState: IPOSReducer = {
     Orders: {},
     tableHashed: {},
     groupActions:{},
+    price:{},
     isLoading: false,
     error: false
 };

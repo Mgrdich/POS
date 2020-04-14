@@ -84,6 +84,9 @@ export interface IPOSReducer {
             [productId:string]:boolean; //productId
         }
     };
+    price:{
+        [orderId:string]: number
+    },
     isLoading: boolean; //info Group
     error:boolean;
 }

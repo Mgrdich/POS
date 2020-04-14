@@ -34,6 +34,7 @@ const TableOrders: React.FC = () => {
     const checkedGroupActions:any = useSelector<any>(state => state.pos.groupActions);
     const Orders:any = useSelector<any>(state => state.pos.Orders);
     const ordersId: any = useSelector<any>(state => state.pos.orders._id);
+    const price:any = useSelector<any>(state => state.pos.price);
     const dispatch = useDispatch();
     const listContainer = useRef<any>(null);
 
@@ -125,7 +126,7 @@ const TableOrders: React.FC = () => {
                 </div>
                 <div className="order-button-container">
                     <div className="table-order-total-price">
-                        <span> Total price = 5000</span>
+                        <span> Total price : {price[ordersId] ? price[ordersId] : 0}</span>
                     </div>
                     <TableOrdersButtons disable={!nonSubmittedOrdersKeys.length}/>
                 </div>
