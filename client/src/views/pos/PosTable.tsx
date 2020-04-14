@@ -1,20 +1,45 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Grid, IconButton} from "@material-ui/core";
 import TableOrders from './TableOrders';
 import ProductsGroups from "./ProductsGroups";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import ErrorHandler from "../errors/ErrorHandler";
 import ChosenEmployee from "./ChosenEmployee";
-import {useHistory} from "react-router";
+import {Redirect, useHistory, useParams} from "react-router";
 import Products from "./Products";
-import NoOrder from "./NoOrder";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import {isEmpty} from "../../util/functions";
+import {fetchOrders, fetchTableOrders, setOrderId} from "../../actions/posActions";
+import ComponentLoader from "../../components/Reusable/ComponentLoader";
 
 
 const PosTable: React.FC = () => {
-    const ordersId: any = useSelector<any>(state => state.pos.orders._id);
     const error = useSelector<any>(state => state.pos.error);
+    const Orders:any = useSelector<any>(state => state.pos.Orders);
+    const isLoading:any = useSelector<any>(state => state.pos.isLoading);
+    const tableHashed:any = useSelector<any>(state => state.pos.tableHashed);
+    const orderId:any = useSelector<any>(state => state.pos.orders._id);
+    let dispatch = useDispatch();
     let history = useHistory();
+    let {id} = useParams();
+
+    useEffect(function () {
+        if(isEmpty(Orders)){
+            dispatch(fetchOrders());
+        }
+    },[Orders,id]);
+
+    useEffect(function () {
+        if(!isEmpty(tableHashed)) {
+            dispatch(setOrderId(id))
+        }
+    },[tableHashed,id]);
+
+    useEffect(function () {
+        if (orderId) {
+            dispatch(fetchTableOrders(orderId));
+        }
+    }, [dispatch, orderId]);
 
 
     return (
@@ -28,17 +53,19 @@ const PosTable: React.FC = () => {
                 <ChosenEmployee/>
             </div>
             <ErrorHandler error={error as boolean}>
-                {(ordersId) ? (
-                    <Grid container direction="row" justify="space-around" className="pos-container">
-                        <Grid item xs={12} md={3} className="pos-grid">
-                            <TableOrders />
+                <ComponentLoader isLoading={isLoading || isEmpty(Orders)}>
+                    {(id && tableHashed[id]) ? (
+                        <Grid container direction="row" justify="space-around" className="pos-container">
+                            <Grid item xs={12} md={3} className="pos-grid">
+                                <TableOrders/>
+                            </Grid>
+                            <Grid item xs={12} md={8} className="pos-grid">
+                                <ProductsGroups/>
+                                <Products/>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={12} md={8} className="pos-grid">
-                            <ProductsGroups/>
-                            <Products/>
-                        </Grid>
-                    </Grid>
-                ) : <NoOrder/>}
+                    ) : <Redirect to={`/pos/no-orders/${id}`}/>}
+                </ComponentLoader>
             </ErrorHandler>
         </div>
     );

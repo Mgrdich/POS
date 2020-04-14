@@ -38,13 +38,13 @@ const Routes:React.FC = () => {
     return (
         <>
             <Switch>
-                <PrivateRoute exact path={'/pos'} allowedRoles={superAdminMangerRoles} component={HL_Pos}/>
-                <PrivateRoute exact path={'/noorder'} allowedRoles={superAdminMangerRoles} component={HL_NoOrder}/>
-                <PrivateRoute exact path={'/pos/:id'} component={HL_PosTable}/>
+                <PrivateRoute exact path='/pos' allowedRoles={superAdminMangerRoles} component={HL_Pos}/>
+                <PrivateRoute exact path='/pos/no-orders/:id' component={HL_NoOrder}/>
+                <PrivateRoute exact path='/pos/:id' component={HL_PosTable}/>
                 <PrivateRoute exact path={['/','/dashboard']} component={HL_Dashboard}/>
                 <PrivateRoute exact path={['/products','/product/index']} component={HL_AddProduct}/>
-                <PrivateRoute exact path={'/products/products-group'} component={HL_ProductsGroup}/>
-                <PrivateRoute exact path={'/tables/view-tables'} component={HL_TablesDashboard}/>
+                <PrivateRoute exact path='/products/products-group' component={HL_ProductsGroup}/>
+                <PrivateRoute exact path='/tables/view-tables' component={HL_TablesDashboard}/>
                 <PrivateRoute exact path={['/tables','/tables/index']} component={HL_CreateEditTables}/>
                 <PrivateRoute exact path='/users/create-user' allowedRoles={superAdminMangerRoles} component={HL_CreateUser}/>
                 <PrivateRoute exact path='/users' allowedRoles={superAdminMangerRoles} component={HL_Users}/>

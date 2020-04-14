@@ -10,9 +10,6 @@ const TableOrdersButtons : React.FC  = () => {
     const ordersId: any = useSelector<any>(state => state.pos.orders._id);
     const dispatch = useDispatch();
 
-    useEffect(function () {
-        dispatch(fetchTableOrders(ordersId));
-    },[dispatch, ordersId]);
     return (
         <>
                 <div className="order-button-container">

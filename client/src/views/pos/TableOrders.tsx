@@ -5,11 +5,8 @@ import {useDispatch, useSelector} from "react-redux";
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 import {isEmpty} from "../../util/functions";
-import {
-    setGroupAction,
-    setQuantityOrderProduct,
-} from "../../actions/posActions";
 import TableOrdersButtons from "./TableOrdersButtons";
+import {setGroupAction, setQuantityOrderProduct} from "../../actions/posActions";
 
 /*
 function renderProduct(id:string,name:string,quantity:number,price:number):JSX.Element {
