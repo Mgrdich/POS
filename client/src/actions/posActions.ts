@@ -73,10 +73,10 @@ export const fetchTableOrders: actionVoid = (orderId: string) => async (dispatch
     }
 };
 
-export const setQuantityOrderProduct: action = (orderId:string,productId:string,newQuantity:number) => {
+export const setQuantityOrderProduct: action = (orderId:string,productId:string,quantity:number,magnitude:number) => {
     return {
         type:POS_TYPES.SET_ORDER_QUANTITY,
-        payload:{orderId,productId,quantity:newQuantity}
+        payload:{orderId,productId,quantity:quantity+magnitude,magnitude:magnitude}
     }
 };
 

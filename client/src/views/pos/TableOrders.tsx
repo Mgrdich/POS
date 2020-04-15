@@ -107,9 +107,17 @@ const TableOrders: React.FC = () => {
                             </Grid>
                             <Grid item container xs={4} justify="center" alignContent="center">
                             <span>
-                                <IconButton color="primary" disabled={productQuantity===1} onClick={()=>dispatch(setQuantityOrderProduct(ordersId,key,(productQuantity-1)))}><RemoveIcon/></IconButton>
+                                <IconButton
+                                    color="primary"
+                                    disabled={productQuantity===1}
+                                    onClick={()=>dispatch(setQuantityOrderProduct(ordersId,key,productQuantity,-1))}>
+                                    <RemoveIcon/>
+                                </IconButton>
                                 {productQuantity}
-                                <IconButton onClick={()=>dispatch(setQuantityOrderProduct(ordersId,key,(productQuantity+1)))}><AddIcon color="primary"/></IconButton>
+                                <IconButton
+                                    onClick={()=>dispatch(setQuantityOrderProduct(ordersId,key,productQuantity,1))}>
+                                    <AddIcon color="primary"/>
+                                </IconButton>
                             </span>
                             </Grid>
                             <Grid item container xs={3} justify="center" alignContent="center">

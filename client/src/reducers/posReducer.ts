@@ -123,9 +123,9 @@ export default function (state: IPOSReducer = initialState, action: any): any {
             };
         case POS_TYPES.SET_UN_SUBMITTED_ORDERS:
             let nonSubmittedOrders = (state.nonSubmittedOrders) ? state.nonSubmittedOrders : {};
-            let id = payload.productId;
-            let orderId = payload.orderId;
-            let productPrice = state.productsGroups.data[payload.productGroupId].products[id].price;
+            let id:string = payload.productId;
+            let orderId:string = payload.orderId;
+            let productPrice:number = state.productsGroups.data[payload.productGroupId].products[id].price;
             let quantity:number = 1;
             if(nonSubmittedOrders[orderId] && nonSubmittedOrders[orderId][id]) {
                 quantity = nonSubmittedOrders[orderId][id].quantity+1;
@@ -156,6 +156,8 @@ export default function (state: IPOSReducer = initialState, action: any): any {
                 }
             };
         case POS_TYPES.SET_ORDER_QUANTITY:
+            let productGroupId:string = state.nonSubmittedOrders[payload.orderId][payload.productId].productsGroupId;
+            let priceProduct:number = state.productsGroups.data[productGroupId].products[payload.productId].price;
             return {
               ...state,
                 nonSubmittedOrders: {
@@ -167,6 +169,10 @@ export default function (state: IPOSReducer = initialState, action: any): any {
                             quantity: payload.quantity
                         }
                     }
+                },
+                price:{
+                  ...state.price,
+                    [payload.orderId]: (state.price[payload.orderId] + (priceProduct*payload.magnitude))
                 }
             };
         case POS_TYPES.DELETE_GROUP_ACTIONS:
