@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useRef, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {Checkbox, Grid, IconButton, Paper, Tooltip} from "@material-ui/core";
 import TableOrderHeader from "./TableOrderHeader";
 import {useDispatch, useSelector} from "react-redux";
@@ -7,6 +7,7 @@ import AddIcon from '@material-ui/icons/Add';
 import {isEmpty} from "../../util/functions";
 import TableOrdersButtons from "./TableOrdersButtons";
 import {setGroupAction, setQuantityOrderProduct} from "../../actions/posActions";
+import {useScrollDown} from "../../components/Hooks/useScrollDown";
 
 /*
 function renderProduct(id:string,name:string,quantity:number,price:number):JSX.Element {
@@ -36,7 +37,7 @@ const TableOrders: React.FC = () => {
     const ordersId: any = useSelector<any>(state => state.pos.orders._id);
     const price:any = useSelector<any>(state => state.pos.price);
     const dispatch = useDispatch();
-    const listContainer = useRef<any>(null);
+    const [listContainer] =  useScrollDown(nonSubmittedOrdersKeys,submittedOrdersKeys);
 
     useEffect(function () {
         if (!isEmpty(nonSubmittedOrders[ordersId])) {
@@ -51,11 +52,6 @@ const TableOrders: React.FC = () => {
             setSubmittedOrdersKeys(SubOrderKeys);
         }
     },[Orders,ordersId]);
-
-
-    useEffect(function(){
-        listContainer.current.scrollBy({top:listContainer.current.scrollHeight, left: 0, behaviour: "smooth"})
-    },[nonSubmittedOrdersKeys,submittedOrdersKeys]);
 
     return (
         <div className="table-order-container">

@@ -5,18 +5,13 @@ import {ChatContext} from "./ChatProvider";
 import {useSelector} from "react-redux";
 import {CHAT_ACTIONS} from "./ActionsConfig";
 import axios, {AxiosResponse} from "axios";
+import {useScrollDown} from "../Hooks/useScrollDown";
 
 
 const ConversationBody: React.FC = () => {
     const [state, dispatch] = useContext(ChatContext);
     const user: any = useSelector<any>(state => state.auth.user);
-    const container = useRef<any>(null);
-
-    useEffect(() => {
-        container.current.scrollBy({top: container.current.scrollHeight, left: 0, behavior: 'smooth'})
-        // return () => container.current.lastChild.scrollIntoView()
-    }, [state.messages]);
-
+    const [listContainer] =  useScrollDown(state.messages);
 
 
     useEffect(function () {
@@ -43,7 +38,7 @@ const ConversationBody: React.FC = () => {
     }, [state.user, state.group,dispatch]);
 
     return (
-        <div className="conversationBody" ref={container}>
+        <div className="conversationBody" ref={listContainer}>
             {
                 state.messages.length ? state.messages.map((item: any, index: number) => {
                     if (item.sender._id === user.id) {
