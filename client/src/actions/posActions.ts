@@ -67,7 +67,7 @@ export const submitTableOrders: actionVoid = (orderId:string) => async (dispatch
 export const fetchTableOrders: actionVoid = (orderId: string) => async (dispatch: Dispatch) => {
     try {
         const res:AxiosResponse = await axios.get(`/orders/${orderId}`);
-        dispatch({type: POS_TYPES.FETCH_TABLE_ORDER, payload: {data: res.data.orders, orderId}});
+        dispatch({type: POS_TYPES.FETCH_TABLE_ORDER, payload: {data: res.data.orders, orderId,price:res.data.price}});
     } catch (e) {
         dispatch({type: POS_TYPES.SET_ERROR});
     }

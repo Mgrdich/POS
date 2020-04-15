@@ -89,6 +89,9 @@ export default function (state: IPOSReducer = initialState, action: any): any {
                 Orders: {
                     ...state.Orders,
                     [payload.orderId]: payload.data
+                },
+                price: {
+                    [payload.orderId]: payload.price
                 }
             };
         case POS_TYPES.FETCH_TABLES:
