@@ -114,7 +114,8 @@ export async function getOrder(req: Request, res: Response, next: NextFunction):
         let orderJson = {
           _id:order._id ,
           orders:dataOrders,
-          waiter:order.waiter
+          waiter:order.waiter,
+          price:order.price
         };
         return res.status(200).json(orderJson);
     } catch (err) {

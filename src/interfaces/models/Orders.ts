@@ -13,6 +13,7 @@ export interface IOrders {
     }>;
     waiter: IDocUsers["_id"];
     createdBy: IDocUsers["_id"];
+    price:number;
 }
 
 //Mongoose modal
