@@ -9,13 +9,12 @@ import {
     Typography,
     DialogTitle
 } from '@material-ui/core';
-import {dateFormat} from "../../util/functions";
+import {dateFormat, DefaultValue} from "../../util/functions";
 import {EditAcountDetails, IAccountDetails} from "../../interfaces/Views/Profile";
 import DynamicFields from "../../components/Reusable/DynamicFields";
 import {useForm} from "react-hook-form";
 import {useServerErrorHandle} from "../../components/Hooks/useServerErrorHandle";
 import {AccountDetailsEditInputFields, AccontDetailsValSchema} from "./config";
-import {useDefaultValue} from "../../components/Hooks/useDefaultValue";
 import axios from "axios";
 import {IAlertAxiosResponse} from "../../interfaces/General";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
@@ -29,9 +28,8 @@ const AccountDetails: React.FC<IAccountDetails> = (props) => {
     });
      //TODO set alert message on error
     const [serverError, setterError] = useServerErrorHandle();
-    const modifiedInputFields = useDefaultValue(AccountDetailsEditInputFields, data);
     const [open, handleClickOpen, handleClose] = useModal();
-
+    const modifiedInputFields = DefaultValue(AccountDetailsEditInputFields,data);
 
     const onSubmit = function (values: any): void {
         axios.put('/users/edit-user', values)
