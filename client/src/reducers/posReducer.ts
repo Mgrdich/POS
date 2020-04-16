@@ -187,9 +187,12 @@ export default function (state: IPOSReducer = initialState, action: any): any {
                 groupActions:{
                     ...state.groupActions,
                     [payload.orderId]:{
-                        ...state.groupActions[payload.orderId],
                         ...payload.groupOrderActions
                     }
+                },
+                price:{
+                    ...state.price,
+                    [payload.orderId]:state.price[payload.orderId] - payload.priceDeleted
                 }
             };
         case POS_TYPES.SET_GROUP_ACTIONS:
