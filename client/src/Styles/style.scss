@@ -8,7 +8,10 @@
 $header_height: 74px; //64px + 10px
 $drawer_width_open:250px; //240px + 10px
 $drawer_width_close:70px; //60px + 10px
-
+body,html {
+  height: 100%;
+  overflow: auto;
+}
 .footer {
   position: absolute !important;
   bottom: 0 !important;
@@ -21,13 +24,12 @@ $drawer_width_close:70px; //60px + 10px
 }
 
 #root {
-  position: relative;
-  min-height: 100vh;
+  min-height: 100%;
 
   .header {
     padding-top: $header_height;
     padding-right: 10px;
-    min-height: 100vh;
+    min-height: 100%;
     flex-grow: 1;
     &.drawer-open {
       padding-left: $drawer_width_open;
