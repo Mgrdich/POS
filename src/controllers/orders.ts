@@ -167,14 +167,9 @@ export async function deleteOrder(req: Request, res: Response, next: NextFunctio
         if (!errors.isEmpty()) {
             errorThrower("Validation Failed", 422, errors.mapped());
         }
-        await Orders.deleteOrderById(req.params.id);
-        /*
-                if (response.ok) {
-                    alert(res, 200, messageAlert.success, ITEM_DELETED);
-                } else {
-                    alert(res, 304, messageAlert.success, NOT_MODIFIED)
-                }
-        */
+       const p = await Orders.deleteOrderById(req.params.id);
+
+
     } catch (err) {
         errorCatcher(next, err);
     }

@@ -31,4 +31,11 @@ router.put('/:id',editOrderValidation,editOrders);
 
 router.delete('/:id',paramIdValidation,deleteOrder);
 
+/**
+ * Closed Order Routes
+ *
+ * */
+
+router.post('/closed/:id',paramIdValidation,);
+
 export default router;

@@ -10,3 +10,12 @@ export function sameObjectId(objId1, objId2):boolean {
     }
     return objId1.toString() === objId2.toString();
 }
+
+export function isEmpty(value: any): boolean {
+    return (
+        !!(value === undefined || value === null || value === 0 ||
+            (typeof value === 'object' && value["empty"])
+            (typeof value === 'object' && Object.keys(value).length === 0) ||
+            (typeof value === 'string' && value.trim().length === 0)
+        ));
+}

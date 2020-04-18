@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 import {Schema} from "mongoose";
-import {IDocOrders, IModelOrders} from "../interfaces/models/Orders";
+import {IDocOrders, IModelOrders, IOrders} from "../interfaces/models/Orders";
 import {sameObjectId} from "../utilities/functions";
 import {OrdersData} from "./OrderData";
 import {IDocUsers} from "../interfaces/models/Users";
@@ -73,8 +73,14 @@ orderSchema.methods.editOrder = async function (user: IDocUsers["_id"], waiter: 
 
 //TODO here should be used virtuals so that the populate name can be renamed
 orderSchema.statics.deleteOrderById = async function (id): Promise<any> {
-    const toBeDeletedOrder: IDocOrders = await Orders.findById(id).populate('orders._id');
-    console.log(toBeDeletedOrder);
+    const toBeDeletedOrder: IDocOrders = await Orders.findById(id).populate('orders');
+    if(toBeDeletedOrder.orders.length) {
+        const orderDeletedPromiseArray: Promise<any>[] =
+            toBeDeletedOrder
+                .orders.map((item) => Orders.deleteOne({_id: item._id}).exec()); //returns a promise
+        return Promise.all(orderDeletedPromiseArray);
+    }
+    return Promise.resolve({empty:true});
 
 };
 

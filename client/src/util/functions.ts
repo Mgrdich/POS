@@ -3,8 +3,9 @@ import {InputField} from "../interfaces/General";
 export function isEmpty(value: any): boolean {
     return (
         !!(value === undefined || value === null ||
+            (typeof value === 'object' && value["empty"])
             (typeof value === 'object' && Object.keys(value).length === 0) ||
-            (typeof value === 'string' && value.trim().length === 0) || value["empty"]
+            (typeof value === 'string' && value.trim().length === 0)
         ));
 }
 
