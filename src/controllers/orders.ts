@@ -1,6 +1,6 @@
 import {NextFunction, Request, Response} from "express";
 import {errorCatcher, errorFormatter, errorThrower} from "../utilities/controllers/error";
-import {NO_SUCH_DATA_EXISTS} from "../utilities/constants/messages";
+import {ITEM_DELETED, NO_SUCH_DATA_EXISTS} from "../utilities/constants/messages";
 import {myRequest} from "../interfaces/General";
 import {validationResult} from "express-validator";
 import {alert} from "../utilities/controllers/messages";
@@ -12,6 +12,7 @@ import {Tables} from "../models/Tables";
 import {ITables} from "../interfaces/models/Tables";
 import {IProductsGroups} from "../interfaces/models/ProductsGroups";
 import {ProductsGroups} from "../models/ProductsGroups";
+import {isEmpty} from "../utilities/functions";
 
 export async function getOrders(req: Request, res: Response, next: NextFunction): Promise<any> {
     try { //TODO transformed to a function with Generics GET /  GET/:id  delete/:id delete /
@@ -85,6 +86,7 @@ export async function getOrder(req: Request, res: Response, next: NextFunction):
         if (!order) {
             errorThrower(NO_SUCH_DATA_EXISTS, 422); //TODO check the validity
         }
+
         let formalizeOrder = order.orders;
         let dataOrders:Array<any> = [];
 
@@ -168,7 +170,10 @@ export async function deleteOrder(req: Request, res: Response, next: NextFunctio
             errorThrower("Validation Failed", 422, errors.mapped());
         }
        const p = await Orders.deleteOrderById(req.params.id);
-
+       if(isEmpty(p)){
+           errorThrower(NO_SUCH_DATA_EXISTS, 422);
+       }
+       return  alert(res,200,messageAlert.success,ITEM_DELETED);
 
     } catch (err) {
         errorCatcher(next, err);

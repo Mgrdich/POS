@@ -73,11 +73,11 @@ orderSchema.methods.editOrder = async function (user: IDocUsers["_id"], waiter: 
 
 //TODO here should be used virtuals so that the populate name can be renamed
 orderSchema.statics.deleteOrderById = async function (id): Promise<any> {
-    const toBeDeletedOrder: IDocOrders = await Orders.findById(id).populate('orders');
+    const toBeDeletedOrder: IDocOrders = await Orders.findByIdAndRemove(id);
     if(toBeDeletedOrder.orders.length) {
         const orderDeletedPromiseArray: Promise<any>[] =
             toBeDeletedOrder
-                .orders.map((item) => Orders.deleteOne({_id: item._id}).exec()); //returns a promise
+                .orders.map((item) => OrdersData.deleteOne({_id: item._id}).exec()); //returns a promise
         return Promise.all(orderDeletedPromiseArray);
     }
     return Promise.resolve({empty:true});
