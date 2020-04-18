@@ -53,7 +53,7 @@ const PosTable: React.FC = () => {
                 <ChosenEmployee/>
             </div>
             <ErrorHandler error={error as boolean}>
-                <ComponentLoader isLoading={isLoading || isEmpty(Orders)}>
+                <ComponentLoader isLoading={isLoading || (isEmpty(Orders) && id && tableHashed[id])}>
                     {(id && tableHashed[id]) ? (
                         <Grid container direction="row" justify="space-around" className="pos-container">
                             <Grid item xs={12} md={3} className="pos-grid">
