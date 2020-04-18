@@ -13,9 +13,10 @@ export function sameObjectId(objId1, objId2):boolean {
 
 export function isEmpty(value: any): boolean {
     return (
-        !!(value === undefined || value === null || value === 0 ||
-            (typeof value === 'object' && value["empty"])
+        !!(value === undefined || value === null ||
+            (typeof value === 'object' && !(Array.isArray(value)) && value["empty"]) ||
             (typeof value === 'object' && Object.keys(value).length === 0) ||
             (typeof value === 'string' && value.trim().length === 0)
-        ));
+        )
+    );
 }
