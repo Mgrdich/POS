@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 const TableOrderHeader: React.FC = () => {
     const ordersId: any = useSelector<any>(state => state.pos.orders._id);
-    const checkedGroupActions:any = useSelector<any>(state => state.pos.groupActions);
+    /*const checkedGroupActions:any = useSelector<any>(state => state.pos.groupActions);*/ // TODO check if its needed
     const [checked, setChecked] = React.useState(true);
 
     const handleChange = (event:ChangeEvent<HTMLInputElement>) => {
