@@ -39,8 +39,9 @@ export const submitTableOrders: actionVoid = (orderId:string) => async (dispatch
 
     try {
         const res: AxiosResponse = await axios.put(`/orders/${orderId}`, data);
-        if (res.data.alert === 'success') {
+        if (res.data.alert === 'success') { //tODO try reducing the loops
             let hashedProductOrders:any = hashingArray(data.orders, "product", "_id");
+
             let dispatchedOrdersObj:any =  Object.keys(hashedProductOrders).reduce(function (acc:any,productId:string) {
                 let obj:any = {...acc};
                 obj[productId] = hashedProductOrders[productId];
@@ -49,7 +50,8 @@ export const submitTableOrders: actionVoid = (orderId:string) => async (dispatch
                 }
                 return obj;
             },{});
-            let nonSumbittedOrdersId = Object.keys(groupActions).reduce((acc:any,curr:string)=>{
+
+            let nonSubmittedOrdersId = Object.keys(groupActions).reduce((acc:any,curr:string)=>{
                 let obj:any = {...acc};
                 if(!groupActions[curr]) {
                     obj[curr] = orders[curr];
@@ -57,14 +59,13 @@ export const submitTableOrders: actionVoid = (orderId:string) => async (dispatch
                 return obj;
             },{});
 
-            console.log(nonSumbittedOrdersId);
 
             dispatch(
                 {
                     type: POS_TYPES.SUBMIT_TABLE_ORDER,
                     payload: {
                         data: dispatchedOrdersObj,
-                        nonSumbittedOrdersId:nonSumbittedOrdersId,
+                        nonSubmittedOrdersId:nonSubmittedOrdersId,
                         orderId: orderId
                     }
                 });

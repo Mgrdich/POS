@@ -27,13 +27,13 @@ const PosTable: React.FC = () => {
         if(isEmpty(Orders)){
             dispatch(fetchOrders());
         }
-    },[Orders,id]);
+    },[Orders,id,dispatch]);
 
     useEffect(function () {
         if(!isEmpty(tableHashed)) {
             dispatch(setOrderId(id))
         }
-    },[tableHashed,id]);
+    },[tableHashed,id,dispatch]);
 
     useEffect(function () {
         if (orderId) {

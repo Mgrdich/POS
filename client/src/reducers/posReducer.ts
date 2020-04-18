@@ -69,7 +69,7 @@ export default function (state: IPOSReducer = initialState, action: any): any {
                 nonSubmittedOrders: {
                     ...state.nonSubmittedOrders,
                     [payload.orderId]:{
-                        ...payload.nonSumbittedOrdersId
+                        ...payload.nonSubmittedOrdersId
                     }
                 }
             };
