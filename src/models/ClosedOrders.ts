@@ -11,16 +11,11 @@ const closedOrderSchema: Schema = new Schema({
     },
     orders: [ //each new order in array means that is added separately
         {
-            data: [{ //TODO turn it into a Schema
-                product: {
-                    type: Schema.Types.ObjectId,
-                    ref: 'Products',
-                },
-                quantity: {
-                    type: Number,
-                    default: 1
-                },
-            }],
+            _id: {
+                type: Schema.Types.ObjectId,
+                ref: 'OrdersData',
+                required: true
+            },
             createdBy: { //cashier or creator id
                 type: Schema.Types.ObjectId,
                 ref: 'Users',
@@ -28,8 +23,7 @@ const closedOrderSchema: Schema = new Schema({
             waiter: {
                 type: Schema.Types.ObjectId,
                 ref: 'Users',
-            },
-            price: Number
+            }
         }
     ],
     createdBy: { //initial
@@ -45,6 +39,7 @@ const closedOrderSchema: Schema = new Schema({
     price: {
         // required:true,
         type: Number,
+        default:0
     }
 
 

@@ -1,20 +1,16 @@
 import {Document} from 'mongoose';
-import {IDocProducts} from "./Products";
 import {IDocUsers} from "./Users";
 import {IDocOrders} from "./Orders";
+import {IDocOrdersData} from "./OrderData";
 
 
 export interface IClosedOrders {
     table: IDocOrders["_id"];
     orders: Array<{
-        data: Array<{
-            product: IDocProducts["_id"];
-            quantity: number;
-        }>,
+        _id: IDocOrdersData["_id"],
         createdBy: IDocUsers["_id"],
         waiter: IDocUsers["_id"],
-        createdDate: Date,
-        price:number
+        createdDate: Date
     }>;
     waiter: IDocUsers["_id"];
     createdBy: IDocUsers["_id"];

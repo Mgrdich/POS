@@ -156,6 +156,10 @@ export async function editOrders(req: myRequest, res: Response, next: NextFuncti
     }
 }
 
+export async function closeOrder(req: myRequest, res: Response, next: NextFunction):Promise<any> {
+    
+}
+
 export async function deleteOrder(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
         const errors: any = validationResult(req).formatWith(errorFormatter);
