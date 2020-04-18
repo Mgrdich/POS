@@ -66,7 +66,12 @@ export default function (state: IPOSReducer = initialState, action: any): any {
                         ...payload.data
                     }
                 },
-                nonSubmittedOrders: {}
+                nonSubmittedOrders: {
+                    ...state.nonSubmittedOrders,
+                    [payload.orderId]:{
+                        ...payload.nonSumbittedOrdersId
+                    }
+                }
             };
         case POS_TYPES.FETCH_ORDERS_INFO:
             return {

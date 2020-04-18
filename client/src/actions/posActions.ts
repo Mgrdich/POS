@@ -49,12 +49,22 @@ export const submitTableOrders: actionVoid = (orderId:string) => async (dispatch
                 }
                 return obj;
             },{});
+            let nonSumbittedOrdersId = Object.keys(groupActions).reduce((acc:any,curr:string)=>{
+                let obj:any = {...acc};
+                if(!groupActions[curr]) {
+                    obj[curr] = orders[curr];
+                }
+                return obj;
+            },{});
+
+            console.log(nonSumbittedOrdersId);
 
             dispatch(
                 {
                     type: POS_TYPES.SUBMIT_TABLE_ORDER,
                     payload: {
                         data: dispatchedOrdersObj,
+                        nonSumbittedOrdersId:nonSumbittedOrdersId,
                         orderId: orderId
                     }
                 });
