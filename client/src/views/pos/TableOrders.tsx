@@ -63,6 +63,9 @@ const TableOrders: React.FC = () => {
                     <TableOrderHeader/>
                 {!isEmpty(Orders[ordersId]) && submittedOrdersKeys.length? submittedOrdersKeys.map((key: string) => {
                     let product = Orders[ordersId][key];
+                    if(!product) {
+                        return;
+                    }
                     return (
                         <Grid key={key} container direction="row" justify="space-between" className="nonSubmitted">
                             <Grid item container xs={1} justify="center" alignContent="center">
