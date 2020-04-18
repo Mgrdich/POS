@@ -5,6 +5,8 @@ import {sameObjectId} from "../utilities/functions";
 import {OrdersData} from "./OrderData";
 import {IDocUsers} from "../interfaces/models/Users";
 import {IDocOrdersData} from "../interfaces/models/OrderData";
+import {IDocClosedOrders} from "../interfaces/models/ClosedOrders";
+import {ClosedOrders} from "./ClosedOrders";
 
 const orderSchema: Schema = new Schema({
     table: {
@@ -72,7 +74,7 @@ orderSchema.methods.editOrder = async function (user: IDocUsers["_id"], waiter: 
 
 
 //TODO here should be used virtuals so that the populate name can be renamed
-orderSchema.statics.deleteOrderById = async function (id): Promise<any> {
+orderSchema.statics.deleteOrderById = async function (id:string): Promise<any> {
     const toBeDeletedOrder: IDocOrders = await Orders.findByIdAndRemove(id);
     if(toBeDeletedOrder.orders.length) {
         const orderDeletedPromiseArray: Promise<any>[] =
@@ -84,8 +86,20 @@ orderSchema.statics.deleteOrderById = async function (id): Promise<any> {
 
 };
 
-orderSchema.statics.closeOrderById = async function (id): Promise<any> {
+orderSchema.statics.closeOrderById = async function (id:string): Promise<any> {
     //delete should be called here
+    const toBeDeletedOrder: IDocOrders = await Orders.findByIdAndRemove(id);
+    if(toBeDeletedOrder) {
+        const closedOrder :IDocClosedOrders = new ClosedOrders(); //TODO better way for closed orders and destructure issue
+        closedOrder.waiter = toBeDeletedOrder.waiter;
+        closedOrder.createdBy = toBeDeletedOrder.createdBy;
+        closedOrder.table = toBeDeletedOrder.table;
+        closedOrder.orderCreatedAt = toBeDeletedOrder.createdAt;
+        closedOrder.orders = toBeDeletedOrder.orders;
+        closedOrder.price = toBeDeletedOrder.price;
+        return closedOrder.save();
+    }
+    return Promise.resolve({empty:true})
 };
 
 const Orders: IModelOrders = mongoose.model<IDocOrders, IModelOrders>('Orders', orderSchema);

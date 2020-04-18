@@ -3,7 +3,6 @@ import {Schema} from "mongoose";
 import {IDocClosedOrders} from "../interfaces/models/ClosedOrders";
 
 const closedOrderSchema: Schema = new Schema({
-
     table: {
         required: true,
         type: Schema.Types.ObjectId,
@@ -36,14 +35,17 @@ const closedOrderSchema: Schema = new Schema({
         ref: 'Users',
         required: true
     },
+    orderCreatedAt:{
+        type:Date,
+        required:true
+    },
     price: {
         // required:true,
         type: Number,
-        default:0
+        default: 0
     }
 
-
-});
+},{timestamps:true});
 
 const ClosedOrders = mongoose.model<IDocClosedOrders>('ClosedOrders', closedOrderSchema);
 

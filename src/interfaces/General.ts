@@ -30,3 +30,8 @@ export interface IDropDowns {
 export interface myRequest extends Request {
     user :IDocUsers;
 }
+
+export interface ITimestamps {
+    createdAt:Date;
+    updatedAt:Date;
+}

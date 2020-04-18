@@ -1,6 +1,7 @@
 import * as express from "express";
 import {
     addOrder,
+    closeOrder,
     deleteOrder,
     editOrders,
     getOrder,
@@ -36,6 +37,6 @@ router.delete('/:id',paramIdValidation,deleteOrder);
  *
  * */
 
-router.post('/closed/:id',paramIdValidation,);
+router.post('/close/:id',paramIdValidation,closeOrder);
 
 export default router;

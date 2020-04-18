@@ -1,6 +1,6 @@
 import {NextFunction, Request, Response} from "express";
 import {errorCatcher, errorFormatter, errorThrower} from "../utilities/controllers/error";
-import {ITEM_DELETED, NO_SUCH_DATA_EXISTS} from "../utilities/constants/messages";
+import {DATA_IS_CREATED, ITEM_DELETED, NO_SUCH_DATA_EXISTS} from "../utilities/constants/messages";
 import {myRequest} from "../interfaces/General";
 import {validationResult} from "express-validator";
 import {alert} from "../utilities/controllers/messages";
@@ -13,6 +13,7 @@ import {ITables} from "../interfaces/models/Tables";
 import {IProductsGroups} from "../interfaces/models/ProductsGroups";
 import {ProductsGroups} from "../models/ProductsGroups";
 import {isEmpty} from "../utilities/functions";
+import {IDocClosedOrders} from "../interfaces/models/ClosedOrders";
 
 export async function getOrders(req: Request, res: Response, next: NextFunction): Promise<any> {
     try { //TODO transformed to a function with Generics GET /  GET/:id  delete/:id delete /
@@ -159,7 +160,19 @@ export async function editOrders(req: myRequest, res: Response, next: NextFuncti
 }
 
 export async function closeOrder(req: myRequest, res: Response, next: NextFunction):Promise<any> {
-    
+    try {
+        const errors: any = validationResult(req).formatWith(errorFormatter);
+
+        if (!errors.isEmpty()) {
+            errorThrower("Validation Failed", 422, errors.mapped());
+        }
+        const ordersSaved:IDocClosedOrders = await Orders.closeOrderById(req.params.id);
+        if(ordersSaved){
+            return  alert(res,200,messageAlert.success,DATA_IS_CREATED);
+        }
+    } catch (err) {
+        errorCatcher(next,err);
+    }
 }
 
 export async function deleteOrder(req: Request, res: Response, next: NextFunction): Promise<any> {
@@ -169,11 +182,11 @@ export async function deleteOrder(req: Request, res: Response, next: NextFunctio
         if (!errors.isEmpty()) {
             errorThrower("Validation Failed", 422, errors.mapped());
         }
-       const p = await Orders.deleteOrderById(req.params.id);
-       if(isEmpty(p)){
-           errorThrower(NO_SUCH_DATA_EXISTS, 422);
-       }
-       return  alert(res,200,messageAlert.success,ITEM_DELETED);
+        const p = await Orders.deleteOrderById(req.params.id);
+        if (isEmpty(p)) {
+            errorThrower(NO_SUCH_DATA_EXISTS, 422);
+        }
+        return alert(res, 200, messageAlert.success, ITEM_DELETED);
 
     } catch (err) {
         errorCatcher(next, err);

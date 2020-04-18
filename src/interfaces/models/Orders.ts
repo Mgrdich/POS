@@ -1,9 +1,10 @@
 import {Document, Model} from 'mongoose';
 import {IDocUsers} from "./Users";
 import {IDocOrdersData} from "./OrderData";
+import {ITimestamps} from "../General";
 
 
-export interface IOrders {
+export interface IOrders extends ITimestamps{
     table: IDocOrders["_id"];
     orders: Array<{
         _id: IDocOrdersData["_id"],
@@ -23,4 +24,5 @@ export interface IDocOrders extends Document, IOrders {
 
 export interface IModelOrders extends Model<IDocOrders> {
     deleteOrderById: (id: string) => Promise<any>;
+    closeOrderById: (id: string) => Promise<any>;
 }
