@@ -14,6 +14,7 @@ import productsGroups from "./routes/productsGroups";
 import orders from "./routes/orders";
 import chat from "./routes/chat";
 import groupChat from "./routes/chatGroups";
+import statistics from "./routes/statistics";
 import {ImyError} from "./interfaces/General";
 import {isAuth} from "./middlewares/authorisation";
 import {socketEvents} from "./socketEvents";
@@ -64,6 +65,8 @@ app.use('/orders', orders);
 app.use('/chat',chat);
 
 app.use('/group-chat',groupChat);
+
+app.use('/statistics',statistics);
 
 //errors
 app.use(function (err: ImyError, req: Request, res: Response, next: NextFunction) {
