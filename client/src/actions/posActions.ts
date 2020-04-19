@@ -4,6 +4,7 @@ import axios, {AxiosResponse} from "axios";
 import {POS_TYPES} from "./types";
 import {IState} from "../reducers";
 import {hashingArray} from "../util/functions";
+import history from "../util/history";
 
 type actionVoid = ActionCreator<ThunkAction<void, any, any, AnyAction>>;
 type action = ActionCreator<Action>;
@@ -71,6 +72,36 @@ export const submitTableOrders: actionVoid = (orderId:string) => async (dispatch
         }
     } catch (err) {
         dispatch({type: POS_TYPES.SET_ERROR}); //TODO order submit Error or Alert
+    }
+};
+
+export const finishTableOrders: actionVoid = (tableId:string) => async (dispatch: Dispatch, getState: () => IState) => {
+    const {pos} = getState();
+
+    const orderId:string = pos.tableHashed[tableId];
+
+    const Orders:any = {...pos.Orders};
+    const nonSubmittedOrders = {...pos.nonSubmittedOrders};
+    const tableHashed:any = {...pos.tableHashed};
+    const price:any = {...pos.price};
+
+    delete Orders[orderId];
+    delete tableHashed[tableId];
+    delete price[orderId];
+    delete nonSubmittedOrders[orderId];
+
+    try {
+        const resp:AxiosResponse = await axios.post(`/orders/close/${orderId}`);
+        if(resp.data) {
+            history.push('/pos');
+            dispatch({
+                type:POS_TYPES.FINISH_TABLE_ORDER,
+                payload:{Orders,tableHashed,price,nonSubmittedOrders}
+            });
+        }
+    } catch (err) {
+        //did not occur //TODO do it later
+        console.log(err);
     }
 };
 

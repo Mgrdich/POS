@@ -39,6 +39,22 @@ const initialState: IPOSReducer = {
 export default function (state: IPOSReducer = initialState, action: any): any {
     const {payload, type} = action;
     switch (type) {
+        case POS_TYPES.FINISH_TABLE_ORDER:
+            return {
+                ...state,
+                Orders:{
+                    ...payload.Orders
+                },
+                tableHashed:{
+                    ...payload.tableHashed
+                },
+                price:{
+                    ...payload.price
+                },
+                nonSubmittedOrders:{
+                    ...payload.nonSubmittedOrders
+                }
+            };
         case POS_TYPES.CREATE_ORDER_INFO:
             return {
                 ...state,

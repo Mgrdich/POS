@@ -1,12 +1,15 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@material-ui/core";
-import {deleteGroupAction, submitTableOrders} from "../../actions/posActions";
+import {deleteGroupAction, finishTableOrders, submitTableOrders} from "../../actions/posActions";
 import {useDispatch, useSelector} from "react-redux";
 import DeleteIcon from '@material-ui/icons/Delete';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import DoneIcon from '@material-ui/icons/Done';
 import Typography from "@material-ui/core/Typography";
 import {useModal} from "../../components/Hooks/useModal";
+import {isEmpty} from "../../util/functions";
+import {useParams} from "react-router";
+
 
 interface ITableOrdersButtons {
     disable:boolean;
@@ -14,9 +17,12 @@ interface ITableOrdersButtons {
 
 const TableOrdersButtons : React.FC<ITableOrdersButtons>  = (props) => {
     const ordersId: any = useSelector<any>(state => state.pos.orders._id);
+    const submittedOrders: any = useSelector<any>(state => state.pos.Orders);
     const dispatch = useDispatch();
     const [open, handleClickOpen, handleClose] = useModal();
-    
+    const {id} = useParams();
+
+
     return (
         <>
             <Button
@@ -41,7 +47,7 @@ const TableOrdersButtons : React.FC<ITableOrdersButtons>  = (props) => {
                 type="button"
                 className="large-button"
                 startIcon={<DoneIcon/>}
-                disabled={props.disable}
+                disabled={!ordersId || isEmpty(submittedOrders[ordersId])}
                 onClick={handleClickOpen}
             > Finish order </Button>
 
@@ -56,11 +62,13 @@ const TableOrdersButtons : React.FC<ITableOrdersButtons>  = (props) => {
                 <DialogActions>
                     <Button
                         color="primary"
-                        onClick={ () => handleClose()}
+                        onClick={() => handleClose()}
                     >Cancel
                     </Button>
                     <Button
                         color="primary"
+                        disabled={!ordersId}
+                        onClick={()=>dispatch(finishTableOrders(id))}
                     >Finish</Button>
                 </DialogActions>
             </Dialog>

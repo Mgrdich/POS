@@ -134,7 +134,7 @@ const TableOrders: React.FC = () => {
                     <div className="table-order-total-price">
                         <span> Total price : {price[ordersId] ? price[ordersId] : 0}</span>
                     </div>
-                    <TableOrdersButtons disable={!nonSubmittedOrdersKeys.length}/>
+                    <TableOrdersButtons disable={isEmpty(nonSubmittedOrdersKeys) || !ordersId}/>
                 </div>
             </Paper>
         </div>
