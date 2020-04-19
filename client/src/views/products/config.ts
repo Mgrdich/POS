@@ -7,7 +7,7 @@ interface IAddProductInputField {
     url?: string;
     ignoreNone?:boolean;
 
-};
+}
 
 
 export const addProductInputField: Array<IAddProductInputField> = [

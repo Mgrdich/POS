@@ -51,8 +51,12 @@ const TableOrdersButtons : React.FC<ITableOrdersButtons>  = (props) => {
                 onClick={handleClickOpen}
             > Finish order </Button>
 
-            <Dialog open={open} onClose={() => handleClose()} aria-labelledby="form-dialog-title"
-                    fullWidth={true}>
+            <Dialog
+                open={open}
+                onClose={() => handleClose()}
+                aria-labelledby="form-dialog-title"
+                fullWidth={true}
+            >
                 <DialogTitle id="finish-order">Finish Order</DialogTitle>
                 <DialogContent>
                     <Typography component='p' color='primary'>

@@ -25,7 +25,7 @@ const Pos: React.FC = () => {
     },[dispatch, history]);
 
     return (
-        <div>
+        <>
             <div>
                 <ChosenEmployee/>
             </div>
@@ -43,7 +43,7 @@ const Pos: React.FC = () => {
                     </ComponentLoader>
                 </ErrorHandler>
             </Grid>
-        </div>
+        </>
     );
 };
 

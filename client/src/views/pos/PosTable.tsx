@@ -43,7 +43,7 @@ const PosTable: React.FC = () => {
 
 
     return (
-        <div>
+        <>
             <div>
                 <IconButton onClick={() => {
                     (history.push(`/pos`))
@@ -67,7 +67,7 @@ const PosTable: React.FC = () => {
                     ) : <Redirect to={`/pos/no-orders/${id}`}/>}
                 </ComponentLoader>
             </ErrorHandler>
-        </div>
+        </>
     );
 };
 
