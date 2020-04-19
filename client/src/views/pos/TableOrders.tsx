@@ -84,7 +84,6 @@ const TableOrders: React.FC = () => {
                         </Grid>)
                 }) : null}
 
-
                 {!isEmpty(nonSubmittedOrders[ordersId]) && nonSubmittedOrdersKeys.length? nonSubmittedOrdersKeys.map((key: string) => {
                     if(!nonSubmittedOrders[ordersId][key]) { //TODO check the reason
                         return

@@ -16,11 +16,7 @@ const TableOrdersButtons : React.FC<ITableOrdersButtons>  = (props) => {
     const ordersId: any = useSelector<any>(state => state.pos.orders._id);
     const dispatch = useDispatch();
     const [open, handleClickOpen, handleClose] = useModal();
-
-    const handleFinishOrder = () =>{
-        handleClickOpen();
-    }
-
+    
     return (
         <>
             <Button
@@ -46,7 +42,7 @@ const TableOrdersButtons : React.FC<ITableOrdersButtons>  = (props) => {
                 className="large-button"
                 startIcon={<DoneIcon/>}
                 disabled={props.disable}
-                onClick={handleFinishOrder}
+                onClick={handleClickOpen}
             > Finish order </Button>
 
             <Dialog open={open} onClose={() => handleClose()} aria-labelledby="form-dialog-title"
