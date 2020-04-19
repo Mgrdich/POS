@@ -1,6 +1,12 @@
 import {NextFunction, Request, Response} from "express";
 import {errorCatcher, errorFormatter, errorThrower} from "../utilities/controllers/error";
-import {DATA_IS_CREATED, ITEM_DELETED, NO_SUCH_DATA_EXISTS} from "../utilities/constants/messages";
+import {
+    DATA_IS_CREATED,
+    ITEM_DELETED,
+    NO_SUCH_DATA_EXISTS,
+    ORDER_IS_FINISHED,
+    SOMETHING_WRONG, VALIDATION_ERROR
+} from "../utilities/constants/messages";
 import {myRequest} from "../interfaces/General";
 import {validationResult} from "express-validator";
 import {alert} from "../utilities/controllers/messages";
@@ -69,7 +75,6 @@ export async function getPosProducts(req: Request, res: Response, next: NextFunc
         errorCatcher(next, err);
     }
 }
-
 
 export async function getOrder(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
@@ -164,12 +169,14 @@ export async function closeOrder(req: myRequest, res: Response, next: NextFuncti
         const errors: any = validationResult(req).formatWith(errorFormatter);
 
         if (!errors.isEmpty()) {
-            errorThrower("Validation Failed", 422, errors.mapped());
+            errorThrower(VALIDATION_ERROR, 422, errors.mapped());
         }
         const ordersSaved:IDocClosedOrders = await Orders.closeOrderById(req.params.id);
-        if(ordersSaved){
-            return  alert(res,200,messageAlert.success,DATA_IS_CREATED);
+        if(!ordersSaved){
+            errorThrower(SOMETHING_WRONG,401); //tODO heck out status code
         }
+        return  alert(res,200,messageAlert.success,ORDER_IS_FINISHED);
+
     } catch (err) {
         errorCatcher(next,err);
     }
@@ -180,7 +187,7 @@ export async function deleteOrder(req: Request, res: Response, next: NextFunctio
         const errors: any = validationResult(req).formatWith(errorFormatter);
 
         if (!errors.isEmpty()) {
-            errorThrower("Validation Failed", 422, errors.mapped());
+            errorThrower(VALIDATION_ERROR, 422, errors.mapped());
         }
         const p = await Orders.deleteOrderById(req.params.id);
         if (isEmpty(p)) {
