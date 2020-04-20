@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from "express";
 import {noResult} from "../utilities/controllers/helpers";
 import {errorCatcher, errorFormatter, errorThrower} from "../utilities/controllers/error";
-import {NO_SUCH_DATA_EXISTS} from "../utilities/constants/messages";
+import {NO_SUCH_DATA_EXISTS, SOMETHING_WRONG} from "../utilities/constants/messages";
 import {myRequest} from "../interfaces/General";
 import {validationResult} from "express-validator";
 import {IDocProductsGroups} from "../interfaces/models/ProductsGroups";
@@ -15,7 +15,8 @@ import {Products} from "../models/Products";
 
 export async function getProductsGroups(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-        let productsGroups: Array<IDocProductsGroups> | IDocProductsGroups = await ProductsGroups.find({name:{$ne:"All"}});
+        //TODO check the used and unused Not to Fetch
+        let productsGroups: Array<IDocProductsGroups> | IDocProductsGroups = await ProductsGroups.find({name:{$ne:"All"}}).lean();
         if (productsGroups.length) {
             const tableFormProductsGroups = tableDataNormalize(productsGroups,GET_PRODUCTS_GROUP_TABLE); //TODO add interface
             return res.status(200).json(tableFormProductsGroups);
@@ -28,7 +29,7 @@ export async function getProductsGroups(req: Request, res: Response, next: NextF
 
 export async function getProductsGroup(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-        let productsGroups:IDocProductsGroups = await ProductsGroups.findById(req.params.Id);
+        let productsGroups:IDocProductsGroups = await ProductsGroups.findById(req.params.Id).lean();
         if (!productsGroups) {
             errorThrower(NO_SUCH_DATA_EXISTS, 422);
         }
@@ -70,8 +71,11 @@ export async function editProductsGroup(req: myRequest, res: Response, next: Nex
         }
         currentProductsGroup.name = name;
         currentProductsGroup.modifiedBy.push({"_id": req.user._id,modifiedDate: new Date()});
-        await currentProductsGroup.save(); //TODO whether save was a success
-        alert(res,200,messageAlert.success,'Product element has been edited');
+        const savedProd = await currentProductsGroup.save();
+        if(!savedProd){
+            errorThrower(SOMETHING_WRONG,401);
+        }
+        return alert(res,200,messageAlert.success,'Product element has been edited');
     } catch (err) {
         errorCatcher(next,err);
     }

@@ -38,7 +38,7 @@ export async function getChatByUid(req: myRequest, res: Response, next: NextFunc
 
 export async function getChats(req: Request, res: Response, next: NextFunction) {
     try {
-            const chats: Array<IDocChat> = await Chats.find({}).lean().populate('messages')/*.populate('participants', 'name')*/;
+        const chats: Array<IDocChat> = await Chats.find({}).lean().populate('messages')/*.populate('participants', 'name')*/;
         if (chats.length) {
             return res.status(200).json(chats);
         }

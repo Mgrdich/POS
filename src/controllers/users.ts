@@ -131,7 +131,7 @@ async function getUsers(req: myRequest, res: Response, next: NextFunction): Prom
         let users: Array<IDocUsers> = await Users.find({
             "rolePriority": {$lt: rolePriority},
             "_id": {$ne: req.user._id}
-        }, {rolePriority: 0, password: 0});
+        }, {rolePriority: 0, password: 0}).lean();
         let tableUsers;
         if (!users) {
             tableUsers = {};
@@ -169,12 +169,12 @@ async function getUsersChat(req: myRequest, res: Response, next: NextFunction): 
         if (rolePriority >= -2) {
             users = await Users.find({
                 "_id": {$ne: req.user._id}
-            }, {rolePriority: 0, password: 0});
+            }, {rolePriority: 0, password: 0}).lean();
         } else {
             users = await Users.find({
                 "rolePriority": {$gt: rolePriority},
                 "_id": {$ne: req.user._id}
-            }, {rolePriority: 0, password: 0})
+            }, {rolePriority: 0, password: 0}).lean();
         }
         res.status(200).json(users);
     } catch (err) {

@@ -13,7 +13,7 @@ import {GET_TABLES_TABLE} from "../utilities/tables/constants";
 
 async function getTables(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-        let tables:Array<IDocTables> | IDocTables = await Tables.find({});
+        let tables:Array<IDocTables> | IDocTables = await Tables.find({}).lean();
         if(tables.length) {
             const tablizeTable = tableDataNormalize(tables,GET_TABLES_TABLE);
             return res.status(200).json(tablizeTable);
@@ -27,7 +27,7 @@ async function getTables(req: Request, res: Response, next: NextFunction): Promi
 
 async function getTable(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-        let table: IDocTables = await Tables.findById(req.params.Id);
+        let table: IDocTables = await Tables.findById(req.params.Id).lean();
         if (!table) {
             errorThrower(NO_SUCH_DATA_EXISTS, 422);
         }

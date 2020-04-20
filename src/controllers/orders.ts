@@ -1,7 +1,6 @@
 import {NextFunction, Request, Response} from "express";
 import {errorCatcher, errorFormatter, errorThrower} from "../utilities/controllers/error";
 import {
-    DATA_IS_CREATED,
     ITEM_DELETED,
     NO_SUCH_DATA_EXISTS,
     ORDER_IS_FINISHED,
