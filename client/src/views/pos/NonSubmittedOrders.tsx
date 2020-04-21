@@ -16,7 +16,7 @@ const NonSubmittedOrders: React.FC<INonSubmittedOrders> = (props) => {
     const dispatch = useDispatch();
 
     return (
-        <div>
+        <>
             {!isEmpty(nonSubmittedOrders[ordersId]) && nonSubmittedOrdersKeys.length? nonSubmittedOrdersKeys.map((key: string) => {
                 if(!nonSubmittedOrders[ordersId][key]) { //TODO check the reason
                     return
@@ -63,7 +63,7 @@ const NonSubmittedOrders: React.FC<INonSubmittedOrders> = (props) => {
                     </Grid>)
             }) : null}
 
-        </div>
+        </>
     );
 };
 

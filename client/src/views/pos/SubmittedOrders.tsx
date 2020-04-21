@@ -10,7 +10,7 @@ const SubmittedOrders: React.FC<ISubmittedOrders> = (props) => {
     const ordersId: any = useSelector<any>(state => state.pos.orders._id);
 
     return (
-        <div>
+        <>
             {!isEmpty(Orders[ordersId]) && submittedOrdersKeys.length? submittedOrdersKeys.map((key: string) => {
                 let product = Orders[ordersId][key];
                 if(!product) {
@@ -34,7 +34,7 @@ const SubmittedOrders: React.FC<ISubmittedOrders> = (props) => {
                     </Grid>)
             }) : null}
 
-        </div>
+        </>
     );
 };
 
