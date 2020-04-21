@@ -14,11 +14,12 @@ import {noResult} from "../utilities/controllers/helpers";
 import {Orders} from "../models/Orders";
 import {IDocOrders} from "../interfaces/models/Orders";
 import {Tables} from "../models/Tables";
-import {ITables} from "../interfaces/models/Tables";
+import {IDocTables, ITables} from "../interfaces/models/Tables";
 import {IProductsGroups} from "../interfaces/models/ProductsGroups";
 import {ProductsGroups} from "../models/ProductsGroups";
 import {isEmpty} from "../utilities/functions";
 import {IDocClosedOrders} from "../interfaces/models/ClosedOrders";
+import {TableStatus} from "../utilities/constants/enums";
 
 export async function getOrders(req: Request, res: Response, next: NextFunction): Promise<any> {
     try { //TODO transformed to a function with Generics GET /  GET/:id  delete/:id delete /
@@ -139,9 +140,16 @@ export async function addOrder(req: myRequest, res: Response, next: NextFunction
         }
         const {table, waiter} = req.body; //TODO Validation then this step
         const order: IDocOrders = new Orders({table, waiter, createdBy: req.user._id});
-        const ord: IDocOrders = await (await order.save())
+        //TODO more efficient method method
+        const ord: Promise<any> = (await order.save())
             .populate('waiter', 'name').populate('createdBy', 'name').execPopulate();
-        res.status(200).json({_id: ord._id, waiter: ord.waiter, createdBy: ord.createdBy})
+
+        const tableSaved:IDocTables = await Tables.findById(table);
+        tableSaved.status = TableStatus.open;
+        const p:Promise<any> =  tableSaved.save();
+
+        const q = await Promise.all([ord,p]);
+        res.status(200).json({_id: q[0]._id, waiter: q[0].waiter, createdBy: q[0].createdBy});
     } catch (err) {
         errorCatcher(next, err);
     }

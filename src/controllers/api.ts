@@ -5,7 +5,7 @@ import {IDropDowns, myRequest} from "../interfaces/General";
 import {ProductsGroups} from "../models/ProductsGroups";
 import {IDocProductsGroups} from "../interfaces/models/ProductsGroups";
 import {normalizeDropDowns} from "../utilities/reformaters";
-import {IDocUsers, IUser} from "../interfaces/models/Users";
+import {IDocUsers} from "../interfaces/models/Users";
 import {Users} from "../models/Users";
 import {errorCatcher} from "../utilities/controllers/error";
 import {noResult} from "../utilities/controllers/helpers";

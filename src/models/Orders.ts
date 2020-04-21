@@ -5,8 +5,11 @@ import {sameObjectId} from "../utilities/functions";
 import {OrdersData} from "./OrderData";
 import {IDocUsers} from "../interfaces/models/Users";
 import {IDocOrdersData} from "../interfaces/models/OrderData";
-import {IDocClosedOrders} from "../interfaces/models/ClosedOrders";
+import {IClosedOrders, IDocClosedOrders} from "../interfaces/models/ClosedOrders";
 import {ClosedOrders} from "./ClosedOrders";
+import {IDocTables, ITables} from "../interfaces/models/Tables";
+import {Tables} from "./Tables";
+import {TableStatus} from "../utilities/constants/enums";
 
 const orderSchema: Schema = new Schema({
     table: {
@@ -89,7 +92,14 @@ orderSchema.statics.deleteOrderById = async function (id:string): Promise<any> {
 orderSchema.statics.closeOrderById = async function (id:string): Promise<any> {
     //delete should be called here
     const toBeDeletedOrder: IDocOrders = await Orders.findByIdAndRemove(id);
+    const tableId = toBeDeletedOrder.table;
+
+
     if(toBeDeletedOrder) {
+        const tableSaved:IDocTables = await Tables.findById(tableId); //TODO convert it into statics
+        tableSaved.status = TableStatus.closed;
+        const p:Promise<ITables> =  tableSaved.save();
+
         const closedOrder :IDocClosedOrders = new ClosedOrders(); //TODO better way for closed orders and destructure issue
         closedOrder.waiter = toBeDeletedOrder.waiter;
         closedOrder.createdBy = toBeDeletedOrder.createdBy;
@@ -97,7 +107,9 @@ orderSchema.statics.closeOrderById = async function (id:string): Promise<any> {
         closedOrder.orderCreatedAt = toBeDeletedOrder.createdAt;
         closedOrder.orders = toBeDeletedOrder.orders;
         closedOrder.price = toBeDeletedOrder.price;
-        return closedOrder.save();
+        const q:Promise<IClosedOrders> = closedOrder.save();
+
+        return Promise.all([q,p]);
     }
     return Promise.resolve({empty:true})
 };
