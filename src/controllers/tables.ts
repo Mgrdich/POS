@@ -1,5 +1,5 @@
 import {Tables} from "../models/Tables";
-import {IDocTables} from "../interfaces/models/Tables";
+import {IDocTables, ITables} from "../interfaces/models/Tables";
 import {NextFunction, Request, Response} from "express";
 import {errorCatcher, errorFormatter, errorThrower} from "../utilities/controllers/error";
 import {noResult} from "../utilities/controllers/helpers";
@@ -10,6 +10,7 @@ import {ITEM_DELETED, NO_SUCH_DATA_EXISTS} from "../utilities/constants/messages
 import {validationResult} from "express-validator";
 import {tableDataNormalize} from "../utilities/reformaters";
 import {GET_TABLES_TABLE} from "../utilities/tables/constants";
+import {TableStatus} from "../utilities/constants/enums";
 
 async function getTables(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
@@ -79,6 +80,32 @@ async function editTable(req: myRequest, res: Response, next: NextFunction): Pro
     }
 }
 
+async function toggleStatusTable(req: myRequest, res: Response, next: NextFunction): Promise<any> {
+    try {
+        const errors: any = validationResult(req).formatWith(errorFormatter);
+
+        if (!errors.isEmpty()) {
+            errorThrower("Validation Failed", 422, errors.mapped());
+        }
+
+        const table:IDocTables = await Tables.findById(req.params.id);
+        if (!table) {
+            errorThrower(NO_SUCH_DATA_EXISTS, 422);
+        }
+        if(table.status === TableStatus.closed) {
+            table.status = TableStatus.reserved;
+        } else  {
+            table.status = TableStatus.closed;
+        }
+        const savedTable:ITables = await table.save();
+        if(savedTable){ //TODO something went Wrong add that option
+            alert(res,200,messageAlert.success,'Table status has been changed');
+        }
+    } catch (err) {
+        errorCatcher(next,err);
+    }
+}
+
 async function deleteTable(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
         let deletedResult:IDelete  = await Tables.deleteOne({_id:req.params.id});
@@ -91,4 +118,4 @@ async function deleteTable(req: Request, res: Response, next: NextFunction): Pro
     }
 }
 
-export {getTables, getTable, addTable, deleteTable, editTable};
+export {getTables, getTable, addTable, deleteTable, editTable,toggleStatusTable};
