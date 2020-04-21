@@ -1,13 +1,19 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {isEmpty} from "../../util/functions";
 import {Grid} from "@material-ui/core";
 import {useSelector} from "react-redux";
-import {ISubmittedOrders} from "../../interfaces/Views/pos";
 
-const SubmittedOrders: React.FC<ISubmittedOrders> = (props) => {
-    const {submittedOrdersKeys} = props;
+const SubmittedOrders: React.FC = () => {
+    const [submittedOrdersKeys, setSubmittedOrdersKeys] = useState<Array<any>>([]);
     const Orders:any = useSelector<any>(state => state.pos.Orders);
     const ordersId: any = useSelector<any>(state => state.pos.orders._id);
+
+    useEffect(function () {
+        if (!isEmpty(Orders[ordersId])) {
+            let SubOrderKeys = Object.keys(Orders[ordersId]);
+            setSubmittedOrdersKeys(SubOrderKeys);
+        }
+    },[Orders,ordersId]);
 
     return (
         <>

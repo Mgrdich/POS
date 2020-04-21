@@ -4,7 +4,6 @@ import TableOrderHeader from "./TableOrderHeader";
 import {useSelector} from "react-redux";
 import {isEmpty} from "../../util/functions";
 import TableOrdersButtons from "./TableOrdersButtons";
-import {useScrollDown} from "../../components/Hooks/useScrollDown";
 import SubmittedOrders from "./SubmittedOrders";
 import NonSubmittedOrders from "./NonSubmittedOrders";
 
@@ -29,11 +28,8 @@ function renderProduct(id:string,name:string,quantity:number,price:number):JSX.E
 const TableOrders: React.FC = () => {
     const [nonSubmittedOrdersKeys, setNonSubmittedOrdersKeys] = useState<Array<any>>([]);
     const nonSubmittedOrders: any = useSelector<any>(state => state.pos.nonSubmittedOrders);
-    const [submittedOrdersKeys, setSubmittedOrdersKeys] = useState<Array<any>>([]);
-    const Orders:any = useSelector<any>(state => state.pos.Orders);
     const ordersId: any = useSelector<any>(state => state.pos.orders._id);
     const price:any = useSelector<any>(state => state.pos.price);
-    const [listContainer] =  useScrollDown(nonSubmittedOrdersKeys, submittedOrdersKeys);
 
     useEffect(function () {
         if (!isEmpty(nonSubmittedOrders[ordersId])) {
@@ -42,22 +38,15 @@ const TableOrders: React.FC = () => {
         }
     }, [nonSubmittedOrders,ordersId]);
 
-    useEffect(function () {
-        if (!isEmpty(Orders[ordersId])) {
-            let SubOrderKeys = Object.keys(Orders[ordersId]);
-            setSubmittedOrdersKeys(SubOrderKeys);
-        }
-    },[Orders,ordersId]);
-
     return (
         <div className="table-order-container">
             <Paper className="products-paper">
                 <div className="products-header">
                     <h1>Table order</h1>
                 </div>
-                <div className="table-add-orders-container" ref={listContainer}>
+                <div className="table-add-orders-container">
                     <TableOrderHeader/>
-                    <SubmittedOrders submittedOrdersKeys={submittedOrdersKeys}/>
+                    <SubmittedOrders/>
                     <NonSubmittedOrders nonSubmittedOrdersKeys={nonSubmittedOrdersKeys}/>
                 </div>
                 <div className="order-button-container">
