@@ -340,6 +340,18 @@ section.content h1 {
   color: #66fcf1;
   font-size: 40px; }
 
+.tables.open button {
+  border-color: white; }
+
+.tables.open span {
+  color: white; }
+
+.tables.reserved button {
+  border-color: red; }
+
+.tables.reserved span {
+  border-color: red; }
+
 .products-header {
   border-bottom: 1px solid #66fcf1;
   color: #66fcf1;

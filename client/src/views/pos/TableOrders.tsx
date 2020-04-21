@@ -41,7 +41,6 @@ const TableOrders: React.FC = () => {
 
     }, [nonSubmittedOrders,ordersId]);
 
-    console.log(nonSubmittedOrdersKeys);
     return (
         <div className="table-order-container">
             <Paper className="products-paper">

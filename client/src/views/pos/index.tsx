@@ -34,7 +34,7 @@ const Pos: React.FC = () => {
                 <ErrorHandler error={error as boolean}>
                     <ComponentLoader isLoading={isLoading as boolean}>
                         {tables.map((table: any) => (
-                            <div className="tables" key={table._id}>
+                            <div className={`tables ${table.status}`} key={table._id}>
                                 <Button key={table.id} onClick={() =>tableClick(table._id)}>
                                     <span>{table.number}</span>
                                 </Button>

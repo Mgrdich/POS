@@ -71,6 +71,22 @@ section {
       font-size: 40px;
 
   }
+  &.open {
+    button {
+      border-color: white; //TODO add it with object
+    }
+    span {
+      color: white;
+    }
+  }
+  &.reserved {
+    button {
+      border-color: red;
+    }
+    span {
+      border-color: red;
+    }
+  }
 }
 
 
