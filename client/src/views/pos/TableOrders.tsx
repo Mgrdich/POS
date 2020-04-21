@@ -35,9 +35,13 @@ const TableOrders: React.FC = () => {
         if (!isEmpty(nonSubmittedOrders[ordersId])) {
             let nonSubOrderKeys = Object.keys(nonSubmittedOrders[ordersId]);
             setNonSubmittedOrdersKeys(nonSubOrderKeys);
+        } else {
+            setNonSubmittedOrdersKeys([]);
         }
+
     }, [nonSubmittedOrders,ordersId]);
 
+    console.log(nonSubmittedOrdersKeys);
     return (
         <div className="table-order-container">
             <Paper className="products-paper">
