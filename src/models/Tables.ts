@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 import {Schema} from "mongoose";
-import {IDocTables} from "../interfaces/models/Tables";
+import {IDocTables, IModelTables} from "../interfaces/models/Tables";
 import {TABLE_STATUS} from "../utilities/constants/arrays";
 import {TableStatus} from "../utilities/constants/enums";
 
@@ -42,8 +42,17 @@ const tableSchema: Schema = new Schema({
     }
 },{timestamps:true});
 
-const Tables = mongoose.model<IDocTables>('Tables',tableSchema);
+tableSchema.statics.changeTableStatus = async function (_id: IDocTables["_id"], status: TableStatus) {
+    const table: IDocTables = await this.findById(_id);
+    if (table) {
+        table.status = status;
+        return table.save();
+    }
+    return Promise.reject('table id is not Found');
+};
 
-//TODO functions to write resetting orders status and cashier
+
+const Tables:IModelTables = mongoose.model<IDocTables,IModelTables>('Tables',tableSchema);
+
 
 export {Tables};

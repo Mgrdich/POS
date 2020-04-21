@@ -144,9 +144,7 @@ export async function addOrder(req: myRequest, res: Response, next: NextFunction
         const ord: Promise<any> = (await order.save())
             .populate('waiter', 'name').populate('createdBy', 'name').execPopulate();
 
-        const tableSaved:IDocTables = await Tables.findById(table);
-        tableSaved.status = TableStatus.open;
-        const p:Promise<any> =  tableSaved.save();
+        const p:Promise<any> = Tables.changeTableStatus(table,TableStatus.open);
 
         const q = await Promise.all([ord,p]);
         res.status(200).json({_id: q[0]._id, waiter: q[0].waiter, createdBy: q[0].createdBy});

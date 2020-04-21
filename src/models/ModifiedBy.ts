@@ -6,6 +6,4 @@ const modifiedBySchema = new Schema({ //TODO create a static function and replac
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Users'
         },
-
-
 });

@@ -39,7 +39,7 @@ chatSchema.statics.add = async function (sender: IDocUsers["id"], receiver: IDoc
         newChat.messages = [messageId];
         newChat.participants = [sender, receiver];
         return newChat.save();
-    }catch (e) {
+    } catch (e) {
         console.log(e);
     }
 };

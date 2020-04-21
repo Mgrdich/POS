@@ -1,7 +1,10 @@
-import {Document} from 'mongoose';
+import {Document, Model} from 'mongoose';
 import {IDocUsers} from "./Users";
 import {tableStatusType} from "../constants";
 import {IDocOrders} from "./Orders";
+import {IDocProducts} from "./Products";
+import {IDocProductsGroups} from "./ProductsGroups";
+import {TableStatus} from "../../utilities/constants/enums";
 
 
 export interface ITables {
@@ -19,4 +22,9 @@ export interface ITables {
 
 //Mongoose modal
 export interface IDocTables extends Document, ITables {
+}
+
+export interface IModelTables extends Model<IDocTables> {
+    //here we declare the statics
+    changeTableStatus: (_id: IDocTables["_id"],status:TableStatus) => Promise<any>;
 }

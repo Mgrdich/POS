@@ -1,13 +1,13 @@
 import * as mongoose from 'mongoose';
-import {Schema} from "mongoose";
-import {IDocOrders, IModelOrders, IOrders} from "../interfaces/models/Orders";
+import {Schema} from 'mongoose';
+import {IDocOrders, IModelOrders} from "../interfaces/models/Orders";
 import {sameObjectId} from "../utilities/functions";
 import {OrdersData} from "./OrderData";
 import {IDocUsers} from "../interfaces/models/Users";
 import {IDocOrdersData} from "../interfaces/models/OrderData";
 import {IClosedOrders, IDocClosedOrders} from "../interfaces/models/ClosedOrders";
 import {ClosedOrders} from "./ClosedOrders";
-import {IDocTables, ITables} from "../interfaces/models/Tables";
+import {ITables} from "../interfaces/models/Tables";
 import {Tables} from "./Tables";
 import {TableStatus} from "../utilities/constants/enums";
 
@@ -77,6 +77,8 @@ orderSchema.methods.editOrder = async function (user: IDocUsers["_id"], waiter: 
 
 
 //TODO here should be used virtuals so that the populate name can be renamed
+
+//TODO check usage of this keyword in the statics
 orderSchema.statics.deleteOrderById = async function (id:string): Promise<any> {
     const toBeDeletedOrder: IDocOrders = await Orders.findByIdAndRemove(id);
     if(toBeDeletedOrder.orders.length) {
@@ -96,10 +98,7 @@ orderSchema.statics.closeOrderById = async function (id:string): Promise<any> {
 
 
     if(toBeDeletedOrder) {
-        const tableSaved:IDocTables = await Tables.findById(tableId); //TODO convert it into statics
-        tableSaved.status = TableStatus.closed;
-        const p:Promise<ITables> =  tableSaved.save();
-
+        const p:Promise<ITables> =  Tables.changeTableStatus(tableId,TableStatus.closed);
         const closedOrder :IDocClosedOrders = new ClosedOrders(); //TODO better way for closed orders and destructure issue
         closedOrder.waiter = toBeDeletedOrder.waiter;
         closedOrder.createdBy = toBeDeletedOrder.createdBy;
