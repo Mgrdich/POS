@@ -1,24 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {isEmpty} from "../../util/functions";
 import {Grid} from "@material-ui/core";
 import {useSelector} from "react-redux";
-import {useScrollDown} from "../../components/Hooks/useScrollDown";
+import {ISubmittedOrders} from "../../interfaces/Views/pos";
 
-const SubmittedOrders = () => {
-    const [submittedOrdersKeys, setSubmittedOrdersKeys] = useState<Array<any>>([]);
+const SubmittedOrders: React.FC<ISubmittedOrders> = (props) => {
+    const {submittedOrdersKeys} = props;
     const Orders:any = useSelector<any>(state => state.pos.Orders);
     const ordersId: any = useSelector<any>(state => state.pos.orders._id);
-    const [listContainer] =  useScrollDown(submittedOrdersKeys);
-
-    useEffect(function () {
-        if (!isEmpty(Orders[ordersId])) {
-            let SubOrderKeys = Object.keys(Orders[ordersId]);
-            setSubmittedOrdersKeys(SubOrderKeys);
-        }
-    },[Orders,ordersId]);
 
     return (
-        <div ref={listContainer}>
+        <div>
             {!isEmpty(Orders[ordersId]) && submittedOrdersKeys.length? submittedOrdersKeys.map((key: string) => {
                 let product = Orders[ordersId][key];
                 if(!product) {
