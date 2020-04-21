@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@material-ui/core";
 import {deleteGroupAction, finishTableOrders, submitTableOrders} from "../../actions/posActions";
 import {useDispatch, useSelector} from "react-redux";
