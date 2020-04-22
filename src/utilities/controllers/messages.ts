@@ -1,7 +1,7 @@
 import {Response} from 'express';
-import {messageAlertType} from "../../interfaces/util";
+import {messageAlert} from "../constants/enums";
 
-export function alert(res:Response,status:number,type:messageAlertType,message:string){
+export function alert(res:Response,status:number,type:messageAlert,message:string){
     res.status(status).json({
        alert:type,
        message:message
