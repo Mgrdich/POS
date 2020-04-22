@@ -9,7 +9,7 @@ import {messageAlert} from "../interfaces/util";
 import {ITEM_DELETED, NO_SUCH_DATA_EXISTS} from "../utilities/constants/messages";
 import {validationResult} from "express-validator";
 import {tableDataNormalize} from "../utilities/reformaters";
-import {GET_TABLES_TABLE} from "../utilities/tables/constants";
+import {GET_TABLES_TABLE, GET_TABLES_TABLE_STATUS} from "../utilities/tables/constants";
 import {TableStatus} from "../utilities/constants/enums";
 
 async function getTables(req: Request, res: Response, next: NextFunction): Promise<any> {
@@ -21,6 +21,26 @@ async function getTables(req: Request, res: Response, next: NextFunction): Promi
         }
         noResult(res);
     }catch (err) {
+        errorCatcher(next,err);
+    }
+
+}
+
+async function getTableStatus(req: Request, res: Response, next: NextFunction): Promise<any> {
+    try {
+        const errors: any = validationResult(req).formatWith(errorFormatter);
+
+        if (!errors.isEmpty()) {
+            errorThrower("Validation Failed", 422, errors.mapped());
+        }
+
+        const tables:Array<ITables> = await Tables.find({status:req.query.type},{name:1,number:1}).lean();
+        if(tables.length) {
+            const tablizeTable = tableDataNormalize(tables,GET_TABLES_TABLE_STATUS);
+            return res.status(200).json(tablizeTable);
+        }
+        noResult(res);
+    } catch (err) {
         errorCatcher(next,err);
     }
 
@@ -118,4 +138,4 @@ async function deleteTable(req: Request, res: Response, next: NextFunction): Pro
     }
 }
 
-export {getTables, getTable, addTable, deleteTable, editTable,toggleStatusTable};
+export {getTables, getTable, addTable, deleteTable, editTable,toggleStatusTable,getTableStatus};

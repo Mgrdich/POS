@@ -1,6 +1,8 @@
-import {body} from "express-validator";
+import {body,query} from "express-validator";
 import {Tables} from "../models/Tables";
 import {ITables} from "../interfaces/models/Tables";
+import {TABLE_STATUS} from "../utilities/constants/arrays";
+import {TableStatus} from "../utilities/constants/enums";
 
 export const addTableValidations = [
   body('number')
@@ -19,4 +21,15 @@ export const addTableValidations = [
 
 export const editTableValidations = [
     ...addTableValidations
+];
+
+export const getTableStatusValidations = [
+    query('type')
+        .isString()
+        .custom(function(value)  {
+          if(!TABLE_STATUS.includes(value)) {
+            return Promise.reject('Invalid Table Status');
+          }
+          return true;
+        })
 ];

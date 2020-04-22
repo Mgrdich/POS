@@ -5,14 +5,17 @@ import {
     editTable,
     getTable,
     getTables,
+    getTableStatus,
     toggleStatusTable
 } from "../controllers/tables";
-import {addTableValidations, editTableValidations} from "../validations/tables";
+import {addTableValidations, editTableValidations, getTableStatusValidations} from "../validations/tables";
 import {paramIdValidation} from "../validations/General";
 const router = express.Router();
 
 
 router.get('/',getTables);
+
+router.get('/status',getTableStatusValidations,getTableStatus);
 
 router.get('/:id',getTable);
 

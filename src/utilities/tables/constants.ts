@@ -12,23 +12,32 @@ export const GET_USERS_TABLE = { //TODO create an interface
 
 //getTables
 export const GET_TABLES_TABLE = {
-    keys:['number','status','role','createdDate'],
+    keys:['number','name','status','createdAt'],
     translations:{
+        'name':'Name',
         'number':'Number',
         'status':'Status',
-        'role':'Role',
-        'createdDate':'created Date'
+        'createdAt':'created At'
+    }
+};
+
+export const GET_TABLES_TABLE_STATUS = {
+    keys:['name','number','createdAt'],
+    translations:{
+        'name':'Name',
+        'number':'Number',
+        'createdAt':'created At'
     }
 };
 
 //getProducts
 export const GET_PRODUCTS_TABLE = {
-    keys:['name','price',{name:'group',alias:'name'},'createdDate'], //TODO make it recursive
+    keys:['name','price',{name:'group',alias:'name'},'createdAt'], //TODO make it recursive
     translations:{
         'name':'Name',
         'price':'Price',
         'group':'Product Group',
-        'createdDate':'created Date'
+        'createdAt':'created At'
     },
 };
 
@@ -37,6 +46,6 @@ export const GET_PRODUCTS_GROUP_TABLE = {
     keys:['name','createdDate'],
     translations:{
         'name':'Name',
-        'createdDate':'created Date'
+        'createdAt':'created At'
     }
 };
