@@ -1,16 +1,13 @@
 import {Document, Model} from 'mongoose';
 import {IDocUsers} from "./Users";
-import {tableStatusType} from "../constants";
 import {IDocOrders} from "./Orders";
-import {IDocProducts} from "./Products";
-import {IDocProductsGroups} from "./ProductsGroups";
 import {TableStatus} from "../../utilities/constants/enums";
 
 
 export interface ITables {
     name?: string;
     number: number;
-    status:tableStatusType;
+    status:TableStatus;
     createdBy:IDocUsers["_id"];
     cashier: IDocUsers["_id"];
     orders:IDocOrders["_id"];
