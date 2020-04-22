@@ -18,7 +18,7 @@ export async function getProductsPrice(req: Request, res: Response, next: NextFu
  *
  * */
 export async function getClosedOrdersPricesTables(req: Request, res: Response, next: NextFunction) { //TODO add with date Filter
-    const closedOrders:Array<IClosedOrders> = await ClosedOrders.find({},{price:1,table:1});
+    const closedOrders:Array<IClosedOrders> = await ClosedOrders.find({},{price:1,table:1}).populate('table','name');
     if(!closedOrders.length){
         return noResult(res);
     }

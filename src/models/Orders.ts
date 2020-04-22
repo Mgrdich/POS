@@ -15,7 +15,7 @@ const orderSchema: Schema = new Schema({
     table: {
         required: true,
         type: Schema.Types.ObjectId,
-        ref: 'Orders'
+        ref: 'Tables'
     },
     orders: [ //each new order in array means that is added separately
         {
