@@ -1,11 +1,11 @@
 import * as express from "express";
-import {getOrdersWaiter, getProductsPrice, getOrdersPricesTables} from "../controllers/statistics";
+import {getClosedOrdersPricesTables, getProductsPrice, getClosedOrdersWaiter} from "../controllers/statistics";
 const router = express.Router();
 
 router.get('/products/price', getProductsPrice);
 
-router.get('/orders/table', getOrdersPricesTables);
+router.get('/orders/table', getClosedOrdersPricesTables);
 
-router.get('/orders/waiter', getOrdersWaiter);
+router.get('/orders/waiter', getClosedOrdersWaiter);
 
 export default router;
