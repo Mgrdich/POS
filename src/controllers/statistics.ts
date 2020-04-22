@@ -27,18 +27,19 @@ export async function getClosedOrdersPricesTables(req: Request, res: Response, n
      //tableId:arrayIndex
     };
 
-    const getClosedOrdersPricesTables:Array<{price:number,number:number}> =
+    const getClosedOrdersPricesTables:Array<{price:number,number:number,total:number}> =
         closedOrders.reduce(function (acc: Array<{ price: number, number: number }>, item: IClosedOrders, index: number) {
             let arr: any = [...acc];
             let tableId: string = item.table._id;
             let tableNumber: number = item.table.number;
             if (!orderHash[tableId] && orderHash[tableId] !== 0) { //ignore the index is zero  sum is not calculated
                 orderHash[tableId] = index; //hashing it
-                arr.push({number: tableNumber, price: item.price});
+                arr.push({number: tableNumber, price: item.price,total:1});
                 return arr;
             }
             let indexArray = orderHash[tableId];
             arr[indexArray].price = arr[indexArray].price + item.price;
+            arr[indexArray].total +=1; //over how many elements
             return arr;
         }, []);
 
