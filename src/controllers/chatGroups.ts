@@ -5,7 +5,7 @@ import {IDocGroupsChat} from "../interfaces/models/ChatGroups";
 import {validationResult} from "express-validator";
 import {IDelete, myRequest} from "../interfaces/General";
 import {alert} from "../utilities/controllers/messages";
-import {messageAlert} from "../interfaces/util";
+import {messageAlert} from "../utilities/constants/enums";
 import {FORBIDDEN, ITEM_DELETED, NOT_MODIFIED} from "../utilities/constants/messages";
 
 export async function getChatGroups(req: myRequest, res: Response, next: NextFunction) {

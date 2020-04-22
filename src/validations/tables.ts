@@ -2,7 +2,6 @@ import {body,query} from "express-validator";
 import {Tables} from "../models/Tables";
 import {ITables} from "../interfaces/models/Tables";
 import {TABLE_STATUS} from "../utilities/constants/arrays";
-import {TableStatus} from "../utilities/constants/enums";
 
 export const addTableValidations = [
   body('number')

@@ -6,7 +6,7 @@ import {Products} from "../models/Products";
 import {ITEM_DELETED, NO_SUCH_DATA_EXISTS, NOT_MODIFIED} from "../utilities/constants/messages";
 import {myRequest} from "../interfaces/General";
 import {alert} from "../utilities/controllers/messages";
-import {messageAlert} from "../interfaces/util";
+import {messageAlert} from "../utilities/constants/enums";
 import {validationResult} from "express-validator";
 import {tableDataNormalize} from "../utilities/reformaters";
 import {GET_PRODUCTS_TABLE} from "../utilities/tables/constants";

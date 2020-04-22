@@ -5,7 +5,7 @@ import {errorCatcher, errorFormatter, errorThrower} from "../utilities/controlle
 import {noResult} from "../utilities/controllers/helpers";
 import {IDelete, myRequest} from "../interfaces/General";
 import {alert} from "../utilities/controllers/messages";
-import {messageAlert} from "../interfaces/util";
+import {messageAlert} from "../utilities/constants/enums";
 import {ITEM_DELETED, NO_SUCH_DATA_EXISTS} from "../utilities/constants/messages";
 import {validationResult} from "express-validator";
 import {tableDataNormalize} from "../utilities/reformaters";

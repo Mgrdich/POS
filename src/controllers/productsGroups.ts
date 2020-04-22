@@ -7,7 +7,7 @@ import {validationResult} from "express-validator";
 import {IDocProductsGroups} from "../interfaces/models/ProductsGroups";
 import {ProductsGroups} from "../models/ProductsGroups";
 import {alert} from "../utilities/controllers/messages";
-import {messageAlert} from "../interfaces/util";
+import {messageAlert} from "../utilities/constants/enums";
 import {tableDataNormalize} from "../utilities/reformaters";
 import {GET_PRODUCTS_GROUP_TABLE} from "../utilities/tables/constants";
 import {IDocProducts} from "../interfaces/models/Products";

@@ -1,8 +1,4 @@
-export type messageAlertType = 'success' | 'error' | 'warning' | 'info';
+import {messageAlert} from "../utilities/constants/enums";
 
-export enum messageAlert {
-    success = 'success',
-    error = 'error',
-    warning = 'warning',
-    info = 'info',
-}
+export type messageAlertType = messageAlert.success | messageAlert.warning | messageAlert.error | messageAlert.info;
+

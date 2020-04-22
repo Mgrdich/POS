@@ -4,3 +4,10 @@ export enum TableStatus {
     suspended = 'suspended',
     reserved = 'reserved'
 }
+
+export enum messageAlert {
+    success = 'success',
+    error = 'error',
+    warning = 'warning',
+    info = 'info',
+}

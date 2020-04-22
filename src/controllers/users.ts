@@ -8,7 +8,7 @@ import {blackListFilterObj, tableDataNormalize} from "../utilities/reformaters";
 import {NextFunction, Request, Response} from 'express';
 import {IDocUsers, IUser} from "../interfaces/models/Users";
 import {IDelete, myRequest} from "../interfaces/General";
-import {messageAlert} from "../interfaces/util";
+import {messageAlert} from "../utilities/constants/enums";
 import {GET_USERS_TABLE} from "../utilities/tables/constants";
 import {SECRET_KEY} from "../config/keys";
 import {ROLES_PRIORITY} from "../roles";

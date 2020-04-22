@@ -9,7 +9,7 @@ import {
 import {myRequest} from "../interfaces/General";
 import {validationResult} from "express-validator";
 import {alert} from "../utilities/controllers/messages";
-import {messageAlert} from "../interfaces/util";
+import {messageAlert} from "../utilities/constants/enums";
 import {noResult} from "../utilities/controllers/helpers";
 import {Orders} from "../models/Orders";
 import {IDocOrders} from "../interfaces/models/Orders";

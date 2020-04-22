@@ -5,7 +5,7 @@ import {IDocChat} from "../interfaces/models/Chat";
 import {Chats} from "../models/Chat";
 import {IDelete, myRequest} from "../interfaces/General";
 import {alert} from "../utilities/controllers/messages";
-import {messageAlert} from "../interfaces/util";
+import {messageAlert} from "../utilities/constants/enums";
 import {ITEM_DELETED, NOT_MODIFIED} from "../utilities/constants/messages";
 
 
