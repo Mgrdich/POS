@@ -50,7 +50,8 @@ export async function getClosedOrdersPricesTables(req: Request, res: Response, n
 
 export async function getClosedOrdersWaiter(req: Request, res: Response, next: NextFunction) { //TODO add with date Filter
 
-    const closedOrders:Array<IClosedOrders>  = await ClosedOrders.find({},{waiter:1,price:1}).lean().populate('waiter','name');
+    const closedOrders:Array<IClosedOrders>  =
+        await ClosedOrders.find({},{waiter:1,price:1}).lean().populate('waiter','name');
     if(!closedOrders.length) {
         return noResult(res);
     }
@@ -61,10 +62,14 @@ export async function getClosedOrdersWaiter(req: Request, res: Response, next: N
 
 export async function getClosedOrdersCashier(req: Request, res: Response, next: NextFunction) { //TODO add with date Filter
 
-    const closedOrders:Array<IClosedOrders>  = await ClosedOrders.find({},{createdBy:1,price:1}).lean();
+    const closedOrders:Array<IClosedOrders>  =
+        await ClosedOrders.find({},{createdBy:1,price:1}).lean().populate('createdBy','name');
     if(!closedOrders.length) {
         return noResult(res);
     }
+    let getClosedOrdersOrdersWaiter = priceSumWithClosedOrders(closedOrders,{aliasName:'createdBy',key:'name'});
+    res.status(200).json(getClosedOrdersOrdersWaiter);
+
     res.status(200).json(closedOrders);
 }
 
