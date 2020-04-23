@@ -1,5 +1,3 @@
-import {type} from "os";
-
 export function whiteListFilterObj(obj: object, whiteList: Array<string>) {
     return Object.keys(obj).reduce(function (acc: object, curr: string) {
             let o: object = {...acc};
@@ -62,4 +60,8 @@ export function normalizeDropDowns(data:Array<any>,property:any) {
         obj.placeholder = item[property.placeholder];
         return obj;
     })
+}
+
+export function priceSum() {
+
 }
