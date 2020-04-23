@@ -36,6 +36,22 @@ const MyTableBody: React.FC<IMyTableBody> = (props) => {
                                                         <EditIcon color='primary'/>
                                                     </IconButton>
                                                 );
+
+                                            case 'Open':
+                                                return (
+                                                    <IconButton key={item}
+                                                                onClick={() => (handleActions) ? handleActions('open', {...row}) : null}>
+                                                        <EditIcon color='primary'/>
+                                                    </IconButton>
+                                                );
+
+                                            case 'Reserved':
+                                                return (
+                                                    <IconButton key={item}
+                                                                onClick={() => (handleActions) ? handleActions('reserved', {...row}) : null}>
+                                                        <EditIcon color='primary'/>
+                                                    </IconButton>
+                                                );
                                             default:
                                                 break
                                         }

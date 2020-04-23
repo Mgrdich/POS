@@ -55,6 +55,12 @@ export const drawerRoutes: Array<IDrawerRoute> = [
                 translation: "Tables dashboard",
                 role: [Roles.SuperAdmin, Roles.Admin, Roles.Manager],
             },
+            {
+                icon: ViewAgendaIcon,
+                location: "/tables/reserved-tables",
+                translation: "Reserved tables",
+                role: [Roles.SuperAdmin, Roles.Admin, Roles.Manager],
+            },
         ]
     }, {
         icon: InboxIcon,

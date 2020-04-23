@@ -19,6 +19,7 @@ import Pos from "./views/pos";
 import PosTable from "./views/pos/PosTable";
 import NoOrder from "./views/pos/NoOrder";
 import Chat from "./views/chat";
+import ReservedTables from "./views/tables/ReservedTables";
 
 const HL_Dashboard = HeaderFooterLayout(Dashboard);
 const HL_CreateUser = HeaderFooterLayout(CreateUsers);
@@ -32,6 +33,7 @@ const HL_Chat = HeaderFooterLayout(Chat);
 const HL_Pos= HeaderFooterLayout(Pos);
 const HL_PosTable= HeaderFooterLayout(PosTable);
 const HL_NoOrder= HeaderFooterLayout(NoOrder);
+const HL_ReservedTables = HeaderFooterLayout(ReservedTables);
 
 const superAdminMangerRoles :Array<RoleType> = [Roles.SuperAdmin,Roles.Admin,Roles.Manager];
 const Routes:React.FC = () => {
@@ -45,6 +47,7 @@ const Routes:React.FC = () => {
                 <PrivateRoute exact path={['/products','/product/index']} component={HL_AddProduct}/>
                 <PrivateRoute exact path='/products/products-group' component={HL_ProductsGroup}/>
                 <PrivateRoute exact path='/tables/view-tables' component={HL_TablesDashboard}/>
+                <PrivateRoute exact path='/tables/reserved-tables' component={HL_ReservedTables}/>
                 <PrivateRoute exact path={['/tables','/tables/index']} component={HL_CreateEditTables}/>
                 <PrivateRoute exact path='/users/create-user' allowedRoles={superAdminMangerRoles} component={HL_CreateUser}/>
                 <PrivateRoute exact path='/users' allowedRoles={superAdminMangerRoles} component={HL_Users}/>
