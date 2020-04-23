@@ -68,17 +68,18 @@ interface priceSum  {
     price:number;
     total:number;
 }
-export function priceSumWithClosedOrders<T extends priceSum>(closedOrders: Array<IClosedOrders>,alias:string) {
+export function priceSumWithClosedOrders<T extends priceSum>(closedOrders: Array<IClosedOrders>,alias:{key:string,aliasName:string}) {
 
 let orderHash: any = {
         //aliasId:arrayIndex
     };
     return closedOrders.reduce(function (acc: Array<T>, item: IClosedOrders, index: number) {
         let arr: Array<any> = [...acc];
-        let aliasId: string = item[alias];
+        let aliasId: string = item[alias.aliasName]._id;
+        let aliasValue:string = item[alias.aliasName][alias.key];
         if (!orderHash[aliasId] && orderHash[aliasId] !== 0) { //ignore the index is zero  sum is not calculated
             orderHash[aliasId] = index; //hashing it
-            arr.push({price: item.price, total: 1});
+            arr.push({[alias.aliasName]:aliasValue,price: item.price, total: 1});
             return arr;
         }
         let indexArray = orderHash[aliasId];
