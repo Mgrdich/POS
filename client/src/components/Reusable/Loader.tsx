@@ -9,6 +9,7 @@ const Loader: React.FC<ILoader> = (props) => {
     return (
         <div className={`Loader ${className ? className : ''}`}>
             <CircularProgress {...rest}/>
+            <h1>Loading...</h1>
         </div>
     );
 };

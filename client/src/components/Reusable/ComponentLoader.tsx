@@ -11,7 +11,7 @@ const ComponentLoader: React.FC<IComponentLoader> = (props) => {
     const {isLoading, children} = props;
     if (isLoading) {
         return (
-            <Loader/>
+            <Loader className='loader-container'/>
         )
     } else {
         return (
