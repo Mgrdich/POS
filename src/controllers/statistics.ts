@@ -28,7 +28,7 @@ export async function getClosedOrdersPricesTables(req: Request, res: Response, n
     };
 
     const getClosedOrdersPricesTables:Array<{price:number,number:number,total:number}> =
-        closedOrders.reduce(function (acc: Array<{ price: number, number: number }>, item: IClosedOrders, index: number) {
+        closedOrders.reduce(function (acc: Array<{ price: number, number: number,total:number }>, item: IClosedOrders, index: number) {
             let arr: any = [...acc];
             let tableId: string = item.table._id;
             let tableNumber: number = item.table.number;
