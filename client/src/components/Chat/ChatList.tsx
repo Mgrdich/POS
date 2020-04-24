@@ -2,13 +2,9 @@ import React, {useContext, useEffect, useState} from 'react';
 import {Avatar, Divider, List, ListItem, ListItemAvatar, ListItemText} from "@material-ui/core";
 import ComponentLoader from "../Reusable/ComponentLoader";
 import {ChatContext} from "./ChatProvider";
-import {CHAT_ACTIONS} from "./ActionsConfig";
+import {CHAT_ACTIONS} from "./ActionsConfig"
+import {IChatList} from "../../interfaces/Chat";
 
-interface IChatList {
-    filter: string;
-    data: Array<any>;
-    isLoading: boolean;
-}
 
 const ChatList: React.FC<IChatList> = (props) => {
     const {filter, data: users, isLoading} = props;

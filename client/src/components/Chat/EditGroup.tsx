@@ -6,15 +6,8 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Conditional from "../Reusable/Conditional";
 import {useSelector} from "react-redux";
 import {ChatContext} from "./ChatProvider";
+import {IEditGroup} from "../../interfaces/Chat";
 
-interface IEditGroup {
-    editCallBack: {
-        handleClickOpen: Function;
-        handleClickOpenGroupInfo: Function;
-        handleClickOpenGroupDelete:Function;
-    };
-
-}
 
 const EditGroup: React.FC<IEditGroup> = (props) => {
     const {editCallBack} = props;
