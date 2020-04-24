@@ -1,17 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import MyTable from "../../components/Reusable/Table/MyTable";
-import {keys} from "@material-ui/core/styles/createBreakpoints";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
 import CardMessage from "../../components/Reusable/CardMessage";
-import {useServerErrorHandle} from "../../components/Hooks/useServerErrorHandle";
 import {useTable} from "../../components/Hooks/useTable";
 import {useTableBody} from "../../components/Hooks/useTableBody";
-import {useAlert} from "../../components/Hooks/useAlert";
-import {useModal} from "../../components/Hooks/useModal";
-import {useDynamicFields} from "../../components/Hooks/useDynamicFields";
-import {creteTableInputField, EditTableInputField} from "./config";
-import {DefaultValue} from "../../util/functions";
-import {useFetch} from "../../components/Hooks/useFetch";
 
 const actionsTypes = ['Open', 'Reserved'];
 
