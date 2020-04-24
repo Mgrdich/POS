@@ -7,11 +7,12 @@ import {
     VictoryTheme,
     VictoryTooltip
 } from "victory";
+import CardMessage from "../CardMessage";
 
 const BarChart = (props: any) => {
     const {data, x, y, tickFormat} = props;
     return (
-        <>
+        <>{ data.length ?
             <VictoryChart theme={VictoryTheme.material} domainPadding={{x: 20, y: [0, 5]}}>
                 <VictoryAxis
                     tickValues={tickFormat}
@@ -36,7 +37,7 @@ const BarChart = (props: any) => {
                                 }
                     />
                 </VictoryStack>
-            </VictoryChart>
+            </VictoryChart> : <CardMessage header='No data created!' />    }
         </>
     );
 };

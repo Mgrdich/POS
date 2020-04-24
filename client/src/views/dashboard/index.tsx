@@ -6,7 +6,7 @@ import {Paper} from "@material-ui/core";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
 const Dashboard:React.FC = () => {
     const {data, isLoading} = useFetch('/statistics/products/price');
-    const tickFormat = data.map((item:any) => item.name);
+    const tickFormat = data.length ?  data.map((item:any) => item.name) : null;
 
     return (
         <>
