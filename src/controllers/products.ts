@@ -30,6 +30,7 @@ export async function getProduct(req: Request, res: Response, next: NextFunction
         let product:IDocProducts = await Products.findById(req.params.Id);
         if (!product) {
             errorThrower(NO_SUCH_DATA_EXISTS, 422);
+
             
         }
         return res.status(200).json(product);
