@@ -9,6 +9,7 @@ import PieChart from "../../components/Reusable/Chart/PieChart";
 
 const Dashboard:React.FC = () => {
     const {data, isLoading} = useFetch('/statistics/products/price');
+    const {data:data1,isLoading:isLoading1} = useFetch('/statistics/products/price');
     const tickFormat = data.length ?  data.map((item:any) => item.name) : null;
     const pieChartData = data.length ? data.map((item: any)=> {
         return{
@@ -16,18 +17,18 @@ const Dashboard:React.FC = () => {
             y: item.price,
         }
     }) : null;
-    const colorScale = ['#1f2833', '#66fcf1', '#000000']
+    const colorScale = ['#1f2833', '#66fcf1', '#000000'];
 
     return (
         <>
             <ComponentLoader isLoading={isLoading}>
-                <Grid container direction='row' justify='space-around'>
-                    <Grid item xs={12} md={8} lg={5}>
+                <Grid container>
+                    <Grid item xs={12} md={12} lg={6}>
                         <Paper>
                             <BarChart data={data} x='name' y='price' tickFormat={tickFormat}/>
                         </Paper>
                     </Grid>
-                    <Grid item xs={12} md={8} lg={5}>
+                    <Grid item xs={12} md={12} lg={6}>
                         <Paper>
                             <PieChart data={pieChartData} x='y' colorScale={colorScale} chartName='Products'/>
                         </Paper>
