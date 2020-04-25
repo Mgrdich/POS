@@ -69,7 +69,5 @@ export async function getClosedOrdersCashier(req: Request, res: Response, next: 
     }
     let getClosedOrdersOrdersWaiter = priceSumWithClosedOrders(closedOrders,{aliasName:'createdBy',key:'name'});
     res.status(200).json(getClosedOrdersOrdersWaiter);
-
-    res.status(200).json(closedOrders);
 }
 
