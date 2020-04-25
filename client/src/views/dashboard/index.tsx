@@ -22,12 +22,12 @@ const Dashboard:React.FC = () => {
         <>
             <ComponentLoader isLoading={isLoading}>
                 <Grid container direction='row' justify='space-around'>
-                    <Grid item container xs={12} md={8} lg={5}>
+                    <Grid item xs={12} md={8} lg={5}>
                         <Paper>
                             <BarChart data={data} x='name' y='price' tickFormat={tickFormat}/>
                         </Paper>
                     </Grid>
-                    <Grid item container xs={12} md={8} lg={5}>
+                    <Grid item xs={12} md={8} lg={5}>
                         <Paper>
                             <PieChart data={pieChartData} x='y' colorScale={colorScale} chartName='Products'/>
                         </Paper>
