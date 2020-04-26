@@ -1,21 +1,28 @@
-import {NextFunction} from "express";
+import {NextFunction, Request} from "express";
+import {validationResult} from "express-validator";
 
-const errorThrower = function (errMessage: string, statusCode: number, data?: any) {
+export const errorThrower = function (errMessage: string, statusCode: number, data?: any) {
     const error = new Error(errMessage);
     error["statusCode"] = statusCode;
     error["data"] = data;
     throw error;
 };
 
-const errorCatcher = function (next: NextFunction, err: Error) {
+export const errorCatcher = function (next: NextFunction, err: Error) {
     if (!err["statusCode"]) {
         err["statusCode"] = 500;
     }
     next(err);
 };
 
-const errorFormatter = function ({location, msg, param, value, nestedErrors}) { //change this later
+export const errorFormatter = function ({location, msg, param, value, nestedErrors}) { //change this later
     return `${msg}`;
 };
 
-export {errorThrower, errorCatcher, errorFormatter};
+export const errorValidation = function (req:Request) {
+    const errors: any = validationResult(req).formatWith(errorFormatter);
+
+    if (!errors.isEmpty()) {
+        errorThrower("Validation Failed", 422, errors.mapped());
+    }
+};

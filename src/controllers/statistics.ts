@@ -5,24 +5,18 @@ import {noResult} from "../utilities/controllers/helpers";
 import {IClosedOrders} from "../interfaces/models/ClosedOrders";
 import {ClosedOrders} from "../models/ClosedOrders";
 import {priceSumWithClosedOrders} from "../utilities/reformaters";
-import {validationResult} from "express-validator";
-import {errorCatcher, errorFormatter, errorThrower} from "../utilities/controllers/error";
+import {errorCatcher,errorValidation} from "../utilities/controllers/error";
 
 export async function getProductsPrice(req: Request, res: Response, next: NextFunction) {
     try {
-        const errors: any = validationResult(req).formatWith(errorFormatter);
-
-        if (!errors.isEmpty()) {
-            errorThrower("Validation Failed", 422, errors.mapped());
-        }
-
+        errorValidation(req);
         const productPrice: Array<IProducts> =
             await Products.find({}, {name: 1, price: 1}).lean();
         if (!productPrice.length) {
             return noResult(res);
         }
         res.status(200).json(productPrice);
-    }catch (err) {
+    } catch (err) {
         errorCatcher(next, err);
     }
 }
@@ -31,13 +25,11 @@ export async function getProductsPrice(req: Request, res: Response, next: NextFu
  * closed orders prices for which table has more income
  *
  * */
+
 export async function getClosedOrdersPricesTables(req: Request, res: Response, next: NextFunction) { //TODO add with date Filter
     try {
-        const errors: any = validationResult(req).formatWith(errorFormatter);
+        errorValidation(req);
 
-        if (!errors.isEmpty()) {
-            errorThrower("Validation Failed", 422, errors.mapped());
-        }
         const closedOrders: Array<IClosedOrders> =
             await ClosedOrders.find({}, {price: 1, table: 1}).populate('table', 'number');
         if (!closedOrders.length) {
@@ -76,13 +68,8 @@ export async function getClosedOrdersPricesTables(req: Request, res: Response, n
  * */
 
 export async function getClosedOrdersWaiter(req: Request, res: Response, next: NextFunction) { //TODO add with date Filter
-
     try {
-        const errors: any = validationResult(req).formatWith(errorFormatter);
-
-        if (!errors.isEmpty()) {
-            errorThrower("Validation Failed", 422, errors.mapped());
-        }
+        errorValidation(req);
         const closedOrders: Array<IClosedOrders> =
             await ClosedOrders.find({}, {waiter: 1, price: 1}).lean().populate('waiter', 'name');
         if (!closedOrders.length) {
@@ -103,11 +90,7 @@ export async function getClosedOrdersWaiter(req: Request, res: Response, next: N
 
 export async function getClosedOrdersCashier(req: Request, res: Response, next: NextFunction) { //TODO add with date Filter
     try {
-        const errors: any = validationResult(req).formatWith(errorFormatter);
-
-        if (!errors.isEmpty()) {
-            errorThrower("Validation Failed", 422, errors.mapped());
-        }
+        errorValidation(req);
 
         const closedOrders: Array<IClosedOrders> =
             await ClosedOrders.find({}, {createdBy: 1, price: 1}).lean().populate('createdBy', 'name');
