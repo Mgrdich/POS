@@ -1,6 +1,5 @@
 import {NextFunction, Request, Response} from "express";
-import {validationResult} from "express-validator";
-import {errorCatcher, errorFormatter, errorThrower} from "../utilities/controllers/error";
+import {errorCatcher, errorValidation} from "../utilities/controllers/error";
 import {IDocChat} from "../interfaces/models/Chat";
 import {Chats} from "../models/Chat";
 import {IDelete, myRequest} from "../interfaces/General";
@@ -11,11 +10,8 @@ import {ITEM_DELETED, NOT_MODIFIED} from "../utilities/constants/messages";
 
 export async function getChatByUid(req: myRequest, res: Response, next: NextFunction) {
     try {
-        const errors: any = validationResult(req).formatWith(errorFormatter);
+        errorValidation(req);
 
-        if (!errors.isEmpty()) {
-            errorThrower("Validation Failed", 422, errors.mapped());
-        }
         const to = req.params.id;
         const chat: IDocChat =
             await Chats.findOne({
@@ -50,11 +46,7 @@ export async function getChats(req: Request, res: Response, next: NextFunction) 
 
 export async function getChat(req: Request, res: Response, next: NextFunction) {
     try {
-        const errors: any = validationResult(req).formatWith(errorFormatter);
-
-        if (!errors.isEmpty()) {
-            errorThrower("Validation Failed", 422, errors.mapped());
-        }
+        errorValidation(req);
 
         const chat:IDocChat = await Chats.findById(req.params.id).lean().populate('messages')/*.populate('participants', 'name')*/;
         if (chat) {
@@ -69,10 +61,8 @@ export async function getChat(req: Request, res: Response, next: NextFunction) {
 
 export async function deleteChat(req: Request, res: Response, next: NextFunction) {
     try {
-        const errors: any = validationResult(req).formatWith(errorFormatter);
-        if (!errors.isEmpty()) {
-            errorThrower("Validation Failed", 422, errors.mapped());
-        }
+        errorValidation(req);
+
         const response: IDelete = await Chats.deleteOne({_id: req.params.id});
         if (response.ok) {
             alert(res, 200, messageAlert.success, ITEM_DELETED);
