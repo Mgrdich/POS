@@ -1,7 +1,7 @@
 import {Tables} from "../models/Tables";
 import {IDocTables, ITables} from "../interfaces/models/Tables";
 import {NextFunction, Request, Response} from "express";
-import {errorCatcher, errorFormatter, errorThrower} from "../utilities/controllers/error";
+import {errorCatcher, errorFormatter, errorThrower, errorValidation} from "../utilities/controllers/error";
 import {noResult} from "../utilities/controllers/helpers";
 import {IDelete, myRequest} from "../interfaces/General";
 import {alert} from "../utilities/controllers/messages";
@@ -28,11 +28,7 @@ async function getTables(req: Request, res: Response, next: NextFunction): Promi
 
 async function getTableStatus(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-        const errors: any = validationResult(req).formatWith(errorFormatter);
-
-        if (!errors.isEmpty()) {
-            errorThrower("Validation Failed", 422, errors.mapped());
-        }
+        errorValidation(req);
 
         const tables:Array<ITables> = await Tables.find({status:req.query.type},{name:1,number:1}).lean();
         if(tables.length) {
@@ -48,6 +44,8 @@ async function getTableStatus(req: Request, res: Response, next: NextFunction): 
 
 async function getTable(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
+        errorValidation(req);
+
         let table: IDocTables = await Tables.findById(req.params.Id).lean();
         if (!table) {
             errorThrower(NO_SUCH_DATA_EXISTS, 422);
@@ -81,11 +79,8 @@ async function addTable(req: myRequest, res: Response, next: NextFunction): Prom
 
 async function editTable(req: myRequest, res: Response, next: NextFunction): Promise<any> {
     try {
-        const errors:any = validationResult(req).formatWith(errorFormatter);
+        errorValidation(req);
 
-        if (!errors.isEmpty()) {
-            errorThrower("Validation Failed", 422, errors.mapped());
-        }
         const {number,name} = req.body;
         const table:IDocTables = await Tables.findById(req.params.id);
         if(name) {
@@ -102,11 +97,7 @@ async function editTable(req: myRequest, res: Response, next: NextFunction): Pro
 
 async function toggleStatusTable(req: myRequest, res: Response, next: NextFunction): Promise<any> {
     try {
-        const errors: any = validationResult(req).formatWith(errorFormatter);
-
-        if (!errors.isEmpty()) {
-            errorThrower("Validation Failed", 422, errors.mapped());
-        }
+        errorValidation(req);
 
         const table:IDocTables = await Tables.findById(req.params.id);
         if (!table) {
@@ -128,6 +119,8 @@ async function toggleStatusTable(req: myRequest, res: Response, next: NextFuncti
 
 async function deleteTable(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
+        errorValidation(req);
+
         let deletedResult:IDelete  = await Tables.deleteOne({_id:req.params.id});
         if (deletedResult.ok && deletedResult.deletedCount) { //TODO check the validity of this code
             alert(res,200,messageAlert.success,ITEM_DELETED);

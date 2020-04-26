@@ -2,6 +2,7 @@ import {body,query} from "express-validator";
 import {Tables} from "../models/Tables";
 import {ITables} from "../interfaces/models/Tables";
 import {TABLE_STATUS} from "../utilities/constants/arrays";
+import {paramIdValidation} from "./General";
 
 export const addTableValidations = [
   body('number')
@@ -19,7 +20,8 @@ export const addTableValidations = [
 ];
 
 export const editTableValidations = [
-    ...addTableValidations
+    ...addTableValidations,
+    ...paramIdValidation
 ];
 
 export const getTableStatusValidations = [

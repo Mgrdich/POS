@@ -2,7 +2,7 @@ import {body, param} from "express-validator";
 import {Users} from "../models/Users";
 import {ROLES_ALL} from "../roles";
 import * as bcrypt from "bcryptjs";
-import * as mongoose from "mongoose";
+import {paramIdValidation} from "./General";
 
 //TODO remove the repetitions
 
@@ -95,10 +95,7 @@ export const changePasswordValidation: Array<any> = [
 ];
 
 export const deleteUserValidation:Array<any> = [
-    param('id')
-        .custom(function(value) {
-            return mongoose.Types.ObjectId.isValid(value);
-        })
+    ...paramIdValidation
 ];
 
 export const usersRoleValidation: Array<any> = [

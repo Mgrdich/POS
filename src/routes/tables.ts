@@ -17,7 +17,7 @@ router.get('/',getTables);
 
 router.get('/status',getTableStatusValidations,getTableStatus);
 
-router.get('/:id',getTable);
+router.get('/:id',paramIdValidation,getTable);
 
 router.put('/',addTableValidations,addTable);
 
@@ -25,7 +25,7 @@ router.patch('/status/:id',paramIdValidation,toggleStatusTable);
 
 router.put('/:id',editTableValidations,editTable);
 
-router.delete('/:id',deleteTable);
+router.delete('/:id',paramIdValidation,deleteTable);
 
 
 export default router;

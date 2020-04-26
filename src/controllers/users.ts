@@ -2,7 +2,7 @@ import {Users} from "../models/Users";
 import {validationResult} from "express-validator";
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
-import {errorCatcher, errorFormatter, errorThrower} from "../utilities/controllers/error";
+import {errorCatcher, errorFormatter, errorThrower, errorValidation} from "../utilities/controllers/error";
 import {alert} from "../utilities/controllers/messages";
 import {blackListFilterObj, tableDataNormalize} from "../utilities/reformaters";
 import {NextFunction, Request, Response} from 'express';
@@ -64,11 +64,8 @@ async function login(req: Request, res: Response, next: NextFunction): Promise<a
 
 async function registerUser(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-        const errors: any = validationResult(req).formatWith(errorFormatter);
+        errorValidation(req);
 
-        if (!errors.isEmpty()) {
-            errorThrower("Validation Failed", 422, errors.mapped());
-        }
         const {email, name, password, role} = req.body;
         const newUser: IDocUsers = new Users({email, name, password, role});
 
@@ -85,11 +82,8 @@ async function registerUser(req: Request, res: Response, next: NextFunction): Pr
 
 async function editUser(req: myRequest, res: Response, next: NextFunction): Promise<any> {
     try {
-        const errors: any = validationResult(req).formatWith(errorFormatter);
+        errorValidation(req);
 
-        if (!errors.isEmpty()) {
-            errorThrower("Validation Failed", 422, errors.mapped());
-        }
         const {email, name} = req.body;
         const currentUser: IDocUsers = await Users.findById(req.user._id);
         currentUser.email = email;
@@ -103,11 +97,8 @@ async function editUser(req: myRequest, res: Response, next: NextFunction): Prom
 
 async function changePassword(req: myRequest, res: Response, next: NextFunction): Promise<any> {
     try {
-        const errors: any = validationResult(req).formatWith(errorFormatter);
+        errorValidation(req);
 
-        if (!errors.isEmpty()) {
-            errorThrower("Validation Failed", 422, errors.mapped());
-        }
         const {new_password} = req.body;
         const currentUser: IDocUsers = await Users.findById(req.user._id);
         const salt = await bcrypt.genSalt(10);
@@ -127,6 +118,7 @@ async function currentUser(req: myRequest, res: Response, next: NextFunction): P
 async function getUsers(req: myRequest, res: Response, next: NextFunction): Promise<any> {
     const rolePriority = req.user.rolePriority;
     try {
+        errorValidation(req);
         //TODO do not return the current User
         let users: Array<IDocUsers> = await Users.find({
             "rolePriority": {$lt: rolePriority},
@@ -146,11 +138,8 @@ async function getUsers(req: myRequest, res: Response, next: NextFunction): Prom
 
 async function getUsersRole(req: myRequest, res: Response, next: NextFunction): Promise<any> {
     try {
-        const errors: any = validationResult(req).formatWith(errorFormatter);
+        errorValidation(req);
 
-        if (!errors.isEmpty()) {
-            errorThrower("Validation Failed", 422, errors.mapped());
-        }
         const users:Array<IUser> = await Users.find({role:req.params.role},{_id:1,name:1}).lean();
         if(users.length) {
             return res.status(200).json(users);
@@ -184,11 +173,7 @@ async function getUsersChat(req: myRequest, res: Response, next: NextFunction): 
 
 async function deleteUser(req: myRequest, res: Response, next: NextFunction): Promise<any> {
     try {
-        const errors: any = validationResult(req).formatWith(errorFormatter);
-
-        if (!errors.isEmpty()) {
-            errorThrower("Validation Failed", 422, errors.mapped());
-        }
+        errorValidation(req);
 
         const response: IDelete = await Users.deleteOne({_id: req.params.id});
         if (response.ok) {
