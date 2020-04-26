@@ -1,5 +1,5 @@
 import {NextFunction, Response} from "express";
-import {errorCatcher, errorFormatter, errorThrower} from "../utilities/controllers/error";
+import {errorCatcher, errorFormatter, errorThrower, errorValidation} from "../utilities/controllers/error";
 import {GroupsChats} from "../models/ChatGroups";
 import {IDocGroupsChat} from "../interfaces/models/ChatGroups";
 import {validationResult} from "express-validator";
@@ -30,6 +30,7 @@ export async function getChatGroups(req: myRequest, res: Response, next: NextFun
 
 export async function getChatGroup(req: myRequest, res: Response, next: NextFunction) {
     try {
+        errorValidation(req);
         const chats: IDocGroupsChat = await GroupsChats.findById(req.params.id).populate({
             path: 'messages',
             populate: {
@@ -51,11 +52,8 @@ export async function getChatGroup(req: myRequest, res: Response, next: NextFunc
 
 export async function createGroupChat(req: myRequest, res: Response, next: NextFunction) {
     try {
-        const errors: any = validationResult(req).formatWith(errorFormatter);
+        errorValidation(req);
 
-        if (!errors.isEmpty()) {
-            errorThrower("Validation Failed", 422, errors.mapped());
-        }
         const {name, admins, members} = req.body;
         let newAdmins = [...admins];
         let newMembers = [...members];
@@ -70,11 +68,8 @@ export async function createGroupChat(req: myRequest, res: Response, next: NextF
 
 export async function editGroupChat(req: myRequest, res: Response, next: NextFunction) {
     try {
-        const errors: any = validationResult(req).formatWith(errorFormatter);
+        errorValidation(req);
 
-        if (!errors.isEmpty()) {
-            errorThrower("Validation Failed", 422, errors.mapped());
-        }
         const {name, admins, members} = req.body;
 
         const groupChat: IDocGroupsChat = await GroupsChats.findOne({
@@ -97,11 +92,8 @@ export async function editGroupChat(req: myRequest, res: Response, next: NextFun
 
 export async function deleteGroupChat(req: myRequest, res: Response, next: NextFunction) { //TODO refactor with decorators
     try {
-        const errors: any = validationResult(req).formatWith(errorFormatter);
-
-        if (!errors.isEmpty()) {
-            errorThrower("Validation Failed", 422, errors.mapped());
-        }
+        errorValidation(req);
+        
         const response: IDelete = await GroupsChats.deleteOne({_id: req.params.id,admins: {$in: [req.user._id]}});
         if (response.ok) {
             alert(res, 200, messageAlert.success, ITEM_DELETED);
