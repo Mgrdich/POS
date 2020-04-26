@@ -26,7 +26,7 @@ export const getTableStatusValidations = [
     query('type')
         .isString()
         .custom(function(value)  {
-          if(!TABLE_STATUS.includes(value)) {
+          if(!TABLE_STATUS.includes(value)) { //TODO replace with the Enum
             return Promise.reject('Invalid Table Status');
           }
           return true;

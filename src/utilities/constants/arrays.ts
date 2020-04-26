@@ -1,3 +1,3 @@
 import {TableStatus} from "./enums";
 
-export const TABLE_STATUS:Array<TableStatus> = [TableStatus.open,TableStatus.closed,TableStatus.reserved,TableStatus.suspended];
+export const TABLE_STATUS:Array<TableStatus> = [TableStatus.open,TableStatus.closed,TableStatus.reserved,TableStatus.suspended]; //TODO Delete it
