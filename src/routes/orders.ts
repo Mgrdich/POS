@@ -22,7 +22,7 @@ router.get('/tables',getPosTables);
 
 router.get('/products-groups',getPosProductsGroups);
 
-router.get('/products/:productsGroupId',paramIdValidation,getPosProducts);
+router.get('/products/:id',paramIdValidation,getPosProducts);
 
 router.get('/:id',paramIdValidation,getOrder);
 
