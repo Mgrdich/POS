@@ -77,6 +77,7 @@ export async function getOrder(req: Request, res: Response, next: NextFunction):
     try {
         errorValidation(req);
 
+        //TODO something is going wrong check for more
         let order: IDocOrders = await Orders.findById(req.params.id, {
             price:1,
             orders:1
@@ -96,8 +97,7 @@ export async function getOrder(req: Request, res: Response, next: NextFunction):
         let dataOrders:Array<any> = [];
 
         for (let i = 0; i < formalizeOrder.length ; i++) { //TODO check for another way
-            let obj:any = {...formalizeOrder[i]._id.data};
-            dataOrders.push(obj['0']);
+            dataOrders.push(...formalizeOrder[i]._id.data);
         }
 
         dataOrders = dataOrders.reduce(function (acc:any,curr:any) {
