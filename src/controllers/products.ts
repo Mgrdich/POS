@@ -1,6 +1,6 @@
 import {NextFunction, Request, Response} from "express";
 import {noResult} from "../utilities/controllers/helpers";
-import {errorCatcher, errorFormatter, errorThrower} from "../utilities/controllers/error";
+import {errorCatcher, errorFormatter, errorThrower, errorValidation} from "../utilities/controllers/error";
 import {IDocProducts} from "../interfaces/models/Products";
 import {Products} from "../models/Products";
 import {ITEM_DELETED, NO_SUCH_DATA_EXISTS, NOT_MODIFIED} from "../utilities/constants/messages";
@@ -27,6 +27,8 @@ export async function getProducts(req: Request, res: Response, next: NextFunctio
 
 export async function getProduct(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
+        errorValidation(req);
+
         let product:IDocProducts = await Products.findById(req.params.Id);
         if (!product) {
             errorThrower(NO_SUCH_DATA_EXISTS, 422);
@@ -39,11 +41,8 @@ export async function getProduct(req: Request, res: Response, next: NextFunction
 
 export async function addProduct(req: myRequest, res: Response, next: NextFunction): Promise<any> {
     try {
-        const errors: any = validationResult(req).formatWith(errorFormatter);
+        errorValidation(req);
 
-        if (!errors.isEmpty()) {
-            errorThrower("Validation Failed", 422, errors.mapped());
-        }
         const {name, price,productsGroup} = req.body;
         const product: IDocProducts = new Products({name,price});
         product.createdBy = req.user._id;
@@ -56,11 +55,7 @@ export async function addProduct(req: myRequest, res: Response, next: NextFuncti
 
 export async function editProduct(req: myRequest, res: Response, next: NextFunction): Promise<any> {
     try {
-        const errors: any = validationResult(req).formatWith(errorFormatter);
-
-        if (!errors.isEmpty()) {
-            errorThrower("Validation Failed", 422, errors.mapped());
-        }
+        errorValidation(req);
 
         const {name, price} = req.body;
         const currentProduct: IDocProducts = await Products.findById(req.params.id);
@@ -76,11 +71,7 @@ export async function editProduct(req: myRequest, res: Response, next: NextFunct
 
 export async function deleteProduct(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-        const errors: any = validationResult(req).formatWith(errorFormatter);
-
-        if (!errors.isEmpty()) {
-            errorThrower("Validation Failed", 422, errors.mapped());
-        }
+        errorValidation(req);
 
         const product = await Products.findOne({_id:req.params.id});
         const resp = await product.deleteProductById();

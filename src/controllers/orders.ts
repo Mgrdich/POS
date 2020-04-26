@@ -1,20 +1,19 @@
 import {NextFunction, Request, Response} from "express";
-import {errorCatcher, errorFormatter, errorThrower} from "../utilities/controllers/error";
+import {errorCatcher, errorThrower, errorValidation} from "../utilities/controllers/error";
 import {
     ITEM_DELETED,
     NO_SUCH_DATA_EXISTS,
     ORDER_IS_FINISHED,
-    SOMETHING_WRONG, VALIDATION_ERROR
+    SOMETHING_WRONG
 } from "../utilities/constants/messages";
 import {myRequest} from "../interfaces/General";
-import {validationResult} from "express-validator";
 import {alert} from "../utilities/controllers/messages";
 import {messageAlert} from "../utilities/constants/enums";
 import {noResult} from "../utilities/controllers/helpers";
 import {Orders} from "../models/Orders";
 import {IDocOrders} from "../interfaces/models/Orders";
 import {Tables} from "../models/Tables";
-import {IDocTables, ITables} from "../interfaces/models/Tables";
+import {ITables} from "../interfaces/models/Tables";
 import {IProductsGroups} from "../interfaces/models/ProductsGroups";
 import {ProductsGroups} from "../models/ProductsGroups";
 import {isEmpty} from "../utilities/functions";
@@ -59,11 +58,8 @@ export async function getPosProductsGroups(req: Request, res: Response, next: Ne
 
 export async function getPosProducts(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-        const errors: any = validationResult(req).formatWith(errorFormatter);
+        errorValidation(req);
 
-        if (!errors.isEmpty()) {
-            errorThrower("Validation Failed", 422, errors.mapped());
-        }
         let posProductsGroups: IProductsGroups =
             await ProductsGroups.findById(req.params.productsGroupId,{_id:1})
             .lean().populate({path:'products',select:'name price'});
@@ -78,6 +74,8 @@ export async function getPosProducts(req: Request, res: Response, next: NextFunc
 
 export async function getOrder(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
+        errorValidation(req);
+
         let order: IDocOrders = await Orders.findById(req.params.id, {
             price:1,
             orders:1
@@ -133,11 +131,8 @@ export async function getOrder(req: Request, res: Response, next: NextFunction):
 
 export async function addOrder(req: myRequest, res: Response, next: NextFunction): Promise<any> {
     try {
-        const errors: any = validationResult(req).formatWith(errorFormatter);
+        errorValidation(req);
 
-        if (!errors.isEmpty()) {
-            errorThrower("Validation Failed", 422, errors.mapped());
-        }
         const {table, waiter} = req.body; //TODO Validation then this step
         const order: IDocOrders = new Orders({table, waiter, createdBy: req.user._id});
         //TODO more efficient method method
@@ -155,11 +150,8 @@ export async function addOrder(req: myRequest, res: Response, next: NextFunction
 
 export async function editOrders(req: myRequest, res: Response, next: NextFunction): Promise<any> {
     try {
-        const errors: any = validationResult(req).formatWith(errorFormatter);
+        errorValidation(req);
 
-        if (!errors.isEmpty()) {
-            errorThrower("Validation Failed", 422, errors.mapped());
-        }
         const {orders, waiter} = req.body; //TODO validation within Search Order
         const currentOrder: IDocOrders = await Orders.findById(req.params.id);
         await currentOrder.editOrder(req.user._id, waiter, orders);
@@ -171,11 +163,8 @@ export async function editOrders(req: myRequest, res: Response, next: NextFuncti
 
 export async function closeOrder(req: myRequest, res: Response, next: NextFunction):Promise<any> {
     try {
-        const errors: any = validationResult(req).formatWith(errorFormatter);
+        errorValidation(req);
 
-        if (!errors.isEmpty()) {
-            errorThrower(VALIDATION_ERROR, 422, errors.mapped());
-        }
         const ordersSaved:IDocClosedOrders = await Orders.closeOrderById(req.params.id);
         if(!ordersSaved){
             errorThrower(SOMETHING_WRONG,401); //tODO heck out status code
@@ -189,11 +178,8 @@ export async function closeOrder(req: myRequest, res: Response, next: NextFuncti
 
 export async function deleteOrder(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-        const errors: any = validationResult(req).formatWith(errorFormatter);
+        errorValidation(req);
 
-        if (!errors.isEmpty()) {
-            errorThrower(VALIDATION_ERROR, 422, errors.mapped());
-        }
         const p = await Orders.deleteOrderById(req.params.id);
         if (isEmpty(p)) {
             errorThrower(NO_SUCH_DATA_EXISTS, 422);
