@@ -11,3 +11,11 @@ export enum messageAlert {
     warning = 'warning',
     info = 'info',
 }
+
+export enum DateRanges {
+    today = 'today',
+    yesterday = 'yesterday',
+    last_month = 'last_month',
+    last_three_months = 'last_three_months',
+    ytd = 'ytd'
+}
