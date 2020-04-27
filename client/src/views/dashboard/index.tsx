@@ -13,13 +13,14 @@ const Dashboard:React.FC = () => {
     const tickFormat = data.length ?  data.map((item:any) => item.name) : null;
     const waiterTickFormat = data.length ?  data1.map((item:any) => item.waiter) : null;
     const colorScale = ['#1f2833', '#66fcf1', '#000000'];
+    const BarChartColorScale = ['#66fcf1', '#1f2833'];
     return (
         <>
             <ComponentLoader isLoading={isLoading}>
                 <Grid container spacing={1}>
                     <Grid item xs={12} md={12} lg={6}>
                         <Paper>
-                            <BarChart data={data} x='name' y='price' tickFormat={tickFormat}/>
+                            <BarChart colorScale={BarChartColorScale} data={data} x='name' y='price' tickFormat={tickFormat} labelsKey='price'/>
                         </Paper>
                     </Grid>
                     <Grid item xs={12} md={12} lg={6}>
