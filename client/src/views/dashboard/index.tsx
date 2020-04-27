@@ -9,10 +9,9 @@ import HorizontalGroupChart from "../../components/Reusable/Chart/HorizontalGrou
 
 const Dashboard:React.FC = () => {
     const {data, isLoading} = useFetch('/statistics/products/price');
-    const {data:data1,isLoading:isLoading1} = useFetch('/statistics/orders/waiter');
+    const {data:data1} = useFetch('/statistics/orders/waiter');
     const tickFormat = data.length ?  data.map((item:any) => item.name) : null;
-    const waiterTickFormat = data.length ?  data1.map((item:any) => item.waiter) : null;
-    const colorScale = ['#1f2833', '#66fcf1', '#000000'];
+    const waiterTickFormat = data1.length ?  data1.map((item:any) => item.waiter) : null;
     const BarChartColorScale = ['#66fcf1', '#1f2833'];
     return (
         <>
