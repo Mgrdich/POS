@@ -6,7 +6,7 @@ export function noResult(res: Response) {
     res.status(200).json({empty:true});
 }
 
-export function dateRangeHandler(dateRanges:DateRanges) {
+export function getDateRange(dateRanges:DateRanges) {
     let now = new Date();
 
     switch (dateRanges) {

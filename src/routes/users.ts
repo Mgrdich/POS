@@ -12,11 +12,12 @@ import {
 import {isAuth,isAuthorized} from "../middlewares/authorisation";
 import {ROLES_SUPER_ADMIN_MANAGER, ROLES_SUPER_ADMIN_MANAGER_CASHIER} from "../roles";
 import {
-    changePasswordValidation, deleteUserValidation,
+    changePasswordValidation,
     editUserValidation,
     registerUserValidation,
     registerValidation, usersRoleValidation
 } from "../validations/users";
+import {paramIdValidation} from "../validations/General";
 
 const router = express.Router();
 
@@ -38,6 +39,6 @@ router.patch('/change-password',isAuth(),changePasswordValidation,changePassword
 
 router.get("/current", isAuth(),isAuthorized(ROLES_SUPER_ADMIN_MANAGER),currentUser);
 
-router.delete('/:id',isAuth(),isAuthorized(ROLES_SUPER_ADMIN_MANAGER),deleteUserValidation,deleteUser);
+router.delete('/:id',isAuth(),isAuthorized(ROLES_SUPER_ADMIN_MANAGER),paramIdValidation,deleteUser);
 
 export default router;

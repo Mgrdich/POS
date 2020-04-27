@@ -1,15 +1,17 @@
 import {NextFunction, Response,Request} from "express";
 import {IProducts} from "../interfaces/models/Products";
 import {Products} from "../models/Products";
-import {noResult} from "../utilities/controllers/helpers";
+import {getDateRange, noResult} from "../utilities/controllers/helpers";
 import {IClosedOrders} from "../interfaces/models/ClosedOrders";
 import {ClosedOrders} from "../models/ClosedOrders";
 import {priceSumWithClosedOrders} from "../utilities/reformaters";
 import {errorCatcher,errorValidation} from "../utilities/controllers/error";
+import {IRange} from "../interfaces/General";
 
 export async function getProductsPrice(req: Request, res: Response, next: NextFunction) {
     try {
         errorValidation(req);
+        let range:IRange = getDateRange(req.query.time);
         const productPrice: Array<IProducts> =
             await Products.find({}, {name: 1, price: 1}).lean();
         if (!productPrice.length) {
@@ -29,7 +31,7 @@ export async function getProductsPrice(req: Request, res: Response, next: NextFu
 export async function getClosedOrdersPricesTables(req: Request, res: Response, next: NextFunction) { //TODO add with date Filter
     try {
         errorValidation(req);
-
+        let range:IRange = getDateRange(req.query.time);
         const closedOrders: Array<IClosedOrders> =
             await ClosedOrders.find({}, {price: 1, table: 1}).populate('table', 'number');
         if (!closedOrders.length) {
@@ -70,6 +72,7 @@ export async function getClosedOrdersPricesTables(req: Request, res: Response, n
 export async function getClosedOrdersWaiter(req: Request, res: Response, next: NextFunction) { //TODO add with date Filter
     try {
         errorValidation(req);
+        let range:IRange = getDateRange(req.query.time);
         const closedOrders: Array<IClosedOrders> =
             await ClosedOrders.find({}, {waiter: 1, price: 1}).lean().populate('waiter', 'name');
         if (!closedOrders.length) {
@@ -91,7 +94,7 @@ export async function getClosedOrdersWaiter(req: Request, res: Response, next: N
 export async function getClosedOrdersCashier(req: Request, res: Response, next: NextFunction) { //TODO add with date Filter
     try {
         errorValidation(req);
-
+        let range:IRange = getDateRange(req.query.time);
         const closedOrders: Array<IClosedOrders> =
             await ClosedOrders.find({}, {createdBy: 1, price: 1}).lean().populate('createdBy', 'name');
         if (!closedOrders.length) {

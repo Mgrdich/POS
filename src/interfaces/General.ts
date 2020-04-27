@@ -35,3 +35,8 @@ export interface ITimestamps {
     createdAt:Date;
     updatedAt:Date;
 }
+
+export interface IRange {
+    gt:Date,
+    lt:Date
+}

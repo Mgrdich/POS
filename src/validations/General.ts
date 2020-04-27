@@ -10,7 +10,7 @@ export const paramIdValidation: Array<any> = [
 ];
 
 export const queryDateValidation: Array<any> = [
-    query('time')
+    query('date')
         .custom(function (value, {req}) {
             if (value === undefined) {
                 req.query.time = DateRanges.ytd; //when it is not defined
