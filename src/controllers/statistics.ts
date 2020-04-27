@@ -14,7 +14,7 @@ export async function getProductsPrice(req: Request, res: Response, next: NextFu
         let range:IRange = getDateRange(req.query.date);
         const productPrice: Array<IProducts> =
             await Products.find({createdAt:{$gte:range.gt,$lt:range.lt}},
-                {name: 1, price: 1}).limit(10).lean();
+                {name: 1, price: 1}).limit(5).lean();
         if (!productPrice.length) {
             return noResult(res);
         }
@@ -32,10 +32,10 @@ export async function getProductsPrice(req: Request, res: Response, next: NextFu
 export async function getClosedOrdersPricesTables(req: Request, res: Response, next: NextFunction) { //TODO add with date Filter
     try {
         errorValidation(req);
-        let range:IRange = getDateRange(req.query.time);
+        let range:IRange = getDateRange(req.query.date);
         const closedOrders: Array<IClosedOrders> =
             await ClosedOrders.find({createdAt:{$gte:range.gt,$lt:range.lt}},
-                {price: 1, table: 1}).limit(10).populate('table', 'number');
+                {price: 1, table: 1}).limit(5).populate('table', 'number');
         if (!closedOrders.length) {
             return noResult(res);
         }
@@ -74,10 +74,11 @@ export async function getClosedOrdersPricesTables(req: Request, res: Response, n
 export async function getClosedOrdersWaiter(req: Request, res: Response, next: NextFunction) { //TODO add with date Filter
     try {
         errorValidation(req);
-        let range:IRange = getDateRange(req.query.time);
+        let range:IRange = getDateRange(req.query.date);
+        console.log(range);
         const closedOrders: Array<IClosedOrders> =
             await ClosedOrders.find({createdAt:{$gte:range.gt,$lt:range.lt}},
-                {waiter: 1, price: 1}).limit(10).lean().populate('waiter', 'name');
+                {waiter: 1, price: 1}).limit(5).lean().populate('waiter', 'name');
         if (!closedOrders.length) {
             return noResult(res);
         }
@@ -97,10 +98,10 @@ export async function getClosedOrdersWaiter(req: Request, res: Response, next: N
 export async function getClosedOrdersCashier(req: Request, res: Response, next: NextFunction) { //TODO add with date Filter
     try {
         errorValidation(req);
-        let range:IRange = getDateRange(req.query.time);
+        let range:IRange = getDateRange(req.query.date);
         const closedOrders: Array<IClosedOrders> =
             await ClosedOrders.find({createdAt:{$gte:range.gt,$lt:range.lt}},
-                {createdBy: 1, price: 1}).limit(10).lean().populate('createdBy', 'name');
+                {createdBy: 1, price: 1}).limit(5).lean().populate('createdBy', 'name');
         if (!closedOrders.length) {
             return noResult(res);
         }

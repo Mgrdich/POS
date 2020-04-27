@@ -2,7 +2,6 @@ import React from 'react';
 import BarChart from "../../components/Reusable/Chart/BarChart";
 import Grid from "@material-ui/core/Grid";
 import {useFetch} from "../../components/Hooks/useFetch";
-import {Paper} from "@material-ui/core";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
 import HorizontalGroupChart from "../../components/Reusable/Chart/HorizontalGroupChart";
 
