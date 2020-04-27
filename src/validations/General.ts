@@ -13,7 +13,7 @@ export const queryDateValidation: Array<any> = [
     query('date')
         .custom(function (value, {req}) {
             if (value === undefined) {
-                req.query.time = DateRanges.ytd; //when it is not defined
+                req.query.date = DateRanges.ytd; //when it is not defined
                 return true;
             }
             return !!DateRanges[value];

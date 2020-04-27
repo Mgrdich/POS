@@ -1,15 +1,15 @@
 import {Response} from "express";
 import {DateRanges} from "../constants/enums";
-import {startOfToday,endOfToday,startOfMonth,subMonths,subDays,startOfYear} from 'date-fns';
+import {startOfDay,startOfMonth,subMonths,subDays,startOfYear,endOfMonth} from 'date-fns';
 
 export function noResult(res: Response) {
     res.status(200).json({empty:true});
 }
 
-export function getDateRange(dateRanges:DateRanges) {
+export function getDateRange(dateRange:DateRanges) {
     let now = new Date();
 
-    switch (dateRanges) {
+    switch (dateRange) {
         case DateRanges.ytd:
           return {
               gt: startOfYear(now),
@@ -21,18 +21,19 @@ export function getDateRange(dateRanges:DateRanges) {
                 lt:now,
             };
         case DateRanges.last_month:
+            let lastMonth:Date = subMonths(startOfMonth(now),1);
             return {
-                gt:subMonths(startOfMonth(now),1),
-                lt:now,
+                gt:lastMonth,
+                lt:endOfMonth(lastMonth),
             };
         case DateRanges.yesterday:
             return {
-                gt:subDays(startOfToday(),1),
+                gt:subDays(startOfDay(now),1),
                 lt:subDays(now,1)
             };
         case DateRanges.today: {
             return {
-                gt: startOfToday(),
+                gt: startOfDay(now),
                 lt: now,
             };
         }
