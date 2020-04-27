@@ -4,25 +4,21 @@ import Grid from "@material-ui/core/Grid";
 import {useFetch} from "../../components/Hooks/useFetch";
 import {Paper} from "@material-ui/core";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
-import PieChart from "../../components/Reusable/Chart/PieChart";
+import HorizontalGroupChart from "../../components/Reusable/Chart/HorizontalGroupChart";
 
 
 const Dashboard:React.FC = () => {
     const {data, isLoading} = useFetch('/statistics/products/price');
-    const {data:data1,isLoading:isLoading1} = useFetch('/statistics/products/price');
+    const {data:data1,isLoading:isLoading1} = useFetch('/statistics/orders/waiter');
     const tickFormat = data.length ?  data.map((item:any) => item.name) : null;
-    const pieChartData = data.length ? data.map((item: any)=> {
-        return{
-            x: item.name,
-            y: item.price,
-        }
-    }) : null;
+    const waiterTickFormat = data.length ?  data1.map((item:any) => item.waiter) : null;
     const colorScale = ['#1f2833', '#66fcf1', '#000000'];
+    console.log( data1, isLoading1,waiterTickFormat)
 
     return (
         <>
             <ComponentLoader isLoading={isLoading}>
-                <Grid container>
+                <Grid container spacing={1}>
                     <Grid item xs={12} md={12} lg={6}>
                         <Paper>
                             <BarChart data={data} x='name' y='price' tickFormat={tickFormat}/>
@@ -30,7 +26,7 @@ const Dashboard:React.FC = () => {
                     </Grid>
                     <Grid item xs={12} md={12} lg={6}>
                         <Paper>
-                            <PieChart data={pieChartData} x='y' colorScale={colorScale} chartName='Products'/>
+                            <HorizontalGroupChart data={data1} x='waiter' y='price' tickFormat={waiterTickFormat}/>
                         </Paper>
                     </Grid>
                 </Grid>
