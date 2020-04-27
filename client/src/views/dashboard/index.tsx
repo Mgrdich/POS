@@ -13,8 +13,6 @@ const Dashboard:React.FC = () => {
     const tickFormat = data.length ?  data.map((item:any) => item.name) : null;
     const waiterTickFormat = data.length ?  data1.map((item:any) => item.waiter) : null;
     const colorScale = ['#1f2833', '#66fcf1', '#000000'];
-    console.log( data1, isLoading1,waiterTickFormat)
-
     return (
         <>
             <ComponentLoader isLoading={isLoading}>
