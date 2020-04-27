@@ -7,15 +7,13 @@ import {ClosedOrders} from "../models/ClosedOrders";
 import {priceSumWithClosedOrders} from "../utilities/reformaters";
 import {errorCatcher,errorValidation} from "../utilities/controllers/error";
 import {IRange} from "../interfaces/General";
-import {formatISO} from "date-fns";
 
 export async function getProductsPrice(req: Request, res: Response, next: NextFunction) {
     try {
         errorValidation(req);
         let range:IRange = getDateRange(req.query.date);
-        console.log(formatISO(range.gt,{representation:"date"}),formatISO(range.lt,{representation:"date"}));
         const productPrice: Array<IProducts> =
-            await Products.find({}, {name: 1, price: 1}).lean();
+            await Products.find({createdAt:{$gte:range.gt,$lt:range.lt}}, {name: 1, price: 1}).lean();
         if (!productPrice.length) {
             return noResult(res);
         }

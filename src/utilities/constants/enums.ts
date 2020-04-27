@@ -15,7 +15,9 @@ export enum messageAlert {
 export enum DateRanges {
     today = 'today',
     yesterday = 'yesterday',
+    this_month = 'this_month',
     last_month = 'last_month',
     last_three_months = 'last_three_months',
-    ytd = 'ytd'
+    ytd = 'ytd',
+    beginning = 'beginning'
 }
