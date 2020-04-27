@@ -1,6 +1,6 @@
 import {Response} from "express";
 import {DateRanges} from "../constants/enums";
-import {endOfMonth, startOfDay, startOfMonth, startOfYear, subDays, subMonths,addDays,subYears} from 'date-fns';
+import {endOfMonth, startOfDay, startOfMonth, startOfYear, subDays, subMonths,addDays,subYears,startOfWeek} from 'date-fns';
 
 export function noResult(res: Response) {
     res.status(200).json({empty:true});
@@ -35,6 +35,11 @@ export function getDateRange(dateRange:DateRanges) {
             return {
                 gt:startOfMonth(now),
                 lt:now,
+            };
+        case DateRanges.this_week:
+            return {
+              gt:startOfWeek(now),
+              lt:now
             };
         case DateRanges.yesterday:
             return {
