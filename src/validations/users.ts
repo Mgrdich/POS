@@ -94,7 +94,7 @@ export const changePasswordValidation: Array<any> = [
     })
 ];
 
-export const deleteUserValidation:Array<any> = [
+export const deleteUserValidation:Array<any> = [ //TODO replace it with param id
     ...paramIdValidation
 ];
 
