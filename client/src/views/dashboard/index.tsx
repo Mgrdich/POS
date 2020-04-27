@@ -16,16 +16,12 @@ const Dashboard:React.FC = () => {
     return (
         <>
             <ComponentLoader isLoading={isLoading}>
-                <Grid container spacing={1}>
+                <Grid container spacing={1} alignItems='center'>
                     <Grid item xs={12} md={12} lg={6}>
-                        <Paper>
                             <BarChart colorScale={BarChartColorScale} data={data} x='name' y='price' tickFormat={tickFormat} labelsKey='price'/>
-                        </Paper>
                     </Grid>
                     <Grid item xs={12} md={12} lg={6}>
-                        <Paper>
                             <HorizontalGroupChart data={data1} x='waiter' y='price' tickFormat={waiterTickFormat}/>
-                        </Paper>
                     </Grid>
                 </Grid>
             </ComponentLoader>
