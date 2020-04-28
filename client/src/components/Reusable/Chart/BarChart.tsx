@@ -7,8 +7,7 @@ import {
     VictoryTheme,
     VictoryTooltip
 } from "victory";
-import CardMessage from "../CardMessage";
-import {Paper} from "@material-ui/core";
+
 
 interface IBarChart {
     data: Array<{ name: string; price: string; }>;
@@ -16,47 +15,48 @@ interface IBarChart {
     y: string;
     tickFormat: Array<string>;
     labelsKey: string;
-    colorScale: Array<string>;
+    colorScale?: Array<string>;
+    tickFormatFunction?: Function;
+    labelsFunction?: Function;
 }
 
 const BarChart: React.FC<IBarChart> = (props) => {
-    const {data, x, y, tickFormat, labelsKey, colorScale} = props;
+    const {data, x, y, tickFormat, labelsKey, colorScale, tickFormatFunction, labelsFunction} = props;
     return (
         <>
-            {data.length ?
-                <Paper>
-                    <VictoryChart theme={VictoryTheme.material} domainPadding={{x: 20, y: [0, 5]}} height={165}
-                                  width={400}>
-                        <VictoryAxis
-                            tickValues={tickFormat}
-                            tickFormat={tickFormat}
-                            style={{tickLabels: {fontSize: '10px', fill: '#66fcf1'}}}
-                        />
-                        <VictoryAxis
-                            dependentAxis
-                            tickFormat={(x) => `AMD${x / 1000}k`}
-                            style={{tickLabels: {fontSize: '8px', fill: '#66fcf1'}}}
 
-                        />
-                        <VictoryStack animate={{
-                            duration: 2000,
-                            onLoad: {duration: 1000}
-                        }} colorScale={colorScale}>
-                            <VictoryBar data={data} x={x} y={y}
-                                        labels={({datum}) => `price: ${datum[labelsKey]}`}
-                                        style={{labels: {fontSize: '8px', color: '#1f2833'}}}
-                                        labelComponent={
-                                            <VictoryTooltip
-                                                flyoutStyle={{fill: '#66fcf1', stroke: 'none'}}
-                                                orientation='left'
-                                            />
-                                        }
-                            />
-                        </VictoryStack>
-                    </VictoryChart>
-                    </Paper>: <CardMessage header='No data created!'/>}
-                    </>
-                    );
-                    };
+            <VictoryChart theme={VictoryTheme.material} domainPadding={{x: 20, y: [0, 5]}} height={165}
+                          width={400}>
+                <VictoryAxis
+                    tickValues={tickFormat}
+                    tickFormat={tickFormat}
+                    style={{tickLabels: {fontSize: '10px', fill: '#66fcf1'}}}
+                />
+                <VictoryAxis
+                    dependentAxis
+                    tickFormat={(x) => tickFormatFunction ? tickFormatFunction(x) : x}
+                    style={{tickLabels: {fontSize: '8px', fill: '#66fcf1'}}}
 
-                    export default BarChart;
+                />
+                <VictoryStack animate={{
+                    duration: 2000,
+                    onLoad: {duration: 1000}
+                }} colorScale={colorScale}>
+                    <VictoryBar data={data} x={x} y={y}
+                                labels={({datum}) => labelsFunction ? labelsFunction(datum[labelsKey]) : datum[labelsKey]}
+                                style={{labels: {fontSize: '8px', color: '#1f2833'}}}
+                                labelComponent={
+                                    <VictoryTooltip
+                                        flyoutStyle={{fill: '#66fcf1', stroke: 'none'}}
+                                        orientation='left'
+                                    />
+                                }
+                    />
+                </VictoryStack>
+            </VictoryChart>
+
+        </>
+    );
+};
+
+export default BarChart;

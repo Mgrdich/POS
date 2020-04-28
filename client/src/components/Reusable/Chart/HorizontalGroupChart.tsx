@@ -4,7 +4,7 @@ import CardMessage from "../CardMessage";
 import {Paper} from "@material-ui/core";
 
 const HorizontalGroupChart = (props: any) => {
-    const {data, x, y, tickFormat} = props;
+    const {data, x, y, tickFormat, tickFormatFunction, labelsFunction, labelsKey} = props;
     return (
         <> {data.length ?
             <Paper>
@@ -19,7 +19,7 @@ const HorizontalGroupChart = (props: any) => {
                     />
                     <VictoryAxis
                         dependentAxis
-                        tickFormat={(x) => `AMD${x / 1000}k`}
+                        tickFormat={(x) => tickFormatFunction ? tickFormatFunction(x) : x}
                         style={{tickLabels: {fontSize: '8px', fill: '#66fcf1'}}}
                     />
                     <VictoryGroup horizontal
@@ -29,7 +29,7 @@ const HorizontalGroupChart = (props: any) => {
                                   colorScale={['#66fcf1', '#1f2833']}
                     >
                         <VictoryBar data={data} x={x} y={y}
-                                    labels={({datum}) => `price: ${datum.price}`}
+                                    labels={({datum}) => labelsFunction ? labelsFunction(datum[labelsKey]) : datum[labelsKey]}
                                     style={{labels: {fontSize: '8px', color: '#1f2833'}}}
                                     labelComponent={
                                         <VictoryTooltip
@@ -38,7 +38,6 @@ const HorizontalGroupChart = (props: any) => {
                                         />
                                     }
                         />
-
                     </VictoryGroup>
                 </VictoryChart>
             </Paper> : <CardMessage header='No data created!'/>}
