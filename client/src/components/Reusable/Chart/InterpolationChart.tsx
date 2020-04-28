@@ -15,7 +15,7 @@ const InterpolationChart = (props: any) => {
         <>
 
 
-            <VictoryChart theme={VictoryTheme.material} height={170}>
+            <VictoryChart theme={VictoryTheme.material} height={165} width={400}>
                 <VictoryAxis
                     tickValues={tickFormat}
                     tickFormat={tickFormat}
