@@ -10,7 +10,7 @@ const HorizontalGroupChart = (props: any) => {
             <Paper>
                 <VictoryChart
                     theme={VictoryTheme.material}
-                    domainPadding={{x: 20, y: [0, 5]}} width={400} height={180}
+                    domainPadding={{x: 20, y: [0, 5]}} width={400} height={165}
                 >
                     <VictoryAxis
                         tickValues={tickFormat}

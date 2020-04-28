@@ -25,7 +25,7 @@ const BarChart: React.FC<IBarChart> = (props) => {
         <>
             {data.length ?
                 <Paper>
-                    <VictoryChart theme={VictoryTheme.material} domainPadding={{x: 20, y: [0, 5]}} height={180}
+                    <VictoryChart theme={VictoryTheme.material} domainPadding={{x: 20, y: [0, 5]}} height={165}
                                   width={400}>
                         <VictoryAxis
                             tickValues={tickFormat}
