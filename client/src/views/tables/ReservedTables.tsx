@@ -8,8 +8,8 @@ import {useTableBody} from "../../components/Hooks/useTableBody";
 const actionsTypes = ['Open', 'Reserved'];
 
 const ReservedTables = () => {
-    const {tbody: tbodyOpen, thead: theadOpen, keys: keysOpen , isLoading: isLoadingOpen,setRefetch: setRefetchOpen} = useTable('/tables/status?type=open');
-    const {tbody, thead, keys, isLoading,setRefetch} = useTable('/tables/status?type=reserved');
+    const {tbody: tbodyOpen, thead: theadOpen, keys: keysOpen , isLoading: isLoadingOpen} = useTable('/tables/status?type=open&type=closed');
+    const {tbody, thead, keys, isLoading} = useTable('/tables/status?type=reserved');
     const [rowsOpen] = useTableBody(isLoadingOpen, tbodyOpen);
     const [rows] = useTableBody(isLoading, tbody);
 

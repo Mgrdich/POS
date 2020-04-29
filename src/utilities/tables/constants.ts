@@ -22,11 +22,12 @@ export const GET_TABLES_TABLE = {
 };
 
 export const GET_TABLES_TABLE_STATUS = {
-    keys:['name','number','createdAt'],
+    keys:['name','number','status','createdAt'],
     translations:{
         'name':'Name',
         'number':'Number',
-        'createdAt':'created At'
+        'createdAt':'created At',
+        'status':'Status'
     }
 };
 
