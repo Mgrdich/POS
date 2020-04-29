@@ -11,7 +11,6 @@ export const createGroupChat: Array<InputField> = [
         placeholder: 'Admins',
         type: 'select',
         url: '/api/users', //TODO fetch it once an give it to him
-        ignoreNone:true,
         multiple:true
     },
     {
@@ -19,7 +18,6 @@ export const createGroupChat: Array<InputField> = [
         placeholder: 'Members',
         type: 'select',
         url: '/api/users',
-        ignoreNone:true,
         multiple: true
     }
 ];
@@ -34,7 +32,6 @@ export const editGroupChat: Array<InputField> = [
         placeholder: 'Admins',
         type: 'select',
         url: '/api/users', //TODO fetch it once an give it to him
-        ignoreNone:true,
         multiple:true
     },
     {
@@ -42,7 +39,6 @@ export const editGroupChat: Array<InputField> = [
         placeholder: 'Members',
         type: 'select',
         url: '/api/users',
-        ignoreNone:true,
         multiple: true
     }
 ];

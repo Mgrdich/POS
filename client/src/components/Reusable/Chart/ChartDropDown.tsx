@@ -7,7 +7,7 @@ const ChartDropDown = () => {
     const {control} = useForm<createUserFormDataType>({});
     return (
         <div className="chart-dropdown-container">
-           <Dropdown id='1' name='ChartDropDown' label='Select date range' control={control} data={dateRanges} size='small' />
+           <Dropdown id='1' name='ChartDropDown' label='Select date range' control={control} data={dateRanges} size='small' ignoreNone={true}/>
         </div>
     );
 };
