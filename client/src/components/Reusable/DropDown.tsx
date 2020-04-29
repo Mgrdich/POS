@@ -17,6 +17,7 @@ interface IDropDown {
     defaultValue?: Array<any> | string | number;
     ignoreNone?: boolean;
     multiple?: boolean;
+    size?: "small" | "medium" | undefined;
 }
 
 
@@ -47,7 +48,7 @@ const Dropdown: React.FC<IDropDown> = (props) => {
         }
     }, [props.url]);
     return (
-        <FormControl variant="outlined" error={props.error}>
+        <FormControl size={props.size} variant="outlined" error={props.error}>
             <InputLabel ref={inputLabel} id={props.id}>
                 {props.label}
             </InputLabel>

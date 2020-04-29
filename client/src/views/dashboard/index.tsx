@@ -7,6 +7,7 @@ import HorizontalGroupChart from "../../components/Reusable/Chart/HorizontalGrou
 import InterpolationChart from "../../components/Reusable/Chart/InterpolationChart";
 import {Paper} from "@material-ui/core";
 import CardMessage from "../../components/Reusable/CardMessage";
+import ChartDropDown from "../../components/Reusable/Chart/ChartDropDown";
 
 const Dashboard: React.FC = () => {
     const {data: products, isLoading} = useFetch('/statistics/products/price');
@@ -40,6 +41,7 @@ const Dashboard: React.FC = () => {
                     <Grid item xs={12} md={12} lg={6}>
                         {cashier.length && !isLoading ?
                             <Paper>
+                                <ChartDropDown/>
                                 <BarChart
                                     colorScale={BarChartColorScale}
                                     data={cashier}
@@ -55,6 +57,7 @@ const Dashboard: React.FC = () => {
                     <Grid item xs={12} md={12} lg={6}>
                         {waiter.length && !isLoading ?
                             <Paper>
+                                <ChartDropDown/>
                                 <HorizontalGroupChart
                                     data={waiter}
                                     x='waiter'
@@ -69,6 +72,7 @@ const Dashboard: React.FC = () => {
                     <Grid item xs={12} md={12} lg={6}>
                         {products.length && !isLoading ?
                             <Paper>
+                                <ChartDropDown/>
                                 <InterpolationChart
                                     tickFormat={productsTickFormat}
                                     data={productsData}
@@ -83,6 +87,7 @@ const Dashboard: React.FC = () => {
                     <Grid item xs={12} md={12} lg={6}>
                         {tables.length && !isLoading ?
                             <Paper>
+                                <ChartDropDown/>
                                <InterpolationChart
                                    tickFormat={tablesTickFormat}
                                    data={tablesData}

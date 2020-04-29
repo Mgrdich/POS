@@ -17,42 +17,48 @@
   flex-direction: column;
   justify-content: center;
   align-items: center; }
-  .error .head {
-    margin: 0;
-    width: 500px;
-    height: 200px;
-    background-color: #1f2833;
-    border-radius: 5px 5px 0 0;
-    border: #66fcf1 1px solid;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; }
-    .error .head h1 {
-      color: #66fcf1;
-      font-size: 55px;
-      margin: 0; }
-  .error .icon-wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center; }
-    .error .icon-wrapper p {
-      color: #66fcf1;
-      font-size: 20px;
-      margin: 0; }
-    .error .icon-wrapper .MuiSvgIcon-root {
-      font-size: 30px;
-      color: #66fcf1;
-      margin-left: 5px; }
-  .error .bod {
-    width: 500px;
-    height: 100px;
-    border: #66fcf1 1px solid;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; }
+
+.error .head {
+  margin: 0;
+  width: 500px;
+  height: 200px;
+  background-color: #1f2833;
+  border-radius: 5px 5px 0 0;
+  border: #66fcf1 1px solid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; }
+
+.error .head h1 {
+  color: #66fcf1;
+  font-size: 55px;
+  margin: 0; }
+
+.error .icon-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center; }
+
+.error .icon-wrapper p {
+  color: #66fcf1;
+  font-size: 20px;
+  margin: 0; }
+
+.error .icon-wrapper .MuiSvgIcon-root {
+  font-size: 30px;
+  color: #66fcf1;
+  margin-left: 5px; }
+
+.error .bod {
+  width: 500px;
+  height: 100px;
+  border: #66fcf1 1px solid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; }
 
 .MuiFormControl-root {
   width: 100%; }
@@ -74,8 +80,9 @@
 
 .menuButton {
   margin-right: 36px !important; }
-  .menuButton.hide {
-    display: none; }
+
+.menuButton.hide {
+  display: none; }
 
 .MuiGrid-root.profile-container {
   width: auto; }
@@ -86,7 +93,7 @@
 
 .MuiAppBar-root.MuiAppBar-positionFixed.appBarShift {
   margin-left: 240px;
-  width: calc( 100% - 240px );
+  width: calc( 100% - 240px);
   transition: width 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms; }
 
 .drawer {
@@ -121,128 +128,164 @@
 
 .chatContainer {
   height: 85vh; }
-  .chatContainer .MuiGrid-root {
-    height: 100%; }
-  .chatContainer .chatGrid {
-    height: 100%; }
-    .chatContainer .chatGrid.listItems {
-      padding-bottom: 10px;
-      overflow: auto; }
-      .chatContainer .chatGrid.listItems .usersList {
-        overflow: auto; }
-      .chatContainer .chatGrid.listItems .chat-list-header {
-        background-color: #1f2833;
-        position: sticky;
-        top: 0;
-        z-index: 1; }
-    .chatContainer .chatGrid .search-container {
-      margin-bottom: 10px; }
-  .chatContainer .MuiTabs-flexContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: center; }
-  .chatContainer .usersList {
-    min-height: auto;
-    overflow: hidden; }
-    .chatContainer .usersList .MuiListItem-root {
-      cursor: pointer; }
-      .chatContainer .usersList .MuiListItem-root:hover {
-        color: #66fcf1;
-        border-top: 1px solid #66fcf1;
-        border-bottom: 1px solid #66fcf1; }
-        .chatContainer .usersList .MuiListItem-root:hover .avatar {
-          border-color: #fff;
-          color: #66fcf1; }
-  .chatContainer .conversation {
-    position: relative;
-    height: 100%; }
-    .chatContainer .conversation .conversationHeader {
-      height: 8%;
-      border-bottom: 2px solid #66fcf1;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 10px; }
-      .chatContainer .conversation .conversationHeader > div {
-        display: flex;
-        align-items: center;
-        min-width: 100%; }
-        .chatContainer .conversation .conversationHeader > div .email {
-          color: #fff;
-          font-weight: 500;
-          font-size: 16px;
-          margin-left: 20px;
-          min-width: auto;
-          white-space: nowrap; }
-      .chatContainer .conversation .conversationHeader .drop-wrapper {
-        width: 100%;
-        display: flex;
-        flex-direction: row-reverse; }
-    .chatContainer .conversation .conversationBody {
-      height: 84%;
-      overflow: auto;
-      padding: 10px 0; }
-      .chatContainer .conversation .conversationBody .message {
-        display: flex;
-        justify-content: flex-start;
-        margin: 10px; }
-        .chatContainer .conversation .conversationBody .message:last-child {
-          margin-bottom: 0; }
-        .chatContainer .conversation .conversationBody .message .msg-bubble {
-          max-width: 450px;
-          padding: 15px;
-          border-radius: 15px;
-          background: transparent;
-          border: 1px solid #66fcf1; }
-        .chatContainer .conversation .conversationBody .message .msg-info {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 10px;
-          color: #66fcf1; }
-          .chatContainer .conversation .conversationBody .message .msg-info * {
-            color: #66fcf1; }
-        .chatContainer .conversation .conversationBody .message .msg-info-name {
-          margin-right: 10px;
-          font-weight: bold; }
-        .chatContainer .conversation .conversationBody .message .msg-info-time {
-          font-size: 0.85em; }
-        .chatContainer .conversation .conversationBody .message.left .msg-bubble {
-          background: transparent;
-          color: #fff;
-          border-bottom-left-radius: 0; }
-        .chatContainer .conversation .conversationBody .message.right {
-          flex-direction: row-reverse; }
-          .chatContainer .conversation .conversationBody .message.right .msg-bubble {
-            background-color: transparent;
-            border-bottom-right-radius: 0; }
-        .chatContainer .conversation .conversationBody .message .text {
-          padding: 10px 10px;
-          border: 3px solid #66fcf1;
-          border-radius: 15%;
-          margin: 10px; }
-        .chatContainer .conversation .conversationBody .message .msg-text {
-          font-size: 16px; }
-    .chatContainer .conversation .empty-message-container {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%); }
-      .chatContainer .conversation .empty-message-container h1 {
-        margin: 0; }
-    .chatContainer .conversation .conversationFooter {
-      height: 8%;
-      border-top: 2px solid #66fcf1;
-      min-width: fit-content; }
-      .chatContainer .conversation .conversationFooter .input-container {
-        padding-left: 20px; }
-      .chatContainer .conversation .conversationFooter button {
-        height: 65%;
-        width: 65%; }
-  .chatContainer .chatInput .MuiInput-underline:after {
-    border: 1px solid #66fcf1; }
-  .chatContainer .list-container {
-    overflow: auto; }
+
+.chatContainer .MuiGrid-root {
+  height: 100%; }
+
+.chatContainer .chatGrid {
+  height: 100%; }
+
+.chatContainer .chatGrid.listItems {
+  padding-bottom: 10px;
+  overflow: auto; }
+
+.chatContainer .chatGrid.listItems .usersList {
+  overflow: auto; }
+
+.chatContainer .chatGrid.listItems .chat-list-header {
+  background-color: #1f2833;
+  position: sticky;
+  top: 0;
+  z-index: 1; }
+
+.chatContainer .chatGrid .search-container {
+  margin-bottom: 10px; }
+
+.chatContainer .MuiTabs-flexContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; }
+
+.chatContainer .usersList {
+  min-height: auto;
+  overflow: hidden; }
+
+.chatContainer .usersList .MuiListItem-root {
+  cursor: pointer; }
+
+.chatContainer .usersList .MuiListItem-root:hover {
+  color: #66fcf1;
+  border-top: 1px solid #66fcf1;
+  border-bottom: 1px solid #66fcf1; }
+
+.chatContainer .usersList .MuiListItem-root:hover .avatar {
+  border-color: #fff;
+  color: #66fcf1; }
+
+.chatContainer .conversation {
+  position: relative;
+  height: 100%; }
+
+.chatContainer .conversation .conversationHeader {
+  height: 8%;
+  border-bottom: 2px solid #66fcf1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px; }
+
+.chatContainer .conversation .conversationHeader > div {
+  display: flex;
+  align-items: center;
+  min-width: 100%; }
+
+.chatContainer .conversation .conversationHeader > div .email {
+  color: #fff;
+  font-weight: 500;
+  font-size: 16px;
+  margin-left: 20px;
+  min-width: auto;
+  white-space: nowrap; }
+
+.chatContainer .conversation .conversationHeader .drop-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse; }
+
+.chatContainer .conversation .conversationBody {
+  height: 84%;
+  overflow: auto;
+  padding: 10px 0; }
+
+.chatContainer .conversation .conversationBody .message {
+  display: flex;
+  justify-content: flex-start;
+  margin: 10px; }
+
+.chatContainer .conversation .conversationBody .message:last-child {
+  margin-bottom: 0; }
+
+.chatContainer .conversation .conversationBody .message .msg-bubble {
+  max-width: 450px;
+  padding: 15px;
+  border-radius: 15px;
+  background: transparent;
+  border: 1px solid #66fcf1; }
+
+.chatContainer .conversation .conversationBody .message .msg-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  color: #66fcf1; }
+
+.chatContainer .conversation .conversationBody .message .msg-info * {
+  color: #66fcf1; }
+
+.chatContainer .conversation .conversationBody .message .msg-info-name {
+  margin-right: 10px;
+  font-weight: bold; }
+
+.chatContainer .conversation .conversationBody .message .msg-info-time {
+  font-size: 0.85em; }
+
+.chatContainer .conversation .conversationBody .message.left .msg-bubble {
+  background: transparent;
+  color: #fff;
+  border-bottom-left-radius: 0; }
+
+.chatContainer .conversation .conversationBody .message.right {
+  flex-direction: row-reverse; }
+
+.chatContainer .conversation .conversationBody .message.right .msg-bubble {
+  background-color: transparent;
+  border-bottom-right-radius: 0; }
+
+.chatContainer .conversation .conversationBody .message .text {
+  padding: 10px 10px;
+  border: 3px solid #66fcf1;
+  border-radius: 15%;
+  margin: 10px; }
+
+.chatContainer .conversation .conversationBody .message .msg-text {
+  font-size: 16px; }
+
+.chatContainer .conversation .empty-message-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
+.chatContainer .conversation .empty-message-container h1 {
+  margin: 0; }
+
+.chatContainer .conversation .conversationFooter {
+  height: 8%;
+  border-top: 2px solid #66fcf1;
+  min-width: fit-content; }
+
+.chatContainer .conversation .conversationFooter .input-container {
+  padding-left: 20px; }
+
+.chatContainer .conversation .conversationFooter button {
+  height: 65%;
+  width: 65%; }
+
+.chatContainer .chatInput .MuiInput-underline:after {
+  border: 1px solid #66fcf1; }
+
+.chatContainer .list-container {
+  overflow: auto; }
 
 body, html {
   height: 100%;
@@ -260,26 +303,30 @@ body, html {
 
 #root {
   min-height: 100%; }
-  #root .header {
-    padding-top: 74px;
-    padding-right: 10px;
-    min-height: 100%;
-    flex-grow: 1; }
-    #root .header.drawer-open {
-      padding-left: 250px;
-      transition: padding-left 225ms; }
-    #root .header.drawer-close {
-      padding-left: 70px;
-      transition: padding-left 225ms; }
+
+#root .header {
+  padding-top: 74px;
+  padding-right: 10px;
+  min-height: 100%;
+  flex-grow: 1; }
+
+#root .header.drawer-open {
+  padding-left: 250px;
+  transition: padding-left 225ms; }
+
+#root .header.drawer-close {
+  padding-left: 70px;
+  transition: padding-left 225ms; }
 
 section.content {
   position: relative;
   min-height: 100%; }
-  section.content h1 {
-    text-align: left;
-    font-size: 25px;
-    color: #66fcf1;
-    margin-top: 0; }
+
+section.content h1 {
+  text-align: left;
+  font-size: 25px;
+  color: #66fcf1;
+  margin-top: 0; }
 
 .tables button {
   variant: "contained";
@@ -310,25 +357,30 @@ section.content {
   color: #66fcf1;
   display: flex;
   justify-content: center; }
-  .products-header h1 {
-    margin: 0px;
-    padding: 10px; }
+
+.products-header h1 {
+  margin: 0px;
+  padding: 10px; }
 
 .products-button {
   padding: 10px;
   height: 80px; }
-  .products-button Button {
-    width: 100%; }
+
+.products-button Button {
+  width: 100%; }
 
 .menu-card {
   padding: 10px;
   height: 100px; }
-  .menu-card .MuiCardActionArea-root {
-    border: 1px solid #66fcf1; }
-  .menu-card .image {
-    text-align: center; }
-  .menu-card .MuiTypography-body1 {
-    color: #66fcf1; }
+
+.menu-card .MuiCardActionArea-root {
+  border: 1px solid #66fcf1; }
+
+.menu-card .image {
+  text-align: center; }
+
+.menu-card .MuiTypography-body1 {
+  color: #66fcf1; }
 
 .product-groups-container {
   height: 40%;
@@ -343,11 +395,13 @@ section.content {
 .products-paper {
   height: 100%;
   position: relative; }
-  .products-paper .MuiFormControl-root {
-    width: 30%;
-    margin: 10px; }
-  .products-paper .MuiGrid-item {
-    white-space: nowrap; }
+
+.products-paper .MuiFormControl-root {
+  width: 30%;
+  margin: 10px; }
+
+.products-paper .MuiGrid-item {
+  white-space: nowrap; }
 
 .products-container {
   height: 60%;
@@ -356,9 +410,10 @@ section.content {
 .products-scrollable-paper {
   height: 100%;
   overflow: auto; }
-  .products-scrollable-paper .MuiFormControl-root {
-    margin: 10px;
-    width: 30%; }
+
+.products-scrollable-paper .MuiFormControl-root {
+  margin: 10px;
+  width: 30%; }
 
 .pos-grid {
   height: 95%; }
@@ -371,8 +426,9 @@ section.content {
   align-items: center;
   justify-content: center;
   height: 500px; }
-  .table-order-button .MuiButton-label {
-    padding: 40px; }
+
+.table-order-button .MuiButton-label {
+  padding: 40px; }
 
 .table-add-orders-container {
   overflow: auto;
@@ -397,11 +453,13 @@ section.content {
   flex-wrap: wrap;
   bottom: 0;
   position: absolute; }
-  .order-button-container .large-button {
-    width: 100%; }
-  .order-button-container button {
-    width: 45%;
-    margin: 4px; }
+
+.order-button-container .large-button {
+  width: 100%; }
+
+.order-button-container button {
+  width: 45%;
+  margin: 4px; }
 
 .table-container {
   margin: 15px; }
@@ -425,3 +483,7 @@ section.content {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap; }
+
+.chart-dropdown-container {
+  width: 30%;
+  padding: 10px; }
