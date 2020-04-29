@@ -92,6 +92,8 @@ export interface IMyTableBody {
     rowsPerPage?:any;
     actionsTypes?:Array<string>;
     handleActions?:Function;
+    actionsDisableOptions?:any;
+    actionsRemovalOptions?:any;
 }
 
 export interface IMyTableHead {

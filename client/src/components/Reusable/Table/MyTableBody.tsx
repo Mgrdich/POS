@@ -3,6 +3,8 @@ import {TableBody, TableCell, TableRow} from '@material-ui/core/';
 import {IMyTableBody} from "../../../interfaces/Reusable";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from '@material-ui/icons/Edit';
+import RestaurantIcon from '@material-ui/icons/Restaurant';
+import LockIcon from '@material-ui/icons/Lock';
 import IconButton from "@material-ui/core/IconButton";
 
 
@@ -24,7 +26,8 @@ const MyTableBody: React.FC<IMyTableBody> = (props) => {
                                             case 'Delete':
                                                 return (
                                                     <IconButton key={item}
-                                                                onClick={() => (handleActions) ? handleActions('delete', {...row}) : null}>
+                                                                onClick={() => (handleActions) ? handleActions('delete', {...row}) : null}
+                                                    >
                                                         <DeleteIcon color='primary'/>
                                                     </IconButton>
                                                 );
@@ -41,7 +44,7 @@ const MyTableBody: React.FC<IMyTableBody> = (props) => {
                                                 return (
                                                     <IconButton key={item}
                                                                 onClick={() => (handleActions) ? handleActions('open', {...row}) : null}>
-                                                        <EditIcon color='primary'/>
+                                                        <RestaurantIcon color='primary'/>
                                                     </IconButton>
                                                 );
 
@@ -49,7 +52,7 @@ const MyTableBody: React.FC<IMyTableBody> = (props) => {
                                                 return (
                                                     <IconButton key={item}
                                                                 onClick={() => (handleActions) ? handleActions('reserved', {...row}) : null}>
-                                                        <EditIcon color='primary'/>
+                                                        <LockIcon color='primary'/>
                                                     </IconButton>
                                                 );
                                             default:
