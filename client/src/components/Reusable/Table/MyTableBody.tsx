@@ -30,7 +30,7 @@ const MyTableBody: React.FC<IMyTableBody> = (props) => {
                                         switch (item) {
                                             case TableActionOptions.delete:
                                                 return (
-                                                    <IconButton key={item}
+                                                    <IconButton key={item+row._id}
                                                                 onClick={() => (handleActions) ? handleActions(TableActionOptions.delete, {...row}) : null}
                                                     >
                                                         <DeleteIcon color='primary'/>
@@ -39,7 +39,7 @@ const MyTableBody: React.FC<IMyTableBody> = (props) => {
 
                                             case TableActionOptions.edit:
                                                 return (
-                                                    <IconButton key={item}
+                                                    <IconButton key={item+row._id}
                                                                 onClick={() => (handleActions) ? handleActions(TableActionOptions.edit, {...row}) : null}
                                                     >
                                                         <EditIcon color='primary'/>
@@ -48,7 +48,7 @@ const MyTableBody: React.FC<IMyTableBody> = (props) => {
 
                                             case TableActionOptions.closed:
                                                 return (
-                                                    <IconButton key={item}
+                                                    <IconButton key={item+row._id}
                                                                 onClick={() => (handleActions) ? handleActions(TableActionOptions.closed, {...row}) : null}
                                                     >
                                                         <RestaurantIcon color='primary'/>
@@ -57,7 +57,7 @@ const MyTableBody: React.FC<IMyTableBody> = (props) => {
 
                                             case TableActionOptions.reserved:
                                                 return (
-                                                    <IconButton key={item}
+                                                    <IconButton key={item+row._id}
                                                                 onClick={() => (handleActions) ? handleActions(TableActionOptions.reserved, {...row}) : null}
                                                     >
                                                         <LockIcon color='primary'/>
@@ -70,9 +70,9 @@ const MyTableBody: React.FC<IMyTableBody> = (props) => {
                                 }
                             </TableCell> : null}
                             {
-                                keys.map((item: any, index: number) => (
-                                        <TableCell key={index}> {row[item]}</TableCell>
-                                    )
+                                keys.map((item: any,index:number) => {
+                                        return (<TableCell key={item+index+row._id}> {row[item]}</TableCell>)
+                                    }
                                 )
                             }
                         </TableRow>
