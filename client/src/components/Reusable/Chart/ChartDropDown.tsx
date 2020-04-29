@@ -2,7 +2,7 @@ import React from 'react';
 import Dropdown from "../DropDown";
 import {useForm} from "react-hook-form";
 import {createUserFormDataType} from "../../../interfaces/Views/users";
-import {dateRanges} from '../../../constants/dropDown/dateRanges'
+import {dateRanges} from '../../../constants/dropdown/dateRanges'
 const ChartDropDown = () => {
     const {control} = useForm<createUserFormDataType>({});
     return (
