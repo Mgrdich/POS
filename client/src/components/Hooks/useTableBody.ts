@@ -5,8 +5,9 @@ export function useTableBody(isLoading: boolean, tbody: any, id:string = '') {
     const [deletedId, changeDeletedId] = useState<string>('');
     useEffect(() => {
         if (!isLoading && tbody?.length) { //isEmpty check already done
-            setRows([...tbody]);
+            return setRows([...tbody]);
         }
+        setRows([]);
     }, [isLoading, tbody]);
 
     return [rows, setRows, deletedId, changeDeletedId];

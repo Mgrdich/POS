@@ -18,6 +18,10 @@ export function useTable(url: string) {
                 setThead(data.thead);
                 setBody(data.tbody);
                 setKeys(data.keys);
+            }else {
+                setThead([]);
+                setBody([]);
+                setKeys([]);
             }
             setLoading(false);
         }
