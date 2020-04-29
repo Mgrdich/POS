@@ -46,10 +46,10 @@ const MyTableBody: React.FC<IMyTableBody> = (props) => {
                                                     </IconButton>
                                                 );
 
-                                            case TableActionOptions.open:
+                                            case TableActionOptions.closed:
                                                 return (
                                                     <IconButton key={item}
-                                                                onClick={() => (handleActions) ? handleActions(TableActionOptions.open, {...row}) : null}
+                                                                onClick={() => (handleActions) ? handleActions(TableActionOptions.closed, {...row}) : null}
                                                     >
                                                         <RestaurantIcon color='primary'/>
                                                     </IconButton>

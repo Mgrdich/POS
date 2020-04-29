@@ -1,31 +1,34 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import MyTable from "../../components/Reusable/Table/MyTable";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
 import CardMessage from "../../components/Reusable/CardMessage";
 import {useTable} from "../../components/Hooks/useTable";
 import {useTableBody} from "../../components/Hooks/useTableBody";
+import {TableActionOptions} from "../../constants/Enums/General";
+import axios from "axios";
+import {isEmpty} from "../../util/functions";
 
-const actionsTypes = ['Open', 'Reserved'];
+const actionsTypes:Array<TableActionOptions> = [ TableActionOptions.reserved];
+
+const actionsTypesReserved:Array<TableActionOptions> = [TableActionOptions.closed];
 
 const ReservedTables = () => {
-    const {tbody: tbodyOpen, thead: theadOpen, keys: keysOpen , isLoading: isLoadingOpen} = useTable('/tables/status?type=open&type=closed');
-    const {tbody, thead, keys, isLoading} = useTable('/tables/status?type=reserved');
+    const {tbody: tbodyOpen, thead: theadOpen, keys: keysOpen , isLoading: isLoadingOpen,setRefetch:setRefetchOpen} = useTable('/tables/status?type=open&type=closed');
+    const {tbody, thead, keys, isLoading,setRefetch:setRefetchReserved} = useTable('/tables/status?type=reserved');
     const [rowsOpen] = useTableBody(isLoadingOpen, tbodyOpen);
     const [rows] = useTableBody(isLoading, tbody);
 
-    const handleActions = function (type: string, obj: any) {
-        if (type === 'open') {
-
-        }
-        if (type === 'reserved') {
-
-        }
-    };
+    const handleActions = useCallback(function (type: TableActionOptions, obj: any) {
+        axios.patch(`/tables/status/${obj._id}`).then(function () {
+           setRefetchReserved(prevState => !prevState);
+           setRefetchOpen(prevState => !prevState);
+        })
+    }, []);
 
     return (
         <>
             <ComponentLoader isLoading={isLoadingOpen}>
-                {rowsOpen.length && !isLoadingOpen
+                {!isEmpty(rowsOpen) && !isLoadingOpen
                     ?
                     (<MyTable
                         thead={theadOpen}
@@ -42,7 +45,7 @@ const ReservedTables = () => {
             </ComponentLoader>
 
             <ComponentLoader isLoading={isLoading}>
-                {rows.length && !isLoading
+                {!isEmpty(rows) && !isLoading
                     ?
                     (<MyTable
                         thead={thead}
@@ -50,7 +53,7 @@ const ReservedTables = () => {
                         keys={keys}
                         pagination={true}
                         paginationRowsCount={[3, 5, 10]}
-                        actionsTypes={actionsTypes}
+                        actionsTypes={actionsTypesReserved}
                         handleActions={handleActions}
                     />)
                     : (<CardMessage

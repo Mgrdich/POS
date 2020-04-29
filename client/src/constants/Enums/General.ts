@@ -1,6 +1,6 @@
 export enum TableActionOptions  {
     delete = 'delete',
     edit = 'edit',
-    open = 'open',
+    closed = 'closed',
     reserved = 'reserved',
 }
