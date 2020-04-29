@@ -6,7 +6,12 @@ import EditIcon from '@material-ui/icons/Edit';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
 import LockIcon from '@material-ui/icons/Lock';
 import IconButton from "@material-ui/core/IconButton";
+import {TableActionOptions} from "../../../constants/Enums/General";
+import {IActionsOptions} from "../../../interfaces/General";
 
+function disableActionObj(actionType:TableActionOptions,actionsDisableOptions:IActionsOptions) {
+
+}
 
 const MyTableBody: React.FC<IMyTableBody> = (props) => {
     const {page, data, rowsPerPage, keys, actionsTypes, handleActions,actionsDisableOptions} = props;
@@ -20,38 +25,41 @@ const MyTableBody: React.FC<IMyTableBody> = (props) => {
                         <TableRow key={row._id}>
                             {actionsTypes ? <TableCell className='table-cell' key={actionsTypes[0]}>
                                 {
-                                    actionsTypes?.map((item: string) => {
+                                    actionsTypes?.map((item: TableActionOptions) => {
 
                                         switch (item) {
-                                            case 'Delete':
+                                            case TableActionOptions.delete:
                                                 return (
                                                     <IconButton key={item}
-                                                                onClick={() => (handleActions) ? handleActions('delete', {...row}) : null}
+                                                                onClick={() => (handleActions) ? handleActions(TableActionOptions.delete, {...row}) : null}
                                                     >
                                                         <DeleteIcon color='primary'/>
                                                     </IconButton>
                                                 );
 
-                                            case 'Edit':
+                                            case TableActionOptions.edit:
                                                 return (
                                                     <IconButton key={item}
-                                                                onClick={() => (handleActions) ? handleActions('edit', {...row}) : null}>
+                                                                onClick={() => (handleActions) ? handleActions(TableActionOptions.edit, {...row}) : null}
+                                                    >
                                                         <EditIcon color='primary'/>
                                                     </IconButton>
                                                 );
 
-                                            case 'Open':
+                                            case TableActionOptions.open:
                                                 return (
                                                     <IconButton key={item}
-                                                                onClick={() => (handleActions) ? handleActions('open', {...row}) : null}>
+                                                                onClick={() => (handleActions) ? handleActions(TableActionOptions.open, {...row}) : null}
+                                                    >
                                                         <RestaurantIcon color='primary'/>
                                                     </IconButton>
                                                 );
 
-                                            case 'Reserved':
+                                            case TableActionOptions.reserved:
                                                 return (
                                                     <IconButton key={item}
-                                                                onClick={() => (handleActions) ? handleActions('reserved', {...row}) : null}>
+                                                                onClick={() => (handleActions) ? handleActions(TableActionOptions.reserved, {...row}) : null}
+                                                    >
                                                         <LockIcon color='primary'/>
                                                     </IconButton>
                                                 );

@@ -18,8 +18,9 @@ import {useAlert} from "../../components/Hooks/useAlert";
 import {useModal} from "../../components/Hooks/useModal";
 import {DefaultValue} from "../../util/functions";
 import DeleteModal from "../../components/Reusable/DeleteModal";
+import {TableActionOptions} from "../../constants/Enums/General";
 
-const actionsTypes: Array<string> = ["Delete", 'Edit'];
+const actionsTypes: Array<TableActionOptions> = [TableActionOptions.delete, TableActionOptions.edit];
 
 const AddProduct: React.FC = () => {
     const {handleSubmit, register, errors, control, unregister, reset} = useForm<any>({
@@ -54,13 +55,13 @@ const AddProduct: React.FC = () => {
         });
     };
 
-    const handleActions = function (type: string, obj: any) {
-        if (type === 'delete') {
+    const handleActions = function (type: TableActionOptions, obj: any) {
+        if (type === TableActionOptions.delete) {
             changeDeletedId(obj._id);
             setProductModalMessage({productName:obj.name,productGroup:obj.group});
             handleClickOpenDeleteModal();
         }
-        if (type === 'edit') {
+        if (type === TableActionOptions.edit) {
             changeDeletedId(obj._id);
             const editData: any = DefaultValue(editProductInputField, obj);
             setEditData(editData);

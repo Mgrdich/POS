@@ -18,9 +18,10 @@ import {useModal} from "../../components/Hooks/useModal";
 import {DefaultValue} from "../../util/functions";
 import CardMessage from "../../components/Reusable/CardMessage";
 import DeleteModal from "../../components/Reusable/DeleteModal";
+import {TableActionOptions} from "../../constants/Enums/General";
 
 
-const actionsTypes: Array<string> = ["Delete", 'Edit'];
+const actionsTypes: Array<TableActionOptions> = [TableActionOptions.delete, TableActionOptions.edit];
 
 
 const CreateEditTables = () => {
@@ -58,12 +59,12 @@ const CreateEditTables = () => {
 
 
     const handleActions = function (type: string, obj: any) {
-        if (type === 'delete') {
+        if (type === TableActionOptions.delete) {
             changeDeletedId(obj._id);
             setTableNumber(obj.number);
             handleClickOpenDeleteModal()
         }
-        if (type === 'edit') {
+        if (type === TableActionOptions.edit) {
             changeDeletedId(obj._id);
             const editData: any = DefaultValue(EditTableInputField, obj);
             setEditData(editData);

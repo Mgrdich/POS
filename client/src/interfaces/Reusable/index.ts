@@ -1,8 +1,9 @@
 import {ButtonProps, CircularProgressProps} from "@material-ui/core";
-import {condition, InputField} from "../General";
+import {condition, IActionsOptions, InputField} from "../General";
 import * as React from "react";
 import {ReactNode} from "react";
 import {Color} from "@material-ui/lab/Alert";
+import {TableActionOptions} from "../../constants/Enums/General";
 
 export interface IDropDownData {
     value: number | string;
@@ -90,18 +91,10 @@ export interface IMyTableBody {
     keys:Array<string>;
     page?:any; // TODO CHECK THE TYPE
     rowsPerPage?:any;
-    actionsTypes?:Array<string>;
+    actionsTypes?:Array<TableActionOptions>;
     handleActions?:Function;
-    actionsDisableOptions?:{ //TODO make it for multiple conditions
-        key:string;
-        value:number | string;
-        parser: condition;
-    };
-    actionsRemovalOptions?:{
-        key:string;
-        value:number | string;
-        parser: condition;
-    };
+    actionsDisableOptions?:IActionsOptions; //TODO make it for multiple options with value Array
+    actionsRemovalOptions?:IActionsOptions;
 }
 
 export interface IMyTableHead {

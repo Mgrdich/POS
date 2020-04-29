@@ -15,8 +15,9 @@ import ComponentLoader from "../../components/Reusable/ComponentLoader";
 import {useTableBody} from "../../components/Hooks/useTableBody";
 import DeleteModal from "../../components/Reusable/DeleteModal";
 import {useModal} from "../../components/Hooks/useModal";
+import {TableActionOptions} from "../../constants/Enums/General";
 
-const actionsTypes: Array<string> = ["Delete"];
+const actionsTypes: Array<TableActionOptions> = [TableActionOptions.delete];
 
 
 const Users: React.FC = () => {
@@ -28,8 +29,8 @@ const Users: React.FC = () => {
     const [rows, setRows, deletedId, changeDeletedId] = useTableBody(isLoading, tbody);
     const [email, setEmail] = useState<string>('');
 
-    const handleActions = function (type: string, obj: any) {
-        if (type === 'delete') {
+    const handleActions = function (type: TableActionOptions, obj: any) {
+        if (type === TableActionOptions.delete) {
             changeDeletedId(obj._id);
             setEmail(obj.email);
             handleClickOpen();

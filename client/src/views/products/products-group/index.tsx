@@ -23,8 +23,8 @@ import MyTable from "../../../components/Reusable/Table/MyTable";
 import CardMessage from "../../../components/Reusable/CardMessage";
 import Alerts from "../../../components/Reusable/Alerts";
 import DeleteModal from "../../../components/Reusable/DeleteModal";
-
-const actionsTypes: Array<string> = ["Delete", 'Edit'];
+import {TableActionOptions} from "../../../constants/Enums/General";
+const actionsTypes: Array<TableActionOptions> = [TableActionOptions.delete, TableActionOptions.edit]; //TODO repeated in so many files should be importe
 
 const ProductsGroup: React.FC = () => {
     const {handleSubmit, register, errors, control, unregister, reset} = useForm<any>({
@@ -57,13 +57,13 @@ const ProductsGroup: React.FC = () => {
             setterError(e.response.data.data);
         });
     };
-    const ProductsGroupHandleActions = function (type: string, obj: any) {
-        if (type === 'delete') {
+    const ProductsGroupHandleActions = function (type: TableActionOptions, obj: any) {
+        if (type === TableActionOptions.delete) {
             changeDeletedId(obj._id);
             setProductName(obj.name);
             handleClickOpenDeleteModal();
         }
-        if (type === 'edit') {
+        if (type === TableActionOptions.edit) {
             changeDeletedId(obj._id);
             const editData: any = DefaultValue(editProductGroupInputField, obj);
             setEditData(editData);

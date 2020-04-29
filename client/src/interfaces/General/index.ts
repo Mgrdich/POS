@@ -24,3 +24,9 @@ export interface IAlertAxiosResponse extends AxiosResponse {
 }
 
 export type condition = '===' | '!==' | '>' | '<' | '>=' | '<=';
+
+export interface IActionsOptions {
+    key: string;
+    value: number | string;
+    parser: condition;
+}
