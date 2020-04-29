@@ -81,7 +81,7 @@ export interface IMyTable {
     tbody: Array<object>;
     pagination?: boolean;
     paginationRowsCount?: Array<number>;
-    actionsTypes?:Array<string>;
+    actionsTypes?:Array<TableActionOptions>;
     handleActions?:Function;
 }
 
