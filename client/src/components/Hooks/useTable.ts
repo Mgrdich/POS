@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {useFetch} from "./useFetch";
+import {isEmpty} from "../../util/functions";
 
 
 //TODO rendering one time
@@ -12,10 +13,12 @@ export function useTable(url: string) {
     const [keys, setKeys] = useState<Array<any>>();
 
     useEffect(function () {
-        if (Object.keys(data).length && !isLoading) {
-            setThead(data.thead);
-            setBody(data.tbody);
-            setKeys(data.keys);
+        if (!isLoading) {
+            if(!isEmpty(data)) {
+                setThead(data.thead);
+                setBody(data.tbody);
+                setKeys(data.keys);
+            }
             setLoading(false);
         }
     },[data,isLoading]);
