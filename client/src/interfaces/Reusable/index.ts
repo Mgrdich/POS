@@ -1,5 +1,5 @@
 import {ButtonProps, CircularProgressProps} from "@material-ui/core";
-import {InputField} from "../General";
+import {condition, InputField} from "../General";
 import * as React from "react";
 import {ReactNode} from "react";
 import {Color} from "@material-ui/lab/Alert";
@@ -92,8 +92,16 @@ export interface IMyTableBody {
     rowsPerPage?:any;
     actionsTypes?:Array<string>;
     handleActions?:Function;
-    actionsDisableOptions?:any;
-    actionsRemovalOptions?:any;
+    actionsDisableOptions?:{ //TODO make it for multiple conditions
+        key:string;
+        value:number | string;
+        parser: condition;
+    };
+    actionsRemovalOptions?:{
+        key:string;
+        value:number | string;
+        parser: condition;
+    };
 }
 
 export interface IMyTableHead {

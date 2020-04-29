@@ -22,3 +22,5 @@ export interface IAlertAxiosResponse extends AxiosResponse {
         alert: Color;
     }
 }
+
+export type condition = '===' | '!==' | '>' | '<' | '>=' | '<=';

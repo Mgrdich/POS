@@ -9,7 +9,7 @@ import IconButton from "@material-ui/core/IconButton";
 
 
 const MyTableBody: React.FC<IMyTableBody> = (props) => {
-    const {page, data, rowsPerPage, keys, actionsTypes, handleActions} = props;
+    const {page, data, rowsPerPage, keys, actionsTypes, handleActions,actionsDisableOptions} = props;
 
     return (
         <>
