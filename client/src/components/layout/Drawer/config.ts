@@ -11,6 +11,8 @@ import LocalAtmIcon from '@material-ui/icons/LocalAtm';
 import {ComponentType} from "react";
 import {IDrawerRoute} from "../../../interfaces/layout/Drawer";
 import {Roles, RoleType} from "../../../roles";
+import EqualizerIcon from '@material-ui/icons/Equalizer';
+import RestaurantIcon from '@material-ui/icons/Restaurant';
 
 export type nestedRoutes = {
     icon: ComponentType, //TODO to be removed since it is static
@@ -20,6 +22,12 @@ export type nestedRoutes = {
 }
 
 export const drawerRoutes: Array<IDrawerRoute> = [
+    {
+        icon: EqualizerIcon,
+        translation: "Chart Dashboard",
+        location:'/dashboard',
+        role: [Roles.SuperAdmin, Roles.Admin],
+    },
     {
         icon: GroupIcon,
         translation: "Users",
@@ -56,7 +64,7 @@ export const drawerRoutes: Array<IDrawerRoute> = [
                 role: [Roles.SuperAdmin, Roles.Admin, Roles.Manager],
             },
             {
-                icon: ViewAgendaIcon,
+                icon: RestaurantIcon,
                 location: "/tables/reserved-tables",
                 translation: "Reserved tables",
                 role: [Roles.SuperAdmin, Roles.Admin, Roles.Manager],
@@ -84,14 +92,14 @@ export const drawerRoutes: Array<IDrawerRoute> = [
         ]
     },
     {
-        icon:LocalAtmIcon,
+        icon: LocalAtmIcon,
         translation: "Pos",
         location:'/pos',
         role: [Roles.SuperAdmin, Roles.Admin, Roles.Manager],
     },
 
     {
-        icon:ChatIcon,
+        icon: ChatIcon,
         translation: "Chat",
         location:'/chat',
         role: [Roles.SuperAdmin, Roles.Admin],
