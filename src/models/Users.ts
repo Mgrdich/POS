@@ -27,6 +27,10 @@ const userSchema: Schema = new Schema({
     rolePriority: {
         type: Number,
         default: 1,
+    },
+    disabled: {
+        type:Boolean,
+        default:false
     }
 },{timestamps:true});
 

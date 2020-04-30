@@ -122,7 +122,8 @@ async function getUsers(req: myRequest, res: Response, next: NextFunction): Prom
         //TODO do not return the current User
         let users: Array<IDocUsers> = await Users.find({
             "rolePriority": {$lt: rolePriority},
-            "_id": {$ne: req.user._id}
+            "_id": {$ne: req.user._id},
+            "disabled":{$ne:true}
         }, {rolePriority: 0, password: 0}).lean();
         let tableUsers;
         if (!users) {
@@ -140,7 +141,11 @@ async function getUsersRole(req: myRequest, res: Response, next: NextFunction): 
     try {
         errorValidation(req);
 
-        const users:Array<IUser> = await Users.find({role:req.params.role},{_id:1,name:1}).lean();
+        const users: Array<IUser> =
+            await Users.find({
+                role: req.params.role,
+                disabled: {$ne: true}
+            }, {_id: 1, name: 1}).lean();
         if(users.length) {
             return res.status(200).json(users);
         }
@@ -157,12 +162,14 @@ async function getUsersChat(req: myRequest, res: Response, next: NextFunction): 
         let users: Array<IDocUsers>;
         if (rolePriority >= -2) {
             users = await Users.find({
-                "_id": {$ne: req.user._id}
+                _id: {$ne: req.user._id},
+                disabled: {$ne: true}
             }, {rolePriority: 0, password: 0}).lean();
         } else {
             users = await Users.find({
                 "rolePriority": {$gt: rolePriority},
-                "_id": {$ne: req.user._id}
+                "_id": {$ne: req.user._id},
+                disabled: {$ne: true}
             }, {rolePriority: 0, password: 0}).lean();
         }
         res.status(200).json(users);
@@ -175,15 +182,15 @@ async function deleteUser(req: myRequest, res: Response, next: NextFunction): Pr
     try {
         errorValidation(req);
 
-        const response: IDelete = await Users.deleteOne({_id: req.params.id});
-        if (response.ok) {
-            alert(res, 200, messageAlert.success, ITEM_DELETED);
-        } else {
-            alert(res, 304, messageAlert.success, NOT_MODIFIED)
+        const user: IDocUsers = await Users.findById(req.params.id);
+        if (user) {
+            user.disabled = true;
+            if (await user.save()) {
+                return alert(res, 200, messageAlert.success, ITEM_DELETED);
+            }
         }
-
+        alert(res, 304, messageAlert.success, NOT_MODIFIED)
     } catch (err) {
-        console.log(err);
         errorCatcher(next, err);
     }
 }

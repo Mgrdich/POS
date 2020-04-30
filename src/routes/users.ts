@@ -39,6 +39,7 @@ router.patch('/change-password',isAuth(),changePasswordValidation,changePassword
 
 router.get("/current", isAuth(),isAuthorized(ROLES_SUPER_ADMIN_MANAGER),currentUser);
 
+//in this sense it means disable it
 router.delete('/:id',isAuth(),isAuthorized(ROLES_SUPER_ADMIN_MANAGER),paramIdValidation,deleteUser);
 
 export default router;
