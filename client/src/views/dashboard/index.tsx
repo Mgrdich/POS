@@ -35,8 +35,8 @@ const Dashboard: React.FC = () => {
         return `price: ${datum}`
     };
 
-    const handleOnChange = (value: string) => {
-        console.log(value)
+    const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(event.target.value)
     }
     return (
         <>
@@ -57,6 +57,7 @@ const Dashboard: React.FC = () => {
                                     />
                                 </div>
                                 <BarChart
+                                    chartSize={{height:250, width:400}}
                                     colorScale={BarChartColorScale}
                                     data={cashier}
                                     x='createdBy'
@@ -83,6 +84,7 @@ const Dashboard: React.FC = () => {
                                     />
                                 </div>
                                 <HorizontalGroupChart
+                                    chartSize={{height:250, width:400}}
                                     data={waiter}
                                     x='waiter'
                                     y='price'
@@ -108,6 +110,7 @@ const Dashboard: React.FC = () => {
                                     />
                                 </div>
                                 <InterpolationChart
+                                    chartSize={{height:250, width:400}}
                                     tickFormat={productsTickFormat}
                                     data={productsData}
                                     labelsKey='y'
@@ -133,6 +136,7 @@ const Dashboard: React.FC = () => {
                                     />
                                 </div>
                                 <InterpolationChart
+                                    chartSize={{height:250, width:400}}
                                     tickFormat={tablesTickFormat}
                                     data={tablesData}
                                     labelsKey='y'

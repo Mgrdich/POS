@@ -21,11 +21,9 @@ const ControlledDropDown:React.FC<IControlledDropDown> = (props) => {
     const {id, data, name, helperText, label, error, ignoreNone, size, handleOnChange} = props;
     const [value, setValue] = useState('')
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        handleOnChange(event.target.value)
+        handleOnChange(event)
         setValue(event.target.value)
     };
-
-    // console.log(data)
 
 
     return (
@@ -40,7 +38,6 @@ const ControlledDropDown:React.FC<IControlledDropDown> = (props) => {
                     label={label}
                     onChange={handleChange}
                     variant="outlined"
-                    // placeholder='true'
                 >
                     {!ignoreNone ?
                         (<MenuItem value="">

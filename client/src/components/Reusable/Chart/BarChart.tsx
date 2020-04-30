@@ -18,15 +18,16 @@ interface IBarChart {
     colorScale?: Array<string>;
     tickFormatFunction?: Function;
     labelsFunction?: Function;
+    chartSize:any;
 }
 
 const BarChart: React.FC<IBarChart> = (props) => {
-    const {data, x, y, tickFormat, labelsKey, colorScale, tickFormatFunction, labelsFunction} = props;
+    const {data, x, y, tickFormat, chartSize, labelsKey, colorScale, tickFormatFunction, labelsFunction} = props;
     return (
         <>
 
-            <VictoryChart theme={VictoryTheme.material} domainPadding={{x: 20, y: [0, 5]}} height={165}
-                          width={400}>
+            <VictoryChart theme={VictoryTheme.material} domainPadding={{x: 20, y: [0, 5]}} height={chartSize.height}
+                          width={chartSize.width}>
                 <VictoryAxis
                     tickValues={tickFormat}
                     tickFormat={tickFormat}

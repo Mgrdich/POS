@@ -4,13 +4,14 @@ import CardMessage from "../CardMessage";
 import {Paper} from "@material-ui/core";
 
 const HorizontalGroupChart = (props: any) => {
-    const {data, x, y, tickFormat, tickFormatFunction, labelsFunction, labelsKey} = props;
+    const {data, x, y, tickFormat, tickFormatFunction,chartSize, labelsFunction, labelsKey} = props;
+    console.log(chartSize)
     return (
         <> {data.length ?
             <Paper>
                 <VictoryChart
                     theme={VictoryTheme.material}
-                    domainPadding={{x: 20, y: [0, 5]}} width={400} height={165}
+                    domainPadding={{x: 20, y: [0, 5]}} width={chartSize.width} height={chartSize.height}
                 >
                     <VictoryAxis
                         tickValues={tickFormat}
