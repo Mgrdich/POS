@@ -5,7 +5,6 @@ import {Paper} from "@material-ui/core";
 
 const HorizontalGroupChart = (props: any) => {
     const {data, x, y, tickFormat, tickFormatFunction,chartSize, labelsFunction, labelsKey} = props;
-    console.log(chartSize)
     return (
         <> {data.length ?
             <Paper>

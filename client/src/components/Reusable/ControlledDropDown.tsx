@@ -27,7 +27,6 @@ const ControlledDropDown:React.FC<IControlledDropDown> = (props) => {
 
 
     return (
-        <>
             <FormControl error={error} >
                 <TextField
                     name={name}
@@ -54,7 +53,6 @@ const ControlledDropDown:React.FC<IControlledDropDown> = (props) => {
                 </TextField>
                 <FormHelperText id={id}>{helperText ? helperText : ''}</FormHelperText>
             </FormControl>
-        </>
     );
 };
 
