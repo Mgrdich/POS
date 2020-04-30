@@ -8,6 +8,7 @@ import LockIcon from '@material-ui/icons/Lock';
 import IconButton from "@material-ui/core/IconButton";
 import {TableActionOptions} from "../../../constants/Enums/General";
 import {IActionsOptions} from "../../../interfaces/General";
+import Tooltip from "@material-ui/core/Tooltip";
 
 function disableActionObj(actionType:TableActionOptions,actionsDisableOptions:IActionsOptions) {
 
@@ -48,20 +49,24 @@ const MyTableBody: React.FC<IMyTableBody> = (props) => {
 
                                             case TableActionOptions.closed:
                                                 return (
+                                                    <Tooltip title="Close table" placement="top" arrow>
                                                     <IconButton key={item+row._id}
                                                                 onClick={() => (handleActions) ? handleActions(TableActionOptions.closed, {...row}) : null}
                                                     >
                                                         <RestaurantIcon color='primary'/>
                                                     </IconButton>
+                                                    </Tooltip>
                                                 );
 
                                             case TableActionOptions.reserved:
                                                 return (
+                                                    <Tooltip title="Reserve table" placement="top" arrow>
                                                     <IconButton key={item+row._id}
                                                                 onClick={() => (handleActions) ? handleActions(TableActionOptions.reserved, {...row}) : null}
                                                     >
                                                         <LockIcon color='primary'/>
                                                     </IconButton>
+                                                    </Tooltip>
                                                 );
                                             default:
                                                 break
