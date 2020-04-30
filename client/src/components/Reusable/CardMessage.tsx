@@ -4,13 +4,14 @@ import {useHistory} from "react-router-dom";
 import {ICardMessage} from "../../interfaces/Reusable";
 
 
-const CardMessage : React.FC<ICardMessage>= (props) => {
+const CardMessage: React.FC<ICardMessage> = (props) => {
 
-    const {header, message, translation, location, button} = props;
+    const {header, message, translation, location, button, children} = props;
     const history = useHistory();
 
     return (
         <Card className='card-container'>
+            {children}
             <CardContent>
                 <Box
                     display={'flex'}

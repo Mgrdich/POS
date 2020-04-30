@@ -14,12 +14,13 @@ interface IControlledDropDown {
     ignoreNone?: boolean;
     size?: "small" | "medium" | undefined;
     handleOnChange:Function;
+    defaultValue?: Array<any> | string | number;
 }
 
 const ControlledDropDown:React.FC<IControlledDropDown> = (props) => {
 
-    const {id, data, name, helperText, label, error, ignoreNone, size, handleOnChange} = props;
-    const [value, setValue] = useState('')
+    const {id, data, name, helperText, label, error, ignoreNone, size, handleOnChange, defaultValue} = props;
+    const [value, setValue] = useState(defaultValue)
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         handleOnChange(event)
         setValue(event.target.value)
@@ -37,6 +38,7 @@ const ControlledDropDown:React.FC<IControlledDropDown> = (props) => {
                     label={label}
                     onChange={handleChange}
                     variant="outlined"
+                    defaultValue={defaultValue}
                 >
                     {!ignoreNone ?
                         (<MenuItem value="">

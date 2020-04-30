@@ -1,26 +1,23 @@
 import React, {useEffect, useState} from 'react';
-import {useFetch} from "../../components/Hooks/useFetch";
 import {Paper} from "@material-ui/core";
 import ControlledDropDown from "../../components/Reusable/ControlledDropDown";
 import {dateRanges} from "../../constants/dropdown/dateRanges";
-import BarChart from "../../components/Reusable/Chart/BarChart";
+import HorizontalGroupChart from "../../components/Reusable/Chart/HorizontalGroupChart";
 import CardMessage from "../../components/Reusable/CardMessage";
-
+import {useFetch} from "../../components/Hooks/useFetch";
 import {isEmpty} from "../../util/functions";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
 
-const BarChartColorScale = ['#66fcf1', '#1f2833'];
+const WaiterChart = () => {
 
-
-const CashierChart = () => {
-    const [fetchURL, setFetchUrl] = useState<string>('/statistics/orders/cashier');
-    const {data: cashier, isLoading: cashierIsLoading} = useFetch(fetchURL);
-    const [cashierTickFormat, setCashierTickFormat] = useState<Array<any>>([]);
+    const [fetchURL, setFetchUrl] = useState<string>('/statistics/orders/waiter');
+    const {data: waiter, isLoading: waterIsLoading} = useFetch(fetchURL);
+    const [waiterTickFormat, setWaiterTickFormat] = useState<Array<any>>([])
 
     useEffect(function () {
-        const cashierTickFormat = cashier.length ? cashier.map((item: any) => item.createdBy) : null;
-        setCashierTickFormat(cashierTickFormat);
-    }, [cashier]);
+        const cashierTickFormat = waiter.length ? waiter.map((item: any) => item.waiter) : null;
+        setWaiterTickFormat(cashierTickFormat);
+    }, [waiter]);
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setFetchUrl(prevState => prevState + `?date=${event.target.value}`);
@@ -35,13 +32,13 @@ const CashierChart = () => {
 
     return (
         <>
-            <ComponentLoader isLoading={cashierIsLoading}>
-                {!isEmpty(cashier) && !cashierIsLoading ?
+            <ComponentLoader isLoading={waterIsLoading}>
+                {!isEmpty(waiter) && !waterIsLoading ?
                     <Paper>
                         <div className="chart-dropdown-container">
                             <ControlledDropDown
-                                id='cashierDateRange'
-                                name='cashier-date-range'
+                                id='waiterDateRange'
+                                name='waiter-date-range'
                                 size='small'
                                 ignoreNone={true}
                                 data={dateRanges}
@@ -50,13 +47,12 @@ const CashierChart = () => {
                                 defaultValue='ytd'
                             />
                         </div>
-                        <BarChart
+                        <HorizontalGroupChart
                             chartSize={{height: 250, width: 400}}
-                            colorScale={BarChartColorScale}
-                            data={cashier}
-                            x='createdBy'
+                            data={waiter}
+                            x='waiter'
                             y='price'
-                            tickFormat={cashierTickFormat}
+                            tickFormat={waiterTickFormat}
                             labelsKey='price'
                             tickFormatFunction={tickFormatFunction}
                             labelsFunction={labelsFunction}
@@ -83,4 +79,4 @@ const CashierChart = () => {
     );
 };
 
-export default CashierChart;
+export default WaiterChart;

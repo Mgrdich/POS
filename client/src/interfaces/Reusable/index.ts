@@ -110,6 +110,7 @@ export interface ICardMessage {
     translation?:string;
     location?:string;
     button?:boolean;
+    children?:ReactNode;
 }
 
 export interface IModal {

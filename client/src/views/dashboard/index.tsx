@@ -1,133 +1,32 @@
 import React from 'react';
 import Grid from "@material-ui/core/Grid";
-import {useFetch} from "../../components/Hooks/useFetch";
-import ComponentLoader from "../../components/Reusable/ComponentLoader";
-import HorizontalGroupChart from "../../components/Reusable/Chart/HorizontalGroupChart";
-import InterpolationChart from "../../components/Reusable/Chart/InterpolationChart";
-import {Paper} from "@material-ui/core";
-import CardMessage from "../../components/Reusable/CardMessage";
-import ControlledDropDown from "../../components/Reusable/ControlledDropDown";
-import {dateRanges} from "../../constants/dropdown/dateRanges";
 import CashierChart from "./CashierChart";
+import WaiterChart from "./WaiterChart";
+import ProductsChart from "./ProductsChart";
+import TablesChart from "./TablesChart";
 
-export const tickFormatFunction = (x: any) => {
-    return `AMD${x / 1000}K`
-};
-export const labelsFunction = (datum: any) => {
-    return `price: ${datum}`
-};
+
 
 
 const Dashboard: React.FC = () => {
-    const {data: products, isLoading} = useFetch('/statistics/products/price');
 
-    const {data: waiter, isLoading: waterIsLoading} = useFetch('/statistics/orders/waiter');
-
-    const {data: tables, isLoading: tablesIsLoading} = useFetch('statistics/orders/table');
-
-    const tablesData = tables.length ? tables.map((item: any) => {
-        return {x: item.number, y: item.price}
-    }) : null;
-    const productsData = products.length ? products.map((item: any) => {
-        return {x: item.name, y: item.price}
-    }) : null;
-
-    const productsTickFormat = products.length ? products.map((item: any) => item.name) : null;
-    const waiterTickFormat = waiter.length ? waiter.map((item: any) => item.waiter) : null;
-    const tablesTickFormat = tables.length ? tables.map((item: any) => item.number) : null;
-
-
-
-    const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(event.target.value)
-    };
     return (
         <>
-            <ComponentLoader isLoading={isLoading}>
-                <Grid container spacing={2} alignItems='center'>
-                    <Grid item xs={12} md={12} lg={6}>
-                        <CashierChart/>
-                    </Grid>
-                    <Grid item xs={12} md={12} lg={6}>
-                        {waiter.length && !waterIsLoading ?
-                            <Paper>
-                                <div className="chart-dropdown-container">
-                                    <ControlledDropDown
-                                        id='waiterDateRange'
-                                        name='waiter-date-range'
-                                        size='small'
-                                        ignoreNone={true}
-                                        data={dateRanges}
-                                        label='select date range'
-                                        handleOnChange={handleOnChange}
-                                    />
-                                </div>
-                                <HorizontalGroupChart
-                                    chartSize={{height:250, width:400}}
-                                    data={waiter}
-                                    x='waiter'
-                                    y='price'
-                                    tickFormat={waiterTickFormat}
-                                    labelsKey='price'
-                                    tickFormatFunction={tickFormatFunction}
-                                    labelsFunction={labelsFunction}
-                                />
-                            </Paper> : <CardMessage header='No data created!'/>}
-                    </Grid>
-                    <Grid item xs={12} md={12} lg={6}>
-                        {products.length && !isLoading ?
-                            <Paper>
-                                <div className="chart-dropdown-container">
-                                    <ControlledDropDown
-                                        id='productsDateRange'
-                                        name='products-date-range'
-                                        size='small'
-                                        ignoreNone={true}
-                                        data={dateRanges}
-                                        label='select date range'
-                                        handleOnChange={handleOnChange}
-                                    />
-                                </div>
-                                <InterpolationChart
-                                    chartSize={{height:250, width:400}}
-                                    tickFormat={productsTickFormat}
-                                    data={productsData}
-                                    labelsKey='y'
-                                    labelsFunction={labelsFunction}
-                                    tickFormatFunction={tickFormatFunction}
-                                    interpolation='linear'
-                                />
-                            </Paper>
-                            : <CardMessage header='No data created!'/>}
-                    </Grid>
-                    <Grid item xs={12} md={12} lg={6}>
-                        {tables.length && !tablesIsLoading ?
-                            <Paper>
-                                <div className="chart-dropdown-container">
-                                    <ControlledDropDown
-                                        id='tablesDateRange'
-                                        name='tables-date-range'
-                                        size='small'
-                                        ignoreNone={true}
-                                        data={dateRanges}
-                                        label='select date range'
-                                        handleOnChange={handleOnChange}
-                                    />
-                                </div>
-                                <InterpolationChart
-                                    chartSize={{height:250, width:400}}
-                                    tickFormat={tablesTickFormat}
-                                    data={tablesData}
-                                    labelsKey='y'
-                                    labelsFunction={labelsFunction}
-                                    tickFormatFunction={tickFormatFunction}
-                                    interpolation='cardinal'
-                                />
-                            </Paper>
-                            : <CardMessage header='No data created!'/>}
-                    </Grid>
+
+            <Grid container spacing={2} alignItems='center'>
+                <Grid item xs={12} md={12} lg={6}>
+                    <CashierChart/>
                 </Grid>
-            </ComponentLoader>
+                <Grid item xs={12} md={12} lg={6}>
+                    <WaiterChart/>
+                </Grid>
+                <Grid item xs={12} md={12} lg={6}>
+                    <ProductsChart/>
+                </Grid>
+                <Grid item xs={12} md={12} lg={6}>
+                    <TablesChart/>
+                </Grid>
+            </Grid>
         </>
     );
 };
