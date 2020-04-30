@@ -59,7 +59,7 @@ app.use('/group-chat',groupChat);
 app.use('/api', api);
 
 /**
- * Super Admin , Admin Roles
+ * Super Admin ,Admin Roles
  * */
 app.use(isAuthorized(ROLES_SUPER_ADMIN));
 

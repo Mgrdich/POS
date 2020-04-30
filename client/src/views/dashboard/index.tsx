@@ -1,5 +1,4 @@
 import React from 'react';
-import BarChart from "../../components/Reusable/Chart/BarChart";
 import Grid from "@material-ui/core/Grid";
 import {useFetch} from "../../components/Hooks/useFetch";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
@@ -9,11 +8,21 @@ import {Paper} from "@material-ui/core";
 import CardMessage from "../../components/Reusable/CardMessage";
 import ControlledDropDown from "../../components/Reusable/ControlledDropDown";
 import {dateRanges} from "../../constants/dropdown/dateRanges";
+import CashierChart from "./CashierChart";
+
+export const tickFormatFunction = (x: any) => {
+    return `AMD${x / 1000}K`
+};
+export const labelsFunction = (datum: any) => {
+    return `price: ${datum}`
+};
+
 
 const Dashboard: React.FC = () => {
     const {data: products, isLoading} = useFetch('/statistics/products/price');
+
     const {data: waiter, isLoading: waterIsLoading} = useFetch('/statistics/orders/waiter');
-    const {data: cashier, isLoading: cashierIsLoading} = useFetch('/statistics/orders/cashier');
+
     const {data: tables, isLoading: tablesIsLoading} = useFetch('statistics/orders/table');
 
     const tablesData = tables.length ? tables.map((item: any) => {
@@ -22,52 +31,22 @@ const Dashboard: React.FC = () => {
     const productsData = products.length ? products.map((item: any) => {
         return {x: item.name, y: item.price}
     }) : null;
+
     const productsTickFormat = products.length ? products.map((item: any) => item.name) : null;
     const waiterTickFormat = waiter.length ? waiter.map((item: any) => item.waiter) : null;
-    const cashierTickFormat = cashier.length ? cashier.map((item: any) => item.createdBy) : null;
     const tablesTickFormat = tables.length ? tables.map((item: any) => item.number) : null;
 
-    const BarChartColorScale = ['#66fcf1', '#1f2833'];
-    const tickFormatFunction = (x: any) => {
-        return `AMD${x / 1000}K`
-    };
-    const labelsFunction = (datum: any) => {
-        return `price: ${datum}`
-    };
+
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         console.log(event.target.value)
-    }
+    };
     return (
         <>
             <ComponentLoader isLoading={isLoading}>
                 <Grid container spacing={2} alignItems='center'>
                     <Grid item xs={12} md={12} lg={6}>
-                        {cashier.length && !cashierIsLoading ?
-                            <Paper>
-                                <div className="chart-dropdown-container">
-                                    <ControlledDropDown
-                                        id='cashierDateRange'
-                                        name='cashier-date-range'
-                                        size='small'
-                                        ignoreNone={true}
-                                        data={dateRanges}
-                                        label='select date range'
-                                        handleOnChange={handleOnChange}
-                                    />
-                                </div>
-                                <BarChart
-                                    chartSize={{height:250, width:400}}
-                                    colorScale={BarChartColorScale}
-                                    data={cashier}
-                                    x='createdBy'
-                                    y='price'
-                                    tickFormat={cashierTickFormat}
-                                    labelsKey='price'
-                                    tickFormatFunction={tickFormatFunction}
-                                    labelsFunction={labelsFunction}
-                                />
-                            </Paper> : <CardMessage header='No data created!'/>}
+                        <CashierChart/>
                     </Grid>
                     <Grid item xs={12} md={12} lg={6}>
                         {waiter.length && !waterIsLoading ?
