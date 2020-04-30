@@ -350,7 +350,8 @@ section.content h1 {
   border-color: red; }
 
 .tables.reserved span {
-  border-color: red; }
+  border-color: red;
+  color: red; }
 
 .products-header {
   border-bottom: 1px solid #66fcf1;

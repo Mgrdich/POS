@@ -23,5 +23,5 @@ export interface IDocTables extends Document, ITables {
 
 export interface IModelTables extends Model<IDocTables> {
     //here we declare the statics
-    changeTableStatus: (_id: IDocTables["_id"],status:TableStatus) => Promise<any>;
+    changeTableStatus: (_id: IDocTables["_id"],status:TableStatus,ignoreStatus?:TableStatus) => Promise<any>;
 }

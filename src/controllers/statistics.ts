@@ -75,7 +75,6 @@ export async function getClosedOrdersWaiter(req: Request, res: Response, next: N
     try {
         errorValidation(req);
         let range:IRange = getDateRange(req.query.date);
-        console.log(range);
         const closedOrders: Array<IClosedOrders> =
             await ClosedOrders.find({createdAt:{$gte:range.gt,$lt:range.lt}},
                 {waiter: 1, price: 1}).limit(5).lean().populate('waiter', 'name');

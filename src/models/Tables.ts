@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import {Schema} from "mongoose";
+import {Schema} from 'mongoose';
 import {IDocTables, IModelTables} from "../interfaces/models/Tables";
 import {TABLE_STATUS} from "../utilities/constants/arrays";
 import {TableStatus} from "../utilities/constants/enums";
@@ -42,9 +42,12 @@ const tableSchema: Schema = new Schema({
     }
 },{timestamps:true});
 
-tableSchema.statics.changeTableStatus = async function (_id: IDocTables["_id"], status: TableStatus) {
+tableSchema.statics.changeTableStatus = async function (_id: IDocTables["_id"], status: TableStatus,ignoreStatus?:TableStatus) {
     const table: IDocTables = await this.findById(_id);
     if (table) {
+        if(ignoreStatus && table.status === ignoreStatus) { //reserve will keep being reserved
+            return  Promise.resolve({status:TableStatus.open});
+        }
         table.status = status;
         return table.save();
     }
