@@ -16,8 +16,9 @@ import chat from "./routes/chat";
 import groupChat from "./routes/chatGroups";
 import statistics from "./routes/statistics";
 import {ImyError} from "./interfaces/General";
-import {isAuth} from "./middlewares/authorisation";
+import {isAuth, isAuthorized} from "./middlewares/authorisation";
 import {socketEvents} from "./socketEvents";
+import {ROLES_SUPER_ADMIN, ROLES_SUPER_ADMIN_MANAGER, ROLES_SUPER_ADMIN_MANAGER_CASHIER} from "./roles";
 
 const app = express();
 
@@ -51,7 +52,23 @@ app.use('/users', users);
 
 app.use(isAuth()); //all the routes should require an Authorization
 
+app.use('/chat',chat);
+
+app.use('/group-chat',groupChat);
+
 app.use('/api', api);
+
+/**
+ * Super Admin , Admin Roles
+ * */
+app.use(isAuthorized(ROLES_SUPER_ADMIN));
+
+app.use('/statistics',statistics);
+
+/**
+ * Super Admin ,Admin ,Manager Roles
+ * */
+app.use(isAuthorized(ROLES_SUPER_ADMIN_MANAGER));
 
 app.use('/tables', tables);
 
@@ -59,14 +76,13 @@ app.use('/products', products);
 
 app.use('/products-group', productsGroups);
 
-//TODO after this only admin super admin role
+/**
+ * Super Admin ,Admin ,Manager, Cashier Roles
+ * */
+app.use(isAuthorized(ROLES_SUPER_ADMIN_MANAGER_CASHIER));
+
 app.use('/orders', orders);
 
-app.use('/chat',chat);
-
-app.use('/group-chat',groupChat);
-
-app.use('/statistics',statistics);
 
 //errors
 app.use(function (err: ImyError, req: Request, res: Response, next: NextFunction) {

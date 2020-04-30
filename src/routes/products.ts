@@ -6,13 +6,13 @@ import {paramIdValidation} from "../validations/General";
 const router = express.Router();
 
 
-router.get('/', getProducts);
+router.get('/',getProducts);
 
 router.get('/:id',paramIdValidation,getProduct);
 
-router.put('/', addProductValidation, addProduct);
+router.put('/', addProductValidation,addProduct);
 
-router.put('/:id', editProductValidation, editProduct);
+router.put('/:id', editProductValidation,editProduct);
 
 router.delete('/:id', paramIdValidation,deleteProduct);
 
