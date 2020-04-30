@@ -7,13 +7,14 @@ import HorizontalGroupChart from "../../components/Reusable/Chart/HorizontalGrou
 import InterpolationChart from "../../components/Reusable/Chart/InterpolationChart";
 import {Paper} from "@material-ui/core";
 import CardMessage from "../../components/Reusable/CardMessage";
-import ChartDropDown from "../../components/Reusable/Chart/ChartDropDown";
+import ControlledDropDown from "../../components/Reusable/ControlledDropDown";
+import {dateRanges} from "../../constants/dropdown/dateRanges";
 
 const Dashboard: React.FC = () => {
     const {data: products, isLoading} = useFetch('/statistics/products/price');
-    const {data: waiter} = useFetch('/statistics/orders/waiter');
-    const {data: cashier} = useFetch('/statistics/orders/cashier');
-    const {data:tables} = useFetch('statistics/orders/table');
+    const {data: waiter, isLoading: waterIsLoading} = useFetch('/statistics/orders/waiter');
+    const {data: cashier, isLoading: cashierIsLoading} = useFetch('/statistics/orders/cashier');
+    const {data: tables, isLoading: tablesIsLoading} = useFetch('statistics/orders/table');
 
     const tablesData = tables.length ? tables.map((item: any) => {
         return {x: item.number, y: item.price}
@@ -34,14 +35,27 @@ const Dashboard: React.FC = () => {
         return `price: ${datum}`
     };
 
+    const handleOnChange = (value: string) => {
+        console.log(value)
+    }
     return (
         <>
             <ComponentLoader isLoading={isLoading}>
                 <Grid container spacing={2} alignItems='center'>
                     <Grid item xs={12} md={12} lg={6}>
-                        {cashier.length && !isLoading ?
+                        {cashier.length && !cashierIsLoading ?
                             <Paper>
-                                <ChartDropDown/>
+                                <div className="chart-dropdown-container">
+                                    <ControlledDropDown
+                                        id='cashierDateRange'
+                                        name='cashier-date-range'
+                                        size='small'
+                                        ignoreNone={true}
+                                        data={dateRanges}
+                                        label='select date range'
+                                        handleOnChange={handleOnChange}
+                                    />
+                                </div>
                                 <BarChart
                                     colorScale={BarChartColorScale}
                                     data={cashier}
@@ -55,9 +69,19 @@ const Dashboard: React.FC = () => {
                             </Paper> : <CardMessage header='No data created!'/>}
                     </Grid>
                     <Grid item xs={12} md={12} lg={6}>
-                        {waiter.length && !isLoading ?
+                        {waiter.length && !waterIsLoading ?
                             <Paper>
-                                <ChartDropDown/>
+                                <div className="chart-dropdown-container">
+                                    <ControlledDropDown
+                                        id='waiterDateRange'
+                                        name='waiter-date-range'
+                                        size='small'
+                                        ignoreNone={true}
+                                        data={dateRanges}
+                                        label='select date range'
+                                        handleOnChange={handleOnChange}
+                                    />
+                                </div>
                                 <HorizontalGroupChart
                                     data={waiter}
                                     x='waiter'
@@ -72,7 +96,17 @@ const Dashboard: React.FC = () => {
                     <Grid item xs={12} md={12} lg={6}>
                         {products.length && !isLoading ?
                             <Paper>
-                                <ChartDropDown/>
+                                <div className="chart-dropdown-container">
+                                    <ControlledDropDown
+                                        id='productsDateRange'
+                                        name='products-date-range'
+                                        size='small'
+                                        ignoreNone={true}
+                                        data={dateRanges}
+                                        label='select date range'
+                                        handleOnChange={handleOnChange}
+                                    />
+                                </div>
                                 <InterpolationChart
                                     tickFormat={productsTickFormat}
                                     data={productsData}
@@ -85,17 +119,27 @@ const Dashboard: React.FC = () => {
                             : <CardMessage header='No data created!'/>}
                     </Grid>
                     <Grid item xs={12} md={12} lg={6}>
-                        {tables.length && !isLoading ?
+                        {tables.length && !tablesIsLoading ?
                             <Paper>
-                                <ChartDropDown/>
-                               <InterpolationChart
-                                   tickFormat={tablesTickFormat}
-                                   data={tablesData}
-                                   labelsKey='y'
-                                   labelsFunction={labelsFunction}
-                                   tickFormatFunction={tickFormatFunction}
-                                   interpolation='cardinal'
-                               />
+                                <div className="chart-dropdown-container">
+                                    <ControlledDropDown
+                                        id='tablesDateRange'
+                                        name='tables-date-range'
+                                        size='small'
+                                        ignoreNone={true}
+                                        data={dateRanges}
+                                        label='select date range'
+                                        handleOnChange={handleOnChange}
+                                    />
+                                </div>
+                                <InterpolationChart
+                                    tickFormat={tablesTickFormat}
+                                    data={tablesData}
+                                    labelsKey='y'
+                                    labelsFunction={labelsFunction}
+                                    tickFormatFunction={tickFormatFunction}
+                                    interpolation='cardinal'
+                                />
                             </Paper>
                             : <CardMessage header='No data created!'/>}
                     </Grid>
