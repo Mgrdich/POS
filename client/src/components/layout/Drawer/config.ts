@@ -24,7 +24,7 @@ export type nestedRoutes = {
 export const drawerRoutes: Array<IDrawerRoute> = [
     {
         icon: EqualizerIcon,
-        translation: "Chart Dashboard",
+        translation: "Dashboard",
         location:'/dashboard',
         role: [Roles.SuperAdmin, Roles.Admin],
     },
