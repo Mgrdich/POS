@@ -10,7 +10,7 @@ import ChatIcon from '@material-ui/icons/Chat';
 import LocalAtmIcon from '@material-ui/icons/LocalAtm';
 import {ComponentType} from "react";
 import {IDrawerRoute} from "../../../interfaces/layout/Drawer";
-import {Roles, RoleType} from "../../../roles";
+import {Roles, ROLES_ALL, RoleType} from "../../../roles";
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
 
@@ -26,7 +26,7 @@ export const drawerRoutes: Array<IDrawerRoute> = [
         icon: EqualizerIcon,
         translation: "Dashboard",
         location:'/dashboard',
-        role: [Roles.SuperAdmin, Roles.Admin],
+        role: [Roles.SuperAdmin, Roles.Admin,Roles.Manager],
     },
     {
         icon: GroupIcon,
@@ -79,13 +79,13 @@ export const drawerRoutes: Array<IDrawerRoute> = [
                 icon: AddIcon,
                 location: "/products",
                 translation: "Products",
-                role: [Roles.SuperAdmin, Roles.Admin],
+                role: [Roles.SuperAdmin, Roles.Admin,Roles.Manager],
             },
             {
                 icon: GroupWorkIcon,
                 location: "/products/products-group",
                 translation: "Products group",
-                role: [Roles.SuperAdmin, Roles.Admin],
+                role: [Roles.SuperAdmin, Roles.Admin,Roles.Manager],
             },
 
 
@@ -95,14 +95,14 @@ export const drawerRoutes: Array<IDrawerRoute> = [
         icon: LocalAtmIcon,
         translation: "Pos",
         location:'/pos',
-        role: [Roles.SuperAdmin, Roles.Admin, Roles.Manager],
+        role: [Roles.SuperAdmin, Roles.Admin, Roles.Manager,Roles.Cashier],
     },
 
     {
         icon: ChatIcon,
         translation: "Chat",
         location:'/chat',
-        role: [Roles.SuperAdmin, Roles.Admin],
+        role:ROLES_ALL
     }
 
 ];

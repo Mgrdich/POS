@@ -11,4 +11,4 @@ export enum Roles {
 
 export type RoleType = 'SuperAdmin' | 'Admin' | 'Manager' | 'Cashier' | 'Employee' | 'Kitchen';
 
-export const ROLES_ALL:Array<RoleType> = ['SuperAdmin','Admin','Manager','Cashier','Employee','Kitchen'];
+export const ROLES_ALL:Array<Roles> = [Roles.SuperAdmin,Roles.Admin,Roles.Manager,Roles.Cashier,Roles.Employee,Roles.Kitchen];

@@ -20,6 +20,7 @@ import PosTable from "./views/pos/PosTable";
 import NoOrder from "./views/pos/NoOrder";
 import Chat from "./views/chat";
 import ReservedTables from "./views/tables/ReservedTables";
+import LandingPage from "./views";
 
 const HL_Dashboard = HeaderFooterLayout(Dashboard);
 const HL_CreateUser = HeaderFooterLayout(CreateUsers);
@@ -34,6 +35,7 @@ const HL_Pos= HeaderFooterLayout(Pos);
 const HL_PosTable= HeaderFooterLayout(PosTable);
 const HL_NoOrder= HeaderFooterLayout(NoOrder);
 const HL_ReservedTables = HeaderFooterLayout(ReservedTables);
+const HL_LandingPage = HeaderFooterLayout(LandingPage);
 
 const superAdminMangerRoles :Array<RoleType> = [Roles.SuperAdmin,Roles.Admin,Roles.Manager];
 const Routes:React.FC = () => {
@@ -43,7 +45,7 @@ const Routes:React.FC = () => {
                 <PrivateRoute exact path='/pos' allowedRoles={superAdminMangerRoles} component={HL_Pos}/>
                 <PrivateRoute exact path='/pos/no-orders/:id' component={HL_NoOrder}/>
                 <PrivateRoute exact path='/pos/:id' component={HL_PosTable}/>
-                <PrivateRoute exact path={['/','/dashboard']} component={HL_Dashboard}/>
+                <PrivateRoute exact path='/dashboard'  allowedRoles={superAdminMangerRoles} component={HL_Dashboard}/>
                 <PrivateRoute exact path={['/products','/product/index']} component={HL_AddProduct}/>
                 <PrivateRoute exact path='/products/products-group' component={HL_ProductsGroup}/>
                 <PrivateRoute exact path='/tables/view-tables' component={HL_TablesDashboard}/>
@@ -53,6 +55,7 @@ const Routes:React.FC = () => {
                 <PrivateRoute exact path='/users' allowedRoles={superAdminMangerRoles} component={HL_Users}/>
                 <PrivateRoute exact path='/profile' component={HL_Profile}/>
                 <PrivateRoute exact path='/chat' component={HL_Chat}/>
+                <PrivateRoute exact path='/' component={HL_LandingPage}/>
                 <PublicRoute exact path='/login' component={Login}/>
                 <PublicRoute exact path='/register' component={Register}/>
                 <Route exact path="/404" render={(() =><Error errorNumber={404} errorText="Page Not Found"/> )}/>
