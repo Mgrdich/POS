@@ -1,6 +1,6 @@
-import {ComponentType, ElementType, ReactNode} from "react";
+import {ComponentType, ReactNode} from "react";
 import {nestedRoutes} from "../../../components/layout/Drawer/config";
-import {RoleType} from "../../../roles";
+import {Roles} from "../../../roles";
 
 export interface INestedMenuList {
     menuOpen:boolean;
@@ -14,6 +14,6 @@ export interface IDrawerRoute {
     icon: ComponentType;
     location?: string;
     translation: string;
-    role?:Array<RoleType>;
+    role?:Array<Roles>;
     nested?: Array<nestedRoutes>
 }

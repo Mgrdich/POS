@@ -13,7 +13,11 @@ import TablesDashboard from "./views/tables/viewTables";
 import CreateEditTables from "./views/tables";
 import AddProduct from "./views/products";
 import ProductsGroup from "./views/products/products-group";
-import {Roles, RoleType} from "./roles";
+import {
+    SUPER_ADMIN_ADMIN_ROLES,
+    SUPER_ADMIN_MANAGER_CASHIER_ROLES,
+    SUPER_ADMIN_MANAGER_ROLES
+} from "./roles";
 import Profile from "./views/profile";
 import Pos from "./views/pos";
 import PosTable from "./views/pos/PosTable";
@@ -37,22 +41,21 @@ const HL_NoOrder= HeaderFooterLayout(NoOrder);
 const HL_ReservedTables = HeaderFooterLayout(ReservedTables);
 const HL_LandingPage = HeaderFooterLayout(LandingPage);
 
-const superAdminMangerRoles :Array<RoleType> = [Roles.SuperAdmin,Roles.Admin,Roles.Manager];
 const Routes:React.FC = () => {
     return (
         <>
             <Switch>
-                <PrivateRoute exact path='/pos' allowedRoles={superAdminMangerRoles} component={HL_Pos}/>
-                <PrivateRoute exact path='/pos/no-orders/:id' component={HL_NoOrder}/>
-                <PrivateRoute exact path='/pos/:id' component={HL_PosTable}/>
-                <PrivateRoute exact path='/dashboard'  allowedRoles={superAdminMangerRoles} component={HL_Dashboard}/>
-                <PrivateRoute exact path={['/products','/product/index']} component={HL_AddProduct}/>
-                <PrivateRoute exact path='/products/products-group' component={HL_ProductsGroup}/>
-                <PrivateRoute exact path='/tables/view-tables' component={HL_TablesDashboard}/>
-                <PrivateRoute exact path='/tables/reserved-tables' component={HL_ReservedTables}/>
-                <PrivateRoute exact path={['/tables','/tables/index']} component={HL_CreateEditTables}/>
-                <PrivateRoute exact path='/users/create-user' allowedRoles={superAdminMangerRoles} component={HL_CreateUser}/>
-                <PrivateRoute exact path='/users' allowedRoles={superAdminMangerRoles} component={HL_Users}/>
+                <PrivateRoute exact path='/pos' allowedRoles={SUPER_ADMIN_MANAGER_ROLES} component={HL_Pos}/>
+                <PrivateRoute exact path='/pos/no-orders/:id' allowedRoles={SUPER_ADMIN_MANAGER_CASHIER_ROLES} component={HL_NoOrder}/>
+                <PrivateRoute exact path='/pos/:id' allowedRoles={SUPER_ADMIN_MANAGER_CASHIER_ROLES} component={HL_PosTable}/>
+                <PrivateRoute exact path='/dashboard'  allowedRoles={SUPER_ADMIN_MANAGER_ROLES} component={HL_Dashboard}/>
+                <PrivateRoute exact path={['/products','/product/index']} allowedRoles={SUPER_ADMIN_MANAGER_ROLES} component={HL_AddProduct}/>
+                <PrivateRoute exact path='/products/products-group' allowedRoles={SUPER_ADMIN_MANAGER_ROLES} component={HL_ProductsGroup}/>
+                <PrivateRoute exact path='/tables/view-tables' allowedRoles={SUPER_ADMIN_MANAGER_ROLES} component={HL_TablesDashboard}/>
+                <PrivateRoute exact path='/tables/reserved-tables' allowedRoles={SUPER_ADMIN_MANAGER_ROLES} component={HL_ReservedTables}/>
+                <PrivateRoute exact path={['/tables','/tables/index']} allowedRoles={SUPER_ADMIN_ADMIN_ROLES} component={HL_CreateEditTables}/>
+                <PrivateRoute exact path='/users/create-user' allowedRoles={SUPER_ADMIN_MANAGER_ROLES} component={HL_CreateUser}/>
+                <PrivateRoute exact path='/users' allowedRoles={SUPER_ADMIN_MANAGER_ROLES} component={HL_Users}/>
                 <PrivateRoute exact path='/profile' component={HL_Profile}/>
                 <PrivateRoute exact path='/chat' component={HL_Chat}/>
                 <PrivateRoute exact path='/' component={HL_LandingPage}/>

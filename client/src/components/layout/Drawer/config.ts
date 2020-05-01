@@ -10,7 +10,13 @@ import ChatIcon from '@material-ui/icons/Chat';
 import LocalAtmIcon from '@material-ui/icons/LocalAtm';
 import {ComponentType} from "react";
 import {IDrawerRoute} from "../../../interfaces/layout/Drawer";
-import {Roles, ROLES_ALL, RoleType} from "../../../roles";
+import {
+    Roles,
+    ROLES_ALL,
+    SUPER_ADMIN_ADMIN_ROLES,
+    SUPER_ADMIN_MANAGER_CASHIER_ROLES,
+    SUPER_ADMIN_MANAGER_ROLES
+} from "../../../roles";
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
 
@@ -18,7 +24,7 @@ export type nestedRoutes = {
     icon: ComponentType, //TODO to be removed since it is static
     location?: string,
     translation: string,
-    role?: Array<RoleType>,
+    role?: Array<Roles>,
 }
 
 export const drawerRoutes: Array<IDrawerRoute> = [
@@ -26,66 +32,66 @@ export const drawerRoutes: Array<IDrawerRoute> = [
         icon: EqualizerIcon,
         translation: "Dashboard",
         location:'/dashboard',
-        role: [Roles.SuperAdmin, Roles.Admin,Roles.Manager],
+        role: SUPER_ADMIN_MANAGER_ROLES,
     },
     {
         icon: GroupIcon,
         translation: "Users",
-        role: [Roles.SuperAdmin, Roles.Admin],
+        role: SUPER_ADMIN_ADMIN_ROLES,
         nested: [
             {
                 icon: ViewAgendaIcon,
                 location: "/users",
                 translation: "View users",
-                role: [Roles.SuperAdmin, Roles.Admin],
+                role: SUPER_ADMIN_ADMIN_ROLES,
             },
             {
                 icon: PersonAddIcon,
                 location: "/users/create-user",
                 translation: "Create User",
-                role: [Roles.SuperAdmin, Roles.Admin],
+                role: SUPER_ADMIN_ADMIN_ROLES,
             },
         ]
     }, {
         icon: TableChartIcon,
         translation: "Tables",
-        role: [Roles.SuperAdmin, Roles.Admin, Roles.Manager],
+        role: SUPER_ADMIN_MANAGER_ROLES,
         nested: [
             {
                 icon: CreateIcon,
                 location: "/tables",
                 translation: "Create tables",
-                role: [Roles.SuperAdmin, Roles.Admin, Roles.Manager],
+                role: SUPER_ADMIN_MANAGER_ROLES,
             },
             {
                 icon: ViewAgendaIcon,
                 location: "/tables/view-tables",
                 translation: "Tables dashboard",
-                role: [Roles.SuperAdmin, Roles.Admin, Roles.Manager],
+                role: SUPER_ADMIN_MANAGER_ROLES,
             },
             {
                 icon: RestaurantIcon,
                 location: "/tables/reserved-tables",
                 translation: "Reserved tables",
-                role: [Roles.SuperAdmin, Roles.Admin, Roles.Manager],
+                role: SUPER_ADMIN_MANAGER_ROLES,
             },
         ]
     }, {
         icon: InboxIcon,
         translation: "Products",
-        role: [Roles.SuperAdmin, Roles.Admin],
+        role: SUPER_ADMIN_MANAGER_ROLES,
         nested: [
             {
                 icon: AddIcon,
                 location: "/products",
                 translation: "Products",
-                role: [Roles.SuperAdmin, Roles.Admin,Roles.Manager],
+                role: SUPER_ADMIN_MANAGER_ROLES,
             },
             {
                 icon: GroupWorkIcon,
                 location: "/products/products-group",
                 translation: "Products group",
-                role: [Roles.SuperAdmin, Roles.Admin,Roles.Manager],
+                role: SUPER_ADMIN_MANAGER_ROLES,
             },
 
 
@@ -95,7 +101,7 @@ export const drawerRoutes: Array<IDrawerRoute> = [
         icon: LocalAtmIcon,
         translation: "Pos",
         location:'/pos',
-        role: [Roles.SuperAdmin, Roles.Admin, Roles.Manager,Roles.Cashier],
+        role: SUPER_ADMIN_MANAGER_CASHIER_ROLES,
     },
 
     {
