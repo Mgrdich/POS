@@ -23,7 +23,7 @@ const ReservedTables = () => {
            setRefetchReserved(prevState => !prevState);
            setRefetchOpen(prevState => !prevState);
         })
-    }, []);
+    }, [setRefetchOpen, setRefetchReserved]);
 
     return (
         <>

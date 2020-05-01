@@ -20,7 +20,7 @@ const SubmittedOrders: React.FC = () => {
             {!isEmpty(Orders[ordersId]) && submittedOrdersKeys.length? submittedOrdersKeys.map((key: string) => {
                 let product = Orders[ordersId][key];
                 if(!product) {
-                    return;
+                    return 1;
                 }
                 return (
                     <Grid key={key} container direction="row" justify="space-between" className="nonSubmitted">

@@ -7,15 +7,14 @@ import RestaurantIcon from '@material-ui/icons/Restaurant';
 import LockIcon from '@material-ui/icons/Lock';
 import IconButton from "@material-ui/core/IconButton";
 import {TableActionOptions} from "../../../constants/Enums/General";
-import {IActionsOptions} from "../../../interfaces/General";
 import Tooltip from "@material-ui/core/Tooltip";
 
-function disableActionObj(actionType:TableActionOptions,actionsDisableOptions:IActionsOptions) {
+/*function disableActionObj(actionType:TableActionOptions,actionsDisableOptions:IActionsOptions) {
 
-}
+}*/
 
 const MyTableBody: React.FC<IMyTableBody> = (props) => {
-    const {page, data, rowsPerPage, keys, actionsTypes, handleActions,actionsDisableOptions} = props;
+    const {page, data, rowsPerPage, keys, actionsTypes, handleActions} = props;
 
     return (
         <>

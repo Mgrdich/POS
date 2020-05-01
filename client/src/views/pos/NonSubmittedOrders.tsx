@@ -19,7 +19,7 @@ const NonSubmittedOrders: React.FC<INonSubmittedOrders> = (props) => {
         <>
             {!isEmpty(nonSubmittedOrders[ordersId]) && nonSubmittedOrdersKeys.length? nonSubmittedOrdersKeys.map((key: string) => {
                 if(!nonSubmittedOrders[ordersId][key]) { //TODO check the reason
-                    return
+                    return 1;
                 }
                 let productGroupId = nonSubmittedOrders[ordersId][key].productsGroupId;
                 let product = productsGroupData[productGroupId].products[key];
