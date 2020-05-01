@@ -17,54 +17,60 @@ const MyTableBody: React.FC<IMyTableBody> = (props) => {
     const {page, data, rowsPerPage, keys, actionsTypes, handleActions} = props;
 
     return (
-        <>
-
             <TableBody>
                 {
                     data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row: any) => (
                         <TableRow key={row._id}>
-                            {actionsTypes ? <TableCell className='table-cell' key={actionsTypes[0]}>
+                            {actionsTypes ? <TableCell className='table-cell' key={row._id+"actionType"}>
                                 {
                                     actionsTypes?.map((item: TableActionOptions) => {
 
                                         switch (item) {
                                             case TableActionOptions.delete:
                                                 return (
-                                                    <IconButton key={item+row._id}
-                                                                onClick={() => (handleActions) ? handleActions(TableActionOptions.delete, {...row}) : null}
-                                                    >
-                                                        <DeleteIcon color='primary'/>
-                                                    </IconButton>
+                                                    <Tooltip title="Delete" placement="top" arrow
+                                                             key={item + row._id}>
+                                                        <IconButton key={item + row._id}
+                                                                    onClick={() => (handleActions) ? handleActions(TableActionOptions.delete, {...row}) : null}
+                                                        >
+                                                            <DeleteIcon color='primary'/>
+                                                        </IconButton>
+                                                    </Tooltip>
                                                 );
 
                                             case TableActionOptions.edit:
                                                 return (
-                                                    <IconButton key={item+row._id}
-                                                                onClick={() => (handleActions) ? handleActions(TableActionOptions.edit, {...row}) : null}
-                                                    >
-                                                        <EditIcon color='primary'/>
-                                                    </IconButton>
+                                                    <Tooltip title="Edit" placement="top" arrow
+                                                             key={item + row._id}>
+                                                        <IconButton key={item + row._id}
+                                                                    onClick={() => (handleActions) ? handleActions(TableActionOptions.edit, {...row}) : null}
+                                                        >
+                                                            <EditIcon color='primary'/>
+                                                        </IconButton>
+                                                    </Tooltip>
                                                 );
 
                                             case TableActionOptions.closed:
                                                 return (
-                                                    <Tooltip title="Close table" placement="top" arrow>
-                                                    <IconButton key={item+row._id}
-                                                                onClick={() => (handleActions) ? handleActions(TableActionOptions.closed, {...row}) : null}
-                                                    >
-                                                        <RestaurantIcon color='primary'/>
-                                                    </IconButton>
+                                                    <Tooltip title="Close" placement="top" arrow
+                                                             key={item + row._id}>
+                                                        <IconButton
+                                                            onClick={() => (handleActions) ? handleActions(TableActionOptions.closed, {...row}) : null}
+                                                        >
+                                                            <RestaurantIcon color='primary'/>
+                                                        </IconButton>
                                                     </Tooltip>
                                                 );
 
                                             case TableActionOptions.reserved:
                                                 return (
-                                                    <Tooltip title="Reserve table" placement="top" arrow>
-                                                    <IconButton key={item+row._id}
-                                                                onClick={() => (handleActions) ? handleActions(TableActionOptions.reserved, {...row}) : null}
-                                                    >
-                                                        <LockIcon color='primary'/>
-                                                    </IconButton>
+                                                    <Tooltip title="Reserve" placement="top" arrow
+                                                             key={item + row._id}>
+                                                        <IconButton
+                                                            onClick={() => (handleActions) ? handleActions(TableActionOptions.reserved, {...row}) : null}
+                                                        >
+                                                            <LockIcon color='primary'/>
+                                                        </IconButton>
                                                     </Tooltip>
                                                 );
                                             default:
@@ -74,8 +80,8 @@ const MyTableBody: React.FC<IMyTableBody> = (props) => {
                                 }
                             </TableCell> : null}
                             {
-                                keys.map((item: any,index:number) => {
-                                        return (<TableCell key={item+index+row._id}> {row[item]}</TableCell>)
+                                keys.map((item: any) => {
+                                        return (<TableCell key={item+row._id}> {row[item]}</TableCell>)
                                     }
                                 )
                             }
@@ -83,8 +89,6 @@ const MyTableBody: React.FC<IMyTableBody> = (props) => {
                     ))
                 }
             </TableBody>
-
-        </>
     );
 };
 

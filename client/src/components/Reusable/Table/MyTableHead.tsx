@@ -12,7 +12,7 @@ const MyTableHead: React.FC<IMyTableHead> = (props) => {
                 <TableRow>
                     {
                          actionsTypes?.length ?
-                            (<TableCell className='table-cell' >Actions</TableCell>)
+                            (<TableCell className='table-cell' key="Actions">Actions</TableCell>)
                         :null
                     }
                     {

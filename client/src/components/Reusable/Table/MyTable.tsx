@@ -16,20 +16,19 @@ const MyTable: React.FC<IMyTable> = (props) => {
     const {page, rowsPerPage, handleChangePage, handleChangeRowsPerPage} = usePagination();
 
     return (
-        <>
-            <Paper className='table-container'>
+        <Paper className='table-container'>
             <TableContainer>
-            <Table>
-                <MyTableHead data={thead} keys={keys} actionsTypes={actionsTypes}/>
-                <MyTableBody
-                    keys={keys}
-                    data={tbody}
-                    page={page}
-                    rowsPerPage={rowsPerPage}
-                    actionsTypes={actionsTypes}
-                    handleActions={handleActions}
-                />
-            </Table>
+                <Table>
+                    <MyTableHead data={thead} keys={keys} actionsTypes={actionsTypes}/>
+                    <MyTableBody
+                        keys={keys}
+                        data={tbody}
+                        page={page}
+                        rowsPerPage={rowsPerPage}
+                        actionsTypes={actionsTypes}
+                        handleActions={handleActions}
+                    />
+                </Table>
             </TableContainer>
             {pagination && <TablePagination
                 color='primary'
@@ -41,8 +40,7 @@ const MyTable: React.FC<IMyTable> = (props) => {
                 onChangePage={handleChangePage}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
             />}
-            </Paper>
-        </>
+        </Paper>
     );
 };
 

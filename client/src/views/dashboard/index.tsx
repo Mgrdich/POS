@@ -14,7 +14,6 @@ export const labelsFunction = (datum: any) => {
 };
 
 const Dashboard: React.FC = () => {
-
     return (
 
         <Grid container spacing={2} alignItems='center'>
