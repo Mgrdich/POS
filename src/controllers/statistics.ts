@@ -35,7 +35,7 @@ export async function getClosedOrdersPricesTables(req: Request, res: Response, n
         let range:IRange = getDateRange(req.query.date);
         const closedOrders: Array<IClosedOrders> =
             await ClosedOrders.find({createdAt:{$gte:range.gt,$lt:range.lt}},
-                {price: 1, table: 1}).limit(5).populate('table', 'number');
+                {price: 1, table: 1}).limit(100).populate('table', 'number');
         if (!closedOrders.length) {
             return noResult(res);
         }
@@ -77,12 +77,12 @@ export async function getClosedOrdersWaiter(req: Request, res: Response, next: N
         let range:IRange = getDateRange(req.query.date);
         const closedOrders: Array<IClosedOrders> =
             await ClosedOrders.find({createdAt:{$gte:range.gt,$lt:range.lt}},
-                {waiter: 1, price: 1}).lean().populate('waiter', 'name');
+                {waiter: 1, price: 1}).limit(100).lean().populate('waiter', 'name');
         if (!closedOrders.length) {
             return noResult(res);
         }
-        
-        let getClosedOrdersOrdersWaiter = priceSumWithClosedOrders(closedOrders, {aliasName: 'waiter', key: 'name'});;
+
+        let getClosedOrdersOrdersWaiter = priceSumWithClosedOrders(closedOrders, {aliasName: 'waiter', key: 'name'});
         res.status(200).json(getClosedOrdersOrdersWaiter);
     }catch (err) {
         errorCatcher(next,err);
@@ -100,7 +100,7 @@ export async function getClosedOrdersCashier(req: Request, res: Response, next: 
         let range:IRange = getDateRange(req.query.date);
         const closedOrders: Array<IClosedOrders> =
             await ClosedOrders.find({createdAt:{$gte:range.gt,$lt:range.lt}},
-                {createdBy: 1, price: 1}).limit(5).lean().populate('createdBy', 'name');
+                {createdBy: 1, price: 1}).limit(100).lean().populate('createdBy', 'name');
         if (!closedOrders.length) {
             return noResult(res);
         }
