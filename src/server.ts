@@ -18,7 +18,7 @@ import statistics from "./routes/statistics";
 import {ImyError} from "./interfaces/General";
 import {isAuth, isAuthorized} from "./middlewares/authorisation";
 import {socketEvents} from "./socketEvents";
-import {ROLES_SUPER_ADMIN, ROLES_SUPER_ADMIN_MANAGER, ROLES_SUPER_ADMIN_MANAGER_CASHIER} from "./roles";
+import {ROLES_SUPER_ADMIN_ADMIN, ROLES_SUPER_ADMIN_MANAGER, ROLES_SUPER_ADMIN_MANAGER_CASHIER} from "./roles";
 
 const app = express();
 
@@ -58,12 +58,13 @@ app.use('/group-chat',groupChat);
 
 app.use('/api', api);
 
-/**
- * Super Admin ,Admin Roles
- * */
-app.use(isAuthorized(ROLES_SUPER_ADMIN));
 
-app.use('/statistics',statistics);
+/**
+ * Super Admin ,Admin ,Manager, Cashier Roles
+ * */
+app.use(isAuthorized(ROLES_SUPER_ADMIN_MANAGER_CASHIER));
+
+app.use('/orders', orders);
 
 /**
  * Super Admin ,Admin ,Manager Roles
@@ -77,11 +78,11 @@ app.use('/products', products);
 app.use('/products-group', productsGroups);
 
 /**
- * Super Admin ,Admin ,Manager, Cashier Roles
+ * Super Admin ,Admin Roles
  * */
-app.use(isAuthorized(ROLES_SUPER_ADMIN_MANAGER_CASHIER));
+app.use(isAuthorized(ROLES_SUPER_ADMIN_ADMIN));
 
-app.use('/orders', orders);
+app.use('/statistics',statistics);
 
 
 //errors

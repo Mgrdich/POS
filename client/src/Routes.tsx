@@ -45,7 +45,7 @@ const Routes:React.FC = () => {
     return (
         <>
             <Switch>
-                <PrivateRoute exact path='/pos' allowedRoles={SUPER_ADMIN_MANAGER_ROLES} component={HL_Pos}/>
+                <PrivateRoute exact path='/pos' allowedRoles={SUPER_ADMIN_MANAGER_CASHIER_ROLES} component={HL_Pos}/>
                 <PrivateRoute exact path='/pos/no-orders/:id' allowedRoles={SUPER_ADMIN_MANAGER_CASHIER_ROLES} component={HL_NoOrder}/>
                 <PrivateRoute exact path='/pos/:id' allowedRoles={SUPER_ADMIN_MANAGER_CASHIER_ROLES} component={HL_PosTable}/>
                 <PrivateRoute exact path='/dashboard'  allowedRoles={SUPER_ADMIN_MANAGER_ROLES} component={HL_Dashboard}/>
