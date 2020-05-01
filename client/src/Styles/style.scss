@@ -10,7 +10,7 @@ $drawer_width_open:250px; //240px + 10px
 $drawer_width_close:70px; //60px + 10px
 body,html {
   height: 100%;
-  overflow: auto;
+  overflow: auto!important;
 }
 .footer {
   position: absolute !important;

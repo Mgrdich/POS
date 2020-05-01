@@ -289,7 +289,7 @@
 
 body, html {
   height: 100%;
-  overflow: auto; }
+  overflow: auto !important; }
 
 .footer {
   position: absolute !important;
