@@ -29,8 +29,6 @@ const CashierChart = () => {
 
     return (
         <>
-            <ComponentLoader isLoading={cashierIsLoading}>
-                {!isEmpty(cashier) && !cashierIsLoading ?
                     <Paper>
                         <div className="chart-dropdown-container">
                             <ControlledDropDown
@@ -44,35 +42,38 @@ const CashierChart = () => {
                                 defaultValue='ytd'
                             />
                         </div>
-                        <BarChart
-                            chartSize={{height: 250, width: 400}}
-                            colorScale={BarChartColorScale}
-                            data={cashier}
-                            x='createdBy'
-                            y='price'
-                            tickFormat={cashierTickFormat}
-                            labelsKey='price'
-                            tickFormatFunction={tickFormatFunction}
-                            labelsFunction={labelsFunction}
-                        />
+                        <ComponentLoader isLoading={cashierIsLoading}>
+                            {!isEmpty(cashier) && !cashierIsLoading ?
+                                <BarChart
+                                    chartSize={{height: 250, width: 400}}
+                                    colorScale={BarChartColorScale}
+                                    data={cashier}
+                                    x='createdBy'
+                                    y='price'
+                                    tickFormat={cashierTickFormat}
+                                    labelsKey='price'
+                                    tickFormatFunction={tickFormatFunction}
+                                    labelsFunction={labelsFunction}
+                                />
+                                :
+                                <CardMessage header='No data created!'>
+                                    <div className="chart-dropdown-container">
+                                        <ControlledDropDown
+                                            id='tablesDateRange'
+                                            name='tables-date-range'
+                                            size='small'
+                                            ignoreNone={true}
+                                            data={dateRanges}
+                                            label='Date Ranges'
+                                            handleOnChange={handleOnChange}
+                                            defaultValue='ytd'
+                                        />
+                                    </div>
+                                </CardMessage>
+                            }
+                        </ComponentLoader>
                     </Paper>
-                    :
-                    <CardMessage header='No data created!'>
-                        <div className="chart-dropdown-container">
-                            <ControlledDropDown
-                                id='tablesDateRange'
-                                name='tables-date-range'
-                                size='small'
-                                ignoreNone={true}
-                                data={dateRanges}
-                                label='Date Ranges'
-                                handleOnChange={handleOnChange}
-                                defaultValue='ytd'
-                            />
-                        </div>
-                    </CardMessage>
-                }
-            </ComponentLoader>
+
         </>
     );
 };
