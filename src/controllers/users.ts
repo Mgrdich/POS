@@ -7,7 +7,7 @@ import {alert} from "../utilities/controllers/messages";
 import {blackListFilterObj, tableDataNormalize} from "../utilities/reformaters";
 import {NextFunction, Request, Response} from 'express';
 import {IDocUsers, IUser} from "../interfaces/models/Users";
-import {IDelete, myRequest} from "../interfaces/General";
+import {myRequest} from "../interfaces/General";
 import {messageAlert} from "../utilities/constants/enums";
 import {GET_USERS_TABLE} from "../utilities/tables/constants";
 import {SECRET_KEY} from "../config/keys";
@@ -27,8 +27,10 @@ async function register(req: Request, res: Response, next: NextFunction): Promis
 
         const salt = await bcrypt.genSalt(10);
         newUser.password = await bcrypt.hash(newUser.password, salt);
-        await newUser.save();
-        alert(res, 200, messageAlert.success, 'Registered Successfully');
+        if(await newUser.save()){
+            return alert(res, 200, messageAlert.success, 'Registered Successfully');
+        }
+        alert(res, 304, messageAlert.success, NOT_MODIFIED);
     } catch (err) {
         errorCatcher(next, err);
     }
@@ -73,8 +75,10 @@ async function registerUser(req: Request, res: Response, next: NextFunction): Pr
 
         const salt = await bcrypt.genSalt(10);
         newUser.password = await bcrypt.hash(newUser.password, salt);
-        await newUser.save();
-        alert(res, 200, messageAlert.success, 'New user is registered');
+        if(await newUser.save()) {
+            return alert(res, 200, messageAlert.success, 'New user is registered');
+        }
+        alert(res, 304, messageAlert.success, NOT_MODIFIED);
     } catch (err) {
         errorCatcher(next, err);
     }
@@ -88,8 +92,10 @@ async function editUser(req: myRequest, res: Response, next: NextFunction): Prom
         const currentUser: IDocUsers = await Users.findById(req.user._id);
         currentUser.email = email;
         currentUser.name = name;
-        await currentUser.save();
-        alert(res, 200, messageAlert.success, 'user Data is edited');
+        if(await currentUser.save()){
+            return alert(res, 200, messageAlert.success, 'user Data is edited');
+        }
+        alert(res, 304, messageAlert.success, NOT_MODIFIED);
     } catch (err) {
         errorCatcher(next, err);
     }
@@ -103,8 +109,10 @@ async function changePassword(req: myRequest, res: Response, next: NextFunction)
         const currentUser: IDocUsers = await Users.findById(req.user._id);
         const salt = await bcrypt.genSalt(10);
         currentUser.password = await bcrypt.hash(new_password, salt);
-        await currentUser.save();
-        alert(res, 200, messageAlert.success, 'Password is Changed');
+        if(await currentUser.save()){
+            return alert(res, 200, messageAlert.success, 'Password is Changed');
+        }
+        alert(res, 304, messageAlert.success, NOT_MODIFIED);
     } catch (err) {
         errorCatcher(next, err);
     }
@@ -127,7 +135,7 @@ async function getUsers(req: myRequest, res: Response, next: NextFunction): Prom
         }, {rolePriority: 0, password: 0}).lean();
         let tableUsers;
         if (!users) {
-            tableUsers = {};
+            return noResult(res);
         } else {
             tableUsers = tableDataNormalize(users, GET_USERS_TABLE);
         }

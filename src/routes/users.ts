@@ -33,11 +33,11 @@ router.post("/login", login);
 
 router.put('/register-user',isAuth(),isAuthorized(ROLES_SUPER_ADMIN_MANAGER),registerUserValidation,registerUser);
 
-router.put('/edit-user',isAuth(),isAuthorized(ROLES_SUPER_ADMIN_MANAGER),editUserValidation,editUser);
+router.put('/edit-user',isAuth(),editUserValidation,editUser);
 
 router.patch('/change-password',isAuth(),changePasswordValidation,changePassword);
 
-router.get("/current", isAuth(),isAuthorized(ROLES_SUPER_ADMIN_MANAGER),currentUser);
+router.get("/current", isAuth(),currentUser);
 
 //in this sense it means disable it
 router.delete('/:id',isAuth(),isAuthorized(ROLES_SUPER_ADMIN_MANAGER),paramIdValidation,deleteUser);
