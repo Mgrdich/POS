@@ -4,15 +4,13 @@ import ControlledDropDown from "../../components/Reusable/ControlledDropDown";
 import {dateRanges} from "../../constants/dropdown/dateRanges";
 import HorizontalGroupChart from "../../components/Reusable/Chart/HorizontalGroupChart";
 import CardMessage from "../../components/Reusable/CardMessage";
-import {useFetch} from "../../components/Hooks/useFetch";
 import {isEmpty} from "../../util/functions";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
 import {labelsFunction, tickFormatFunction} from "./index";
+import {useFetchUrl} from "../../components/Hooks/useFetchUrl";
 
 const WaiterChart = () => {
-
-    const [fetchURL, setFetchUrl] = useState<string>('/statistics/orders/waiter');
-    const {data: waiter, isLoading: waterIsLoading} = useFetch(fetchURL);
+    const {data: waiter, isLoading: waterIsLoading,handleChangeUrl} = useFetchUrl('/statistics/orders/waiter');
     const [waiterTickFormat, setWaiterTickFormat] = useState<Array<any>>([]);
 
     useEffect(function () {
@@ -21,7 +19,7 @@ const WaiterChart = () => {
     }, [waiter]);
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFetchUrl(`statistics/orders/table?date=${event.target.value}`);
+        handleChangeUrl(`/statistics/orders/waiter?date=${event.target.value}`);
     };
 
 

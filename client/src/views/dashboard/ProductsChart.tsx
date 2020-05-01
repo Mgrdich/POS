@@ -4,16 +4,13 @@ import ControlledDropDown from "../../components/Reusable/ControlledDropDown";
 import {dateRanges} from "../../constants/dropdown/dateRanges";
 import InterpolationChart from "../../components/Reusable/Chart/InterpolationChart";
 import CardMessage from "../../components/Reusable/CardMessage";
-import {useFetch} from "../../components/Hooks/useFetch";
 import {isEmpty} from "../../util/functions";
 import {labelsFunction, tickFormatFunction} from "./index";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
+import {useFetchUrl} from "../../components/Hooks/useFetchUrl";
 
 const ProductsChart = () => {
-
-
-    const [fetchURL, setFetchUrl] = useState<string>('/statistics/products/price');
-    const {data: products, isLoading} = useFetch(fetchURL);
+    const {data: products, isLoading:isLoadingProducts,handleChangeUrl} = useFetchUrl('/statistics/products/price');
     const [productsTickFormat, setProductsTickFormat] = useState<Array<string>>([]);
     const [productsData, setProductsData] = useState<Array<any>>([]);
 
@@ -27,14 +24,12 @@ const ProductsChart = () => {
     }, [products]);
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFetchUrl(`statistics/orders/table?date=${event.target.value}`);
+        handleChangeUrl(`/statistics/products/price?date=${event.target.value}`);
     };
 
-
-
     return (
-        <ComponentLoader isLoading={isLoading}>
-            {!isEmpty(products) && !isLoading ?
+        <ComponentLoader isLoading={isLoadingProducts}>
+            {!isEmpty(products) && !isLoadingProducts ?
                 <Paper>
                     <div className="chart-dropdown-container">
                         <ControlledDropDown

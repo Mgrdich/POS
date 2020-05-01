@@ -9,13 +9,13 @@ import CardMessage from "../../components/Reusable/CardMessage";
 import {isEmpty} from "../../util/functions";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
 import {labelsFunction, tickFormatFunction} from "./index";
+import {useFetchUrl} from "../../components/Hooks/useFetchUrl";
 
 const BarChartColorScale = ['#66fcf1', '#1f2833'];
 
 
 const CashierChart = () => {
-    const [fetchURL, setFetchUrl] = useState<string>('/statistics/orders/cashier');
-    const {data: cashier, isLoading: cashierIsLoading} = useFetch(fetchURL);
+    const {data: cashier, isLoading: cashierIsLoading,handleChangeUrl} = useFetchUrl('/statistics/orders/cashier');
     const [cashierTickFormat, setCashierTickFormat] = useState<Array<any>>([]);
 
     useEffect(function () {
@@ -24,7 +24,7 @@ const CashierChart = () => {
     }, [cashier]);
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFetchUrl(`statistics/orders/table?date=${event.target.value}`);
+        handleChangeUrl(`'/statistics/orders/cashier?date=${event.target.value}`);
     };
 
     return (

@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {useFetch} from "../../components/Hooks/useFetch";
 import {Paper} from "@material-ui/core";
 import ControlledDropDown from "../../components/Reusable/ControlledDropDown";
 import {dateRanges} from "../../constants/dropdown/dateRanges";
@@ -8,11 +7,11 @@ import CardMessage from "../../components/Reusable/CardMessage";
 import {isEmpty} from "../../util/functions";
 import {labelsFunction, tickFormatFunction} from "./index";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
+import {useFetchUrl} from "../../components/Hooks/useFetchUrl";
 
 const TablesChart = () => {
 
-    const [fetchURL, setFetchUrl] = useState<string>('statistics/orders/table');
-    const {data: tables, isLoading: tablesIsLoading} = useFetch(fetchURL);
+    const {data: tables, isLoading: tablesIsLoading,handleChangeUrl} = useFetchUrl('statistics/orders/table');
     const [tablesTickFormat, setTablesTickFormat] = useState<Array<string>>([]);
     const [tablesData, setTablesData] = useState<Array<any>>([]);
 
@@ -27,7 +26,7 @@ const TablesChart = () => {
 
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFetchUrl(`statistics/orders/table?date=${event.target.value}`);
+        handleChangeUrl(`statistics/orders/table?date=${event.target.value}`);
     };
 
     return (
