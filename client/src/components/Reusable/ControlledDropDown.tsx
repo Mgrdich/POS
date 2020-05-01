@@ -17,6 +17,7 @@ interface IControlledDropDown {
     defaultValue?: Array<any> | string | number;
 }
 
+//TODO label width should be dynamic
 const ControlledDropDown:React.FC<IControlledDropDown> = (props) => {
 
     const {id, data, name, helperText, label, error, ignoreNone, size, handleOnChange, defaultValue} = props;

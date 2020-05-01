@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {useFetch} from "../../components/Hooks/useFetch";
 import {Paper} from "@material-ui/core";
 import ControlledDropDown from "../../components/Reusable/ControlledDropDown";
 import {dateRanges} from "../../constants/dropdown/dateRanges";
@@ -28,53 +27,37 @@ const CashierChart = () => {
     };
 
     return (
-        <>
-                    <Paper>
-                        <div className="chart-dropdown-container">
-                            <ControlledDropDown
-                                id='tablesDateRange'
-                                name='tables-date-range'
-                                size='small'
-                                ignoreNone={true}
-                                data={dateRanges}
-                                label='Date Ranges'
-                                handleOnChange={handleOnChange}
-                                defaultValue='ytd'
-                            />
-                        </div>
-                        <ComponentLoader isLoading={cashierIsLoading}>
-                            {!isEmpty(cashier) && !cashierIsLoading ?
-                                <BarChart
-                                    chartSize={{height: 250, width: 400}}
-                                    colorScale={BarChartColorScale}
-                                    data={cashier}
-                                    x='createdBy'
-                                    y='price'
-                                    tickFormat={cashierTickFormat}
-                                    labelsKey='price'
-                                    tickFormatFunction={tickFormatFunction}
-                                    labelsFunction={labelsFunction}
-                                />
-                                :
-                                <CardMessage header='No data created!'>
-                                    <div className="chart-dropdown-container">
-                                        <ControlledDropDown
-                                            id='tablesDateRange'
-                                            name='tables-date-range'
-                                            size='small'
-                                            ignoreNone={true}
-                                            data={dateRanges}
-                                            label='Date Ranges'
-                                            handleOnChange={handleOnChange}
-                                            defaultValue='ytd'
-                                        />
-                                    </div>
-                                </CardMessage>
-                            }
-                        </ComponentLoader>
-                    </Paper>
-
-        </>
+        <Paper>
+            <div className="chart-dropdown-container">
+                <ControlledDropDown
+                    id='tablesDateRange'
+                    name='tables-date-range'
+                    size='small'
+                    ignoreNone={true}
+                    data={dateRanges}
+                    label='Date Ranges'
+                    handleOnChange={handleOnChange}
+                    defaultValue='ytd'
+                />
+            </div>
+            <ComponentLoader isLoading={cashierIsLoading}>
+                {!isEmpty(cashier) && !cashierIsLoading ?
+                    <BarChart
+                        chartSize={{height: 250, width: 400}}
+                        colorScale={BarChartColorScale}
+                        data={cashier}
+                        x='createdBy'
+                        y='price'
+                        tickFormat={cashierTickFormat}
+                        labelsKey='price'
+                        tickFormatFunction={tickFormatFunction}
+                        labelsFunction={labelsFunction}
+                    />
+                    :
+                    <CardMessage header='No data created!'/>
+                }
+            </ComponentLoader>
+        </Paper>
     );
 };
 
