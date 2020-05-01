@@ -51,6 +51,7 @@ const ProductsChart = () => {
                     labelsFunction={labelsFunction}
                     tickFormatFunction={tickFormatFunction}
                     interpolation='linear'
+                    title='Products Chart'
                 /> : <div className='chart-card'><span>No data created!</span></div>
 
             }

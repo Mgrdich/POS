@@ -10,11 +10,11 @@ import {
 
 
 const InterpolationChart = (props: any) => {
-    const {data, tickFormat, labelsKey, chartSize, tickFormatFunction, labelsFunction, interpolation} = props;
+    const {data, tickFormat, labelsKey, chartSize, tickFormatFunction, labelsFunction, interpolation, title} = props;
     return (
         <>
 
-
+            {title ? <div className='chart-title-container'><span>{title}</span></div> : null}
             <VictoryChart theme={VictoryTheme.material} height={chartSize.height} width={chartSize.width}>
                 <VictoryAxis
                     tickValues={tickFormat}

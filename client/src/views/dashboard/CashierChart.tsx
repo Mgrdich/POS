@@ -51,6 +51,7 @@ const CashierChart = () => {
                     labelsKey='price'
                     tickFormatFunction={tickFormatFunction}
                     labelsFunction={labelsFunction}
+                    title='Cashier Chart'
                 />
                 :
                <div className='chart-card'><span>No data created!</span></div>}

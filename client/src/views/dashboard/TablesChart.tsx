@@ -49,10 +49,11 @@ const TablesChart = () => {
                     chartSize={{height: 250, width: 400}}
                     tickFormat={tablesTickFormat}
                     data={tablesData}
-                    labelsKey='price'
+                    labelsKey='y'
                     labelsFunction={labelsFunction}
                     tickFormatFunction={tickFormatFunction}
                     interpolation='cardinal'
+                    title='Tables Chart'
                 /> : <div className='chart-card'><span>No data created!</span></div>}
         </Paper>
     );

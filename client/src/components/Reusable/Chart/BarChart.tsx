@@ -2,7 +2,7 @@ import React from 'react';
 import {
     VictoryAxis,
     VictoryBar,
-    VictoryChart,
+    VictoryChart, VictoryContainer,
     VictoryStack,
     VictoryTheme,
     VictoryTooltip
@@ -19,13 +19,14 @@ interface IBarChart {
     tickFormatFunction?: Function;
     labelsFunction?: Function;
     chartSize:any;
+    title?:string;
 }
 
 const BarChart: React.FC<IBarChart> = (props) => {
-    const {data, x, y, tickFormat, chartSize, labelsKey, colorScale, tickFormatFunction, labelsFunction} = props;
+    const {data, x, y, tickFormat, chartSize, labelsKey, colorScale, title, tickFormatFunction, labelsFunction} = props;
     return (
         <>
-
+            {title ? <div className='chart-title-container'><span>{title}</span></div> : null}
             <VictoryChart theme={VictoryTheme.material} domainPadding={{x: 20, y: [0, 5]}} height={chartSize.height}
                           width={chartSize.width}>
                 <VictoryAxis

@@ -513,3 +513,12 @@ section.content h1 {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%); }
+
+.chart-title-container {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%); }
+
+.chart-title-container span {
+  font-size: 24px;
+  color: #66fcf1; }

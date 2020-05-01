@@ -276,5 +276,15 @@ section {
   }
 }
 
+.chart-title-container{
+  position: absolute;
+  left:50%;
+  transform: translate(-50%);
+  span{
+    font-size: 24px;
+    color: $primary;
+  }
+}
+
 
 

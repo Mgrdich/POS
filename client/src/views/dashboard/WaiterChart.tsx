@@ -48,6 +48,7 @@ const WaiterChart = () => {
                         labelsKey='price'
                         tickFormatFunction={tickFormatFunction}
                         labelsFunction={labelsFunction}
+                        title='Waiter Chart'
                     /> :
                     <div className='chart-card'><span>No data created!</span></div>}
         </Paper>
