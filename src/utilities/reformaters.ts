@@ -78,7 +78,7 @@ let orderHash: any = {
         let aliasId: string = item[alias.aliasName]._id;
         let aliasValue:string = item[alias.aliasName][alias.key];
         if (!orderHash[aliasId] && orderHash[aliasId] !== 0) { //ignore the index is zero  sum is not calculated
-            orderHash[aliasId] = index; //hashing it
+            orderHash[aliasId] = arr.length; //hashing it
             arr.push({[alias.aliasName]:aliasValue,price: item.price, total: 1});
             return arr;
         }
