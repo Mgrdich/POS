@@ -24,7 +24,7 @@ const CashierChart = () => {
     }, [cashier]);
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        handleChangeUrl(`'/statistics/orders/cashier?date=${event.target.value}`);
+        handleChangeUrl(`/statistics/orders/cashier?date=${event.target.value}`);
     };
 
     return (
