@@ -20,9 +20,9 @@ interface IControlledDropDown {
 const ControlledDropDown:React.FC<IControlledDropDown> = (props) => {
 
     const {id, data, name, helperText, label, error, ignoreNone, size, handleOnChange, defaultValue} = props;
-    const [value, setValue] = useState(defaultValue)
+    const [value, setValue] = useState(defaultValue);
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        handleOnChange(event)
+        handleOnChange(event);
         setValue(event.target.value)
     };
 

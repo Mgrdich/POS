@@ -7,12 +7,13 @@ import CardMessage from "../../components/Reusable/CardMessage";
 import {useFetch} from "../../components/Hooks/useFetch";
 import {isEmpty} from "../../util/functions";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
+import {labelsFunction, tickFormatFunction} from "./index";
 
 const WaiterChart = () => {
 
     const [fetchURL, setFetchUrl] = useState<string>('/statistics/orders/waiter');
     const {data: waiter, isLoading: waterIsLoading} = useFetch(fetchURL);
-    const [waiterTickFormat, setWaiterTickFormat] = useState<Array<any>>([])
+    const [waiterTickFormat, setWaiterTickFormat] = useState<Array<any>>([]);
 
     useEffect(function () {
         const cashierTickFormat = waiter.length ? waiter.map((item: any) => item.waiter) : null;
@@ -20,62 +21,54 @@ const WaiterChart = () => {
     }, [waiter]);
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFetchUrl(prevState => prevState + `?date=${event.target.value}`);
+        setFetchUrl(`statistics/orders/table?date=${event.target.value}`);
     };
 
-    const tickFormatFunction = (x: any) => {
-        return `AMD${x / 1000}K`
-    };
-    const labelsFunction = (datum: any) => {
-        return `price: ${datum}`
-    };
 
     return (
-        <>
-            <ComponentLoader isLoading={waterIsLoading}>
-                {!isEmpty(waiter) && !waterIsLoading ?
-                    <Paper>
-                        <div className="chart-dropdown-container">
-                            <ControlledDropDown
-                                id='waiterDateRange'
-                                name='waiter-date-range'
-                                size='small'
-                                ignoreNone={true}
-                                data={dateRanges}
-                                label='select date range'
-                                handleOnChange={handleOnChange}
-                                defaultValue='ytd'
-                            />
-                        </div>
-                        <HorizontalGroupChart
-                            chartSize={{height: 250, width: 400}}
-                            data={waiter}
-                            x='waiter'
-                            y='price'
-                            tickFormat={waiterTickFormat}
-                            labelsKey='price'
-                            tickFormatFunction={tickFormatFunction}
-                            labelsFunction={labelsFunction}
+        <ComponentLoader isLoading={waterIsLoading}>
+            {!isEmpty(waiter) && !waterIsLoading ?
+                <Paper>
+                    <div className="chart-dropdown-container">
+                        <ControlledDropDown
+                            id='waiterDateRange'
+                            name='waiter-date-range'
+                            size='small'
+                            ignoreNone={true}
+                            data={dateRanges}
+                            label='Date Ranges'
+                            handleOnChange={handleOnChange}
+                            defaultValue='ytd'
                         />
-                    </Paper>
-                    :
-                    <CardMessage header='No data created!'>
-                        <div className="chart-dropdown-container">
-                            <ControlledDropDown
-                                id='tablesDateRange'
-                                name='tables-date-range'
-                                size='small'
-                                ignoreNone={true}
-                                data={dateRanges}
-                                label='select date range'
-                                handleOnChange={handleOnChange}
-                                defaultValue='ytd'
-                            />
-                        </div>
-                    </CardMessage>
-                }
-            </ComponentLoader>
-        </>
+                    </div>
+                    <HorizontalGroupChart
+                        chartSize={{height: 250, width: 400}}
+                        data={waiter}
+                        x='waiter'
+                        y='price'
+                        tickFormat={waiterTickFormat}
+                        labelsKey='price'
+                        tickFormatFunction={tickFormatFunction}
+                        labelsFunction={labelsFunction}
+                    />
+                </Paper>
+                :
+                <CardMessage header='No data created!'>
+                    <div className="chart-dropdown-container">
+                        <ControlledDropDown
+                            id='waiterDateRange'
+                            name='waiter-date-range'
+                            size='small'
+                            ignoreNone={true}
+                            data={dateRanges}
+                            label='Date Ranges'
+                            handleOnChange={handleOnChange}
+                            defaultValue='ytd'
+                        />
+                    </div>
+                </CardMessage>
+            }
+        </ComponentLoader>
     );
 };
 

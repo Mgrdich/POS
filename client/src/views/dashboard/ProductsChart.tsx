@@ -6,6 +6,8 @@ import InterpolationChart from "../../components/Reusable/Chart/InterpolationCha
 import CardMessage from "../../components/Reusable/CardMessage";
 import {useFetch} from "../../components/Hooks/useFetch";
 import {isEmpty} from "../../util/functions";
+import {labelsFunction, tickFormatFunction} from "./index";
+import ComponentLoader from "../../components/Reusable/ComponentLoader";
 
 const ProductsChart = () => {
 
@@ -20,24 +22,18 @@ const ProductsChart = () => {
         const productsData = products.length ? products.map((item: any) => {
             return {x: item.name, y: item.price}
         }) : null;
-        setProductsTickFormat(productsTickFormat)
+        setProductsTickFormat(productsTickFormat);
         setProductsData(productsData)
     }, [products]);
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFetchUrl(prevState => prevState + `?date=${event.target.value}`);
+        setFetchUrl(`statistics/orders/table?date=${event.target.value}`);
     };
 
-    const tickFormatFunction = (x: any) => {
-        return `AMD${x / 1000}K`
-    };
-    const labelsFunction = (datum: any) => {
-        return `price: ${datum}`
-    };
 
 
     return (
-        <>
+        <ComponentLoader isLoading={isLoading}>
             {!isEmpty(products) && !isLoading ?
                 <Paper>
                     <div className="chart-dropdown-container">
@@ -47,7 +43,7 @@ const ProductsChart = () => {
                             size='small'
                             ignoreNone={true}
                             data={dateRanges}
-                            label='select date range'
+                            label='Date Ranges'
                             handleOnChange={handleOnChange}
                             defaultValue='ytd'
                         />
@@ -66,19 +62,19 @@ const ProductsChart = () => {
                 <CardMessage header='No data created!'>
                     <div className="chart-dropdown-container">
                         <ControlledDropDown
-                            id='tablesDateRange'
-                            name='tables-date-range'
+                            id='productsDateRange'
+                            name='products-date-range'
                             size='small'
                             ignoreNone={true}
                             data={dateRanges}
-                            label='select date range'
+                            label='Date Ranges'
                             handleOnChange={handleOnChange}
                             defaultValue='ytd'
                         />
                     </div>
                 </CardMessage>
             }
-        </>
+        </ComponentLoader>
     );
 };
 

@@ -8,6 +8,7 @@ import CardMessage from "../../components/Reusable/CardMessage";
 
 import {isEmpty} from "../../util/functions";
 import ComponentLoader from "../../components/Reusable/ComponentLoader";
+import {labelsFunction, tickFormatFunction} from "./index";
 
 const BarChartColorScale = ['#66fcf1', '#1f2833'];
 
@@ -23,14 +24,7 @@ const CashierChart = () => {
     }, [cashier]);
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFetchUrl(prevState => prevState + `?date=${event.target.value}`);
-    };
-
-    const tickFormatFunction = (x: any) => {
-        return `AMD${x / 1000}K`
-    };
-    const labelsFunction = (datum: any) => {
-        return `price: ${datum}`
+        setFetchUrl(`statistics/orders/table?date=${event.target.value}`);
     };
 
     return (
@@ -40,12 +34,12 @@ const CashierChart = () => {
                     <Paper>
                         <div className="chart-dropdown-container">
                             <ControlledDropDown
-                                id='cashierDateRange'
-                                name='cashier-date-range'
+                                id='tablesDateRange'
+                                name='tables-date-range'
                                 size='small'
                                 ignoreNone={true}
                                 data={dateRanges}
-                                label='select date range'
+                                label='Date Ranges'
                                 handleOnChange={handleOnChange}
                                 defaultValue='ytd'
                             />
@@ -71,7 +65,7 @@ const CashierChart = () => {
                                 size='small'
                                 ignoreNone={true}
                                 data={dateRanges}
-                                label='select date range'
+                                label='Date Ranges'
                                 handleOnChange={handleOnChange}
                                 defaultValue='ytd'
                             />

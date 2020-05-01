@@ -6,6 +6,8 @@ import {dateRanges} from "../../constants/dropdown/dateRanges";
 import InterpolationChart from "../../components/Reusable/Chart/InterpolationChart";
 import CardMessage from "../../components/Reusable/CardMessage";
 import {isEmpty} from "../../util/functions";
+import {labelsFunction, tickFormatFunction} from "./index";
+import ComponentLoader from "../../components/Reusable/ComponentLoader";
 
 const TablesChart = () => {
 
@@ -25,18 +27,11 @@ const TablesChart = () => {
 
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFetchUrl(prevState => prevState + `?date=${event.target.value}`);
-    };
-
-    const tickFormatFunction = (x: any) => {
-        return `AMD${x / 1000}K`
-    };
-    const labelsFunction = (datum: any) => {
-        return `price: ${datum}`
+        setFetchUrl(`statistics/orders/table?date=${event.target.value}`);
     };
 
     return (
-        <>
+        <ComponentLoader isLoading={tablesIsLoading}>
             {!isEmpty(tables) && !tablesIsLoading ?
                 <Paper>
                     <div className="chart-dropdown-container">
@@ -46,7 +41,7 @@ const TablesChart = () => {
                             size='small'
                             ignoreNone={true}
                             data={dateRanges}
-                            label='select date range'
+                            label='Date Ranges'
                             handleOnChange={handleOnChange}
                             defaultValue='ytd'
                         />
@@ -70,13 +65,13 @@ const TablesChart = () => {
                             size='small'
                             ignoreNone={true}
                             data={dateRanges}
-                            label='select date range'
+                            label='Date Ranges'
                             handleOnChange={handleOnChange}
                             defaultValue='ytd'
                         />
                     </div>
                 </CardMessage>}
-        </>
+        </ComponentLoader>
     );
 };
 
