@@ -488,3 +488,27 @@ section.content h1 {
 .chart-dropdown-container {
   width: 30%;
   padding: 10px; }
+
+.charts-paper {
+  height: 600px;
+  position: relative; }
+
+.charts-paper .chart-card {
+  height: 100%; }
+
+.charts-paper .chart-card span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  color: #66fcf1; }
+
+.charts-paper .dashboard-loader-container {
+  height: 100%; }
+
+.charts-paper .dashboard-loader-container .dashboard-loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); }

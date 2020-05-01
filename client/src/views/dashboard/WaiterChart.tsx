@@ -3,11 +3,10 @@ import {Paper} from "@material-ui/core";
 import ControlledDropDown from "../../components/Reusable/ControlledDropDown";
 import {dateRanges} from "../../constants/dropdown/dateRanges";
 import HorizontalGroupChart from "../../components/Reusable/Chart/HorizontalGroupChart";
-import CardMessage from "../../components/Reusable/CardMessage";
 import {isEmpty} from "../../util/functions";
-import ComponentLoader from "../../components/Reusable/ComponentLoader";
 import {labelsFunction, tickFormatFunction} from "./index";
 import {useFetchUrl} from "../../components/Hooks/useFetchUrl";
+import Loader from "../../components/Reusable/Loader";
 
 const WaiterChart = () => {
     const {data: waiter, isLoading: waterIsLoading,handleChangeUrl} = useFetchUrl('/statistics/orders/waiter');
@@ -24,7 +23,7 @@ const WaiterChart = () => {
 
 
     return (
-        <Paper>
+        <Paper className='charts-paper'>
             <div className="chart-dropdown-container">
                 <ControlledDropDown
                     id='waiterDateRange'
@@ -37,8 +36,9 @@ const WaiterChart = () => {
                     defaultValue='ytd'
                 />
             </div>
-            <ComponentLoader isLoading={waterIsLoading}>
-                {!isEmpty(waiter) && !waterIsLoading ?
+
+                {waterIsLoading ? <div className='dashboard-loader-container'>
+                    <Loader className='dashboard-loader'/></div> : !isEmpty(waiter) && !waterIsLoading ?
                     <HorizontalGroupChart
                         chartSize={{height: 250, width: 400}}
                         data={waiter}
@@ -49,8 +49,7 @@ const WaiterChart = () => {
                         tickFormatFunction={tickFormatFunction}
                         labelsFunction={labelsFunction}
                     /> :
-                    <CardMessage header='No data created!'/>}
-            </ComponentLoader>
+                    <div className='chart-card'><span>No data created!</span></div>}
         </Paper>
     );
 };

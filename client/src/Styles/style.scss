@@ -247,3 +247,33 @@ section {
   width: 30%;
   padding: 10px;
 }
+
+.charts-paper{
+  height: 600px;
+  position: relative;
+  .chart-card{
+    height: 100%;
+    span{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%);
+      font-size: 18px;
+      color:$primary;
+    }
+  }
+
+  .dashboard-loader-container{
+    height: 100%;
+
+    .dashboard-loader{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%);
+    }
+  }
+}
+
+
+

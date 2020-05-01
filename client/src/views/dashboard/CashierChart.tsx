@@ -3,12 +3,10 @@ import {Paper} from "@material-ui/core";
 import ControlledDropDown from "../../components/Reusable/ControlledDropDown";
 import {dateRanges} from "../../constants/dropdown/dateRanges";
 import BarChart from "../../components/Reusable/Chart/BarChart";
-import CardMessage from "../../components/Reusable/CardMessage";
-
 import {isEmpty} from "../../util/functions";
-import ComponentLoader from "../../components/Reusable/ComponentLoader";
 import {labelsFunction, tickFormatFunction} from "./index";
 import {useFetchUrl} from "../../components/Hooks/useFetchUrl";
+import Loader from "../../components/Reusable/Loader";
 
 const BarChartColorScale = ['#66fcf1', '#1f2833'];
 
@@ -27,7 +25,7 @@ const CashierChart = () => {
     };
 
     return (
-        <Paper>
+        <Paper className='charts-paper'>
             <div className="chart-dropdown-container">
                 <ControlledDropDown
                     id='tablesDateRange'
@@ -40,23 +38,23 @@ const CashierChart = () => {
                     defaultValue='ytd'
                 />
             </div>
-            <ComponentLoader isLoading={cashierIsLoading}>
-                {!isEmpty(cashier) && !cashierIsLoading ?
-                    <BarChart
-                        chartSize={{height: 250, width: 400}}
-                        colorScale={BarChartColorScale}
-                        data={cashier}
-                        x='createdBy'
-                        y='price'
-                        tickFormat={cashierTickFormat}
-                        labelsKey='price'
-                        tickFormatFunction={tickFormatFunction}
-                        labelsFunction={labelsFunction}
-                    />
-                    :
-                    <CardMessage header='No data created!'/>
-                }
-            </ComponentLoader>
+            {cashierIsLoading ? <div className='dashboard-loader-container'>
+                <Loader className='dashboard-loader'/>
+            </div> : !isEmpty(cashier) && !cashierIsLoading ?
+                <BarChart
+                    chartSize={{height: 250, width: 400}}
+                    colorScale={BarChartColorScale}
+                    data={cashier}
+                    x='createdBy'
+                    y='price'
+                    tickFormat={cashierTickFormat}
+                    labelsKey='price'
+                    tickFormatFunction={tickFormatFunction}
+                    labelsFunction={labelsFunction}
+                />
+                :
+               <div className='chart-card'><span>No data created!</span></div>}
+
         </Paper>
     );
 };

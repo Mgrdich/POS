@@ -3,15 +3,14 @@ import {Paper} from "@material-ui/core";
 import ControlledDropDown from "../../components/Reusable/ControlledDropDown";
 import {dateRanges} from "../../constants/dropdown/dateRanges";
 import InterpolationChart from "../../components/Reusable/Chart/InterpolationChart";
-import CardMessage from "../../components/Reusable/CardMessage";
 import {isEmpty} from "../../util/functions";
 import {labelsFunction, tickFormatFunction} from "./index";
-import ComponentLoader from "../../components/Reusable/ComponentLoader";
 import {useFetchUrl} from "../../components/Hooks/useFetchUrl";
+import Loader from "../../components/Reusable/Loader";
 
 const TablesChart = () => {
 
-    const {data: tables, isLoading: tablesIsLoading,handleChangeUrl} = useFetchUrl('statistics/orders/table');
+    const {data: tables, isLoading: tablesIsLoading, handleChangeUrl} = useFetchUrl('statistics/orders/table');
     const [tablesTickFormat, setTablesTickFormat] = useState<Array<string>>([]);
     const [tablesData, setTablesData] = useState<Array<any>>([]);
 
@@ -30,33 +29,32 @@ const TablesChart = () => {
     };
 
     return (
-                <Paper>
-                    <div className="chart-dropdown-container">
-                        <ControlledDropDown
-                            id='tablesDateRange'
-                            name='tables-date-range'
-                            size='small'
-                            ignoreNone={true}
-                            data={dateRanges}
-                            label='Date Ranges'
-                            handleOnChange={handleOnChange}
-                            defaultValue='ytd'
-                        />
-                    </div>
-                    <ComponentLoader isLoading={tablesIsLoading}>
-                        {!isEmpty(tables) && !tablesIsLoading ?
-                            <InterpolationChart
-                                chartSize={{height: 250, width: 400}}
-                                tickFormat={tablesTickFormat}
-                                data={tablesData}
-                                labelsKey='price'
-                                labelsFunction={labelsFunction}
-                                tickFormatFunction={tickFormatFunction}
-                                interpolation='cardinal'
-                            /> :
-                            <CardMessage header='No data created!'/>}
-                    </ComponentLoader>
-                </Paper>
+        <Paper className='charts-paper'>
+            <div className="chart-dropdown-container">
+                <ControlledDropDown
+                    id='tablesDateRange'
+                    name='tables-date-range'
+                    size='small'
+                    ignoreNone={true}
+                    data={dateRanges}
+                    label='Date Ranges'
+                    handleOnChange={handleOnChange}
+                    defaultValue='ytd'
+                />
+            </div>
+
+            {tablesIsLoading ? <div className='dashboard-loader-container'>
+                <Loader className='dashboard-loader'/></div> : !isEmpty(tables) && !tablesIsLoading ?
+                <InterpolationChart
+                    chartSize={{height: 250, width: 400}}
+                    tickFormat={tablesTickFormat}
+                    data={tablesData}
+                    labelsKey='price'
+                    labelsFunction={labelsFunction}
+                    tickFormatFunction={tickFormatFunction}
+                    interpolation='cardinal'
+                /> : <div className='chart-card'><span>No data created!</span></div>}
+        </Paper>
     );
 };
 
