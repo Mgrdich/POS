@@ -28,8 +28,6 @@ const ProductsChart = () => {
     };
 
     return (
-        <ComponentLoader isLoading={isLoadingProducts}>
-            {!isEmpty(products) && !isLoadingProducts ?
                 <Paper>
                     <div className="chart-dropdown-container">
                         <ControlledDropDown
@@ -43,33 +41,21 @@ const ProductsChart = () => {
                             defaultValue='ytd'
                         />
                     </div>
-                    <InterpolationChart
-                        chartSize={{height: 250, width: 400}}
-                        tickFormat={productsTickFormat}
-                        data={productsData}
-                        labelsKey='y'
-                        labelsFunction={labelsFunction}
-                        tickFormatFunction={tickFormatFunction}
-                        interpolation='linear'
-                    />
+                    <ComponentLoader isLoading={isLoadingProducts}>
+                        {!isEmpty(products) && !isLoadingProducts ?
+                            <InterpolationChart
+                                chartSize={{height: 250, width: 400}}
+                                tickFormat={productsTickFormat}
+                                data={productsData}
+                                labelsKey='y'
+                                labelsFunction={labelsFunction}
+                                tickFormatFunction={tickFormatFunction}
+                                interpolation='linear'
+                            /> :
+                            <CardMessage header='No data created!'/>
+                        }
+                    </ComponentLoader>
                 </Paper>
-                :
-                <CardMessage header='No data created!'>
-                    <div className="chart-dropdown-container">
-                        <ControlledDropDown
-                            id='productsDateRange'
-                            name='products-date-range'
-                            size='small'
-                            ignoreNone={true}
-                            data={dateRanges}
-                            label='Date Ranges'
-                            handleOnChange={handleOnChange}
-                            defaultValue='ytd'
-                        />
-                    </div>
-                </CardMessage>
-            }
-        </ComponentLoader>
     );
 };
 

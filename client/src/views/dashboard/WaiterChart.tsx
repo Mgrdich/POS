@@ -24,21 +24,21 @@ const WaiterChart = () => {
 
 
     return (
-        <ComponentLoader isLoading={waterIsLoading}>
-            {!isEmpty(waiter) && !waterIsLoading ?
-                <Paper>
-                    <div className="chart-dropdown-container">
-                        <ControlledDropDown
-                            id='waiterDateRange'
-                            name='waiter-date-range'
-                            size='small'
-                            ignoreNone={true}
-                            data={dateRanges}
-                            label='Date Ranges'
-                            handleOnChange={handleOnChange}
-                            defaultValue='ytd'
-                        />
-                    </div>
+        <Paper>
+            <div className="chart-dropdown-container">
+                <ControlledDropDown
+                    id='waiterDateRange'
+                    name='waiter-date-range'
+                    size='small'
+                    ignoreNone={true}
+                    data={dateRanges}
+                    label='Date Ranges'
+                    handleOnChange={handleOnChange}
+                    defaultValue='ytd'
+                />
+            </div>
+            <ComponentLoader isLoading={waterIsLoading}>
+                {!isEmpty(waiter) && !waterIsLoading ?
                     <HorizontalGroupChart
                         chartSize={{height: 250, width: 400}}
                         data={waiter}
@@ -48,25 +48,10 @@ const WaiterChart = () => {
                         labelsKey='price'
                         tickFormatFunction={tickFormatFunction}
                         labelsFunction={labelsFunction}
-                    />
-                </Paper>
-                :
-                <CardMessage header='No data created!'>
-                    <div className="chart-dropdown-container">
-                        <ControlledDropDown
-                            id='waiterDateRange'
-                            name='waiter-date-range'
-                            size='small'
-                            ignoreNone={true}
-                            data={dateRanges}
-                            label='Date Ranges'
-                            handleOnChange={handleOnChange}
-                            defaultValue='ytd'
-                        />
-                    </div>
-                </CardMessage>
-            }
-        </ComponentLoader>
+                    /> :
+                    <CardMessage header='No data created!'/>}
+            </ComponentLoader>
+        </Paper>
     );
 };
 
