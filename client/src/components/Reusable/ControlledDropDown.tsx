@@ -13,7 +13,7 @@ interface IControlledDropDown {
     data: Array<IDropDownData>;
     ignoreNone?: boolean;
     size?: "small" | "medium" | undefined;
-    handleOnChange:Function;
+    handleOnChange?:Function;
     defaultValue?: Array<any> | string | number;
 }
 
@@ -22,7 +22,9 @@ const ControlledDropDown:React.FC<IControlledDropDown> = (props) => {
     const {id, data, name, helperText, label, error, ignoreNone, size, handleOnChange, defaultValue} = props;
     const [value, setValue] = useState(defaultValue);
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        handleOnChange(event);
+        if(handleOnChange) {
+            handleOnChange(event);    
+        }
         setValue(event.target.value)
     };
 
