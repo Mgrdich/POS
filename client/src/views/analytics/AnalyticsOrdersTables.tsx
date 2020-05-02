@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Analytics = () => {
+const AnalyticsOrdersTables = () => {
     return (
         <>
 
@@ -8,4 +8,4 @@ const Analytics = () => {
     );
 };
 
-export default Analytics;
+export default AnalyticsOrdersTables;
