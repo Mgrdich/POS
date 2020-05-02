@@ -35,7 +35,7 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
     const [rows, setRows, deletedId, changeDeletedId] = useTableBody(isLoading, tbody);
     const [email, setEmail] = useState<string>('');
     useDynamicFields(createUsersInputFields, register, unregister);
-    
+
     const onSubmit = function (values: any): void {
         axios.put('/users/register-user', values)
             .then(function (res: IAlertAxiosResponse) {
@@ -117,10 +117,6 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
                     />
                     : (<CardMessage
                         header='No users created!'
-                        message='You can create users by clicking on the button below'
-                        translation='Create user'
-                        location='/users/create-user'
-                        button={true}
                     />)}
             </ComponentLoader>
 
