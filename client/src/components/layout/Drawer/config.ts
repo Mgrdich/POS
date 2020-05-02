@@ -1,5 +1,3 @@
-import GroupIcon from '@material-ui/icons/Group';
-import ViewAgendaIcon from '@material-ui/icons/ViewAgenda';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import TableChartIcon from '@material-ui/icons/TableChart';
 import CreateIcon from '@material-ui/icons/Create';
@@ -35,24 +33,12 @@ export const drawerRoutes: Array<IDrawerRoute> = [
         role: SUPER_ADMIN_MANAGER_ROLES,
     },
     {
-        icon: GroupIcon,
-        translation: "Users",
+        icon: PersonAddIcon,
+        location: "/users/create-user",
+        translation: "Create User",
         role: SUPER_ADMIN_ADMIN_ROLES,
-        nested: [
-            {
-                icon: ViewAgendaIcon,
-                location: "/users",
-                translation: "View users",
-                role: SUPER_ADMIN_ADMIN_ROLES,
-            },
-            {
-                icon: PersonAddIcon,
-                location: "/users/create-user",
-                translation: "Create User",
-                role: SUPER_ADMIN_ADMIN_ROLES,
-            },
-        ]
-    }, {
+    },
+    {
         icon: TableChartIcon,
         translation: "Tables",
         role: SUPER_ADMIN_MANAGER_ROLES,

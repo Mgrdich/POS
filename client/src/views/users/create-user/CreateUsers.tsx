@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import DynamicFields from "../../../components/Reusable/DynamicFields";
 import {createUsersInputFields, createUsersValSchema} from './config';
 import {useForm} from "react-hook-form";
 import {useServerErrorHandle} from "../../../components/Hooks/useServerErrorHandle";
 import {Button} from "@material-ui/core";
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import {RouteComponentProps} from "react-router";
 import {useDynamicFields} from "../../../components/Hooks/useDynamicFields";
 import {createUserFormDataType} from "../../../interfaces/Views/users";
@@ -12,21 +12,37 @@ import Grid from "@material-ui/core/Grid";
 import {useAlert} from "../../../components/Hooks/useAlert";
 import Alerts from "../../../components/Reusable/Alerts";
 import {IAlertAxiosResponse} from "../../../interfaces/General";
+import {useModal} from "../../../components/Hooks/useModal";
+import {useTableBody} from "../../../components/Hooks/useTableBody";
+import {useTable} from "../../../components/Hooks/useTable";
+import ComponentLoader from "../../../components/Reusable/ComponentLoader";
+import MyTable from "../../../components/Reusable/Table/MyTable";
+import CardMessage from "../../../components/Reusable/CardMessage";
+import DeleteModal from "../../../components/Reusable/DeleteModal";
+import {TableActionOptions} from "../../../constants/Enums/General";
+
+const actionsTypes: Array<TableActionOptions> = [TableActionOptions.delete];
 
 const CreateUsers : React.FC<RouteComponentProps> = (props) => {
     const {handleSubmit, register, errors, control,unregister,reset} = useForm<createUserFormDataType>({
         validationSchema:createUsersValSchema,
     });
+    const {tbody, thead, keys, isLoading, setRefetch} = useTable('/users');
     const {alertMessage,openAlert,alertType,setAlert,setOpenAlert} = useAlert();
+    const {alertMessage:tableAlertMessage, setOpenAlert:tableSetOpenAlert, openAlert:tableOpenAlert, setAlert:tableSetAler, alertType:tableAlertType} = useAlert();
     const [serverError, setterError,resetServerError] = useServerErrorHandle();
+    const [open, handleClickOpen, handleClose] = useModal();
+    const [rows, setRows, deletedId, changeDeletedId] = useTableBody(isLoading, tbody);
+    const [email, setEmail] = useState<string>('');
     useDynamicFields(createUsersInputFields, register, unregister);
-
+    
     const onSubmit = function (values: any): void {
         axios.put('/users/register-user', values)
             .then(function (res: IAlertAxiosResponse) {
+                setRefetch((prev:boolean) => !prev);
                 reset();
                 resetServerError();
-                setAlert(res.data);
+                tableSetAler(res.data);
             }).catch(function (e: any) {
             if (!e.response.data) {
                 console.error("No Response is found");
@@ -34,6 +50,27 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
             setterError(e.response.data.data);
         });
     };
+
+    const handleActions = function (type: TableActionOptions, obj: any) {
+        if (type === TableActionOptions.delete) {
+            changeDeletedId(obj._id);
+            setEmail(obj.email);
+            handleClickOpen();
+        }
+    };
+
+    const handleDeleted = function (id: string) {
+        axios.delete(`/users/${id}`).then((res: AxiosResponse) => {
+            setAlert(res.data, true);
+        }).catch((e) => {
+            console.log(e);
+        });
+        const filteredRows = rows.filter((row: any) => {
+            return row._id !== id;
+        });
+        setRows(filteredRows);
+    };
+
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -55,7 +92,8 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
                         }
                     />
 
-                </Grid>
+
+                <Grid item container justify='flex-end'  sm={12} >
                 <Button
                     color="primary"
                     variant="contained"
@@ -63,10 +101,42 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
                     className="FloatRight"
                     type="submit"
                 >Submit</Button>
+                </Grid>
+                </Grid>
             </form>
+            <ComponentLoader isLoading={isLoading}>
+                {rows.length && !isLoading ?
+                    < MyTable
+                        tbody={rows}
+                        keys={keys}
+                        thead={thead}
+                        pagination={true}
+                        paginationRowsCount={[5, 10, 20]}
+                        actionsTypes={actionsTypes}
+                        handleActions={handleActions}
+                    />
+                    : (<CardMessage
+                        header='No users created!'
+                        message='You can create users by clicking on the button below'
+                        translation='Create user'
+                        location='/users/create-user'
+                        button={true}
+                    />)}
+            </ComponentLoader>
 
+            <DeleteModal
+                open={open}
+                modalTitle='Delete user'
+                message={`Are you sure you want to delete email ${email} ?`}
+                action={() => handleDeleted(deletedId)}
+                handleClose={handleClose}
+            />
             <Alerts open={openAlert} close={setOpenAlert} severity={alertType}>
                 {alertMessage}
+            </Alerts>
+
+            <Alerts open={tableOpenAlert} severity={tableAlertType} close={tableSetOpenAlert}>
+                {tableAlertMessage}
             </Alerts>
 
         </>
