@@ -33,7 +33,7 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
     const [serverError, setterError,resetServerError] = useServerErrorHandle();
     const [open, handleClickOpen, handleClose] = useModal();
     const [rows, setRows, deletedId, changeDeletedId] = useTableBody(isLoading, tbody);
-    const [email, setEmail] = useState<string>('');
+    const [email, setEmail] = useState<string>(''); //TODO better way
     useDynamicFields(createUsersInputFields, register, unregister);
 
     const onSubmit = function (values: any): void {
@@ -51,7 +51,7 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
         });
     };
 
-    const handleActions = function (type: TableActionOptions, obj: any) {
+    const handleActions = function (type: TableActionOptions, obj: any) { //TODO refactor code a lot of repetition
         if (type === TableActionOptions.delete) {
             changeDeletedId(obj._id);
             setEmail(obj.email);
@@ -60,7 +60,7 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
     };
 
     const handleDeleted = function (id: string) {
-        axios.delete(`/users/${id}`).then((res: AxiosResponse) => {
+        axios.delete(`/users/${id}`).then((res: AxiosResponse) => { //TODO refactor code a lot of repetition
             setAlert(res.data, true);
         }).catch((e) => {
             console.log(e);

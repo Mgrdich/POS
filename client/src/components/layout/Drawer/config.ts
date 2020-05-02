@@ -35,7 +35,7 @@ export const drawerRoutes: Array<IDrawerRoute> = [
     {
         icon: PersonAddIcon,
         location: "/users/create-user",
-        translation: "Create User",
+        translation: "Users",
         role: SUPER_ADMIN_ADMIN_ROLES,
     },
     {
