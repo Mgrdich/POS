@@ -9,7 +9,6 @@ import Error from "./views/errors/Error";
 import HeaderFooterLayout from "./components/HOC/HeaderFooterLayout";
 import CreateUsers from "./views/users/create-user/CreateUsers";
 import Users from "./views/users";
-import TablesDashboard from "./views/tables/viewTables";
 import CreateEditTables from "./views/tables";
 import AddProduct from "./views/products";
 import ProductsGroup from "./views/products/products-group";
@@ -30,7 +29,6 @@ const HL_Dashboard = HeaderFooterLayout(Dashboard);
 const HL_CreateUser = HeaderFooterLayout(CreateUsers);
 const HL_Users  = HeaderFooterLayout(Users);
 const HL_Profile = HeaderFooterLayout(Profile);
-const HL_TablesDashboard = HeaderFooterLayout(TablesDashboard);
 const HL_CreateEditTables = HeaderFooterLayout(CreateEditTables);
 const HL_AddProduct = HeaderFooterLayout(AddProduct);
 const HL_ProductsGroup = HeaderFooterLayout(ProductsGroup);
@@ -51,7 +49,6 @@ const Routes:React.FC = () => {
                 <PrivateRoute exact path='/dashboard'  allowedRoles={SUPER_ADMIN_MANAGER_ROLES} component={HL_Dashboard}/>
                 <PrivateRoute exact path={['/products','/product/index']} allowedRoles={SUPER_ADMIN_MANAGER_ROLES} component={HL_AddProduct}/>
                 <PrivateRoute exact path='/products/products-group' allowedRoles={SUPER_ADMIN_MANAGER_ROLES} component={HL_ProductsGroup}/>
-                <PrivateRoute exact path='/tables/view-tables' allowedRoles={SUPER_ADMIN_MANAGER_ROLES} component={HL_TablesDashboard}/>
                 <PrivateRoute exact path='/tables/reserved-tables' allowedRoles={SUPER_ADMIN_MANAGER_ROLES} component={HL_ReservedTables}/>
                 <PrivateRoute exact path={['/tables','/tables/index']} allowedRoles={SUPER_ADMIN_ADMIN_ROLES} component={HL_CreateEditTables}/>
                 <PrivateRoute exact path='/users/create-user' allowedRoles={SUPER_ADMIN_MANAGER_ROLES} component={HL_CreateUser}/>

@@ -64,12 +64,6 @@ export const drawerRoutes: Array<IDrawerRoute> = [
                 role: SUPER_ADMIN_MANAGER_ROLES,
             },
             {
-                icon: ViewAgendaIcon,
-                location: "/tables/view-tables",
-                translation: "Tables dashboard",
-                role: SUPER_ADMIN_MANAGER_ROLES,
-            },
-            {
                 icon: RestaurantIcon,
                 location: "/tables/reserved-tables",
                 translation: "Reserved tables",
