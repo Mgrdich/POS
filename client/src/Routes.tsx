@@ -23,6 +23,7 @@ import NoOrder from "./views/pos/NoOrder";
 import Chat from "./views/chat";
 import ReservedTables from "./views/tables/ReservedTables";
 import LandingPage from "./views";
+import Analytics from "./views/analytics";
 
 const HL_Dashboard = HeaderFooterLayout(Dashboard);
 const HL_CreateUser = HeaderFooterLayout(CreateUsers);
@@ -36,6 +37,7 @@ const HL_PosTable= HeaderFooterLayout(PosTable);
 const HL_NoOrder= HeaderFooterLayout(NoOrder);
 const HL_ReservedTables = HeaderFooterLayout(ReservedTables);
 const HL_LandingPage = HeaderFooterLayout(LandingPage);
+const HL_Analytics = HeaderFooterLayout(Analytics);
 
 const Routes:React.FC = () => {
     return (
@@ -50,6 +52,7 @@ const Routes:React.FC = () => {
                 <PrivateRoute exact path='/tables/reserved-tables' allowedRoles={SUPER_ADMIN_MANAGER_ROLES} component={HL_ReservedTables}/>
                 <PrivateRoute exact path={['/tables','/tables/index']} allowedRoles={SUPER_ADMIN_ADMIN_ROLES} component={HL_CreateEditTables}/>
                 <PrivateRoute exact path='/users/create-user' allowedRoles={SUPER_ADMIN_MANAGER_ROLES} component={HL_CreateUser}/>
+                <PrivateRoute exact path='/analytics' allowedRoles={SUPER_ADMIN_MANAGER_ROLES} component={HL_Analytics}/>
                 <PrivateRoute exact path='/profile' component={HL_Profile}/>
                 <PrivateRoute exact path='/chat' component={HL_Chat}/>
                 <PrivateRoute exact path='/' component={HL_LandingPage}/>

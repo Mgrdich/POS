@@ -17,6 +17,7 @@ import {
 } from "../../../roles";
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
+import AssessmentIcon from '@material-ui/icons/Assessment';
 
 export type nestedRoutes = {
     icon: ComponentType, //TODO to be removed since it is static
@@ -89,6 +90,13 @@ export const drawerRoutes: Array<IDrawerRoute> = [
         translation: "Chat",
         location:'/chat',
         role:ROLES_ALL
-    }
+    },
+
+    {
+        icon: AssessmentIcon,
+        translation: "Analytics",
+        location:'/analytics',
+        role: SUPER_ADMIN_MANAGER_ROLES,
+    },
 
 ];
