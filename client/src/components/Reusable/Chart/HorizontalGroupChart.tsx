@@ -1,7 +1,5 @@
 import React from 'react';
 import {VictoryAxis, VictoryBar, VictoryChart, VictoryGroup, VictoryTheme, VictoryTooltip} from "victory";
-import CardMessage from "../CardMessage";
-import {Paper} from "@material-ui/core";
 import {IHorizontalGroupChart} from "../../../interfaces/Reusable";
 
 const HorizontalGroupChart:React.FC<IHorizontalGroupChart> = (props) => {
