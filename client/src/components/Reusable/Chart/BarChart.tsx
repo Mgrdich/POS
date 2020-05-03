@@ -2,7 +2,7 @@ import React from 'react';
 import {
     VictoryAxis,
     VictoryBar,
-    VictoryChart, VictoryContainer,
+    VictoryChart,
     VictoryStack,
     VictoryTheme,
     VictoryTooltip
@@ -20,10 +20,11 @@ interface IBarChart {
     labelsFunction?: Function;
     chartSize:any;
     title?:string;
+    toolTipPosition?: 'top' | 'left'| 'right'| 'bottom';
 }
 
 const BarChart: React.FC<IBarChart> = (props) => {
-    const {data, x, y, tickFormat, chartSize, labelsKey, colorScale, title, tickFormatFunction, labelsFunction} = props;
+    const {data, x, y, tickFormat, chartSize, labelsKey, colorScale, title, tickFormatFunction, labelsFunction, toolTipPosition} = props;
     return (
         <>
             {title ? <div className='chart-title-container'><span>{title}</span></div> : null}
@@ -46,11 +47,11 @@ const BarChart: React.FC<IBarChart> = (props) => {
                 }} colorScale={colorScale}>
                     <VictoryBar data={data} x={x} y={y}
                                 labels={({datum}) => labelsFunction ? labelsFunction(datum[labelsKey]) : datum[labelsKey]}
-                                style={{labels: {fontSize: '8px', color: '#1f2833'}}}
+                                style={{labels: {fontSize: '5px', color: '#1f2833'}}}
                                 labelComponent={
                                     <VictoryTooltip
                                         flyoutStyle={{fill: '#66fcf1', stroke: 'none'}}
-                                        orientation='left'
+                                        orientation={toolTipPosition ? toolTipPosition : 'top'}
                                     />
                                 }
                     />
