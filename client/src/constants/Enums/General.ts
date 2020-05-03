@@ -5,6 +5,13 @@ export enum TableActionOptions  {
     reserved = 'reserved',
 }
 
-export enum dateRanges {
-
+export enum DateRanges {
+    today = 'today',
+    yesterday = 'yesterday',
+    this_week = 'this_week',
+    this_month = 'this_month',
+    last_month = 'last_month',
+    last_three_months = 'last_three_months',
+    ytd = 'ytd',
+    beginning = 'beginning'
 }

@@ -1,9 +1,11 @@
+import {DateRanges} from "../Enums/General";
+
 export const dateRanges = [
-    {value: 'today', placeholder: 'Today'},
-    {value: 'yesterday', placeholder: 'Yesterday'},
-    {value: 'this_month', placeholder: 'This month'},
-    {value: 'last_month', placeholder: 'Last month'},
-    {value: 'last_three_months', placeholder: 'Past three months'},
-    {value: 'ytd', placeholder: 'YTD'},
-    {value: 'beginning', placeholder: 'From beginning'}
+    {value: DateRanges.today ,placeholder: 'Today'},
+    {value: DateRanges.yesterday, placeholder: 'Yesterday'},
+    {value: DateRanges.this_month, placeholder: 'This month'},
+    {value: DateRanges.last_month, placeholder: 'Last month'},
+    {value: DateRanges.last_three_months, placeholder: 'Past three months'},
+    {value: DateRanges.ytd, placeholder: 'YTD'},
+    {value: DateRanges.beginning, placeholder: 'From beginning'}
 ];
