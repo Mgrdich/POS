@@ -18,6 +18,7 @@ import {
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
 import AssessmentIcon from '@material-ui/icons/Assessment';
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
 export type nestedRoutes = {
     icon: ComponentType, //TODO to be removed since it is static
@@ -38,6 +39,37 @@ export const drawerRoutes: Array<IDrawerRoute> = [
         location: "/users/create-user",
         translation: "Users",
         role: SUPER_ADMIN_ADMIN_ROLES,
+    },
+    {
+        icon: AssessmentIcon,
+        translation: "Analytics",
+        role: SUPER_ADMIN_MANAGER_ROLES,
+        nested: [
+            {
+                icon: FiberManualRecordIcon,
+                location: "/analytics/orders-cashier",
+                translation: "Orders cashier",
+                role: SUPER_ADMIN_MANAGER_ROLES,
+            },
+            {
+                icon: FiberManualRecordIcon,
+                location: "/analytics/orders-table",
+                translation: "Orders table",
+                role: SUPER_ADMIN_MANAGER_ROLES,
+            },
+            {
+                icon: FiberManualRecordIcon,
+                location: "/analytics/orders-waiter",
+                translation: "Orders waiter",
+                role: SUPER_ADMIN_MANAGER_ROLES,
+            },
+            {
+                icon: FiberManualRecordIcon,
+                location: "/analytics/products-price",
+                translation: "Products price",
+                role: SUPER_ADMIN_MANAGER_ROLES,
+            },
+        ],
     },
     {
         icon: TableChartIcon,
@@ -91,12 +123,4 @@ export const drawerRoutes: Array<IDrawerRoute> = [
         location:'/chat',
         role:ROLES_ALL
     },
-
-    {
-        icon: AssessmentIcon,
-        translation: "Analytics",
-        location:'/analytics',
-        role: SUPER_ADMIN_MANAGER_ROLES,
-    },
-
 ];
