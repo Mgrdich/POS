@@ -53,7 +53,6 @@ const TablesChart:React.FC<IChart> = (props) => {
                     labelsKey='y'
                     labelsFunction={labelsFunction}
                     tickFormatFunction={tickFormatFunction}
-                    interpolation='cardinal'
                     title='Tables Chart'
                 /> : <div className='chart-card'><span>No data created!</span></div>}
         </Paper>
