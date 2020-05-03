@@ -7,9 +7,11 @@ import {isEmpty} from "../../util/functions";
 import {labelsFunction, tickFormatFunction} from "./index";
 import {useFetchUrl} from "../../components/Hooks/useFetchUrl";
 import Loader from "../../components/Reusable/Loader";
+import {IChart} from "../../interfaces/Views/dashboard";
 
-const WaiterChart = () => {
-    const {data: waiter, isLoading: waterIsLoading,handleChangeUrl} = useFetchUrl('/statistics/orders/waiter');
+const WaiterChart:React.FC<IChart> = (props) => {
+    let myUri: string = (props.query) ? props.url + props.query : props.url;
+    const {data: waiter, isLoading: waterIsLoading,handleChangeUrl} = useFetchUrl(myUri);
     const [waiterTickFormat, setWaiterTickFormat] = useState<Array<any>>([]);
 
     useEffect(function () {

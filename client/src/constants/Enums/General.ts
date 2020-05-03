@@ -4,3 +4,7 @@ export enum TableActionOptions  {
     closed = 'closed',
     reserved = 'reserved',
 }
+
+export enum dateRanges {
+
+}

@@ -18,10 +18,10 @@ const Dashboard: React.FC = () => {
 
         <Grid container spacing={2} alignItems='center'>
             <Grid item xs={12} md={12} lg={6}>
-                <CashierChart/>
+                <CashierChart url="/statistics/orders/cashier"/>
             </Grid>
             <Grid item xs={12} md={12} lg={6}>
-                <WaiterChart/>
+                <WaiterChart url="/statistics/orders/waiter"/>
             </Grid>
             <Grid item xs={12} md={12} lg={6}>
                 <ProductsChart/>
