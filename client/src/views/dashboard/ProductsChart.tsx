@@ -7,9 +7,11 @@ import {isEmpty} from "../../util/functions";
 import {labelsFunction, tickFormatFunction} from "./index";
 import {useFetchUrl} from "../../components/Hooks/useFetchUrl";
 import Loader from "../../components/Reusable/Loader";
+import {IChart} from "../../interfaces/Views/dashboard";
 
-const ProductsChart = () => {
-    const {data: products, isLoading:isLoadingProducts,handleChangeUrl} = useFetchUrl('/statistics/products/price');
+const ProductsChart:React.FC<IChart> = (props) => {
+    let myUri: string = (props.query) ? props.url + props.query : props.url;
+    const {data: products, isLoading:isLoadingProducts,handleChangeUrl} = useFetchUrl(myUri);
     const [productsTickFormat, setProductsTickFormat] = useState<Array<string>>([]);
     const [productsData, setProductsData] = useState<Array<any>>([]);
 
@@ -23,7 +25,7 @@ const ProductsChart = () => {
     }, [products]);
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        handleChangeUrl(`/statistics/products/price?date=${event.target.value}`);
+        handleChangeUrl(`${props.url}?date=${event.target.value}`);
     };
 
     return (

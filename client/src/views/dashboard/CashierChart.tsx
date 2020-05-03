@@ -23,7 +23,7 @@ const CashierChart:React.FC<IChart> = (props) => {
     }, [cashier]);
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        handleChangeUrl(`/statistics/orders/cashier?date=${event.target.value}`);
+        handleChangeUrl(`${props.url}?date=${event.target.value}`);
     };
 
     return (

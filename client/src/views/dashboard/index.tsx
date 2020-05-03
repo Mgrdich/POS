@@ -13,7 +13,8 @@ export const labelsFunction = (datum: any) => {
     return `price: ${datum}`
 };
 
-const Dashboard: React.FC = () => {
+const Dashboard: React.FC = () => { //TODO maybe merge the charts into one giant  component with switch
+                                    // After BE returns exact data format
     return (
 
         <Grid container spacing={2} alignItems='center'>
@@ -24,10 +25,10 @@ const Dashboard: React.FC = () => {
                 <WaiterChart url="/statistics/orders/waiter"/>
             </Grid>
             <Grid item xs={12} md={12} lg={6}>
-                <ProductsChart/>
+                <ProductsChart url="/statistics/products/price"/>
             </Grid>
             <Grid item xs={12} md={12} lg={6}>
-                <TablesChart/>
+                <TablesChart url="statistics/orders/table"/>
             </Grid>
         </Grid>
     );

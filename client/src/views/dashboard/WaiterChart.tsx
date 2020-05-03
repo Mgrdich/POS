@@ -20,7 +20,7 @@ const WaiterChart:React.FC<IChart> = (props) => {
     }, [waiter]);
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        handleChangeUrl(`/statistics/orders/waiter?date=${event.target.value}`);
+        handleChangeUrl(`${props.url}?date=${event.target.value}`);
     };
 
 

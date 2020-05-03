@@ -7,10 +7,11 @@ import {isEmpty} from "../../util/functions";
 import {labelsFunction, tickFormatFunction} from "./index";
 import {useFetchUrl} from "../../components/Hooks/useFetchUrl";
 import Loader from "../../components/Reusable/Loader";
+import {IChart} from "../../interfaces/Views/dashboard";
 
-const TablesChart = () => {
-
-    const {data: tables, isLoading: tablesIsLoading, handleChangeUrl} = useFetchUrl('statistics/orders/table');
+const TablesChart:React.FC<IChart> = (props) => {
+    let myUri: string = (props.query) ? props.url + props.query : props.url;
+    const {data: tables, isLoading: tablesIsLoading, handleChangeUrl} = useFetchUrl(myUri);
     const [tablesTickFormat, setTablesTickFormat] = useState<Array<string>>([]);
     const [tablesData, setTablesData] = useState<Array<any>>([]);
 
@@ -25,7 +26,7 @@ const TablesChart = () => {
 
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        handleChangeUrl(`statistics/orders/table?date=${event.target.value}`);
+        handleChangeUrl(`${props.url}?date=${event.target.value}`);
     };
 
     return (
