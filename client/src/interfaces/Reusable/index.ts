@@ -120,3 +120,44 @@ export interface IModal {
     action:Function;
     modalTitle?:string;
 }
+
+export interface IBarChart {
+    data: Array<any>;
+    x: string;
+    y: string;
+    tickFormat: Array<string>;
+    labelsKey: string;
+    colorScale?: Array<string>;
+    tickFormatFunction?: Function;
+    labelsFunction?: Function;
+    chartSize:{height:number; width:number;};
+    title?:string;
+    toolTipPosition?: 'top' | 'left'| 'right'| 'bottom';
+}
+
+export interface IInterpolationChart {
+    data: Array<any>;
+    tickFormat: Array<string>;
+    labelsKey: string;
+    colorScale?: Array<string>;
+    tickFormatFunction?: Function;
+    labelsFunction?: Function;
+    chartSize:{height:number; width:number;};
+    title?:string;
+    toolTipPosition?: 'top' | 'left'| 'right'| 'bottom';
+    interpolation?: 'linear' | 'cardinal'
+}
+
+export interface IHorizontalGroupChart {
+    data: Array<any>;
+    x: string;
+    y: string;
+    tickFormat: Array<string>;
+    labelsKey: string;
+    colorScale?: Array<string>;
+    tickFormatFunction?: Function;
+    labelsFunction?: Function;
+    chartSize:{height:number; width:number;};
+    title?:string;
+    toolTipPosition?: 'top' | 'left'| 'right'| 'bottom';
+}

@@ -7,21 +7,7 @@ import {
     VictoryTheme,
     VictoryTooltip
 } from "victory";
-
-
-interface IBarChart {
-    data: Array<{ name: string; price: string; }>;
-    x: string;
-    y: string;
-    tickFormat: Array<string>;
-    labelsKey: string;
-    colorScale?: Array<string>;
-    tickFormatFunction?: Function;
-    labelsFunction?: Function;
-    chartSize:any;
-    title?:string;
-    toolTipPosition?: 'top' | 'left'| 'right'| 'bottom';
-}
+import {IBarChart} from "../../../interfaces/Reusable";
 
 const BarChart: React.FC<IBarChart> = (props) => {
     const {data, x, y, tickFormat, chartSize, labelsKey, colorScale, title, tickFormatFunction, labelsFunction, toolTipPosition} = props;
