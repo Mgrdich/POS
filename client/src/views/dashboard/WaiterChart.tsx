@@ -4,7 +4,7 @@ import ControlledDropDown from "../../components/Reusable/ControlledDropDown";
 import {dateRanges} from "../../constants/dropdown/dateRanges";
 import HorizontalGroupChart from "../../components/Reusable/Chart/HorizontalGroupChart";
 import {isEmpty} from "../../util/functions";
-import {labelsFunction, tickFormatFunction} from "./index";
+import {labelsFunction,tickFormatFunction} from "./util";
 import {useFetchUrl} from "../../components/Hooks/useFetchUrl";
 import Loader from "../../components/Reusable/Loader";
 import {IChart} from "../../interfaces/Views/dashboard";
@@ -35,7 +35,7 @@ const WaiterChart:React.FC<IChart> = (props) => {
                     data={dateRanges}
                     label='Date Ranges'
                     handleOnChange={handleOnChange}
-                    defaultValue='ytd'
+                    defaultValue={(props.defaultDateValue) ? props.defaultDateValue : 'ytd'}
                 />
             </div>
 

@@ -4,7 +4,7 @@ import ControlledDropDown from "../../components/Reusable/ControlledDropDown";
 import {dateRanges} from "../../constants/dropdown/dateRanges";
 import InterpolationChart from "../../components/Reusable/Chart/InterpolationChart";
 import {isEmpty} from "../../util/functions";
-import {labelsFunction, tickFormatFunction} from "./index";
+import {labelsFunction,tickFormatFunction} from "./util";
 import {useFetchUrl} from "../../components/Hooks/useFetchUrl";
 import Loader from "../../components/Reusable/Loader";
 import {IChart} from "../../interfaces/Views/dashboard";
@@ -39,7 +39,7 @@ const ProductsChart:React.FC<IChart> = (props) => {
                     data={dateRanges}
                     label='Date Ranges'
                     handleOnChange={handleOnChange}
-                    defaultValue='ytd'
+                    defaultValue={(props.defaultDateValue) ? props.defaultDateValue : 'ytd'}
                 />
             </div>
 

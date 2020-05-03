@@ -4,7 +4,7 @@ import ControlledDropDown from "../../components/Reusable/ControlledDropDown";
 import {dateRanges} from "../../constants/dropdown/dateRanges";
 import BarChart from "../../components/Reusable/Chart/BarChart";
 import {isEmpty} from "../../util/functions";
-import {labelsFunction, tickFormatFunction} from "./index";
+import {labelsFunction,tickFormatFunction} from "./util";
 import {useFetchUrl} from "../../components/Hooks/useFetchUrl";
 import Loader from "../../components/Reusable/Loader";
 import {IChart} from "../../interfaces/Views/dashboard";
@@ -37,7 +37,7 @@ const CashierChart:React.FC<IChart> = (props) => {
                     data={dateRanges}
                     label='Date Ranges'
                     handleOnChange={handleOnChange}
-                    defaultValue='ytd'
+                    defaultValue={(props.defaultDateValue) ? props.defaultDateValue : 'ytd'}
                 />
             </div>
             {cashierIsLoading ? <div className='dashboard-loader-container'>

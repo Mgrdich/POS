@@ -6,13 +6,6 @@ import ProductsChart from "./ProductsChart";
 import TablesChart from "./TablesChart";
 
 
-export const tickFormatFunction = (x: any) => {
-    return `AMD${x / 1000}K`
-};
-export const labelsFunction = (datum: any) => {
-    return `price: ${datum}`
-};
-
 const Dashboard: React.FC = () => { //TODO maybe merge the charts into one giant  component with switch
                                     // After BE returns exact data format
     return (
