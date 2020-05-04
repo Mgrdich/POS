@@ -1,6 +1,8 @@
-//controllers users
+import {tableTypesNormlizer} from "../constants/enums";
 
+//controllers users
 //getUsers
+
 export const GET_USERS_TABLE = { //TODO create an interface
     keys:['email','name','role'],
     translations:{
@@ -12,7 +14,7 @@ export const GET_USERS_TABLE = { //TODO create an interface
 
 //getTables
 export const GET_TABLES_TABLE = {
-    keys:['number','name','status','createdAt'],
+    keys:['number','name','status',{name:'createdAt',type:tableTypesNormlizer.Date}],
     translations:{
         'name':'Name',
         'number':'Number',
@@ -44,7 +46,7 @@ export const GET_PRODUCTS_TABLE = {
 
 //getProductsGroup
 export const GET_PRODUCTS_GROUP_TABLE = {
-    keys:['name','createdDate'],
+    keys:['name','createdAt'],
     translations:{
         'name':'Name',
         'createdAt':'created At'

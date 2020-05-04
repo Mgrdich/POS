@@ -22,3 +22,7 @@ export enum DateRanges {
     ytd = 'ytd',
     beginning = 'beginning'
 }
+
+export enum tableTypesNormlizer {
+    Date = 'Date'
+}

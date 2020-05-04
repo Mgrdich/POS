@@ -1,4 +1,6 @@
 import {IClosedOrders} from "../interfaces/models/ClosedOrders";
+import {tableTypesNormlizer} from "./constants/enums";
+import {formatISO} from 'date-fns'
 
 export function whiteListFilterObj(obj: object, whiteList: Array<string>) {
     return Object.keys(obj).reduce(function (acc: object, curr: string) {
@@ -41,7 +43,14 @@ export function tableDataNormalize(data: Array<any>, tableObj: any) { //TODO rep
             if(typeof key === 'string') {
                 objTable[key] = item[key];
             } else {
-                objTable[key.name] = item[key.name][key.alias];
+                if(!key.type) {
+                        objTable[key.name] = item[key.name][key.alias];
+                    } else {
+                    if(key.type === tableTypesNormlizer.Date) { //TODO converted into switch when it gets bigger
+                        objTable[key.name] = formatISO(item[key.name],{representation:"date"});
+                    }
+                }
+
             }
 
         }

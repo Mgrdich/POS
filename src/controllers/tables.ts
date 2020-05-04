@@ -14,6 +14,7 @@ import {TableStatus} from "../utilities/constants/enums";
 
 async function getTables(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
+        console.log("tablizeTable");
         let tables:Array<IDocTables> | IDocTables = await Tables.find({}).lean();
         if(tables.length) {
             const tablizeTable = tableDataNormalize(tables,GET_TABLES_TABLE);
