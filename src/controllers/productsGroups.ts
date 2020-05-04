@@ -29,7 +29,7 @@ export async function getProductsGroups(req: Request, res: Response, next: NextF
 
 export async function getProductsGroup(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-        let productsGroups:IDocProductsGroups = await ProductsGroups.findById(req.params.Id).lean();
+        let productsGroups:IDocProductsGroups = await ProductsGroups.findById(req.params.id).lean();
         if (!productsGroups) {
             errorThrower(NO_SUCH_DATA_EXISTS, 422);
         }

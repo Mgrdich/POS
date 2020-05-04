@@ -29,7 +29,7 @@ export async function getProduct(req: Request, res: Response, next: NextFunction
     try {
         errorValidation(req);
 
-        let product:IDocProducts = await Products.findById(req.params.Id);
+        let product:IDocProducts = await Products.findById(req.params.id);
         if (!product) {
             errorThrower(NO_SUCH_DATA_EXISTS, 422);
         }

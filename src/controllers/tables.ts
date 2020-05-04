@@ -14,7 +14,6 @@ import {TableStatus} from "../utilities/constants/enums";
 
 async function getTables(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-        console.log("tablizeTable");
         let tables:Array<IDocTables> | IDocTables = await Tables.find({}).lean();
         if(tables.length) {
             const tablizeTable = tableDataNormalize(tables,GET_TABLES_TABLE);
@@ -24,7 +23,6 @@ async function getTables(req: Request, res: Response, next: NextFunction): Promi
     }catch (err) {
         errorCatcher(next,err);
     }
-
 }
 
 async function getTableStatus(req: Request, res: Response, next: NextFunction): Promise<any> {
@@ -46,7 +44,7 @@ async function getTable(req: Request, res: Response, next: NextFunction): Promis
     try {
         errorValidation(req);
 
-        let table: IDocTables = await Tables.findById(req.params.Id).lean();
+        let table: IDocTables = await Tables.findById(req.params.id).lean();
         if (!table) {
             errorThrower(NO_SUCH_DATA_EXISTS, 422);
         }
