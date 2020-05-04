@@ -14,7 +14,7 @@ import {GET_PRODUCTS_TABLE} from "../utilities/tables/constants";
 export async function getProducts(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
         let products: Array<IDocProducts> =
-            await Products.find({},{name:1,group:1,createdDate:1,price:1}).lean().populate({path:'group',select:'name'});
+            await Products.find({},{name:1,group:1,createdAt:1,price:1}).lean().populate({path:'group',select:'name'});
         if (products.length) {
             const tableProducts = tableDataNormalize(products,GET_PRODUCTS_TABLE);
             return res.status(200).json(tableProducts);
