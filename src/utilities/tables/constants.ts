@@ -24,7 +24,7 @@ export const GET_TABLES_TABLE = {
 };
 
 export const GET_TABLES_TABLE_STATUS = {
-    keys:['name','number','status','createdAt'],
+    keys:['name','number','status',{name:'createdAt',type:tableTypesNormlizer.Date}],
     translations:{
         'name':'Name',
         'number':'Number',
@@ -35,7 +35,7 @@ export const GET_TABLES_TABLE_STATUS = {
 
 //getProducts
 export const GET_PRODUCTS_TABLE = {
-    keys:['name','price',{name:'group',alias:'name'},'createdAt'], //TODO make it recursive
+    keys:['name','price',{name:'group',alias:'name'},{name:'createdAt',type:tableTypesNormlizer.Date}], //TODO make it recursive
     translations:{
         'name':'Name',
         'price':'Price',
@@ -46,7 +46,7 @@ export const GET_PRODUCTS_TABLE = {
 
 //getProductsGroup
 export const GET_PRODUCTS_GROUP_TABLE = {
-    keys:['name','createdAt'],
+    keys:['name',{name:'createdAt',type:tableTypesNormlizer.Date}],
     translations:{
         'name':'Name',
         'createdAt':'created At'
