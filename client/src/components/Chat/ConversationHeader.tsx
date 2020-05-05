@@ -119,7 +119,7 @@ const ConversationHeader: React.FC = () => {
                         {state?.group?.admins.length > 1 ? 'Admins' : 'Admin'}
                     </Typography>
                     {state?.group?.admins.map((admin: {_id:string,name:string},index:number) => (
-                        <Typography key={admin._id} color="textSecondary">
+                        <Typography key={index} color="textSecondary">
                             {admin.name}
                         </Typography>
                     ))}

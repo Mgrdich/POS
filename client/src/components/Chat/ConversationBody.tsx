@@ -17,7 +17,6 @@ const ConversationBody: React.FC = () => {
     
     useEffect(function () {
         if(state.group && state.group._id!==groupId){
-            console.log(state.group._id);
             setGroupId(state.group._id);
         }
         if(!state.group){
