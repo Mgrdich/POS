@@ -40,10 +40,6 @@ export async function getClosedOrdersPricesTables(req: Request, res: Response, n
             return noResult(res);
         }
 
-        let orderHash: any = {
-            //tableId:arrayIndex
-        };
-
         const getClosedOrdersPricesTables: Array<{ price: number, table: number, total: number }> =
             priceSumWithClosedOrders(closedOrders, {aliasName: 'table', key: 'number'});
 

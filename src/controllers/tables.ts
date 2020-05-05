@@ -28,7 +28,7 @@ async function getTables(req: Request, res: Response, next: NextFunction): Promi
 async function getTableStatus(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
         errorValidation(req);
-        const tables:Array<ITables> = await Tables.find({status:{$in:req.query.type}},{name:1,number:1,status:1}).lean();
+        const tables:Array<ITables> = await Tables.find({status:{$in:req.query.type}},{name:1,number:1,status:1,createdAt:1}).lean();
         if(tables.length) {
             const tablizeTable = tableDataNormalize(tables,GET_TABLES_TABLE_STATUS);
             return res.status(200).json(tablizeTable);
