@@ -46,7 +46,7 @@ const AddProduct: React.FC = () => {
                 reset();
                 setRefetch((prev: boolean) => !prev);
                 resetServerError();
-                console.log('successfully created', res.data.message);
+                setAlert(res.data, true);
             }).catch(function (e: any) {
             if (!e.response.data) {
                 console.error("No Response is found");
