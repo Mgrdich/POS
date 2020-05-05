@@ -18,7 +18,8 @@ const TablesChart:React.FC<IChart> = (props) => {
     useEffect(() => {
         const tablesTickFormat = tables.length ? tables.map((item: any) => item.number) : null;
         const tablesData = tables.length ? tables.map((item: any) => {
-            return {x: item.number, y: item.price}
+            console.log(item,item.table);
+            return {x: item.table, y: item.price}
         }) : null;
         setTablesTickFormat(tablesTickFormat);
         setTablesData(tablesData);
