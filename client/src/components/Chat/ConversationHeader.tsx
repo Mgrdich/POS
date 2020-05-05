@@ -1,4 +1,4 @@
-import React, {useCallback, useContext} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {Avatar, Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@material-ui/core";
 import {ChatContext} from "./ChatProvider";
 import EditGroup from "./EditGroup";
@@ -19,7 +19,7 @@ import DeleteModal from "../Reusable/DeleteModal";
 const ConversationHeader: React.FC = () => {
     const [state, dispatch] = useContext(ChatContext);
     const {user, group} = state;
-    let editGroup;
+    const [editGroup,setEditGroup] = useState<Array<any>>([]);
     const [open, handleClickOpen, handleClose] = useModal();
     const [openGroupInfo, handleClickOpenGroupInfo, handleCloseGroupInfo] = useModal();
     const [openGroupDelete, handleClickOpenGroupDelete, handleCloseGroupDelete] = useModal();
@@ -28,9 +28,12 @@ const ConversationHeader: React.FC = () => {
     });
     const [serverError, setterError] = useServerErrorHandle();
 
-    if (group) {
-        editGroup = DefaultValue(editGroupChat, group);
-    }
+    useEffect(function () {
+        let newgroup = {...group};
+        newgroup.admins = group.admins.map((item: any) => typeof(item) === 'string' ?   item : item._id);
+        newgroup.members =group.members.map((item: any) => typeof(item) === 'string' ?   item : item._id);
+        setEditGroup(DefaultValue(editGroupChat, newgroup));
+    },[group]);
 
     const onEdit = useCallback(function (values: any) {
         axios.put(`/group-chat/${state.group._id}`, values)
