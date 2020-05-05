@@ -51,16 +51,16 @@ const Routes:React.FC = () => {
                 <PrivateRoute exact path='/pos' allowedRoles={SUPER_ADMIN_MANAGER_CASHIER_ROLES} component={HL_POS}/>
                 <PrivateRoute exact path='/pos/no-orders/:id' allowedRoles={SUPER_ADMIN_MANAGER_CASHIER_ROLES} component={HL_NoOrder}/>
                 <PrivateRoute exact path='/pos/:id' allowedRoles={SUPER_ADMIN_MANAGER_CASHIER_ROLES} component={HL_POSTable}/>
-                <PrivateRoute exact path='/dashboard'  allowedRoles={SUPER_ADMIN_MANAGER_ROLES} component={HL_Dashboard}/>
+                <PrivateRoute exact path='/dashboard'  allowedRoles={SUPER_ADMIN_ADMIN_ROLES} component={HL_Dashboard}/>
                 <PrivateRoute exact path={['/products','/product/index']} allowedRoles={SUPER_ADMIN_MANAGER_ROLES} component={HL_AddProduct}/>
                 <PrivateRoute exact path='/products/products-group' allowedRoles={SUPER_ADMIN_MANAGER_ROLES} component={HL_ProductsGroup}/>
                 <PrivateRoute exact path='/tables/reserved-tables' allowedRoles={SUPER_ADMIN_MANAGER_ROLES} component={HL_ReservedTables}/>
                 <PrivateRoute exact path={['/tables','/tables/index']} allowedRoles={SUPER_ADMIN_ADMIN_ROLES} component={HL_CreateEditTables}/>
                 <PrivateRoute exact path='/users/create-user' allowedRoles={SUPER_ADMIN_MANAGER_ROLES} component={HL_CreateUser}/>
-                <PrivateRoute exact path={['/analytics','/analytics/orders-cashier']} allowedRoles={SUPER_ADMIN_MANAGER_ROLES} component={HL_AnalyticsOrdersCashier}/>
-                <PrivateRoute exact path='/analytics/orders-waiter' allowedRoles={SUPER_ADMIN_MANAGER_ROLES} component={HL_AnalyticsOrdersWaiter}/>
-                <PrivateRoute exact path='/analytics/products-price' allowedRoles={SUPER_ADMIN_MANAGER_ROLES} component={HL_AnalyticsProductsPrice}/>
-                <PrivateRoute exact path='/analytics/orders-table' allowedRoles={SUPER_ADMIN_MANAGER_ROLES} component={HL_AnalyticsOrdersTables}/>
+                <PrivateRoute exact path={['/analytics','/analytics/orders-cashier']} allowedRoles={SUPER_ADMIN_ADMIN_ROLES} component={HL_AnalyticsOrdersCashier}/>
+                <PrivateRoute exact path='/analytics/orders-waiter' allowedRoles={SUPER_ADMIN_ADMIN_ROLES} component={HL_AnalyticsOrdersWaiter}/>
+                <PrivateRoute exact path='/analytics/products-price' allowedRoles={SUPER_ADMIN_ADMIN_ROLES} component={HL_AnalyticsProductsPrice}/>
+                <PrivateRoute exact path='/analytics/orders-table' allowedRoles={SUPER_ADMIN_ADMIN_ROLES} component={HL_AnalyticsOrdersTables}/>
                 <PrivateRoute exact path='/profile' component={HL_Profile}/>
                 <PrivateRoute exact path='/chat' component={HL_Chat}/>
                 <PrivateRoute exact path='/' component={HL_LandingPage}/>

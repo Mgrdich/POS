@@ -32,7 +32,7 @@ export const drawerRoutes: Array<IDrawerRoute> = [
         icon: EqualizerIcon,
         translation: "Dashboard",
         location:'/dashboard',
-        role: SUPER_ADMIN_MANAGER_ROLES,
+        role: SUPER_ADMIN_ADMIN_ROLES,
     },
     {
         icon: PersonAddIcon,
@@ -43,31 +43,31 @@ export const drawerRoutes: Array<IDrawerRoute> = [
     {
         icon: AssessmentIcon,
         translation: "Analytics",
-        role: SUPER_ADMIN_MANAGER_ROLES,
+        role: SUPER_ADMIN_ADMIN_ROLES,
         nested: [
             {
                 icon: FiberManualRecordIcon,
                 location: "/analytics/orders-cashier",
                 translation: "Orders cashier",
-                role: SUPER_ADMIN_MANAGER_ROLES,
+                role: SUPER_ADMIN_ADMIN_ROLES,
             },
             {
                 icon: FiberManualRecordIcon,
                 location: "/analytics/orders-table",
                 translation: "Orders table",
-                role: SUPER_ADMIN_MANAGER_ROLES,
+                role: SUPER_ADMIN_ADMIN_ROLES,
             },
             {
                 icon: FiberManualRecordIcon,
                 location: "/analytics/orders-waiter",
                 translation: "Orders waiter",
-                role: SUPER_ADMIN_MANAGER_ROLES,
+                role: SUPER_ADMIN_ADMIN_ROLES,
             },
             {
                 icon: FiberManualRecordIcon,
                 location: "/analytics/products-price",
                 translation: "Products price",
-                role: SUPER_ADMIN_MANAGER_ROLES,
+                role: SUPER_ADMIN_ADMIN_ROLES,
             },
         ],
     },
@@ -80,7 +80,7 @@ export const drawerRoutes: Array<IDrawerRoute> = [
                 icon: CreateIcon,
                 location: "/tables",
                 translation: "Create tables",
-                role: SUPER_ADMIN_MANAGER_ROLES,
+                role: SUPER_ADMIN_ADMIN_ROLES,
             },
             {
                 icon: RestaurantIcon,
