@@ -16,7 +16,7 @@ const EditGroup: React.FC<IEditGroup> = (props) => {
     const open = Boolean(anchorEl);
     const [state] = useContext(ChatContext);
     const authorId = useSelector<any>(state => state.auth.user.id);
-    const condition = state?.group?.admins.includes(authorId);
+    const condition = state?.group?.admins.some((item:{_id:string,name:string})=>item._id===authorId);
 
     const handleClick = function (event: React.MouseEvent<HTMLElement>) {
         setAnchorEl(event.currentTarget);

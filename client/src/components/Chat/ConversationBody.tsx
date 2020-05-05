@@ -31,7 +31,7 @@ const ConversationBody: React.FC = () => {
             .then(function (res: AxiosResponse) {
                 if(res.data) {
                     if(res.data.admins && res.data.members) {
-                        dispatch({type: CHAT_ACTIONS.SET_GROUP_MORE, payload: {admins:res.data.admins,members:res.data.members}})
+                        dispatch({type: CHAT_ACTIONS.SET_GROUP_MORE, payload: {admins:res.data.admins,members:res.data.members}});
                     }
                     if (res.data.messages?.length) {
                         dispatch({type: CHAT_ACTIONS.SET_MESSAGES, payload: res.data.messages});
@@ -40,7 +40,7 @@ const ConversationBody: React.FC = () => {
                     }
                 }
             });
-    }, [state.user, state.group,dispatch]);
+    }, [state.user,dispatch]);
 
     return (
         <div className="conversationBody" ref={listContainer}>

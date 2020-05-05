@@ -9,7 +9,7 @@ import {useSelector} from "react-redux";
 const Conversation: React.FC = () => {
     const [state] = useContext(ChatContext);
     const authorId = useSelector<any>(state => state.auth.user.id);
-    const condition = state?.group?.members.includes(authorId);
+    const condition = state?.group?.members.some((item:{_id:string,name:string})=>item._id===authorId);
     return (
         <>
             {
