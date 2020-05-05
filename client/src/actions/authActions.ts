@@ -36,7 +36,7 @@ export const loginUser: ActionCreator<ThunkAction<void, any, any, AnyAction>> = 
 
     dispatch(setCurrentUser(decoded));
 
-    history.push('/dashboard');
+    history.push('/');
 };
 
 
