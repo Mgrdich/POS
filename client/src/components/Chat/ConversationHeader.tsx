@@ -118,7 +118,7 @@ const ConversationHeader: React.FC = () => {
                     <Typography variant='h6' color='primary'>
                         {state?.group?.admins.length > 1 ? 'Admins' : 'Admin'}
                     </Typography>
-                    {state?.group?.admins.map((admin: {_id:string,name:string}) => (
+                    {state?.group?.admins.map((admin: {_id:string,name:string},index:number) => (
                         <Typography key={admin._id} color="textSecondary">
                             {admin.name}
                         </Typography>
@@ -126,8 +126,8 @@ const ConversationHeader: React.FC = () => {
                     <Typography variant='h6' component="h2" color='primary'>
                         {state?.group?.members.length > 1 ? 'Members' : 'Member'}
                     </Typography>
-                    {state?.group?.members.map((member: {_id:string,name:string}) => (
-                        <Typography key={member._id} color="textSecondary">
+                    {state?.group?.members.map((member: {_id:string,name:string},index:number) => (
+                        <Typography key={index} color="textSecondary">
                             {member.name}
                         </Typography>
                     ))}
