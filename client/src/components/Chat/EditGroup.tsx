@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -13,10 +13,15 @@ const EditGroup: React.FC<IEditGroup> = (props) => {
     const {editCallBack} = props;
     const {handleClickOpen, handleClickOpenGroupInfo, handleClickOpenGroupDelete} = editCallBack;
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [condition,setCondition] = useState<boolean>(false);
     const open = Boolean(anchorEl);
     const [state] = useContext(ChatContext);
     const authorId = useSelector<any>(state => state.auth.user.id);
-    const condition = state?.group?.admins.some((item:{_id:string,name:string})=>item._id===authorId);
+    useEffect(function () {
+        if(state.group && state.group.admins){
+            setCondition(state.group.admins.some((item:{_id:string,name:string})=>item._id===authorId))
+        }
+    },[state.group]);
 
     const handleClick = function (event: React.MouseEvent<HTMLElement>) {
         setAnchorEl(event.currentTarget);
