@@ -9,7 +9,7 @@ import {editGroupChat, editGroupChatVal} from "./configs";
 import {useServerErrorHandle} from "../Hooks/useServerErrorHandle";
 import {DefaultValue} from "../../util/functions";
 import Grid from "@material-ui/core/Grid";
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import {IAlertAxiosResponse} from "../../interfaces/General";
 import {CHAT_ACTIONS} from "./ActionsConfig";
 import Typography from "@material-ui/core/Typography";
@@ -42,11 +42,23 @@ const ConversationHeader: React.FC = () => {
             .then(function (res: IAlertAxiosResponse) {
                 handleClose();
                 dispatch({type: CHAT_ACTIONS.REFETCH});
+
             }).catch(function (e: any) {
             if (!e.response.data) {
                 console.error("No Response is found");
             }
             setterError(e.response.data.data);
+        });
+
+        axios.get(`/group-chat/${state.group._id}`).then(function (res:AxiosResponse) {
+            if (res.data) {
+                if (res.data.admins && res.data.members) {
+                    dispatch({
+                        type: CHAT_ACTIONS.SET_GROUP_MORE,
+                        payload: {admins: res.data.admins, members: res.data.members}
+                    });
+                }
+            }
         });
     }, [state.group, dispatch,handleClose, setterError]);
 
