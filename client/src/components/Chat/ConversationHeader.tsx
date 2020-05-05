@@ -42,6 +42,16 @@ const ConversationHeader: React.FC = () => {
             .then(function (res: IAlertAxiosResponse) {
                 handleClose();
                 dispatch({type: CHAT_ACTIONS.REFETCH});
+                axios.get(`/group-chat/${state.group._id}`).then(function (res:AxiosResponse) {
+                    if (res.data) {
+                        if (res.data.admins && res.data.members) {
+                            dispatch({
+                                type: CHAT_ACTIONS.SET_GROUP_MORE,
+                                payload: {admins: res.data.admins, members: res.data.members}
+                            });
+                        }
+                    }
+                });
 
             }).catch(function (e: any) {
             if (!e.response.data) {
@@ -50,16 +60,6 @@ const ConversationHeader: React.FC = () => {
             setterError(e.response.data.data);
         });
 
-        axios.get(`/group-chat/${state.group._id}`).then(function (res:AxiosResponse) {
-            if (res.data) {
-                if (res.data.admins && res.data.members) {
-                    dispatch({
-                        type: CHAT_ACTIONS.SET_GROUP_MORE,
-                        payload: {admins: res.data.admins, members: res.data.members}
-                    });
-                }
-            }
-        });
     }, [state.group, dispatch,handleClose, setterError]);
 
     const onDelete = useCallback(() => {

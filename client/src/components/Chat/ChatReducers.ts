@@ -26,8 +26,8 @@ export const ChatDataReducer = function (state: any, action: any) {
               ...state,
                 group:{
                     ...state.group,
-                    admins:action.payload.admins,
-                    members:action.payload.members
+                    admins:[...action.payload.admins],
+                    members:[...action.payload.members]
                 }
             };
         case CHAT_ACTIONS.SET_MESSAGES:
