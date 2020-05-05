@@ -21,10 +21,19 @@ export const ChatDataReducer = function (state: any, action: any) {
                 group: action.payload,
                 user: null
             };
+        case CHAT_ACTIONS.SET_GROUP_MORE:
+            return {
+              ...state,
+                group:{
+                    ...state.group,
+                    admins:action.payload.admins,
+                    members:action.payload.members
+                }
+            };
         case CHAT_ACTIONS.SET_MESSAGES:
             return {
                 ...state,
-                messages: action.payload
+                messages: action.payload,
             };
         case CHAT_ACTIONS.SET_MESSAGE: //TODO if not used delete
             return  {

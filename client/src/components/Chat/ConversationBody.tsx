@@ -29,10 +29,15 @@ const ConversationBody: React.FC = () => {
         }
         axios.get(url)
             .then(function (res: AxiosResponse) {
-                if (res.data && res.data.messages?.length) {
-                    dispatch({type: CHAT_ACTIONS.SET_MESSAGES, payload: res.data.messages});
-                } else {
-                    dispatch({type: CHAT_ACTIONS.SET_MESSAGES, payload: []})
+                if(res.data) {
+                    if(res.data.admins && res.data.members) {
+                        dispatch({type: CHAT_ACTIONS.SET_GROUP_MORE, payload: {admins:res.data.admins,members:res.data.members}})
+                    }
+                    if (res.data.messages?.length) {
+                        dispatch({type: CHAT_ACTIONS.SET_MESSAGES, payload: res.data.messages});
+                    } else {
+                        dispatch({type: CHAT_ACTIONS.SET_MESSAGES, payload: []})
+                    }
                 }
             });
     }, [state.user, state.group,dispatch]);

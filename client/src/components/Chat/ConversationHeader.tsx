@@ -118,17 +118,17 @@ const ConversationHeader: React.FC = () => {
                     <Typography variant='h6' color='primary'>
                         {state?.group?.admins.length > 1 ? 'Admins' : 'Admin'}
                     </Typography>
-                    {state?.group?.admins.map((admin: string, index: number) => (
-                        <Typography key={index} color="textSecondary">
-                            {admin}
+                    {state?.group?.admins.map((admin: {_id:string,name:string}) => (
+                        <Typography key={admin._id} color="textSecondary">
+                            {admin.name}
                         </Typography>
                     ))}
                     <Typography variant='h6' component="h2" color='primary'>
                         {state?.group?.members.length > 1 ? 'Members' : 'Member'}
                     </Typography>
-                    {state?.group?.members.map((member: any, index: number) => (
-                        <Typography key={index} color="textSecondary">
-                            {member}
+                    {state?.group?.members.map((member: {_id:string,name:string}) => (
+                        <Typography key={member._id} color="textSecondary">
+                            {member.name}
                         </Typography>
                     ))}
                 </DialogContent>

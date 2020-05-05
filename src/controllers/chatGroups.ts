@@ -31,13 +31,19 @@ export async function getChatGroups(req: myRequest, res: Response, next: NextFun
 export async function getChatGroup(req: myRequest, res: Response, next: NextFunction) {
     try {
         errorValidation(req);
-        const chats: IDocGroupsChat = await GroupsChats.findById(req.params.id).populate({
+        const chats: IDocGroupsChat = await GroupsChats.findById(req.params.id).populate([{
             path: 'messages',
             populate: {
                 path: 'sender',
                 select: 'name'
             }
-        });
+        },{
+            path:'admins',
+            select:'name'
+        },{
+            path:'members',
+            select:'name'
+        }]);
 
         if (chats) {
             // chats.admins = chats.admins.filter((item)=>!sameObjectId(item,req.user._id));
