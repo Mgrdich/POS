@@ -28,11 +28,13 @@ const ConversationHeader: React.FC = () => {
     });
     const [serverError, setterError] = useServerErrorHandle();
 
-    useEffect(function () {
-        let newgroup = {...group};
-        newgroup.admins = group.admins.map((item: any) => typeof(item) === 'string' ?   item : item._id);
-        newgroup.members =group.members.map((item: any) => typeof(item) === 'string' ?   item : item._id);
-        setEditGroup(DefaultValue(editGroupChat, newgroup));
+    useEffect(function () { //TODO keep all id array to with the orginal name in another key
+        let newGroup = (group) ? {...group} : {admins: [], members: []};
+        if (group) {
+            newGroup.admins = group.admins.map((item: any) => typeof (item) === 'string' ? item : item._id);
+            newGroup.members = group.members.map((item: any) => typeof (item) === 'string' ? item : item._id);
+        }
+        setEditGroup(DefaultValue(editGroupChat, newGroup));
     },[group]);
 
     const onEdit = useCallback(function (values: any) {
