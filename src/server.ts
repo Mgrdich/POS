@@ -6,19 +6,9 @@ import * as passport from "passport";
 import passportConfig from "./config/passport";
 import {MONGODB_URI, MONGOOSE_OPTIONS} from "./config/keys";
 import {NextFunction, Request, Response} from "express";
-import users from "./routes/users";
-import api from "./routes/api";
-import tables from "./routes/tables";
-import products from "./routes/products";
-import productsGroups from "./routes/productsGroups";
-import orders from "./routes/orders";
-import chat from "./routes/chat";
-import groupChat from "./routes/chatGroups";
-import statistics from "./routes/statistics";
 import {ImyError} from "./interfaces/General";
-import {isAuth, isAuthorized} from "./middlewares/authorisation";
 import {socketEvents} from "./socketEvents";
-import {ROLES_SUPER_ADMIN_ADMIN, ROLES_SUPER_ADMIN_MANAGER, ROLES_SUPER_ADMIN_MANAGER_CASHIER} from "./roles";
+import router from "./routes";
 
 const app = express();
 
@@ -45,45 +35,8 @@ app.use(passport.initialize());
 passportConfig(passport);
 
 
-//TODO bring all the the routes into a single middleware
-
 // Routes
-app.use('/users', users);
-
-app.use(isAuth()); //all the routes should require an Authorization
-
-app.use('/chat',chat);
-
-app.use('/group-chat',groupChat);
-
-app.use('/api', api);
-
-
-/**
- * Super Admin ,Admin ,Manager, Cashier Roles
- * */
-app.use(isAuthorized(ROLES_SUPER_ADMIN_MANAGER_CASHIER));
-
-app.use('/orders', orders);
-
-/**
- * Super Admin ,Admin ,Manager Roles
- * */
-app.use(isAuthorized(ROLES_SUPER_ADMIN_MANAGER));
-
-app.use('/tables', tables);
-
-app.use('/products', products);
-
-app.use('/products-group', productsGroups);
-
-/**
- * Super Admin ,Admin Roles
- * */
-app.use(isAuthorized(ROLES_SUPER_ADMIN_ADMIN));
-
-app.use('/statistics',statistics);
-
+app.use(router);
 
 //errors
 app.use(function (err: ImyError, req: Request, res: Response, next: NextFunction) {
