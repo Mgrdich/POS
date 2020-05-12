@@ -6,8 +6,9 @@
   "author": "Mgo <mgotm13@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node --inspect=5858 -r ts-node/register ./src/server.ts",
-    "start:watch": "nodemon",
+    "start": "env $(grep  -v '#' .env | tr '\\n' ' ')  node --inspect=5858 -r ts-node/register ./src/server.ts",
+    "start:dev":"env $(grep  -v '#' .env_dev | tr '\\n' ' ') node --inspect=5858 -r ts-node/register ./src/server.ts",
+    "start:watch": "env $(grep  -v '#' .env_dev | tr '\\n' ' ') nodemon",
     "build": "tsc"
   },
   "devDependencies": {
