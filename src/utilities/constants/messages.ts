@@ -8,3 +8,4 @@ export const DATA_IS_CREATED:string = "Data is Created";
 export const ORDER_IS_FINISHED:string = "Order is finished";
 export const SOMETHING_WRONG:string = "something wrong happened";
 export const VALIDATION_ERROR: string = "Validation Failed";
+export const INVALID_ID:string = "Invalid Id";

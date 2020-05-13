@@ -6,6 +6,7 @@ import {IProducts} from "../interfaces/models/Products";
 import * as mongoose from "mongoose";
 import {paramIdValidation} from "./General";
 import {isMongooseValidId} from "../utilities/functions";
+import {INVALID_ID} from "../utilities/constants/messages";
 
 export const addProductValidation: Array<any> = [
     body('price')
@@ -15,10 +16,18 @@ export const addProductValidation: Array<any> = [
         .notEmpty()
         .isLength({min: 2, max: 25})
         .custom(function (value, {req}) {
-            if(!req.body.productsGroup) {
+            if (!req.body.productsGroup) {
                 return Promise.resolve();
             }
-            return Products.findOne({name:value,group:req.body.productsGroup}) //TODO check later whether it shouldbe changed
+
+            if (!isMongooseValidId(req.body.productsGroup)) {
+                return Promise.reject(INVALID_ID);
+            }
+
+            return Products.findOne({
+                name: value,
+                group: req.body.productsGroup
+            })
                 .then(function (product: IProducts) {
                     if (product) {
                         return Promise.reject("Name inside of this Product Group Exist");
