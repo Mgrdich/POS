@@ -4,13 +4,13 @@ import {TablePagination} from "@material-ui/core";
 const MyTablePagination = (props:any) => {
     return (
         <TablePagination
-            rowsPerPageOptions={[5, 10, 15]}
+            rowsPerPageOptions={props.rowsPerPageOptions}
             component="div"
-            count={props.rows.length}
+            count={props.count}
             rowsPerPage={props.rowsPerPage}
             page={props.page}
-            onChangePage={props.handleChangePage}
-            onChangeRowsPerPage={props.handleChangeRowsPerPage}
+            onChangePage={props.onChangePage}
+            onChangeRowsPerPage={props.onChangeRowsPerPage}
         />
     );
 };
