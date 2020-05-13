@@ -3,6 +3,7 @@ import * as mongoose from "mongoose";
 import socket from "./socket"
 import * as bodyParser from "body-parser";
 import * as passport from "passport";
+import * as helmet from "helmet";
 import passportConfig from "./config/passport";
 import {MONGODB_URI, MONGOOSE_OPTIONS} from "./config/keys";
 import {NextFunction, Request, Response} from "express";
@@ -12,7 +13,11 @@ import router from "./routes";
 
 const app = express();
 
+//security
+app.use(helmet());
 
+
+//request parser
 app.use(bodyParser.urlencoded({
     extended: false
 }));
@@ -37,6 +42,7 @@ passportConfig(passport);
 
 // Routes
 app.use(router);
+
 
 //errors
 app.use(function (err: ImyError, req: Request, res: Response, next: NextFunction) {
