@@ -35,7 +35,7 @@ export const addProductValidation: Array<any> = [
                 });
         }),
     body('productsGroup')
-        .custom(function (value, {req}) {
+        .custom(function (value) {
             if(!value) {
                 return Promise.resolve();
             }

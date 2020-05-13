@@ -10,6 +10,7 @@ import {ClosedOrders} from "./ClosedOrders";
 import {ITables} from "../interfaces/models/Tables";
 import {Tables} from "./Tables";
 import {TableStatus} from "../utilities/constants/enums";
+import {ITEM_DELETED} from "../utilities/constants/messages";
 
 const orderSchema: Schema = new Schema({
     table: {
@@ -81,14 +82,16 @@ orderSchema.methods.editOrder = async function (user: IDocUsers["_id"], waiter: 
 //TODO check usage of this keyword in the statics
 orderSchema.statics.deleteOrderById = async function (id:string): Promise<any> {
     const toBeDeletedOrder: IDocOrders = await Orders.findByIdAndRemove(id);
+    if(!toBeDeletedOrder){
+        return Promise.resolve({empty:true});
+    }
     if(toBeDeletedOrder.orders.length) {
         const orderDeletedPromiseArray: Promise<any>[] =
             toBeDeletedOrder
                 .orders.map((item) => OrdersData.deleteOne({_id: item._id}).exec()); //returns a promise
         return Promise.all(orderDeletedPromiseArray);
     }
-    return Promise.resolve({empty:true});
-
+    return Promise.resolve({message:ITEM_DELETED});
 };
 
 orderSchema.statics.closeOrderById = async function (id:string): Promise<any> {

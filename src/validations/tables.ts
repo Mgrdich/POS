@@ -7,7 +7,7 @@ import {DateRanges, TableStatus} from "../utilities/constants/enums";
 export const addTableValidations = [
   body('number')
       .isNumeric()
-      .custom(function(value, {req})  {
+      .custom(function(value)  {
     return Tables.findOne({number: value}).then(function(tableDoc:ITables) {
       if (tableDoc) {
         return Promise.reject("Table Number Exist");
