@@ -1,10 +1,6 @@
 import React, {ReactNode} from 'react';
 import Loader from "./Loader";
-
-interface IComponentLoader {
-    isLoading: boolean;
-    children?: ReactNode;
-}
+import {IComponentLoader} from "../../interfaces/Reusable";
 
 
 const ComponentLoader: React.FC<IComponentLoader> = (props) => {

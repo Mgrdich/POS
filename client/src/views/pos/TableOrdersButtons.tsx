@@ -9,11 +9,8 @@ import Typography from "@material-ui/core/Typography";
 import {useModal} from "../../components/Hooks/useModal";
 import {isEmpty} from "../../util/functions";
 import {useParams} from "react-router";
+import {ITableOrdersButtons} from "../../interfaces/Views/pos";
 
-
-interface ITableOrdersButtons {
-    disable:boolean;
-}
 
 const TableOrdersButtons : React.FC<ITableOrdersButtons>  = (props) => {
     const ordersId: any = useSelector<any>(state => state.pos.orders._id);

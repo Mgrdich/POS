@@ -1,8 +1,12 @@
 import React from 'react';
 import {Card, CardActionArea, CardContent, CardMedia, Tooltip, Typography} from "@material-ui/core";
+import {IMenuCard} from "../../interfaces/Reusable";
 
-const MenuCard: React.FC<any> = (props: any) => { //TODO interface
+
+
+const MenuCard: React.FC<IMenuCard> = (props) => {
     const {products, image,onClick} = props;
+
     return (
         <div className="menu-card " onClick={onClick}>
             <Card>

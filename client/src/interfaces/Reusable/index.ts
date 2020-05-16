@@ -161,3 +161,57 @@ export interface IHorizontalGroupChart {
     title?:string;
     toolTipPosition?: 'top' | 'left'| 'right'| 'bottom';
 }
+
+export interface IControlledDropDown {
+    id: string;
+    name: string;
+    label: string;
+    error?: boolean;
+    helperText?: string;
+    data: Array<IDropDownData>;
+    ignoreNone?: boolean;
+    size?: "small" | "medium" | undefined;
+    handleOnChange?:Function;
+    defaultValue?: Array<any> | string | number;
+}
+
+export interface IComponentLoader {
+    isLoading: boolean;
+    children?: ReactNode;
+}
+
+export interface IConditional {
+    children: React.ReactNode;
+    condition: boolean;
+}
+
+export interface IDropDown {
+    id: string;
+    name: string;
+    label: string;
+    error?: boolean;
+    helperText?: string;
+    data?: Array<IDropDownData>;
+    url?: string;
+    control: any;
+    defaultValue?: Array<any> | string | number;
+    ignoreNone?: boolean;
+    multiple?: boolean;
+    size?: "small" | "medium" | undefined;
+}
+
+export interface TabPanelProps {
+    children?: React.ReactNode;
+    index: any;
+    value: any;
+}
+
+export interface IMenuCard {
+    products: {
+        name: string;
+        price: number;
+    };
+    image?: string;
+    onClick: any; // TODO check the type
+}
+

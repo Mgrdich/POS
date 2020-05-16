@@ -1,9 +1,5 @@
 import React from 'react';
-
-interface IConditional {
-    children: React.ReactNode;
-    condition: boolean;
-}
+import {IConditional} from "../../interfaces/Reusable";
 
 
 const Conditional: React.FC<IConditional> = (props) => {

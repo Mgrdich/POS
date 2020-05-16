@@ -1,13 +1,6 @@
 import * as yup from "yup";
+import {IProductGroup} from "../../../interfaces/Views/products";
 
-interface IProductGroup {
-    name: string;
-    placeholder: string;
-    type?: string;
-    url?: string;
-    ignoreNone?:boolean;
-
-};
 
 
 export const productGroupInputField: Array<IProductGroup> = [

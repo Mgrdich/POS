@@ -1,13 +1,5 @@
 import * as yup from "yup";
-
-interface IAddProductInputField {
-    name: string;
-    placeholder: string;
-    type?: string;
-    url?: string;
-    ignoreNone?:boolean;
-
-}
+import {IAddProductInputField} from "../../interfaces/Views/products";
 
 
 export const addProductInputField: Array<IAddProductInputField> = [

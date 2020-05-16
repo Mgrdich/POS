@@ -1,21 +1,8 @@
 import React, {useState} from 'react';
 import {FormHelperText, MenuItem, TextField, FormControl} from "@material-ui/core";
-import {IDropDownData} from "../../interfaces/Reusable";
+import {IControlledDropDown, IDropDownData} from "../../interfaces/Reusable";
 
 
-
-interface IControlledDropDown {
-    id: string;
-    name: string;
-    label: string;
-    error?: boolean;
-    helperText?: string;
-    data: Array<IDropDownData>;
-    ignoreNone?: boolean;
-    size?: "small" | "medium" | undefined;
-    handleOnChange?:Function;
-    defaultValue?: Array<any> | string | number;
-}
 
 //TODO label width should be dynamic
 const ControlledDropDown:React.FC<IControlledDropDown> = (props) => {

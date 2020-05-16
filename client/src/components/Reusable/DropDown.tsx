@@ -1,24 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {FormControl, FormHelperText, InputLabel, MenuItem, Select} from "@material-ui/core";
 import {Controller} from "react-hook-form";
-import {IDropDownData} from "../../interfaces/Reusable";
+import {IDropDown, IDropDownData} from "../../interfaces/Reusable";
 import axios, {AxiosResponse} from "axios";
-
-
-interface IDropDown {
-    id: string;
-    name: string;
-    label: string;
-    error?: boolean;
-    helperText?: string;
-    data?: Array<IDropDownData>;
-    url?: string;
-    control: any;
-    defaultValue?: Array<any> | string | number;
-    ignoreNone?: boolean;
-    multiple?: boolean;
-    size?: "small" | "medium" | undefined;
-}
 
 
 const Dropdown: React.FC<IDropDown> = (props) => {
