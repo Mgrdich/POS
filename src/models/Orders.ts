@@ -79,9 +79,8 @@ orderSchema.methods.editOrder = async function (user: IDocUsers["_id"], waiter: 
 
 //TODO here should be used virtuals so that the populate name can be renamed
 
-//TODO check usage of this keyword in the statics
 orderSchema.statics.deleteOrderById = async function (id:string): Promise<any> {
-    const toBeDeletedOrder: IDocOrders = await Orders.findByIdAndRemove(id);
+    const toBeDeletedOrder: IDocOrders = await this.findByIdAndRemove(id);
     if(!toBeDeletedOrder){
         return Promise.resolve({empty:true});
     }
@@ -96,7 +95,7 @@ orderSchema.statics.deleteOrderById = async function (id:string): Promise<any> {
 
 orderSchema.statics.closeOrderById = async function (id:string): Promise<any> {
     //delete should be called here
-    const toBeDeletedOrder: IDocOrders = await Orders.findByIdAndRemove(id);
+    const toBeDeletedOrder: IDocOrders = await this.findByIdAndRemove(id);
     const tableId = toBeDeletedOrder.table;
 
 
