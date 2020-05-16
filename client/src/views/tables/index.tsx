@@ -19,6 +19,7 @@ import {DefaultValue} from "../../util/functions";
 import CardMessage from "../../components/Reusable/CardMessage";
 import DeleteModal from "../../components/Reusable/DeleteModal";
 import {TableActionOptions} from "../../constants/Enums/General";
+import MyTableProvider from "../../components/Reusable/Table/TableProvider";
 
 
 const actionsTypes: Array<TableActionOptions> = [TableActionOptions.delete, TableActionOptions.edit];
@@ -137,7 +138,8 @@ const CreateEditTables = () => {
             <ComponentLoader isLoading={isLoading}>
                 {rows.length && !isLoading
                     ?
-                    (<MyTable
+                    ( <MyTableProvider>
+                        <MyTable
                         thead={thead}
                         tbody={rows}
                         keys={keys}
@@ -145,7 +147,9 @@ const CreateEditTables = () => {
                         paginationRowsCount={[3, 5, 10]}
                         actionsTypes={actionsTypes}
                         handleActions={handleActions}
-                    />)
+                    />
+                        </MyTableProvider>
+                    )
                     : (<CardMessage
                         header='No Tables created!'
                     />)}

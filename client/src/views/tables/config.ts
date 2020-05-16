@@ -21,10 +21,10 @@ export const EditTableInputField = [
 ];
 
 export const EditTableValSchema = yup.object().shape({
-    number: yup.string().test('price', 'Invalid Value', (value) => !isNaN(parseInt(value)) ? value : null),
+    number: yup.string().test('edit_number', 'Invalid Value', (value) => !isNaN(parseInt(value)) ? value : null),
 });
 
 export const createTableValSchema = yup.object().shape({
     name: yup.string().required(),
-    number: yup.string().test('price', 'Invalid Value', (value) => !isNaN(parseInt(value)) ? value : null),
+    number: yup.string().test('number', 'Invalid Value', (value) => !isNaN(parseInt(value)) ? value : null),
 });

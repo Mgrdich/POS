@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {TableCell, TableHead, TableRow} from '@material-ui/core/';
-import {IMyTableHead} from "../../../interfaces/Reusable";
+import {MyTableContext} from "./TableProvider";
 
 
-const MyTableHead: React.FC<IMyTableHead> = (props) => {
-
-    const {data, keys, actionsTypes} = props;
+const MyTableHead: React.FC = () => {
+    const [state] = useContext<any>(MyTableContext);
+    const {thead, keys, actionsTypes} = state;
     return (
         <TableHead>
             <TableRow>
@@ -15,8 +15,8 @@ const MyTableHead: React.FC<IMyTableHead> = (props) => {
                         : null
                 }
                 {
-                    keys.map(item => (
-                        <TableCell className='table-cell' key={item}>{data[item]}</TableCell>
+                    keys.map((item: any) => (
+                        <TableCell className='table-cell' key={item}>{thead[item]}</TableCell>
                     ))
                 }
             </TableRow>

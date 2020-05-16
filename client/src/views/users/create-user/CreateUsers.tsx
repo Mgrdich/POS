@@ -20,6 +20,7 @@ import MyTable from "../../../components/Reusable/Table/MyTable";
 import CardMessage from "../../../components/Reusable/CardMessage";
 import DeleteModal from "../../../components/Reusable/DeleteModal";
 import {TableActionOptions} from "../../../constants/Enums/General";
+import MyTableProvider from "../../../components/Reusable/Table/TableProvider";
 
 const actionsTypes: Array<TableActionOptions> = [TableActionOptions.delete];
 
@@ -106,6 +107,7 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
             </form>
             <ComponentLoader isLoading={isLoading}>
                 {rows.length && !isLoading ?
+                    <MyTableProvider>
                     < MyTable
                         tbody={rows}
                         keys={keys}
@@ -115,6 +117,7 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
                         actionsTypes={actionsTypes}
                         handleActions={handleActions}
                     />
+                    </MyTableProvider>
                     : (<CardMessage
                         header='No users created!'
                     />)}
