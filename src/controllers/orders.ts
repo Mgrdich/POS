@@ -134,7 +134,7 @@ export async function addOrder(req: myRequest, res: Response, next: NextFunction
     try {
         errorValidation(req);
 
-        const {table, waiter} = req.body; //TODO Validation then this step
+        const {table, waiter} = req.body;
         const order: IDocOrders = new Orders({table, waiter, createdBy: req.user._id});
         //TODO more efficient method method
         const ord: Promise<any> = (await order.save())
