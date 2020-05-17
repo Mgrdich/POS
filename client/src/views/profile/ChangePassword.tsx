@@ -20,6 +20,7 @@ const ChangePassword: React.FC = () => {
     const {alertMessage, openAlert, alertType, setAlert, setOpenAlert} = useAlert();
 
 
+    // TODO cached functions
     const onSubmit = function (values: any): void {
         axios.patch('/users/change-password', values)
             .then(function (res: IAlertAxiosResponse) {

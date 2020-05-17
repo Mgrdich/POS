@@ -29,8 +29,11 @@ const AccountDetails: React.FC<IAccountDetails> = (props) => {
      //TODO set alert message on error
     const [serverError, setterError] = useServerErrorHandle();
     const [open, handleClickOpen, handleClose] = useModal();
+
+    //TODO inside useEffect
     const modifiedInputFields = DefaultValue(AccountDetailsEditInputFields,data);
 
+    //TODO cached functions
     const onSubmit = function (values: any): void {
         axios.put('/users/edit-user', values)
             .then(function (res: IAlertAxiosResponse) {
@@ -44,8 +47,6 @@ const AccountDetails: React.FC<IAccountDetails> = (props) => {
             setterError(e.response.data.data);
         });
     };
-
-    //tODO make the loading with reusable like a wrapper
 
     return (
         <>

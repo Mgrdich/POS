@@ -8,7 +8,7 @@ import jwt_decode from 'jwt-decode';
 import {setAuthToken} from "./util/redux";
 import {logOutUser, setCurrentUser} from "./actions/authActions";
 import {theme} from "./theme";
-import { ThemeProvider} from '@material-ui/styles';
+import {ThemeProvider} from '@material-ui/styles';
 import {CssBaseline} from "@material-ui/core";
 import "../src/Styles/style.scss";
 import io from "socket.io-client";
@@ -43,16 +43,14 @@ const App: React.FC = () => {
 
 
     return (
-        <>
-            <ThemeProvider theme={theme}>
-                <CssBaseline/>
-                <Provider store={store}>
-                    <Router history={history}>
-                        <Routes/>
-                    </Router>
-                </Provider>
-            </ThemeProvider>
-        </>
+        <ThemeProvider theme={theme}>
+            <CssBaseline/>
+            <Provider store={store}>
+                <Router history={history}>
+                    <Routes/>
+                </Router>
+            </Provider>
+        </ThemeProvider>
     );
 };
 

@@ -40,8 +40,11 @@ const CreateEditTables = () => {
     const [openDeleteModal, handleClickOpenDeleteModal, handleCloseDeleteModal] = useModal();
     const [EditData, setEditData] = useState();
     const [tableNumber, setTableNumber] = useState<string>('');
+    //TODO remove the hook add the version with use Effect maybe a better custom hook (ASK ME!!)
     useDynamicFields(creteTableInputField, register, unregister);
 
+
+    //TODO cached functions
     const onSubmit = function (values: any): void {
         axios.put('/tables', values)
             .then(function (res: IAlertAxiosResponse) {
