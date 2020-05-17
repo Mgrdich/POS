@@ -17,7 +17,7 @@ export function getRolesApi(req: Request, res: Response, next: NextFunction): Re
     return res.status(200).json(DropDownRoles);
 }
 
-export async function getProductsGroupApi(req: Request, res: Response, next: NextFunction) { //TODO add general utilizers normalizers
+export async function getProductsGroupApi(req: Request, res: Response, next: NextFunction) {
     const productsGroup: Array<IDocProductsGroups> = await ProductsGroups.find({}, {name: 1, _id: 1});
     const dropDownProductsGroup = [{
         value: '',

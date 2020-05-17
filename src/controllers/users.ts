@@ -127,7 +127,6 @@ async function getUsers(req: myRequest, res: Response, next: NextFunction): Prom
     const rolePriority = req.user.rolePriority;
     try {
         errorValidation(req);
-        //TODO do not return the current User
         let users: Array<IDocUsers> = await Users.find({
             "rolePriority": {$lt: rolePriority},
             "_id": {$ne: req.user._id},
