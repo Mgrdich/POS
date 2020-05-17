@@ -10,16 +10,13 @@ import {createTableValSchema, creteTableInputField, EditTableInputField, EditTab
 import {useServerErrorHandle} from "../../components/Hooks/useServerErrorHandle";
 import {useTable} from "../../components/Hooks/useTable";
 import {useTableBody} from "../../components/Hooks/useTableBody";
-import MyTable from "../../components/Reusable/Table/MyTable";
-import ComponentLoader from "../../components/Reusable/ComponentLoader";
 import {useAlert} from "../../components/Hooks/useAlert";
 import Alerts from "../../components/Reusable/Alerts";
 import {useModal} from "../../components/Hooks/useModal";
 import {DefaultValue} from "../../util/functions";
-import CardMessage from "../../components/Reusable/CardMessage";
 import DeleteModal from "../../components/Reusable/DeleteModal";
 import {TableActionOptions} from "../../constants/Enums/General";
-import MyTableProvider from "../../components/Reusable/Table/TableProvider";
+import Table from "../../components/Reusable/Table/Table";
 
 
 const actionsTypes: Array<TableActionOptions> = [TableActionOptions.delete, TableActionOptions.edit];
@@ -134,12 +131,7 @@ const CreateEditTables = () => {
                         >Submit</Button></Grid>
                 </Grid>
             </form>
-
-            <ComponentLoader isLoading={isLoading}>
-                {rows.length && !isLoading
-                    ?
-                    ( <MyTableProvider>
-                        <MyTable
+                        <Table
                         thead={thead}
                         tbody={rows}
                         keys={keys}
@@ -147,13 +139,8 @@ const CreateEditTables = () => {
                         paginationRowsCount={[3, 5, 10]}
                         actionsTypes={actionsTypes}
                         handleActions={handleActions}
+                        isLoading={isLoading}
                     />
-                        </MyTableProvider>
-                    )
-                    : (<CardMessage
-                        header='No Tables created!'
-                    />)}
-            </ComponentLoader>
 
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth={true}>
                 <DialogTitle id="form-dialog-title">Edit</DialogTitle>

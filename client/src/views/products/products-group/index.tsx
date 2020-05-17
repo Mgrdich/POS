@@ -18,12 +18,10 @@ import {useTableBody} from "../../../components/Hooks/useTableBody";
 import {useAlert} from "../../../components/Hooks/useAlert";
 import {useModal} from "../../../components/Hooks/useModal";
 import {DefaultValue} from "../../../util/functions";
-import ComponentLoader from "../../../components/Reusable/ComponentLoader";
-import MyTable from "../../../components/Reusable/Table/MyTable";
-import CardMessage from "../../../components/Reusable/CardMessage";
 import Alerts from "../../../components/Reusable/Alerts";
 import DeleteModal from "../../../components/Reusable/DeleteModal";
 import {TableActionOptions} from "../../../constants/Enums/General";
+import Table from "../../../components/Reusable/Table/Table";
 const actionsTypes: Array<TableActionOptions> = [TableActionOptions.delete, TableActionOptions.edit]; //TODO repeated in so many files should be importe
 
 const ProductsGroup: React.FC = () => {
@@ -132,10 +130,8 @@ const ProductsGroup: React.FC = () => {
                     </Grid>
                 </Grid>
             </form>
-            <ComponentLoader isLoading={isLoading}>
-                {rows.length && !isLoading
-                    ?
-                    (<MyTable
+
+                    <Table
                         thead={thead}
                         tbody={rows}
                         keys={keys}
@@ -143,11 +139,8 @@ const ProductsGroup: React.FC = () => {
                         paginationRowsCount={[3, 5, 10]}
                         actionsTypes={actionsTypes}
                         handleActions={ProductsGroupHandleActions}
-                    />)
-                    : (<CardMessage
-                        header='No products created!'
-                    />)}
-            </ComponentLoader>
+                        isLoading={isLoading}
+                    />
 
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth={true}>
                 <DialogTitle id="form-dialog-title">Edit</DialogTitle>

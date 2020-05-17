@@ -10,15 +10,13 @@ import {Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@materi
 import {addProductInputField, addProductValSchema, editProductInputField, editProductValSchema} from "./config";
 import {useTable} from "../../components/Hooks/useTable";
 import {useTableBody} from "../../components/Hooks/useTableBody";
-import MyTable from "../../components/Reusable/Table/MyTable";
-import CardMessage from "../../components/Reusable/CardMessage";
-import ComponentLoader from "../../components/Reusable/ComponentLoader";
 import Alerts from "../../components/Reusable/Alerts";
 import {useAlert} from "../../components/Hooks/useAlert";
 import {useModal} from "../../components/Hooks/useModal";
 import {DefaultValue} from "../../util/functions";
 import DeleteModal from "../../components/Reusable/DeleteModal";
 import {TableActionOptions} from "../../constants/Enums/General";
+import Table from "../../components/Reusable/Table/Table";
 
 const actionsTypes: Array<TableActionOptions> = [TableActionOptions.delete, TableActionOptions.edit];
 
@@ -39,7 +37,6 @@ const AddProduct: React.FC = () => {
     const [productModalMessage, setProductModalMessage] = useState<any>({});
     useDynamicFields(addProductInputField, register, unregister);
 
-
     const onSubmit = function (values: any): void {
         axios.put('/products', values)
             .then(function (res: IAlertAxiosResponse) {
@@ -58,7 +55,7 @@ const AddProduct: React.FC = () => {
     const handleActions = function (type: TableActionOptions, obj: any) {
         if (type === TableActionOptions.delete) {
             changeDeletedId(obj._id);
-            setProductModalMessage({productName:obj.name,productGroup:obj.group});
+            setProductModalMessage({productName: obj.name, productGroup: obj.group});
             handleClickOpenDeleteModal();
         }
         if (type === TableActionOptions.edit) {
@@ -130,23 +127,16 @@ const AddProduct: React.FC = () => {
                     </Grid>
                 </Grid>
             </form>
-
-            <ComponentLoader isLoading={isLoading}>
-                {rows.length && !isLoading
-                    ?
-                    (<MyTable
-                        thead={thead}
-                        tbody={rows}
-                        keys={keys}
-                        pagination={true}
-                        paginationRowsCount={[3, 5, 10]}
-                        actionsTypes={actionsTypes}
-                        handleActions={handleActions}
-                    />)
-                    : (<CardMessage
-                        header='No products created!'
-                    />)}
-            </ComponentLoader>
+            <Table
+                thead={thead}
+                tbody={rows}
+                keys={keys}
+                pagination={true}
+                paginationRowsCount={[3, 5, 10]}
+                actionsTypes={actionsTypes}
+                handleActions={handleActions}
+                isLoading={isLoading}
+            />
 
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth={true}>
                 <DialogTitle id="form-dialog-title">Edit</DialogTitle>

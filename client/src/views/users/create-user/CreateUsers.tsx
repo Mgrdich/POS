@@ -15,23 +15,20 @@ import {IAlertAxiosResponse} from "../../../interfaces/General";
 import {useModal} from "../../../components/Hooks/useModal";
 import {useTableBody} from "../../../components/Hooks/useTableBody";
 import {useTable} from "../../../components/Hooks/useTable";
-import ComponentLoader from "../../../components/Reusable/ComponentLoader";
-import MyTable from "../../../components/Reusable/Table/MyTable";
-import CardMessage from "../../../components/Reusable/CardMessage";
 import DeleteModal from "../../../components/Reusable/DeleteModal";
 import {TableActionOptions} from "../../../constants/Enums/General";
-import MyTableProvider from "../../../components/Reusable/Table/TableProvider";
+import Table from "../../../components/Reusable/Table/Table";
 
 const actionsTypes: Array<TableActionOptions> = [TableActionOptions.delete];
 
-const CreateUsers : React.FC<RouteComponentProps> = (props) => {
-    const {handleSubmit, register, errors, control,unregister,reset} = useForm<createUserFormDataType>({
-        validationSchema:createUsersValSchema,
+const CreateUsers: React.FC<RouteComponentProps> = (props) => {
+    const {handleSubmit, register, errors, control, unregister, reset} = useForm<createUserFormDataType>({
+        validationSchema: createUsersValSchema,
     });
     const {tbody, thead, keys, isLoading, setRefetch} = useTable('/users');
-    const {alertMessage,openAlert,alertType,setAlert,setOpenAlert} = useAlert();
-    const {alertMessage:tableAlertMessage, setOpenAlert:tableSetOpenAlert, openAlert:tableOpenAlert, setAlert:tableSetAler, alertType:tableAlertType} = useAlert();
-    const [serverError, setterError,resetServerError] = useServerErrorHandle();
+    const {alertMessage, openAlert, alertType, setAlert, setOpenAlert} = useAlert();
+    const {alertMessage: tableAlertMessage, setOpenAlert: tableSetOpenAlert, openAlert: tableOpenAlert, setAlert: tableSetAler, alertType: tableAlertType} = useAlert();
+    const [serverError, setterError, resetServerError] = useServerErrorHandle();
     const [open, handleClickOpen, handleClose] = useModal();
     const [rows, setRows, deletedId, changeDeletedId] = useTableBody(isLoading, tbody);
     const [email, setEmail] = useState<string>(''); //TODO better way
@@ -40,7 +37,7 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
     const onSubmit = function (values: any): void {
         axios.put('/users/register-user', values)
             .then(function (res: IAlertAxiosResponse) {
-                setRefetch((prev:boolean) => !prev);
+                setRefetch((prev: boolean) => !prev);
                 reset();
                 resetServerError();
                 tableSetAler(res.data);
@@ -94,34 +91,28 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
                     />
 
 
-                <Grid item container justify='flex-end'  sm={12} >
-                <Button
-                    color="primary"
-                    variant="contained"
-                    size="large"
-                    className="FloatRight"
-                    type="submit"
-                >Submit</Button>
-                </Grid>
+                    <Grid item container justify='flex-end' sm={12}>
+                        <Button
+                            color="primary"
+                            variant="contained"
+                            size="large"
+                            className="FloatRight"
+                            type="submit"
+                        >Submit</Button>
+                    </Grid>
                 </Grid>
             </form>
-            <ComponentLoader isLoading={isLoading}>
-                {rows.length && !isLoading ?
-                    <MyTableProvider>
-                    < MyTable
-                        tbody={rows}
-                        keys={keys}
-                        thead={thead}
-                        pagination={true}
-                        paginationRowsCount={[5, 10, 20]}
-                        actionsTypes={actionsTypes}
-                        handleActions={handleActions}
-                    />
-                    </MyTableProvider>
-                    : (<CardMessage
-                        header='No users created!'
-                    />)}
-            </ComponentLoader>
+
+            <Table
+                thead={thead}
+                tbody={rows}
+                keys={keys}
+                pagination={true}
+                paginationRowsCount={[3, 5, 10]}
+                actionsTypes={actionsTypes}
+                handleActions={handleActions}
+                isLoading={isLoading}
+            />
 
             <DeleteModal
                 open={open}

@@ -10,22 +10,34 @@ import {MyTableContext} from "./TableProvider";
 import {TABLE_ACTIONS} from "./ActionsConfig";
 
 
-
 //TODO make the use Pagination hook more reusable
 
 const MyTable: React.FC<IMyTable> = (props) => {
 
-    const {thead, tbody, pagination, paginationRowsCount,keys,actionsTypes,handleActions} = props;
+    const {thead, tbody, pagination, paginationRowsCount, keys, actionsTypes, handleActions} = props;
     const dispatch = useContext<any>(MyTableContext)[1];
+
     useEffect(() => {
-            dispatch({type:TABLE_ACTIONS.SET_TABLE_DATA, payload:{thead, tbody, pagination, paginationRowsCount,keys,actionsTypes,handleActions, count:tbody.length}})
-    },[thead, tbody, pagination, paginationRowsCount,keys,actionsTypes,handleActions,dispatch])
+        dispatch({
+            type: TABLE_ACTIONS.SET_TABLE_DATA,
+            payload: {
+                thead,
+                tbody,
+                pagination,
+                paginationRowsCount,
+                keys,
+                actionsTypes,
+                handleActions,
+                count: tbody.length
+            }
+        })
+    }, [thead, tbody, pagination, paginationRowsCount, keys, actionsTypes, handleActions, dispatch])
 
     return (
         <Paper className='table-container'>
             <TableContainer>
                 <Table>
-                    <MyTableHead />
+                    <MyTableHead/>
                     <MyTableBody/>
                 </Table>
             </TableContainer>
