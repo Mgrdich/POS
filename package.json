@@ -7,8 +7,8 @@
   "license": "MIT",
   "scripts": {
     "start": "env $(grep  -v '#' .env | tr '\\n' ' ')  node --inspect=5858 -r ts-node/register ./src/server.ts",
-    "start:dev": "env $(grep  -v '#' .env_dev | tr '\\n' ' ') node --inspect=5858 -r ts-node/register ./src/server.ts",
-    "start:watch": "env $(grep  -v '#' .env_dev | tr '\\n' ' ') nodemon",
+    "start:dev": "env $(grep  -v '#' .env.dev | tr '\\n' ' ') node --inspect=5858 -r ts-node/register ./src/server.ts",
+    "start:watch": "env $(grep  -v '#' .env.dev | tr '\\n' ' ') nodemon",
     "build": "tsc"
   },
   "devDependencies": {
