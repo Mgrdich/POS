@@ -8,6 +8,11 @@ import {priceSumWithClosedOrders} from "../utilities/reformaters";
 import {errorCatcher,errorValidation} from "../utilities/controllers/error";
 import {IRange} from "../interfaces/General";
 
+//TODO use aggregate operator with $group option
+
+
+//TODO checking the option of converting date  with a query
+
 export async function getProductsPrice(req: Request, res: Response, next: NextFunction) { //TODO add something for date ranges hanlder
     try {
         errorValidation(req);
