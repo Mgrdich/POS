@@ -12,6 +12,8 @@ import {tableDataNormalize} from "../utilities/reformaters";
 import {GET_TABLES_TABLE, GET_TABLES_TABLE_STATUS} from "../utilities/tables/constants";
 import {TableStatus} from "../utilities/constants/enums";
 
+
+//TODO pagination with skip and limit operators
 async function getTables(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
         let tables:Array<IDocTables> | IDocTables = await Tables.find({}).lean();

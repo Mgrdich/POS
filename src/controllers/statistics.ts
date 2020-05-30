@@ -10,8 +10,9 @@ import {IRange} from "../interfaces/General";
 
 //TODO use aggregate operator with $group option
 
-
 //TODO checking the option of converting date  with a query
+
+//TODO check the Bucket operator for more statistical datas and use it for waiters sales and stuff
 
 export async function getProductsPrice(req: Request, res: Response, next: NextFunction) { //TODO add something for date ranges hanlder
     try {
