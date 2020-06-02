@@ -7,7 +7,7 @@ import {Roles, ROLES_ALL} from "../roles";
 //TODO citezenship
 
 const userSchema: Schema = new Schema({
-    name: {  //TODO could the name and email be removed
+    name: {
         type: String,
         required: true
     },
@@ -29,8 +29,7 @@ const userSchema: Schema = new Schema({
         default: 1,
     },
     disabled: {
-        type:Boolean,
-        default:false
+        type:Boolean
     }
 },{timestamps:true});
 

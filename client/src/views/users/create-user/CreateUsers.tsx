@@ -34,7 +34,7 @@ const CreateUsers : React.FC<RouteComponentProps> = (props) => {
     const [open, handleClickOpen, handleClose] = useModal();
     const [rows, setRows, deletedId, changeDeletedId] = useTableBody(isLoading, tbody);
     const [email, setEmail] = useState<string>(''); //TODO better way
-    useDynamicFields(createUsersInputFields, register, unregister);
+    useDynamicFields(createUsersInputFields, register, unregister); //TODO to the other way with useMemo maybe?
 
     const onSubmit = function (values: any): void {
         axios.put('/users/register-user', values)

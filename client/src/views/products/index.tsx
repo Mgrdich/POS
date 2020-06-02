@@ -37,7 +37,7 @@ const AddProduct: React.FC = () => {
     const [serverError, setterError, resetServerError] = useServerErrorHandle();
     const [EditData, setEditData] = useState();
     const [productModalMessage, setProductModalMessage] = useState<any>({});
-    useDynamicFields(addProductInputField, register, unregister);
+    useDynamicFields(addProductInputField, register, unregister); // TODO convert it to the function way
 
 
     const onSubmit = function (values: any): void {
