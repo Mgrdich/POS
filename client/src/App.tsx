@@ -12,7 +12,6 @@ import {ThemeProvider} from '@material-ui/styles';
 import {CssBaseline} from "@material-ui/core";
 import "../src/Styles/style.scss";
 import io from "socket.io-client";
-import axios from "axios";
 
 export const socket = io();
 
@@ -40,8 +39,7 @@ if (localStorage.token) {
     }
 }
 
-console.log(process.env.URL);
-axios.defaults.baseURL = process.env.URL;
+console.log(process.env);
 
 const App: React.FC = () => {
 
