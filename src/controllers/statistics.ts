@@ -7,6 +7,7 @@ import {ClosedOrders} from "../models/ClosedOrders";
 import {priceSumWithClosedOrders} from "../utilities/reformaters";
 import {errorCatcher,errorValidation} from "../utilities/controllers/error";
 import {IRange} from "../interfaces/General";
+import {DateRanges} from "../utilities/constants/enums";
 
 //TODO use aggregate operator with $group option
 
@@ -17,7 +18,8 @@ import {IRange} from "../interfaces/General";
 export async function getProductsPrice(req: Request, res: Response, next: NextFunction) { //TODO add something for date ranges hanlder
     try {
         errorValidation(req);
-        let range:IRange = getDateRange(req.query.date);
+        let dateQuery:DateRanges = req.query.date as DateRanges;
+        let range:IRange = getDateRange(dateQuery);
         const productPrice: Array<IProducts> =
             await Products.find({createdAt:{$gte:range.gt,$lt:range.lt}},
                 {name: 1, price: 1}).limit(5).lean();
@@ -38,7 +40,8 @@ export async function getProductsPrice(req: Request, res: Response, next: NextFu
 export async function getClosedOrdersPricesTables(req: Request, res: Response, next: NextFunction) { //TODO add with date Filter
     try {
         errorValidation(req);
-        let range:IRange = getDateRange(req.query.date);
+        let dateQuery:DateRanges = req.query.date as DateRanges;
+        let range:IRange = getDateRange(dateQuery);
         const closedOrders: Array<IClosedOrders> =
             await ClosedOrders.find({createdAt:{$gte:range.gt,$lt:range.lt}},
                 {price: 1, table: 1}).limit(100).populate('table', 'number');
@@ -63,7 +66,8 @@ export async function getClosedOrdersPricesTables(req: Request, res: Response, n
 export async function getClosedOrdersWaiter(req: Request, res: Response, next: NextFunction) { //TODO add with date Filter
     try {
         errorValidation(req);
-        let range:IRange = getDateRange(req.query.date);
+        let dateQuery:DateRanges = req.query.date as DateRanges;
+        let range:IRange = getDateRange(dateQuery);
         const closedOrders: Array<IClosedOrders> =
             await ClosedOrders.find({createdAt:{$gte:range.gt,$lt:range.lt}},
                 {waiter: 1, price: 1}).limit(100).lean().populate('waiter', 'name');
@@ -86,7 +90,8 @@ export async function getClosedOrdersWaiter(req: Request, res: Response, next: N
 export async function getClosedOrdersCashier(req: Request, res: Response, next: NextFunction) { //TODO add with date Filter
     try {
         errorValidation(req);
-        let range:IRange = getDateRange(req.query.date);
+        let dateQuery:DateRanges = req.query.date as DateRanges;
+        let range:IRange = getDateRange(dateQuery);
         const closedOrders: Array<IClosedOrders> =
             await ClosedOrders.find({createdAt:{$gte:range.gt,$lt:range.lt}},
                 {createdBy: 1, price: 1}).limit(100).lean().populate('createdBy', 'name');
