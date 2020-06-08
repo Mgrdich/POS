@@ -26,7 +26,7 @@
   "scripts": {
     "build:css": "node-sass src/Styles/style.scss -o src/Styles/ ",
     "watch:css": "npm run build:css && node-sass src/ -o src/ -w -r",
-    "start": "env $(grep  -v '#' .env.dev | tr '\\n' ' ')  npm-run-all -p watch:css start:js",
+    "start": "npm-run-all -p watch:css start:js",
     "start:js": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
