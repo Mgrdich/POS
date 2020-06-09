@@ -42,8 +42,6 @@ if (localStorage.token) {
 console.log(process.env);
 
 const App: React.FC = () => {
-
-
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline/>

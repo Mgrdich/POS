@@ -7,9 +7,7 @@ import TablesChart from "./TablesChart";
 
 
 const Dashboard: React.FC = () => { //TODO maybe merge the charts into one giant  component with switch
-                                    // After BE returns exact data format
-    return (
-
+    return ( //TODO After BE returns exact data format
         <Grid container spacing={2} alignItems='center'>
             <Grid item xs={12} md={12} lg={6}>
                 <CashierChart url="/statistics/orders/cashier"/>
